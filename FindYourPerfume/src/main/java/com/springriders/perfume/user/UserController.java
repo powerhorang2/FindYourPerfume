@@ -37,7 +37,7 @@ public class UserController {
 		model.addAttribute(Const.VIEW, "user/admin");
 		return ViewRef.TEMP_MENU;
 	}
-	
+	//test
 	@RequestMapping(value="/addPerfume", method = RequestMethod.POST)
 	public String addPerfume(MultipartHttpServletRequest mReq, RedirectAttributes ra) {
 		int result = service.insPerfume(mReq);
