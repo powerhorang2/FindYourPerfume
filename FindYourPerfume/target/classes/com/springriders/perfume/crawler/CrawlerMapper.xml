@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springriders.perfume.crawler.CrawlerMapper">
+	<select id="selTest" resultType="CrawlerVO">
+		SELECT * FROM t_perfume
+	</select>    
+	
+	<select id="selDetail" resultType="CrawlerPerfumeVO">
+		SELECT p_nm, p_price, p_pic, p_size
+		FROM t_perfume
+		WHERE i_p = 1
+	</select>
+	
+	<insert id="insBrands" parameterType="java.util.List">
+		INSERT INTO c_code_brand
+		(engNm, korNm)
+		VALUES
+		<foreach item="item" index="index" collection="list" separator=",">
+			(#{item.engNm}, #{item.korNm})
+		</foreach>
+	</insert>
+	
+	<insert id="insPerfumes" parameterType="CrawlerPerfumeVO">
+		INSERT INTO t_perfume
+		(p_nm, p_price, p_pic, p_size, p_brand, p_gender)
+		SELECT
+		#{p_nm}, #{p_price}, #{p_pic}, #{p_size}, i_brand, null
+		FROM c_code_brand WHERE engNm = #{p_brand_nm}
+	</insert>
+	
+	<select id="selPerfumeList" resultType="CrawlerPerfumeVO">
+		SELECT i_p
+		FROM t_perfume
+		ORDER BY i_p
+	</select>
+	
+	<insert id="insRandomNote" parameterType="CrawlerPerfumeVO">
+		INSERT INTO t_note
+		(i_p, nt_d_c)
+		VALUES
+		(#{i_p}, #{nt_d_c})
+	</insert>
+	
+	
+</mapper>
+  
+
+
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0/EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>	
+		<typeAlias type="com.springriders.perfume.crawler.model.CrawlerVO" alias="CrawlerVO" />
+		<typeAlias type="com.springriders.perfume.crawler.model.CrawlerPerfumeVO" alias="CrawlerPerfumeVO" />
+		<typeAlias type="com.springriders.perfume.crawler.model.CrawlerBrandVO" alias="CrawlerBrandVO" />
+		
+		<typeAlias type="com.springriders.perfume.common.model.BrandCodeVO" alias="BrandCodeVO" />
+		<typeAlias type="com.springriders.perfume.common.model.NoteCodeVO" alias="NoteCodeVO" />
+		<typeAlias type="com.springriders.perfume.common.model.PerfumeVO" alias="PerfumeVO" />		
+		<typeAlias type="com.springriders.perfume.common.model.CommonVO" alias="CommonVO" />
+
+		<typeAlias type="com.springriders.perfume.user.model.UserVO" alias="UserVO" />
+		<typeAlias type="com.springriders.perfume.user.model.UserDMI" alias="UserDMI" />
+		<typeAlias type="com.springriders.perfume.user.model.UserPARAM" alias="UserPARAM" />
+	</typeAliases>
+</configuration>
