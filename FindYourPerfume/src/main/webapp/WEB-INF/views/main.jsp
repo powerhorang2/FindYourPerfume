@@ -21,7 +21,7 @@
 		<div class="msg">${data.msg}</div>
 		<c:choose>
 			<c:when test="${loginUser.i_user == null}">
-				<form class="frm" action="/main" method="post">
+				<form class="frm" action="/common/main" method="post">
 				 	<div><input type="text" name="user_id" placeholder="아이디" value="${data.user_id}"></div>
 				 	<div><input type="password" name="user_pw" placeholder="비밀번호"></div>
 					<div><input type="submit" value="로그인"></div>

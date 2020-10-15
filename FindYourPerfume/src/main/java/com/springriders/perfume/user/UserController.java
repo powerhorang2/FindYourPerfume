@@ -96,7 +96,7 @@ public class UserController {
 		int result = service.login(param);
 		if(result == Const.SUCCESS) {
 			hs.setAttribute(Const.LOGIN_USER, param);
-			return "redirect:/main";
+			return "redirect:/common/main";
 		}
 		String msg = null;
 		if(result == Const.NO_ID) {
