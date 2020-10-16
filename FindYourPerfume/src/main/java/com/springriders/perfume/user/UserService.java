@@ -155,6 +155,18 @@ public class UserService {
 		String salt = SecurityUtils.generateSalt();
 		String cryptPw = SecurityUtils.getEncrypt(user_pw, salt);
 		
+//		MultipartFile mf = mReq.getFile("file");
+//		System.out.println(mf.getOriginalFilename());
+//		
+//		String path = "/resources/img/profileImg/";
+//		String realPath = mReq.getServletContext().getRealPath(path);
+//		System.out.println("realPath : " + realPath);
+//		String saveFileNm = FileUtils.saveFile(realPath, mf);
+//		System.out.println("이름 : " + saveFileNm);
+//	
+//		param.setProfile_img(saveFileNm);
+//		
+		
 		UserPARAM param = new UserPARAM();
 		param.setI_user(i_user);
 		System.out.println("i_user 2 : " + i_user);
