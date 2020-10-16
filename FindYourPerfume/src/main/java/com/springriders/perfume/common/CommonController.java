@@ -22,34 +22,45 @@ public class CommonController {
 	
 	@Autowired
 	private CommonService service;
+	
+	@Autowired
+	private UserService uService;
 
 	@RequestMapping(value="/main", method = RequestMethod.GET)
 	public String main(Model model) {
+		
+		model.addAttribute(Const.CSS,"main");
 		model.addAttribute(Const.TITLE, "main");
 		model.addAttribute(Const.VIEW, "main");
 		
-		return ViewRef.TEMP_DEFAULT;
+		return ViewRef.TEMP_MENU;
 	}
 	
-//	@RequestMapping(value="/main", method = RequestMethod.POST)
-//	public String main(CommonVO vo, HttpSession hs, RedirectAttributes ra) {
-//		int result = uService.login(vo);
-//		if(result == Const.SUCCESS) {
-//			hs.setAttribute(Const.LOGIN_USER, vo);
-//			ra.addFlashAttribute("data", vo);
-//			return "redirect:/main";
-//		}
-//		
-//		String msg = null;
-//		if(result == Const.NO_ID) {
-//			msg = "아이디를 확인해 주세요";
-//		}else if(result == Const.NO_PW) {
-//			msg = "비밀번호를 확인해 주세요";
-//		}
-//		vo.setMsg(msg);
-//		ra.addFlashAttribute("data", vo);
-//		return "redirect:/main";
-//	}
+	@RequestMapping(value="/main", method = RequestMethod.POST)
+	public String main(CommonVO vo, HttpSession hs, RedirectAttributes ra) {
+		int result = uService.login(vo);
+		if(result == Const.SUCCESS) {
+			hs.setAttribute(Const.LOGIN_USER, vo);
+			ra.addFlashAttribute("data", vo);
+			return "redirect:/common/main";
+		}
+		
+		String msg = null;
+		if(result == Const.NO_ID) {
+			msg = "아이디를 확인해 주세요";
+		}else if(result == Const.NO_PW) {
+			msg = "비밀번호를 확인해 주세요";
+		}
+		vo.setMsg(msg);
+		ra.addFlashAttribute("data", vo);
+		return "redirect:/common/main";
+	}
+	
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String logout(HttpSession hs) {
+		hs.invalidate();
+		return "redirect:/common/main";
+	}
 
 
 }

@@ -7,7 +7,7 @@ public class PerfumeVO {
 	private String p_pic;
 	private int p_brand;
 	private int p_size;
-	
+
 	public int getI_p() {
 		return i_p;
 	}
