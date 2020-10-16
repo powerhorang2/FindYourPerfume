@@ -7,14 +7,7 @@ public class PerfumeVO {
 	private String p_pic;
 	private int p_brand;
 	private int p_size;
-	private int[] p_note;
-
-	public int[] getP_note() {
-		return p_note;
-	}
-	public void setP_note(int[] p_note) {
-		this.p_note = p_note;
-	}
+	
 	public int getI_p() {
 		return i_p;
 	}
