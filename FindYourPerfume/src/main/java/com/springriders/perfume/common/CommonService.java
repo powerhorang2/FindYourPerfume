@@ -8,7 +8,5 @@ import com.springriders.perfume.user.UserMapper;
 @Service
 public class CommonService {
 
-	@Autowired
-	private UserMapper mapper;
 
 }

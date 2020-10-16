@@ -9,8 +9,15 @@ import com.springriders.perfume.user.model.UserVO;
 public interface UserMapper {
 
 	int insUser(UserPARAM param);
+	int insUserNote(UserPARAM param);
 	
+	UserPARAM selUserPk(UserVO param);
 	UserVO selUser(UserVO param);
+	
+	
+
+
+
 
 
 }

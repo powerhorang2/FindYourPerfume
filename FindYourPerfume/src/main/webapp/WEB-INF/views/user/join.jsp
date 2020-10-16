@@ -47,14 +47,14 @@
 		<tr>
 			<th>선호 노트</th>
 			<td>
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="1">시트러스
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="2">아로마
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="3">플로랄<br>
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="4">그린
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="5">과일
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="6">스파이시<br>
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="7">우드
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="8">발사믹
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="1">시트러스
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="2">아로마
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="3">플로랄<br>
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="4">그린
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="5">과일
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="6">스파이시<br>
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="7">우드
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="8">발사믹
 			</td>
 		</tr>
 		<tr>
@@ -73,7 +73,7 @@
 <script>
 		//노트 
 		function count_ck(obj){
-		var chkbox = document.getElementsByName("note");
+		var chkbox = document.getElementsByName("nt_m_c");
 		var chkCnt = 0;
 		for(var i=0;i<chkbox.length; i++){
 			if(chkbox[i].checked){

@@ -56,12 +56,28 @@ public class UserService {
 		
 		param.setSalt(salt);
 		param.setUser_pw(cryptPw);
-		
 
+		String[] strUserNote = mReq.getParameterValues("nt_m_c");
+	
+		mapper.insUser(param);
+		
+		param = mapper.selUserPk(param);
+		param.setI_user(param.getI_user());
+		System.out.println("i_user : " + param.getI_user());
 		
 		
-		return mapper.insUser(param);
+		//위에있는 param에는 방금 가입한 사람의 i_user가 담겨져 있다.
+		for(String strUserNotes : strUserNote) {
+			int nt_m_c = CommonUtils.parseStringToInt(strUserNotes);
+			param.setNt_m_c(nt_m_c);
+			
+			mapper.insUserNote(param);
+			
+		}
+		
+		return Const.SUCCESS;
 	}
+	
 
 	public int login(UserVO param) {
 		if(param.getUser_id().equals("")) {
@@ -151,6 +167,8 @@ public class UserService {
 		}
 		return Const.SUCCESS;
 	}
+
+
 	
 	
 //	나중에 auth기능 구현해보기
