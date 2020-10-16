@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <!DOCTYPE html>
-<div class="adminContainer">
+ <div class="adminContainer">
 	<div id="adminLeft">
 		안녕
 	</div>
