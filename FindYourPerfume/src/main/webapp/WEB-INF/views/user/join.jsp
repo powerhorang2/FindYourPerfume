@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <title>회원가입</title>
- <div>
+ <div class="container">
  <h1>회원가입</h1>
 	<form id="frm" class="frm" action="/user/join" method="post" enctype="multipart/form-data" onsubmit="return userChk()">
 	<table>
