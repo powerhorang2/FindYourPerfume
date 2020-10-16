@@ -37,7 +37,7 @@ public class UserController {
 		model.addAttribute(Const.VIEW, "user/admin");
 		return ViewRef.TEMP_MENU;
 	}
-	//test
+
 	@RequestMapping(value="/addPerfume", method = RequestMethod.POST)
 	public String addPerfume(MultipartHttpServletRequest mReq, RedirectAttributes ra) {
 		int result = service.insPerfume(mReq);
@@ -68,7 +68,7 @@ public class UserController {
 		model.addAttribute(Const.TITLE, "회원가입");
 		model.addAttribute(Const.VIEW, "user/join");
 		
-		return ViewRef.TEMP_DEFAULT;
+		return ViewRef.TEMP_MENU;
 	}
 
 	@RequestMapping(value="/join", method = RequestMethod.POST)
@@ -84,13 +84,15 @@ public class UserController {
 		return "redirect:/user/join";
 	}
 	
+	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(Model model) {
 		model.addAttribute(Const.TITLE, "로그인");
 		model.addAttribute(Const.VIEW, "/user/login");
 		
-		return ViewRef.TEMP_DEFAULT;
+		return ViewRef.TEMP_MENU;
 	}
+	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String login(UserPARAM param, HttpSession hs, RedirectAttributes ra) {
 		int result = service.login(param);

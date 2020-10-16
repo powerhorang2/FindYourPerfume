@@ -15,6 +15,7 @@
     height: 100%;
     object-fit: cover;
 }
+
 </style>
 <h1>메인페이지</h1>
 	<div class="container">
@@ -24,37 +25,38 @@
 				<form class="frm" action="/common/main" method="post">
 				 	<div><input type="text" name="user_id" placeholder="아이디" value="${data.user_id}"></div>
 				 	<div><input type="password" name="user_pw" placeholder="비밀번호"></div>
-					<div><input type="submit" value="로그인"></div>
+					<div>
+						<input type="submit" value="로그인">
+					</div>
 				</form>
 			</c:when>
 			<c:otherwise>
-				<form>
 					<c:choose>
-						<c:when test="${loginUser.user_type == '2'}">
-						<div class="loginMsg">
-						<div class="box" style="background: #BDBDBD;">
-							<img class="profile" src="/res/img/profileImg/${loginUser.profile_img}">
-						</div>
-						</div>
+						<c:when test="${loginUser.user_type == '2'}" >
+							<div class="loginMsg">
+								<div class="box" style="background: #BDBDBD;">
+									<img class="profile" src="/res/img/profileImg/${loginUser.profile_img}">
+								</div>
+							</div>
 							<div>${loginUser.nm}관리자님 환영합니다.</div>
-							<input name="user_type" type="button" value="Admin">
-							<input name="user_type" type="button" value="Logout">	
+							<div>
+								<a href="/user/admin" id="btnLogout">Admin</a>
+								<a href="/common/logout" id="btnLogout">Logout</a>
+							</div>
 						</c:when>
 					<c:otherwise>
 						<div class="box" style="background: #BDBDBD;">
 							<img class="profile" src="/res/img/profileImg/${loginUser.profile_img}">
 						</div>
 						<div>${loginUser.nm}님 환영합니다.</div>
-						<input name="user_type" type="button" value="My page">
-						<input name="user_type" type="button" value="Logout">
+						<div><a href="/user/myPage" id="btnLogout">My Page</a>
+							<a href="/common/logout" id="btnLogout">Logout</a>
+						</div>
 					</c:otherwise>				
-					</c:choose>
-					<div>
-					</div>
-				</form>
+				</c:choose>
 			</c:otherwise>
 		</c:choose>
 		<c:if test="${loginUser.i_user == null}">
-		<a href="/user/join">회원가입 하러가기</a>
+			<a href="/user/join" id="btnLogout">회원가입 하러가기</a>
 		</c:if>
 	</div>

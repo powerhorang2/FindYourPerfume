@@ -57,6 +57,8 @@ public class UserService {
 		param.setSalt(salt);
 		param.setUser_pw(cryptPw);
 		
+
+		
 		
 		return mapper.insUser(param);
 	}
