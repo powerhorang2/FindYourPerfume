@@ -1,7 +1,8 @@
 package com.springriders.perfume.user;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,26 +58,17 @@ public class UserService {
 		param.setSalt(salt);
 		param.setUser_pw(cryptPw);
 		
-
-		
-		
 		return mapper.insUser(param);
 	}
 
 	public int login(UserVO param) {
-		if(param.getUser_id().equals("")) {
-			return Const.EMPTY_ID;
-		}
-
-		if(param.getUser_id().equals("")) {
-			return Const.NO_ID;
-		}
+		if(param.getUser_id().equals("")) { return Const.EMPTY_ID; }
+		if(param.getUser_id().equals("")) { return Const.NO_ID; }
 		
 		UserVO dbUser = mapper.selUser(param);
 		if(dbUser == null) {
 			return Const.NO_ID;
 		}
-		
 		
 		String cryptPw = SecurityUtils.getEncrypt(param.getUser_pw(), dbUser.getSalt());
 		
@@ -84,11 +76,13 @@ public class UserService {
 			return Const.NO_PW;
 		}
 			System.out.println("user_type : " + dbUser.getUser_type());
+			System.out.println("i_user : " + dbUser.getI_user());
 			param.setUser_type(dbUser.getUser_type());
 			param.setI_user(dbUser.getI_user());
 			param.setUser_pw(null);
 			param.setNm(dbUser.getNm());
 			param.setProfile_img(dbUser.getProfile_img());
+			param.setBd(dbUser.getBd());
 			return Const.SUCCESS;
 	}
 	
@@ -151,6 +145,40 @@ public class UserService {
 		}
 		return Const.SUCCESS;
 	}
+	
+	public int uptUser(MultipartHttpServletRequest mReq, HttpSession hs) {
+		int i_user = SecurityUtils.getLoginUserPk(hs);
+		System.out.println("i_user 1 : " + i_user);
+		String profile_img = mReq.getParameter("profile_img");
+		System.out.println("profile_img 1 : " + profile_img);
+		String user_pw = mReq.getParameter("pw");
+		String salt = SecurityUtils.generateSalt();
+		String cryptPw = SecurityUtils.getEncrypt(user_pw, salt);
+		
+		UserPARAM param = new UserPARAM();
+		param.setI_user(i_user);
+		System.out.println("i_user 2 : " + i_user);
+		param.setSalt(salt);
+		param.setProfile_img(profile_img);
+		System.out.println("profile_img 2 : " + profile_img);
+		param.setUser_pw(cryptPw);
+		
+		return mapper.uptUser(param);
+	}
+	
+//	public List<UserDMI> selFavoriteList(UserPARAM param) {	
+//		List<UserDMI> list = mapper.selFavoriteList(param);
+//		
+//		for(UserDMI vo : list) {
+//			RestPARAM param2 = new RestPARAM();
+//			param2.setI_rest(vo.getI_rest());
+//			
+//			List<RestRecMenuVO> eachRecMenuList = restMapper.selRestRecMenus(param2);
+//			vo.setMenuList(eachRecMenuList);
+//		}
+//		
+//		return list;
+//	}
 	
 	
 //	나중에 auth기능 구현해보기

@@ -72,7 +72,7 @@
 		</div>
 	</div>
 </div>
-<script >
+<script>
 	function previewImage(f){
 	
 		var file = f.files;

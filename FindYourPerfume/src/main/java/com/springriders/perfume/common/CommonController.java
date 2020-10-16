@@ -29,6 +29,7 @@ public class CommonController {
 	@RequestMapping(value="/main", method = RequestMethod.GET)
 	public String main(Model model) {
 		
+
 		model.addAttribute(Const.CSS,"main");
 		model.addAttribute(Const.TITLE, "main");
 		model.addAttribute(Const.VIEW, "main");
