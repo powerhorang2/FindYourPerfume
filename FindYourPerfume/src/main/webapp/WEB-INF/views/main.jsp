@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <style>
-	.box {
+.box {
     width: 150px;
     height: 150px; 
     border-radius: 70%;
@@ -15,7 +15,6 @@
     height: 100%;
     object-fit: cover;
 }
-
 </style>
 <h1>메인페이지</h1>
 	<div class="container">

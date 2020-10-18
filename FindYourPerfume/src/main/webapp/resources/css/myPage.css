@@ -77,39 +77,44 @@ hr {
 	width: 100%;
 }
 
-.adminContainer > #adminRight > #sectionProfile {
+.adminContainer > #adminRight > #uptFrm > #sectionProfile {
 	display: flex;
 	justify-content: space-between;
 }
 
-.adminContainer > #adminRight > #sectionProfile > #containerImg {
+.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerImg {
 	width: 200px;
 	height: 250px;
 	margin-left: 100px;
 }
 
-.adminContainer > #adminRight > #sectionProfile > #containerImg > #profileImg {
+.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerImg > #profileImg {
 	width: 200px;
 	height: 200px;
 	border: 1px solid black;
 	border-radius: 100px;
 	overflow: hidden;
+	
+	    width: 150px;
+    height: 150px; 
+    border-radius: 70%;
+    overflow: hidden;
 }
 
-.adminContainer > #adminRight > #sectionProfile > #containerImg > #profileImg > img {
+.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerImg > #profileImg > img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
 
-.adminContainer > #adminRight > #sectionProfile > #containerInfo {
+.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerInfo {
 	padding: 0px 50px 20px 50px;
 	min-width: 850px;
 	width: 70%;
 	position: relative;
 }
 
-.adminContainer > #adminRight > #sectionProfile > #containerInfo > #submitProfile {
+.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerInfo > #submitProfile {
 	position: absolute;
 	bottom: 0;
 	right: 100px;
@@ -187,4 +192,3 @@ hr {
 	width: 20%;
 	margin: 0 10px 10px 0;
 }
-

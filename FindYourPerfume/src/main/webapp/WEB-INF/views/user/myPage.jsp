@@ -99,5 +99,4 @@
 		uptUserFrm.submit();
 	}
 
-
 </script>

@@ -110,6 +110,9 @@ public class UserController {
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String login(UserPARAM param, HttpSession hs, RedirectAttributes ra) {
+		
+		System.out.println(param.getUser_id());
+		System.out.println(param.getUser_pw());
 		int result = service.login(param);
 		if(result == Const.SUCCESS) {
 			hs.setAttribute(Const.LOGIN_USER, param);
