@@ -15,7 +15,6 @@
     height: 100%;
     object-fit: cover;
 }
-
 </style>
 <h1>메인페이지</h1>
 	<div class="container">

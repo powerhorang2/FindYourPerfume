@@ -7,10 +7,31 @@
 		VALUES
 		(#{user_type}, #{i_user}, #{user_id}, #{user_pw}, #{salt}, #{nm}, #{bd}, #{gender}, #{profile_img})
 	</insert>
+	
 	<select id="selUser" parameterType="UserVO" resultType="UserVO">
-		SELECT i_user, user_id, user_pw, salt, nm, user_type, profile_img, r_dt
+		SELECT i_user, user_id, user_pw, salt, nm, bd, user_type, profile_img, r_dt
 		FROM t_user
 		WHERE <if test="i_user > 0"> i_user = #{i_user}</if>
 		<if test="user_id != null and user_id != ''">user_id = #{user_id}</if>
 	</select> 
+	
+	<select id="selFavoriteList" parameterType="UserPARAM" 
+		resultType="UserDMI">
+		SELECT A.i_rest, A.i_user, A.r_dt
+			, B.nm AS rest_nm
+			, B.addr AS rest_addr
+		FROM t_user_favorite A
+		INNER JOIN t_restaurant B
+		ON A.i_rest = B.i_rest
+		WHERE A.i_user = #{i_user}
+	</select>
+	
+	<update id="uptUser" parameterType="UserPARAM">
+		UPDATE t_user
+		SET
+		user_pw = #{user_pw}
+		salt = #{salt}
+		profile_img = #{profile_img}
+		WHERE i_user = #{i_user}
+	</update>
 </mapper>

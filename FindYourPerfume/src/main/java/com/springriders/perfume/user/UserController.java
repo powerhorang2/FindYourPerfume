@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springriders.perfume.Const;
+import com.springriders.perfume.SecurityUtils;
 import com.springriders.perfume.ViewRef;
 import com.springriders.perfume.user.model.UserPARAM;
 import com.springriders.perfume.user.model.UserVO;
@@ -51,12 +52,26 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
-	public String selUser(Model model) {
+	public String myPage(Model model, HttpSession hs) {
+		int i_user = SecurityUtils.getLoginUserPk(hs);
+		
+		UserPARAM param = new UserPARAM();
+		param.setI_user(i_user);
+		
+//		model.addAttribute("data", service.selFavoriteList(param));
+		
 		
 		model.addAttribute(Const.CSS, "myPage");		
 		model.addAttribute(Const.TITLE,"마이페이지");
 		model.addAttribute(Const.VIEW, "user/myPage");
 		return ViewRef.TEMP_MENU;
+	}
+	
+	@RequestMapping(value="/uptUser", method = RequestMethod.POST)
+	public String uptUser(MultipartHttpServletRequest mReq, HttpSession hs, RedirectAttributes ra) {
+		int result = service.uptUser(mReq, hs);
+		
+		return "redirect:/user/myPage";
 	}
 	
 	@RequestMapping(value="/join", method = RequestMethod.GET)
