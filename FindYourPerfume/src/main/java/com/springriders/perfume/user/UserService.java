@@ -149,31 +149,33 @@ public class UserService {
 	public int uptUser(MultipartHttpServletRequest mReq, HttpSession hs) {
 		int i_user = SecurityUtils.getLoginUserPk(hs);
 		System.out.println("i_user 1 : " + i_user);
-		String profile_img = mReq.getParameter("profile_img");
-		System.out.println("profile_img 1 : " + profile_img);
-		String user_pw = mReq.getParameter("pw");
+		String user_pw = mReq.getParameter("user_pw");
+		System.out.println(user_pw);
 		String salt = SecurityUtils.generateSalt();
+		String nm = mReq.getParameter("nm");
+		System.out.println("nm : " + nm);
 		String cryptPw = SecurityUtils.getEncrypt(user_pw, salt);
 		
-//		MultipartFile mf = mReq.getFile("file");
-//		System.out.println(mf.getOriginalFilename());
-//		
-//		String path = "/resources/img/profileImg/";
-//		String realPath = mReq.getServletContext().getRealPath(path);
-//		System.out.println("realPath : " + realPath);
-//		String saveFileNm = FileUtils.saveFile(realPath, mf);
-//		System.out.println("이름 : " + saveFileNm);
-//	
-//		param.setProfile_img(saveFileNm);
-//		
+		MultipartFile mf = mReq.getFile("profile_pic");
+		System.out.println(mf.getOriginalFilename());
+	
+		String path = "/resources/img/profileImg/";
+		String realPath = mReq.getServletContext().getRealPath(path);
+		System.out.println("realPath : " + realPath);
+		String saveFileNm = FileUtils.saveFile(realPath, mf);
+		System.out.println("이름 : " + saveFileNm);		
 		
 		UserPARAM param = new UserPARAM();
 		param.setI_user(i_user);
-		System.out.println("i_user 2 : " + i_user);
+		System.out.println(param.getI_user());
 		param.setSalt(salt);
-		param.setProfile_img(profile_img);
-		System.out.println("profile_img 2 : " + profile_img);
+		System.out.println(param.getSalt());
+		param.setNm(nm);
+		System.out.println(param.getNm());
+		param.setProfile_img(saveFileNm);
+		System.out.println("profile_img 2 : " + saveFileNm);
 		param.setUser_pw(cryptPw);
+		System.out.println(param.getUser_pw());
 		
 		return mapper.uptUser(param);
 	}

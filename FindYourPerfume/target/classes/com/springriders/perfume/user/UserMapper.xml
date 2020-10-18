@@ -30,8 +30,9 @@
 		UPDATE t_user
 		SET
 		user_pw = #{user_pw}
-		salt = #{salt}
-		profile_img = #{profile_img}
+		,nm = #{nm}
+		,salt = #{salt}
+		,profile_img = #{profile_img}
 		WHERE i_user = #{i_user}
 	</update>
 </mapper>
