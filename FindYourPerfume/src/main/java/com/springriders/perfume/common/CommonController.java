@@ -42,6 +42,7 @@ public class CommonController {
 		
 		model.addAttribute("perfume", perfume);
 		
+
 		model.addAttribute(Const.CSS,"main");
 		model.addAttribute(Const.TITLE, "main");
 		model.addAttribute(Const.VIEW, "main");
