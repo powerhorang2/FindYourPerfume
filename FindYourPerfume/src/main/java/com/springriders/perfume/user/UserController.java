@@ -42,7 +42,6 @@ public class UserController {
 	@RequestMapping(value="/addPerfume", method = RequestMethod.POST)
 	public String addPerfume(MultipartHttpServletRequest mReq, RedirectAttributes ra) {
 		int result = service.insPerfume(mReq);
-		System.out.println("result : " + result);
 		if(result == 1) {
 			return "redirect:/user/admin";
 		}
@@ -68,10 +67,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/uptUser", method = RequestMethod.POST)
-	public String uptUser(MultipartHttpServletRequest mReq, HttpSession hs, RedirectAttributes ra) {
+	public String uptUser(UserPARAM param, MultipartHttpServletRequest mReq, HttpSession hs, RedirectAttributes ra) {
 		int result = service.uptUser(mReq, hs);
-		
-		return "redirect:/user/myPage";
+
+		return "redirect:/user/myPage";			
 	}
 	
 	@RequestMapping(value="/join", method = RequestMethod.GET)
@@ -110,9 +109,6 @@ public class UserController {
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String login(UserPARAM param, HttpSession hs, RedirectAttributes ra) {
-		
-		System.out.println(param.getUser_id());
-		System.out.println(param.getUser_pw());
 		int result = service.login(param);
 		if(result == Const.SUCCESS) {
 			hs.setAttribute(Const.LOGIN_USER, param);

@@ -28,26 +28,14 @@ public class UserService {
 	
 	@Autowired
 	private UserMapper mapper;
-	
-	
-//	public int admin(UserPARAM param) {
-////		param.setI_user(1);
-////		int result = mapper.selUser(param);
-//		
-//		return 0;
-//	}
-	
+
 	public int join(UserPARAM param, MultipartHttpServletRequest mReq) {
 		
-//		MultipartFile mf = mReq.getFile("profile_img");
 		MultipartFile mf = mReq.getFile("file");
-		System.out.println(mf.getOriginalFilename());
 		
 		String path = "/resources/img/profileImg/";
 		String realPath = mReq.getServletContext().getRealPath(path);
-		System.out.println("realPath : " + realPath);
 		String saveFileNm = FileUtils.saveFile(realPath, mf);
-		System.out.println("이름 : " + saveFileNm);
 	
 		param.setProfile_img(saveFileNm);
 		
@@ -75,8 +63,6 @@ public class UserService {
 		if(!cryptPw.equals(dbUser.getUser_pw())) {
 			return Const.NO_PW;
 		}
-			System.out.println("user_type : " + dbUser.getUser_type());
-			System.out.println("i_user : " + dbUser.getI_user());
 			param.setUser_type(dbUser.getUser_type());
 			param.setI_user(dbUser.getI_user());
 			param.setUser_pw(null);
@@ -97,19 +83,9 @@ public class UserService {
 	}
 	
 	public int insPerfume(MultipartHttpServletRequest mReq) {
-		/*
-		 * int i_user = SecurityUtils.getLoginUserPk(mReq.getSession()); 
-		 * int i_rest = Integer.parseInt(mReq.getParameter("i_rest"));
-		 * if(_authFail(i_rest, i_user))
-		 * 	{ return Const.FAIL; }
-		 */
-
 		int p_price = Integer.parseInt(mReq.getParameter("p_price"));	
-		System.out.println("p_price: " + p_price);
 		int p_size = Integer.parseInt(mReq.getParameter("p_size"));
-		System.out.println("p_size: " + p_size);
 		int p_brand = CommonUtils.parseStringToInt(mReq.getParameter("p_brand"));
-		System.out.println("p_brand: " + p_brand);
 		String p_nm = mReq.getParameter("p_nm");
 		
 		//사진 추가하기
@@ -128,9 +104,7 @@ public class UserService {
 
 		cMapper.insPerfume(vo);
 		vo = cMapper.selPerfumePk(vo);
-		System.out.println("checkpoint");
 		int i_p = vo.getI_p();
-		System.out.println("i_p : " + i_p);
 		
 		String[] strP_notes = mReq.getParameterValues("p_note");
 
@@ -148,36 +122,29 @@ public class UserService {
 	
 	public int uptUser(MultipartHttpServletRequest mReq, HttpSession hs) {
 		int i_user = SecurityUtils.getLoginUserPk(hs);
-		System.out.println("i_user 1 : " + i_user);
 		String user_pw = mReq.getParameter("user_pw");
-		System.out.println(user_pw);
 		String salt = SecurityUtils.generateSalt();
 		String nm = mReq.getParameter("nm");
-		System.out.println("nm : " + nm);
 		String cryptPw = SecurityUtils.getEncrypt(user_pw, salt);
 		
 		MultipartFile mf = mReq.getFile("profile_pic");
-		System.out.println(mf.getOriginalFilename());
 	
 		String path = "/resources/img/profileImg/";
 		String realPath = mReq.getServletContext().getRealPath(path);
-		System.out.println("realPath : " + realPath);
 		String saveFileNm = FileUtils.saveFile(realPath, mf);
-		System.out.println("이름 : " + saveFileNm);		
 		
-		UserPARAM param = new UserPARAM();
-		param.setI_user(i_user);
-		System.out.println(param.getI_user());
-		param.setSalt(salt);
-		System.out.println(param.getSalt());
-		param.setNm(nm);
-		System.out.println(param.getNm());
-		param.setProfile_img(saveFileNm);
-		System.out.println("profile_img 2 : " + saveFileNm);
-		param.setUser_pw(cryptPw);
-		System.out.println(param.getUser_pw());
+		UserVO vo = new UserVO();
+		vo.setI_user(i_user);
+		vo.setSalt(salt);
+		vo.setNm(nm);
+		vo.setProfile_img(saveFileNm);
+		vo.setUser_pw(cryptPw);
 		
-		return mapper.uptUser(param);
+		mapper.uptUser(vo);
+		vo = mapper.selUser(vo);
+		hs.setAttribute(Const.LOGIN_USER, vo);
+		
+		return Const.SUCCESS;
 	}
 	
 //	public List<UserDMI> selFavoriteList(UserPARAM param) {	

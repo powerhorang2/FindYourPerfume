@@ -13,9 +13,9 @@ public interface UserMapper {
 
 	int insUser(UserPARAM param);
 	
-	UserVO selUser(UserVO param);
+	UserVO selUser(UserVO vo);
 	List<UserDMI> selFavoriteList(UserPARAM param);
 
-	int uptUser(UserPARAM param);
+	int uptUser(UserVO vo);
 
 }
