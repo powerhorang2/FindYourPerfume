@@ -35,6 +35,7 @@ public class CommonController {
 	public String main(PerfumePARAM param, Model model, HttpServletRequest req) {
 		
 		int i_user = SecurityUtils.getLoginUserPk(req);
+
 		param.setI_user(i_user);
 
 		List<PerfumeDomain> perfume = service.selPerfumeList(param);

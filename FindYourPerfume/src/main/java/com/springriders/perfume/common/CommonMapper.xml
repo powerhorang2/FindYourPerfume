@@ -12,11 +12,9 @@
 		FROM t_perfume A
 		LEFT JOIN c_code_brand B
 		ON A.p_brand = B.p_brand
-		<if test="i_user > 0">
-			LEFT JOIN t_user_favorite_perfume C
-			ON A.i_p = C.i_p
-			AND C.i_user = #{i_user};
-		</if>
+		LEFT JOIN t_user_favorite_perfume C
+		ON A.i_p = C.i_p
+		AND C.i_user = #{i_user}
 	</select>
 	<select id="selPerfumeNoteList" parameterType="PerfumePARAM" resultType="NoteCodeVO">
 		SELECT A.i_p, B.nt_d_nm, B.nt_d_nm_kor
