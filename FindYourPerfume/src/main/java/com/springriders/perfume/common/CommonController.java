@@ -17,7 +17,7 @@ import com.springriders.perfume.SecurityUtils;
 import com.springriders.perfume.ViewRef;
 import com.springriders.perfume.common.model.CommonVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
-import com.springriders.perfume.common.model.PerfumeDomain;
+import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.user.UserService;
 
@@ -37,11 +37,18 @@ public class CommonController {
 		int i_user = SecurityUtils.getLoginUserPk(req);
 
 		param.setI_user(i_user);
-
-		List<PerfumeDomain> perfume = service.selPerfumeList(param);
 		
+		List<PerfumeDMI> topPerfume = service.selTopPerfumeList(param);
+		model.addAttribute("topPerfume", topPerfume);
+		
+		if(i_user != 0) {
+			List<PerfumeDMI> userNote = service.selUserNoteList(param);
+			List<PerfumeDMI> recPerfume = service.selRecPerfumeList(param);
+			model.addAttribute("recPerfume", recPerfume);
+		}
+		
+		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		model.addAttribute("perfume", perfume);
-		
 
 		model.addAttribute(Const.CSS,"main");
 		model.addAttribute(Const.TITLE, "main");
@@ -85,7 +92,7 @@ public class CommonController {
 		int i_user = SecurityUtils.getLoginUserPk(req);
 		param.setI_user(i_user);
 		param.setI_p(321);
-		PerfumeDomain perfume = service.selPerfume(param);
+		PerfumeDMI perfume = service.selPerfume(param);
 		List<NoteCodeVO> note = service.selPerfumeNoteList(param);
 		model.addAttribute("perfume", perfume);
 		model.addAttribute("note", note);

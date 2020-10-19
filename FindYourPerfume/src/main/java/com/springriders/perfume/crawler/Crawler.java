@@ -36,15 +36,15 @@ public class Crawler {
         	String kor= selKorEle.get(i).text();
         	eng = eng.replace("'", "_");
         	kor = kor.replace("'", "_");
-        	vo.setEngNm(eng);
-        	vo.setKorNm(kor);
+        	vo.setB_nm_eng(eng);
+        	vo.setB_nm_kor(kor);
         	
         }
         System.out.println("list size : "+list.size());
         
         for(CrawlerBrandVO vo : list) {
-        	System.out.println(vo.getEngNm());
-        	System.out.println(vo.getKorNm());
+        	System.out.println(vo.getB_nm_eng());
+        	System.out.println(vo.getB_nm_kor());
         }
         
         return list;

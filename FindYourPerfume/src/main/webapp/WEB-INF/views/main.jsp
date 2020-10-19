@@ -47,6 +47,30 @@
 			<a href="/user/join" id="btnLogout">회원가입 하러가기</a>
 		</c:if>
 	</div>
+	<div class="topPerfume">
+		<c:forEach items="${topPerfume}" var="item">
+			<div>향수 이름 : ${item.p_nm}</div>
+			<div>향수 용량 : ${item.p_size}ml</div>
+			<div><img src="${item.p_pic}"></div>
+			<div>향수 브랜드 : ${item.b_nm_eng}</div>
+			<div>향수 가격 : ${item.p_price}</div>
+			<div>------------------------------------------</div>
+		</c:forEach>
+		<div>===================분리선=================</div>
+	</div>
+	<c:if test="${loginUser != null}">
+		<div class="recPerfume">
+			<c:forEach items="${recPerfume}" var="item">
+				<div>향수 이름 : ${item.p_nm}</div>
+				<div>향수 용량 : ${item.p_size}ml</div>
+				<div><img src="${item.p_pic}"></div>
+				<div>향수 브랜드 : ${item.b_nm_eng}</div>
+				<div>향수 가격 : ${item.p_price}</div>
+				<div>------------------------------------------</div>
+			</c:forEach>
+			<div>===================분리선=================</div>
+		</div>
+	</c:if>
 	<div>	
 		<c:forEach items="${perfume}" var="item">
 			<c:if test="${loginUser != null}">
@@ -60,7 +84,7 @@
 			<div>향수 이름 : ${item.p_nm}</div>
 			<div>향수 용량 : ${item.p_size}ml</div>
 			<div><img src="${item.p_pic}"></div>
-			<div>향수 브랜드 : ${item.engNm}</div>
+			<div>향수 브랜드 : ${item.b_nm_eng}</div>
 			<div>향수 가격 : ${item.p_price}</div>
 			<div>------------------------------------------</div>
 		</c:forEach>

@@ -10,7 +10,7 @@
 		<typeAlias type="com.springriders.perfume.common.model.NoteCodeVO" alias="NoteCodeVO" />
 		<typeAlias type="com.springriders.perfume.common.model.PerfumeVO" alias="PerfumeVO" />		
 		<typeAlias type="com.springriders.perfume.common.model.PerfumePARAM" alias="perfumePARAM"/>
-		<typeAlias type="com.springriders.perfume.common.model.PerfumeDomain" alias="PerfumeDomain"/>
+		<typeAlias type="com.springriders.perfume.common.model.PerfumeDMI" alias="PerfumeDMI"/>
 		<typeAlias type="com.springriders.perfume.common.model.CommonVO" alias="CommonVO" />
 		
 		<typeAlias type="com.springriders.perfume.user.model.UserVO" alias="UserVO" />
