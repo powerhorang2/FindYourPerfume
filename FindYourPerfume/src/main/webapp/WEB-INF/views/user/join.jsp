@@ -4,6 +4,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <title>회원가입</title>
+<style>
+.container { 
+  position: absolute;
+  width: 600px; 
+  height: 500px; 
+  margin-left: -330px; 
+  margin-top: -200px; 
+  left: 50%; 
+  top: 50%; 
+}
+
+.table{
+	margin-left: auto; margin-right: auto;
+}
+
+</style>
  <div class="container">
  <h1>회원가입</h1>
 	<form id="frm" class="frm" action="/user/join" method="post" enctype="multipart/form-data" onsubmit="return userChk()">
@@ -30,7 +46,7 @@
 		</tr>
 		<tr>
 			<th>생년월일</th>
-			<td><input type="date" name="bd"></td>
+			<td><input type="date" name="bd" placeholder="yyyy-mm-dd"></td>
 		</tr>
 		<tr>
 			<th>성별</th>
@@ -47,14 +63,14 @@
 		<tr>
 			<th>선호 노트</th>
 			<td>
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="1">시트러스
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="2">아로마
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="3">플로랄<br>
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="4">그린
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="5">과일
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="6">스파이시<br>
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="7">우드
-				<input type="checkbox" name="note" onclick="count_ck(this);" value="8">발사믹
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="1">시트러스
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="2">아로마
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="3">플로랄<br>
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="4">그린
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="5">과일
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="6">스파이시<br>
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="7">우드
+				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="8">발사믹
 			</td>
 		</tr>
 		<tr>
@@ -73,7 +89,7 @@
 <script>
 		//노트 
 		function count_ck(obj){
-		var chkbox = document.getElementsByName("note");
+		var chkbox = document.getElementsByName("nt_m_c");
 		var chkCnt = 0;
 		for(var i=0;i<chkbox.length; i++){
 			if(chkbox[i].checked){

@@ -63,7 +63,10 @@ public class CommonController {
 			msg = "아이디를 확인해 주세요";
 		}else if(result == Const.NO_PW) {
 			msg = "비밀번호를 확인해 주세요";
+		}else if(result == Const.EMPTY_ID) {
+			msg = "아이디를 입력해 주세요";
 		}
+
 		vo.setMsg(msg);
 		ra.addFlashAttribute("data", vo);
 		return "redirect:/common/main";
