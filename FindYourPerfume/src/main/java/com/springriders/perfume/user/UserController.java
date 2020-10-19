@@ -57,8 +57,7 @@ public class UserController {
 		UserPARAM param = new UserPARAM();
 		param.setI_user(i_user);
 		
-//		model.addAttribute("data", service.selFavoriteList(param));
-		
+		model.addAttribute("data", service.selFavoriteList(param));
 		
 		model.addAttribute(Const.CSS, "myPage");		
 		model.addAttribute(Const.TITLE,"마이페이지");

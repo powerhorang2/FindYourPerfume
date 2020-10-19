@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.springriders.perfume.user.model.UserDMI;
+import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.user.model.UserPARAM;
 import com.springriders.perfume.user.model.UserVO;
 
@@ -14,7 +14,7 @@ public interface UserMapper {
 	int insUser(UserPARAM param);
 	int insUserNote(UserPARAM param);
 	
-	List<UserDMI> selFavoriteList(UserPARAM param);
+	List<PerfumeDMI> selFavoriteList(UserPARAM param);
 
 	UserPARAM selUserPk(UserVO param);
 	UserVO selUser(UserVO param);

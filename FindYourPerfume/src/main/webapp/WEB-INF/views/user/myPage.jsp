@@ -51,6 +51,18 @@
 		<div id="sectionFavPerfume">
 			<div id="title">찜한 향수</div>
 			<div id="detailSection">
+			<c:forEach items="${data}" var="item">
+			<div id="favPerfume">
+				<div id="favPerfumeImg">
+					<img class="perfumeImg" src="${item.p_pic}">
+				</div>
+				<div id="favPerfumeDetail">
+					<p>${item.b_nm_eng}</p>
+					<p id="p_nm">${item.p_nm}<p>
+					<p>${item.p_size}ml | ${item.p_price}</p>
+				</div>
+			</div>
+			</c:forEach>
 			</div>
 		</div>
 	</div>

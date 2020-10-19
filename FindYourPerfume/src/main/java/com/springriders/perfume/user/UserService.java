@@ -17,6 +17,7 @@ import com.springriders.perfume.common.CommonMapper;
 import com.springriders.perfume.common.model.BrandCodeVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
 import com.springriders.perfume.common.model.PerfumeVO;
+import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.user.model.UserPARAM;
 import com.springriders.perfume.user.model.UserVO;
 
@@ -164,19 +165,11 @@ public class UserService {
 		return Const.SUCCESS;
 	}
 	
-//	public List<UserDMI> selFavoriteList(UserPARAM param) {	
-//		List<UserDMI> list = mapper.selFavoriteList(param);
-//		
-//		for(UserDMI vo : list) {
-//			RestPARAM param2 = new RestPARAM();
-//			param2.setI_rest(vo.getI_rest());
-//			
-//			List<RestRecMenuVO> eachRecMenuList = restMapper.selRestRecMenus(param2);
-//			vo.setMenuList(eachRecMenuList);
-//		}
-//		
-//		return list;
-//	}
+	public List<PerfumeDMI> selFavoriteList(UserPARAM param) {	
+		List<PerfumeDMI> list = mapper.selFavoriteList(param);
+	
+		return list;
+	}
 	
 	
 //	나중에 auth기능 구현해보기

@@ -1,8 +1,10 @@
-package com.springriders.perfume.crawler.model;
+package com.springriders.perfume.common.model;
 
-public class CrawlerBrandVO {
+public class PerfumeDMI extends PerfumeVO {
 	private String b_nm_eng;
 	private String b_nm_kor;
+	private int i_user;
+	
 	
 	public String getB_nm_eng() {
 		return b_nm_eng;
@@ -16,4 +18,14 @@ public class CrawlerBrandVO {
 	public void setB_nm_kor(String b_nm_kor) {
 		this.b_nm_kor = b_nm_kor;
 	}
+	public int getI_user() {
+		return i_user;
+	}
+	public void setI_user(int i_user) {
+		this.i_user = i_user;
+	}
+	
+
+	
+
 }

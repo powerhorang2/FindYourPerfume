@@ -26,23 +26,31 @@
 	</select> 
 	
 	<select id="selFavoriteList" parameterType="UserPARAM" 
-		resultType="UserDMI">
-		SELECT A.i_rest, A.i_user, A.r_dt
-			, B.nm AS rest_nm
-			, B.addr AS rest_addr
-		FROM t_user_favorite A
-		INNER JOIN t_restaurant B
-		ON A.i_rest = B.i_rest
-		WHERE A.i_user = #{i_user}
+		resultType="PerfumeDMI">
+		SELECT A.i_p, A.p_nm, A.p_price, B.b_nm_eng, A.p_size, A.p_pic
+		FROM t_perfume A
+		INNER JOIN c_code_brand B
+		ON A.p_brand = B.p_brand
+		INNER JOIN t_user_favorite_perfume C
+		ON A.i_p = C.i_p
+		WHERE C.i_user = #{i_user};
 	</select>
 	
 	<update id="uptUser" parameterType="UserVO">
 		UPDATE t_user
 		SET
-		user_pw = #{user_pw}
-		,nm = #{nm}
-		,salt = #{salt}
-		,profile_img = #{profile_img}
+		<if test="user_pw > 0">
+		user_pw = #{user_pw},
+		salt = #{salt},	
+		</if>
+		<if test="nm > 0">
+		nm = #{nm}
+		</if>
+		<if test="profile_img > 0">
+		,</if>
+		<if test="profile_img > 0">
+		profile_img = #{profile_img}
+		</if>
 		WHERE i_user = #{i_user}
 	</update>
 </mapper>
