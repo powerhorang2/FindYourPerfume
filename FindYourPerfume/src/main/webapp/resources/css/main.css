@@ -47,7 +47,25 @@
 	padding: 50px 100px;
 	width: 100%;
 }
+.brandName {
+	width: 70px;
+	height: 80px;
+}
+#selBrandList{
+	display: flex;
+	flex-wrap: wrap;
+	margin: 15px 0 70px;
+}
 
+#selBrandList > a {
+	width: 18px;
+	text-align: center;
+	margin: 5px;
+}
+.choiceBrand{
+	border: 1px solid black;
+	height: 300px;
+}
 
 
 

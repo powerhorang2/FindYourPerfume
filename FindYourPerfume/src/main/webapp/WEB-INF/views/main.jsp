@@ -57,15 +57,22 @@
 			<a href="/user/join" id="btnLogout">회원가입 하러가기</a>
 		</c:if>
 		<div>
-		<div>
-			<a href="#" id="alphabet">A</a>
+		<div id="selBrandList">
+		</div>
+		
+		<div id="brandList">
 		</div>
 	</div>
 	</div>
 	
 		</div>
 	</div>
+	<!-- 작업주우우우우우우우우우우우우우우웅 -->
 	<div id="brandRight">
+	<div class="choiceBrand">
+		
+	
+	</div>
 		<div class="perfumeMain">	
 		<c:forEach items="${perfume}" var="item">
 			<div class="perfumePic">
@@ -77,6 +84,7 @@
 						</c:choose>
 					</span>
 				</c:if>
+				<div class="brandImg">
 					<div><img src="${item.p_pic}"></div>
 					<div>향수 브랜드 : ${item.b_nm_eng}</div>
 					<div>향수 이름 : ${item.p_nm}</div>
@@ -85,6 +93,7 @@
 						향수 가격 : ${item.p_price}
 					</div>
 				</div>
+				</div>
 		</c:forEach>
 		<div>
 	</div>
@@ -92,6 +101,29 @@
 </div>
 </div>
 <script>
+	function AtoZ() {
+		for(var i = 65; i < 91; i++) {
+			var div = document.createElement('div')
+			var a = document.createElement('a')
+			div.setAttribute('class', 'brandName')
+			a.setAttribute('href', 'ajaxChoicePerfume')
+			a.innerText = String.fromCharCode(i)
+			div.appendChild(a)
+			brandList.append(div)
+		}
+	}
+	AtoZ()
+	
+	function selAtoZ(){
+		for(var i = 65; i < 91; i++) {
+			var a = document.createElement('a')
+			a.setAttribute('href', 'ajaxSelAlphabet')
+			a.innerText = String.fromCharCode(i)
+			selBrandList.append(a)
+		}
+	}
+	selAtoZ()
+	
 	
 	
 </script>
