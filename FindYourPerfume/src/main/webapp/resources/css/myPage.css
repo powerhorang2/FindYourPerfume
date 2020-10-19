@@ -146,7 +146,12 @@ hr {
 	display: flex;
 	flex-direction: column;
 	width: 260px;	
-	margin-right: 40px;	
+	margin: 0 20px 50px;
+}
+
+.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > #favPerfume:hover {
+	cursor: pointer;
+    font-weight: bold;
 }
 
 .adminContainer > #adminRight > #sectionFavPerfume > #detailSection > #favPerfume > #favPerfumeImg {

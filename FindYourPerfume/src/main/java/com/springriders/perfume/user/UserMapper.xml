@@ -39,17 +39,13 @@
 	<update id="uptUser" parameterType="UserVO">
 		UPDATE t_user
 		SET
-		<if test="user_pw > 0">
-		user_pw = #{user_pw},
-		salt = #{salt},	
-		</if>
-		<if test="nm > 0">
 		nm = #{nm}
+		<if test="user_pw != null">
+		,user_pw = #{user_pw}
+		,salt = #{salt}
 		</if>
-		<if test="profile_img > 0">
-		,</if>
-		<if test="profile_img > 0">
-		profile_img = #{profile_img}
+		<if test="profile_img != null">
+		,profile_img = #{profile_img}
 		</if>
 		WHERE i_user = #{i_user}
 	</update>

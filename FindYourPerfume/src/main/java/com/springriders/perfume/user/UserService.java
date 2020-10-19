@@ -135,28 +135,35 @@ public class UserService {
 		}
 		return Const.SUCCESS;
 	}
-
-
 	
 	public int uptUser(MultipartHttpServletRequest mReq, HttpSession hs) {
 		int i_user = SecurityUtils.getLoginUserPk(hs);
 		String user_pw = mReq.getParameter("user_pw");
+		System.out.println("user_pw : " + user_pw);
 		String salt = SecurityUtils.generateSalt();
 		String nm = mReq.getParameter("nm");
+		System.out.println("nm : " + nm);
 		String cryptPw = SecurityUtils.getEncrypt(user_pw, salt);
 		
 		MultipartFile mf = mReq.getFile("profile_pic");
-	
+		
 		String path = "/resources/img/profileImg/";
 		String realPath = mReq.getServletContext().getRealPath(path);
 		String saveFileNm = FileUtils.saveFile(realPath, mf);
+		System.out.println("saveFileNm : " + saveFileNm);
 		
 		UserVO vo = new UserVO();
 		vo.setI_user(i_user);
-		vo.setSalt(salt);
-		vo.setNm(nm);
-		vo.setProfile_img(saveFileNm);
-		vo.setUser_pw(cryptPw);
+		if(!user_pw.equals("")) {
+			vo.setUser_pw(cryptPw);
+			vo.setSalt(salt);			
+		}
+		if(!nm.equals("")) {
+			vo.setNm(nm);			
+		}
+		if(saveFileNm != null) {
+			vo.setProfile_img(saveFileNm);			
+		}
 		
 		mapper.uptUser(vo);
 		vo = mapper.selUser(vo);

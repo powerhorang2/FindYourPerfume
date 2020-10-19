@@ -84,7 +84,6 @@ public class CommonController {
 		
 		int i_user = SecurityUtils.getLoginUserPk(req);
 		param.setI_user(i_user);
-		param.setI_p(321);
 		PerfumeDMI perfume = service.selPerfume(param);
 		List<NoteCodeVO> note = service.selPerfumeNoteList(param);
 		model.addAttribute("perfume", perfume);
