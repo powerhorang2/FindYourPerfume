@@ -15,10 +15,10 @@
 	
 	<insert id="insBrands" parameterType="java.util.List">
 		INSERT INTO c_code_brand
-		(engNm, korNm)
+		(b_nm_eng, b_nm_kor)
 		VALUES
 		<foreach item="item" index="index" collection="list" separator=",">
-			(#{item.engNm}, #{item.korNm})
+			(#{item.b_nm_eng}, #{item.b_nm_kor})
 		</foreach>
 	</insert>
 	
@@ -27,7 +27,7 @@
 		(p_nm, p_price, p_pic, p_size, p_brand, p_gender)
 		SELECT
 		#{p_nm}, #{p_price}, #{p_pic}, #{p_size}, i_brand, null
-		FROM c_code_brand WHERE engNm = #{p_brand_nm}
+		FROM c_code_brand WHERE b_nm_eng = #{p_brand_nm}
 	</insert>
 	
 	<select id="selPerfumeList" resultType="CrawlerPerfumeVO">

@@ -2,14 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springriders.perfume.common.CommonMapper">
 	<select id="selBrandCodeList" parameterType="BrandCodeVO" resultType="BrandCodeVO">
-		SELECT p_brand, engNm, korNm FROM c_code_brand
+		SELECT p_brand, b_nm_eng, b_nm_kor FROM c_code_brand
 	</select>
 	<select id="selNoteCodeList" parameterType="NoteCodeVO" resultType="NoteCodeVO">
 		SELECT nt_d_c, nt_d_nm FROM c_nt_d
 	</select>
+	<select id="selPerfumeList" parameterType="PerfumePARAM" resultType="PerfumeDMI">
+		SELECT A.i_p, A.p_nm, A.p_price, B.b_nm_eng, A.p_size, A.p_pic, C.i_user
+		FROM t_perfume A
+		LEFT JOIN c_code_brand B
+		ON A.p_brand = B.p_brand
+		LEFT JOIN t_user_favorite_perfume C
+		ON A.i_p = C.i_p
+		AND C.i_user = #{i_user}
+	</select>
+	<select id="selPerfumeNoteList" parameterType="PerfumePARAM" resultType="NoteCodeVO">
+		SELECT A.i_p, B.nt_d_nm, B.nt_d_nm_kor
+		FROM t_note A
+		INNER JOIN c_nt_d B
+		ON A.nt_d_c = B.nt_d_c
+		WHERE A.i_p = #{i_p}
+	</select>
 	<select id="selPerfumePk" parameterType="PerfumeVO" resultType="PerfumeVO">
 		SELECT MAX(i_p) as i_p FROM t_perfume
 	</select>
+	<select id="selPerfume" parameterType="PerfumePARAM" resultType="PerfumeDMI">
+		SELECT A.i_p, A.p_nm, A.p_price, B.b_nm_eng, A.p_size, A.p_pic
+		FROM t_perfume A
+		LEFT JOIN c_code_brand B
+		ON A.p_brand = B.p_brand
+		WHERE i_p = #{i_p}
+	</select>
+	
 	
 	<insert id="insPerfume" parameterType="PerfumeVO">
 		INSERT INTO t_perfume

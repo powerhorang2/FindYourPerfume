@@ -1,5 +1,7 @@
 package com.springriders.perfume.common;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,12 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springriders.perfume.Const;
+import com.springriders.perfume.SecurityUtils;
 import com.springriders.perfume.ViewRef;
 import com.springriders.perfume.common.model.CommonVO;
+import com.springriders.perfume.common.model.NoteCodeVO;
+import com.springriders.perfume.common.model.PerfumeDMI;
+import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.user.UserService;
 
 @Controller
@@ -27,9 +32,18 @@ public class CommonController {
 	private UserService uService;
 
 	@RequestMapping(value="/main", method = RequestMethod.GET)
-	public String main(Model model) {
+	public String main(PerfumePARAM param, Model model, HttpServletRequest req) {
 		
-		model.addAttribute(Const.CSS,"main");
+		int i_user = SecurityUtils.getLoginUserPk(req);
+
+		param.setI_user(i_user);
+
+		List<PerfumeDMI> perfume = service.selPerfumeList(param);
+		
+		model.addAttribute("perfume", perfume);
+		
+
+		model.addAttribute(Const.CSS, "main");
 		model.addAttribute(Const.TITLE, "main");
 		model.addAttribute(Const.VIEW, "main");
 		
@@ -65,5 +79,22 @@ public class CommonController {
 		return "redirect:/common/main";
 	}
 
-
+	@RequestMapping("/detail")
+	public String detail(PerfumePARAM param, Model model, HttpServletRequest req) {
+		
+		int i_user = SecurityUtils.getLoginUserPk(req);
+		param.setI_user(i_user);
+		param.setI_p(321);
+		PerfumeDMI perfume = service.selPerfume(param);
+		List<NoteCodeVO> note = service.selPerfumeNoteList(param);
+		model.addAttribute("perfume", perfume);
+		model.addAttribute("note", note);
+		
+		model.addAttribute(Const.CSS, "detail");
+		model.addAttribute(Const.TITLE, "디테일 페이지"); //가게명
+		model.addAttribute(Const.VIEW, "detail/perfumeDetail");
+		return ViewRef.TEMP_MENU;
+	}
+	
+	
 }

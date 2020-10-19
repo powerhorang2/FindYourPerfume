@@ -4,6 +4,7 @@ public class NoteCodeVO {
 	private int i_p;
 	private int nt_d_c;
 	private String nt_d_nm;
+	private String nt_d_nm_kor;
 
 	public int getI_p() {
 		return i_p;
@@ -23,4 +24,11 @@ public class NoteCodeVO {
 	public void setNt_d_nm(String nt_d_nm) {
 		this.nt_d_nm = nt_d_nm;
 	}
+	public String getNt_d_nm_kor() {
+		return nt_d_nm_kor;
+	}
+	public void setNt_d_nm_kor(String nt_d_nm_kor) {
+		this.nt_d_nm_kor = nt_d_nm_kor;
+	}
+	
 }

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <!DOCTYPE html>
-<div class="adminContainer">
+ <div class="adminContainer">
 	<div id="adminLeft">
 		안녕
 	</div>
@@ -16,7 +16,7 @@
 				<div>
 					<h2>??님의 관리자페이지</h2>
 					<p>닉네임<span>Nickname</span></p>
-					<p>굔도쿠짱짱맨</p>
+					<p>굔도쿠짱짱맨</p>a
 					<p>생년월일<span>Birthday</span></p>
 					<p>1991년 1월 22일</p>
 				</div>
@@ -72,7 +72,7 @@
 		</div>
 	</div>
 </div>
-<script >
+<script>
 	function previewImage(f){
 	
 		var file = f.files;

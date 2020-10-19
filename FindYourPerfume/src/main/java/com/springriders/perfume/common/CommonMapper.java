@@ -6,16 +6,25 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.springriders.perfume.common.model.BrandCodeVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
+import com.springriders.perfume.common.model.PerfumeDMI;
+import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.common.model.PerfumeVO;
 
 @Mapper
 public interface CommonMapper {
 	List<BrandCodeVO> selBrandCodeList(BrandCodeVO p);
 	List<NoteCodeVO> selNoteCodeList(NoteCodeVO p); 
+	List<PerfumeDMI> selPerfumeList(PerfumePARAM param);
+	List<NoteCodeVO> selPerfumeNoteList(PerfumePARAM param);
+	
 	PerfumeVO selPerfumePk(PerfumeVO vo);
+	PerfumeDMI selPerfume(PerfumePARAM param);
+	
 	
 	int insPerfume(PerfumeVO vo);
 	int insPerfumeNote(NoteCodeVO vo);
+	
+	
 	
 }
 
