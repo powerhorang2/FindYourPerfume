@@ -3,22 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<style>
-.box {
-    width: 150px;
-    height: 150px; 
-    border-radius: 70%;
-    overflow: hidden;
-}
-.profile {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-</style>
-<h1>메인페이지</h1>
-	<div class="container">
-		<div class="msg">${data.msg}</div>
+<link rel="stylesheet" type="text/css" href="/resources/css/main.css">
+<div>
+	<h1>메인페이지</h1>
+	<div class="msg">${data.msg}</div>
 		<c:choose>
 			<c:when test="${loginUser.i_user == null}">
 				<form class="frm" action="/common/main" method="post">
@@ -30,19 +18,19 @@
 				</form>
 			</c:when>
 			<c:otherwise>
-					<c:choose>
-						<c:when test="${loginUser.user_type == '2'}" >
-							<div class="loginMsg">
-								<div class="box" style="background: #BDBDBD;">
-									<img class="profile" src="/res/img/profileImg/${loginUser.profile_img}">
-								</div>
+				<c:choose>
+					<c:when test="${loginUser.user_type == '2'}" >
+						<div class="loginMsg">
+							<div class="box" style="background: #BDBDBD;">
+								<img class="profile" src="/res/img/profileImg/${loginUser.profile_img}">
 							</div>
-							<div>${loginUser.nm}관리자님 환영합니다.</div>
-							<div>
-								<a href="/user/admin" id="btnLogout">Admin</a>
-								<a href="/common/logout" id="btnLogout">Logout</a>
-							</div>
-						</c:when>
+						</div>
+						<div>${loginUser.nm}관리자님 환영합니다.</div>
+						<div>
+							<a href="/user/admin" id="btnLogout">Admin</a>
+							<a href="/common/logout" id="btnLogout">Logout</a>
+						</div>
+					</c:when>
 					<c:otherwise>
 						<div class="box" style="background: #BDBDBD;">
 							<img class="profile" src="/res/img/profileImg/${loginUser.profile_img}">
@@ -58,6 +46,8 @@
 		<c:if test="${loginUser.i_user != null}">
 			<a href="/user/join" id="btnLogout">회원가입 하러가기</a>
 		</c:if>
+	</div>
+	<div>	
 		<c:forEach items="${perfume}" var="item">
 			<c:if test="${loginUser != null}">
 				<span id="favorite" class="material-icons">

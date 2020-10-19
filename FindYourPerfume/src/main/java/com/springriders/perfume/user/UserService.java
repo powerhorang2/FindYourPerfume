@@ -46,8 +46,23 @@ public class UserService {
 		param.setSalt(salt);
 		param.setUser_pw(cryptPw);
 		
-		return mapper.insUser(param);
+		String[] strUserNote = mReq.getParameterValues("nt_m_c");
+	
+		mapper.insUser(param);
+		
+		param = mapper.selUserPk(param);
+		param.setI_user(param.getI_user());
+		System.out.println("i_user : " + param.getI_user());
+		
+		for(String strUserNotes : strUserNote) {
+			int nt_m_c = CommonUtils.parseStringToInt(strUserNotes);
+			param.setNt_m_c(nt_m_c);
+			
+			mapper.insUserNote(param);	
+		}
+		return Const.SUCCESS;
 	}
+	
 
 	public int login(UserVO param) {
 		if(param.getUser_id().equals("")) { return Const.EMPTY_ID; }
@@ -119,6 +134,8 @@ public class UserService {
 		}
 		return Const.SUCCESS;
 	}
+
+
 	
 	public int uptUser(MultipartHttpServletRequest mReq, HttpSession hs) {
 		int i_user = SecurityUtils.getLoginUserPk(hs);

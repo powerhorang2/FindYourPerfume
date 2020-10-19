@@ -27,8 +27,5 @@ public class CommonService {
 		return mapper.selPerfume(param);
 	}
 	
-	
-	
-	
 
 }

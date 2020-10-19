@@ -12,9 +12,12 @@ import com.springriders.perfume.user.model.UserVO;
 public interface UserMapper {
 
 	int insUser(UserPARAM param);
+	int insUserNote(UserPARAM param);
 	
-	UserVO selUser(UserVO vo);
 	List<UserDMI> selFavoriteList(UserPARAM param);
+
+	UserPARAM selUserPk(UserVO param);
+	UserVO selUser(UserVO param);
 
 	int uptUser(UserVO vo);
 

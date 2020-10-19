@@ -7,9 +7,19 @@
 		VALUES
 		(#{user_type}, #{i_user}, #{user_id}, #{user_pw}, #{salt}, #{nm}, #{bd}, #{gender}, #{profile_img})
 	</insert>
-	
+
+	<select id="selUserPk" parameterType="UserVO" resultType="UserPARAM">
+		SELECT MAX(i_user) as i_user FROM t_user
+	</select>
+	<insert id="insUserNote" parameterType="UserPARAM">
+		insert into t_user_favorite_note
+		(i_user, nt_m_c)
+		values
+		(#{i_user}, #{nt_m_c})
+	</insert>
+
 	<select id="selUser" parameterType="UserVO" resultType="UserVO">
-		SELECT i_user, user_id, user_pw, salt, nm, bd, user_type, profile_img, r_dt
+		SELECT i_user, user_id, user_pw, salt, nm, user_type, bd, profile_img, r_dt
 		FROM t_user
 		WHERE <if test="i_user > 0"> i_user = #{i_user}</if>
 		<if test="user_id != null and user_id != ''">user_id = #{user_id}</if>
