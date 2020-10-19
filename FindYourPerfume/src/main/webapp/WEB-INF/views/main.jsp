@@ -46,9 +46,8 @@
 		<c:if test="${loginUser.i_user != null}">
 			<a href="/user/join" id="btnLogout">회원가입 하러가기</a>
 		</c:if>
-<<<<<<< HEAD
-	</div>	
-=======
+	</div>
+	<div>	
 		<c:forEach items="${perfume}" var="item">
 			<c:if test="${loginUser != null}">
 				<span id="favorite" class="material-icons">
@@ -66,4 +65,3 @@
 			<div>------------------------------------------</div>
 		</c:forEach>
 	</div>
->>>>>>> branch 'main' of https://github.com/powerhorang2/FindYourPerfume.git
