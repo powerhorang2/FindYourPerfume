@@ -43,7 +43,27 @@
 				</c:choose>
 			</c:otherwise>
 		</c:choose>
-		<c:if test="${loginUser.i_user == null}">
+		<c:if test="${loginUser.i_user != null}">
 			<a href="/user/join" id="btnLogout">회원가입 하러가기</a>
 		</c:if>
+<<<<<<< HEAD
 	</div>	
+=======
+		<c:forEach items="${perfume}" var="item">
+			<c:if test="${loginUser != null}">
+				<span id="favorite" class="material-icons">
+					<c:choose>
+						<c:when test="${loginUser.i_user == item.i_user}">favorite</c:when>
+						<c:otherwise>favorite_border</c:otherwise>
+					</c:choose>
+				</span>
+			</c:if>
+			<div>향수 이름 : ${item.p_nm}</div>
+			<div>향수 용량 : ${item.p_size}ml</div>
+			<div><img src="${item.p_pic}"></div>
+			<div>향수 브랜드 : ${item.engNm}</div>
+			<div>향수 가격 : ${item.p_price}</div>
+			<div>------------------------------------------</div>
+		</c:forEach>
+	</div>
+>>>>>>> branch 'main' of https://github.com/powerhorang2/FindYourPerfume.git

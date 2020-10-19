@@ -4,6 +4,7 @@
 	text-decoration: none;
 	color: #000;	
 }
+<<<<<<< HEAD
 .box {
     width: 150px;
     height: 150px; 
@@ -14,4 +15,9 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+=======
+
+.material-icons {
+	color: red;
+>>>>>>> branch 'main' of https://github.com/powerhorang2/FindYourPerfume.git
 }
