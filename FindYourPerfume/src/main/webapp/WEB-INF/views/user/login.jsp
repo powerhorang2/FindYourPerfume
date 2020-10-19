@@ -1,17 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<style>
-.container { 
-  position: absolute;
-  width: 400px; 
-  height: 400px; 
-  text-align: center; 
-  margin-left: -200px; 
-  margin-top: -200px; 
-  left: 50%; 
-  top: 50%; 
-}
-</style>
+<link rel="stylesheet" type="text/css" href="/resources/css/login.css">
 <div class="container">
 <h1>로그인</h1>
 	<div class="msg">${data.msg}</div>
