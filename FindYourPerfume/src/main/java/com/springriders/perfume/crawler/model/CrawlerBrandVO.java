@@ -1,6 +1,6 @@
 package com.springriders.perfume.crawler.model;
 
-public class CrawlerBrandVO {
+public class CrawlerBrandVO extends CrawlerPerfumeVO{
 	private String b_nm_eng;
 	private String b_nm_kor;
 	

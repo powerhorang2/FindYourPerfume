@@ -4,7 +4,14 @@ public class PerfumeDMI extends PerfumeVO {
 	private String b_nm_eng;
 	private String b_nm_kor;
 	private int i_user;
+	private String brandAlphabet;
 	
+	public String getBrandAlphabet() {
+		return brandAlphabet;
+	}
+	public void setBrandAlphabet(String brandAlphabet) {
+		this.brandAlphabet = brandAlphabet;
+	}
 	public String getB_nm_eng() {
 		return b_nm_eng;
 	}

@@ -57,10 +57,15 @@
 			<a href="/user/join" id="btnLogout">회원가입 하러가기</a>
 		</c:if>
 		<div>
-		<div id="selBrandList">
+		<div id="selBrandAlphabet">
+		<c:forEach items="${brandAlphabet}" var="item">
+			<p onclick="choiceAlphabet(`${item}`)">${item}</p>
+		</c:forEach>
 		</div>
-		
 		<div id="brandList">
+		<c:forEach items="${brandAlphabet}" var="item">
+			<div><a href="#">${item}</a></div>
+		</c:forEach>
 		</div>
 	</div>
 	</div>
@@ -69,22 +74,25 @@
 	</div>
 	<!-- 작업주우우우우우우우우우우우우우우웅 -->
 	<div id="brandRight">
-	<div class="choiceBrand">
+		<div class="choiceBrand">
+		
 		
 	
-	</div>
-		<div class="perfumeMain">	
-		<c:forEach items="${perfume}" var="item">
-			<div class="perfumePic">
-				<c:if test="${loginUser != null}">
-					<span id="favorite" class="material-icons">
+		</div>
+			<div id="brandAlphabet" class="perfumeMain">	
+			
+			<c:forEach items="${perfume}" var="item">
+				<div class="perfumePic">
+					<c:if test="${loginUser != null}">
+						<span id="favorite" class="material-icons">
 						<c:choose>
 							<c:when test="${loginUser.i_user == item.i_user}">favorite</c:when>
 							<c:otherwise>favorite_border</c:otherwise>
 						</c:choose>
 					</span>
 				</c:if>
-				<div class="brandImg">
+
+				<div id="brand">
 					<div><img src="${item.p_pic}"></div>
 					<div>향수 브랜드 : ${item.b_nm_eng}</div>
 					<div>향수 이름 : ${item.p_nm}</div>
@@ -93,6 +101,7 @@
 						향수 가격 : ${item.p_price}
 					</div>
 				</div>
+
 				</div>
 		</c:forEach>
 		<div>
@@ -100,32 +109,34 @@
 </div>
 </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-	function AtoZ() {
-		for(var i = 65; i < 91; i++) {
-			var div = document.createElement('div')
-			var a = document.createElement('a')
-			div.setAttribute('class', 'brandName')
-			a.setAttribute('href', 'ajaxChoicePerfume')
-			a.innerText = String.fromCharCode(i)
-			div.appendChild(a)
-			brandList.append(div)
-		}
+	var brandList = []
+	
+	
+	function choiceAlphabet(b_nm_eng){
+		axios.get('/common/ajaxSelBrandAlphabet',{
+			params:{
+				b_nm_eng : b_nm_eng
+			}
+		}).then(function(res){
+			for (var i = 0; i < res.data.length; i++) {
+				
+				var p = document.getElementById("brandAlphabet")
+	/* 			
+				p.innerHTML = res.data[i].p_nm;
+				p.innerHTML = res.data[i].<img src=p_pic>; */
+	/* 			brandAlphabet.innerHTML = '흐ㅡㅎ'; */
+				console.log(res.data[i])
+				console.log(res.data[i].b_nm_eng)
+				console.log(res.data[i].b_nm_kor)
+	
+
+			}
+			
+		})
 	}
-	AtoZ()
-	
-	function selAtoZ(){
-		for(var i = 65; i < 91; i++) {
-			var a = document.createElement('a')
-			a.setAttribute('href', 'ajaxSelAlphabet')
-			a.innerText = String.fromCharCode(i)
-			selBrandList.append(a)
-		}
-	}
-	selAtoZ()
-	
-	
-	
+
 </script>
 		
 		
