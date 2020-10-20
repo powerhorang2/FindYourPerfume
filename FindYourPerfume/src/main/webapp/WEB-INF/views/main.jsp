@@ -79,6 +79,7 @@
 		
 	
 		</div>
+		<div id="sel_div">
 			<div id="brandAlphabet" class="perfumeMain">	
 			
 			<c:forEach items="${perfume}" var="item">
@@ -109,6 +110,7 @@
 </div>
 </div>
 </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 	var brandList = []
@@ -120,13 +122,37 @@
 				b_nm_eng : b_nm_eng
 			}
 		}).then(function(res){
+			sel_div.innerText = ''
 			for (var i = 0; i < res.data.length; i++) {
 				
-				var p = document.getElementById("brandAlphabet")
-	/* 			
-				p.innerHTML = res.data[i].p_nm;
-				p.innerHTML = res.data[i].<img src=p_pic>; */
-	/* 			brandAlphabet.innerHTML = '흐ㅡㅎ'; */
+				var div = document.createElement('div'); 
+				var div_kor = document.createElement('div');
+				var div_eng = document.createElement('div');
+				var div_size = document.createElement('div');
+				var div_price = document.createElement('div');
+				var img = document.createElement('img');
+				div.setAttribute('class', 'brandAlphabet');
+				
+				img.src = res.data[i].p_pic
+				div_eng.innerText = '향수 브랜드 : ' + res.data[i].b_nm_eng
+				div_kor.innerText = '향수 이름 : ' + res.data[i].p_nm
+				div_size.innerText = '향수 용량 : ' + res.data[i].p_size
+				div_price.innerText = '향수 가격 : ' + numberFormat(res.data[i].p_price) + '원'
+				
+				div.append(img)
+				div.append(div_kor)
+				div.append(div_eng)
+				div.append(div_size)
+				div.append(div_price)
+			
+			/* 	div.innerHTML = (res.data[i].p_nm + res.data[i].b_nm_eng
+						+ res.data[i].p_size + ' ' + res.data[i].p_price + "<img src=" + res.data[i].p_pic + "/>"); */
+				sel_div.append(div)
+		/* 		var div = document.createElement('div');
+				div.setAttribute('class', 'brandAlphabet');
+				div.innerHTML = res.data[i].b_nm_eng;
+				sel_div.append(div)
+ */
 				console.log(res.data[i])
 				console.log(res.data[i].b_nm_eng)
 				console.log(res.data[i].b_nm_kor)
@@ -136,7 +162,12 @@
 			
 		})
 	}
-
+	
+	function numberFormat(inputNumber) {
+	      return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	   }
+	
+	
 </script>
 		
 		
