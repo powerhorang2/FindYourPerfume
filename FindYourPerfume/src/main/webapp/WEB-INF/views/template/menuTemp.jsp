@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500;1,900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/res/css/common.css?ver=10">
+<link rel="stylesheet" type="text/css" href="/res/css/common.css?ver=13">
 <c:forEach items="${css}" var="item">
 	<link rel="stylesheet" type="text/css" href="/res/css/${item}.css">
 </c:forEach>

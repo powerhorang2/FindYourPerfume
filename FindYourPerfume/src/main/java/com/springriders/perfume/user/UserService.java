@@ -38,7 +38,12 @@ public class UserService {
 		String realPath = mReq.getServletContext().getRealPath(path);
 		String saveFileNm = FileUtils.saveFile(realPath, mf);
 	
-		param.setProfile_img(saveFileNm);
+		if(saveFileNm == null) {
+			saveFileNm = "default_img.jpg";
+			param.setProfile_img(saveFileNm);
+		} else {
+			param.setProfile_img(saveFileNm);			
+		}
 		
 		String pw = param.getUser_pw();
 		String salt = SecurityUtils.generateSalt();
@@ -63,7 +68,6 @@ public class UserService {
 		}
 		return Const.SUCCESS;
 	}
-	
 
 	public int login(UserVO param) {
 		if(param.getUser_id().equals("")) { return Const.EMPTY_ID; }
@@ -86,6 +90,22 @@ public class UserService {
 			param.setProfile_img(dbUser.getProfile_img());
 			param.setBd(dbUser.getBd());
 			return Const.SUCCESS;
+	}
+	
+	public int changeAuth(UserPARAM param) {
+		mapper.changeAuth(param);
+		
+		return Const.SUCCESS;
+	}
+	
+	public List<UserVO> selUserList() {
+		UserVO p = new UserVO();
+		return mapper.selUserList(p);
+	}
+	
+	public List<UserVO> selAdminList() {
+		UserVO p = new UserVO();
+		return mapper.selAdminList(p);
 	}
 	
 	public List<BrandCodeVO> selBrandList() {

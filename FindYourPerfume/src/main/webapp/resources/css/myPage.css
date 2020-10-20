@@ -82,6 +82,18 @@ hr {
 	justify-content: space-between;
 }
 
+.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerInfo {
+	padding: 0px 50px 20px 50px;
+	min-width: 850px;
+	width: 70%;
+	position: relative;
+}
+
+.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerInfo > #submitProfile {
+	position: absolute;
+	bottom: 0;
+	right: 100px;
+}
 .adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerImg {
 	width: 200px;
 	height: 250px;
@@ -94,8 +106,7 @@ hr {
 	border: 1px solid black;
 	border-radius: 100px;
 	overflow: hidden;
-	
-	    width: 150px;
+	width: 150px;
     height: 150px; 
     border-radius: 70%;
     overflow: hidden;
@@ -107,19 +118,6 @@ hr {
 	object-fit: cover;
 }
 
-.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerInfo {
-	padding: 0px 50px 20px 50px;
-	min-width: 850px;
-	width: 70%;
-	position: relative;
-}
-
-.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerInfo > #submitProfile {
-	position: absolute;
-	bottom: 0;
-	right: 100px;
-	
-}
 
 .adminContainer > #adminRight > #sectionFavPerfume {
 	

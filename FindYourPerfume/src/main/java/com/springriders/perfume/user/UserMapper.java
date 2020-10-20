@@ -13,11 +13,14 @@ public interface UserMapper {
 
 	int insUser(UserPARAM param);
 	int insUserNote(UserPARAM param);
+	int changeAuth(UserPARAM param);
 	
 	List<PerfumeDMI> selFavoriteList(UserPARAM param);
 
 	UserPARAM selUserPk(UserVO param);
 	UserVO selUser(UserVO param);
+	List<UserVO> selUserList(UserVO param);
+	List<UserVO> selAdminList(UserVO param);
 
 	int uptUser(UserVO vo);
 

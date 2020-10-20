@@ -5,9 +5,19 @@
 		INSERT INTO t_user
 		(user_type, i_user, user_id, user_pw, salt, nm, bd, gender, profile_img)
 		VALUES
-		(#{user_type}, #{i_user}, #{user_id}, #{user_pw}, #{salt}, #{nm}, #{bd}, #{gender}, #{profile_img})
+		(1, #{i_user}, #{user_id}, #{user_pw}, #{salt}, #{nm}, #{bd}, #{gender}, #{profile_img})
 	</insert>
 
+	<select id="selUserList" parameterType="UserVO" resultType="UserVO">
+		SELECT i_user, user_type, user_id
+		FROM t_user
+		WHERE user_type = 1
+	</select>
+	<select id="selAdminList" parameterType="UserVO" resultType="UserVO">
+		SELECT i_user, user_type, user_id
+		FROM t_user
+		WHERE user_type = 2
+	</select>
 	<select id="selUserPk" parameterType="UserVO" resultType="UserPARAM">
 		SELECT MAX(i_user) as i_user FROM t_user
 	</select>
@@ -46,6 +56,17 @@
 		</if>
 		<if test="profile_img != null">
 		,profile_img = #{profile_img}
+		</if>
+		WHERE i_user = #{i_user}
+	</update>
+	<update id="changeAuth" parameterType="UserPARAM">
+		UPDATE t_user
+		SET
+		<if test="user_type == 1">
+		user_type = 2		
+		</if>
+		<if test="user_type == 2">
+		user_type = 1		
 		</if>
 		WHERE i_user = #{i_user}
 	</update>
