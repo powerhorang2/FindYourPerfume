@@ -15,9 +15,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.springriders.perfume.Const;
 import com.springriders.perfume.SecurityUtils;
 import com.springriders.perfume.ViewRef;
+import com.springriders.perfume.cmt.CmtService;
+import com.springriders.perfume.cmt.model.CmtDMI;
 import com.springriders.perfume.common.model.CommonVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
-import com.springriders.perfume.common.model.PerfumeDomain;
+import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.user.UserService;
 
@@ -30,18 +32,29 @@ public class CommonController {
 	
 	@Autowired
 	private UserService uService;
-
+	
+	@Autowired
+	private CmtService cmtService;
+	
 	@RequestMapping(value="/main", method = RequestMethod.GET)
-	public String main(PerfumePARAM param, Model model, HttpServletRequest req) {
+	public String main(PerfumePARAM param,NoteCodeVO vo, Model model, HttpServletRequest req) {
 		
 		int i_user = SecurityUtils.getLoginUserPk(req);
 
 		param.setI_user(i_user);
-
-		List<PerfumeDomain> perfume = service.selPerfumeList(param);
 		
+		List<PerfumeDMI> topPerfume = service.selTopPerfumeList(param);
+		model.addAttribute("topPerfume", topPerfume);
+		
+		if(i_user != 0) {
+			List<NoteCodeVO> userNote = service.selUserNoteList(param);
+			
+			List<PerfumeDMI> recPerfume = service.selRecPerfumeList(userNote);
+			model.addAttribute("recPerfume", recPerfume);
+		}
+		
+		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		model.addAttribute("perfume", perfume);
-		
 
 		model.addAttribute(Const.CSS,"main");
 		model.addAttribute(Const.TITLE, "main");
@@ -84,17 +97,21 @@ public class CommonController {
 		
 		int i_user = SecurityUtils.getLoginUserPk(req);
 		param.setI_user(i_user);
-		param.setI_p(321);
-		PerfumeDomain perfume = service.selPerfume(param);
-		List<NoteCodeVO> note = service.selPerfumeNoteList(param);
+		param.setI_p(579);
+		PerfumeDMI perfume = service.selPerfume(param);
+		List<NoteCodeVO> noteList = service.selPerfumeNoteList(param);
+		
+		List<CmtDMI> cmtList = cmtService.selCmtList(param);
+		
 		model.addAttribute("perfume", perfume);
-		model.addAttribute("note", note);
+		model.addAttribute("noteList", noteList);
 		
 		model.addAttribute(Const.CSS, "detail");
 		model.addAttribute(Const.TITLE, "디테일 페이지"); //가게명
 		model.addAttribute(Const.VIEW, "detail/perfumeDetail");
 		return ViewRef.TEMP_MENU;
 	}
+	
 	
 	
 }

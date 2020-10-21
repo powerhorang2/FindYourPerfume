@@ -4,7 +4,6 @@
 	text-decoration: none;
 	color: #000;	
 }
-<<<<<<< HEAD
 .box {
     width: 150px;
     height: 150px; 
@@ -15,9 +14,31 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-=======
-
-.material-icons {
-	color: red;
->>>>>>> branch 'main' of https://github.com/powerhorang2/FindYourPerfume.git
 }
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+  	text-align: center;
+  	font-size: 18px;
+  	background: #fff;
+	
+	/* Center slide text vertically */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.material-icons { color: red; }
