@@ -21,8 +21,8 @@
 					</div>
 				</c:if>
  				<div class="btn">
-					<label for="file">사진선택</label>
-					<input type="file" id="file" name="profile_pic" accept="image/*" onchange="previewProfileImage(this)" value="사진추가">
+					<label for="profile_pic">사진선택</label>
+					<input type="file" id="profile_pic" name="profile_pic" accept="image/*" onchange="previewProfileImage(this)" value="사진추가">
 				</div> 
 			</div>
 			<div id="containerInfo">
@@ -83,8 +83,8 @@
 					<div id="containerPerfumeImg">
 						<div id="perfumeImg"></div>
 						<div class="btn">
-							<label for="file">사진선택</label>
-							<input type="file" id="file" name="p_pic" accept="image/*" onchange="previewPerfumeImage(this.id)" value="사진추가">
+							<label for="p_pic">사진선택</label>
+							<input type="file" id="p_pic" name="p_pic" accept="image/*" onchange="previewPerfumeImage(this)" value="사진추가">
 						</div>
 					</div>
 					<div id="containerPerfumeInfo">
