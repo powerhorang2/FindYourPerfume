@@ -1,11 +1,4 @@
 @charset "UTF-8";
 .container { 
-  position: absolute;
-  width: 400px; 
-  height: 400px; 
-  text-align: center; 
-  margin-left: -200px; 
-  margin-top: -200px; 
-  left: 50%; 
-  top: 50%; 
+
 }

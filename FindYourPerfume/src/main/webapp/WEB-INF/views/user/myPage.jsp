@@ -29,7 +29,7 @@
 						<h2>${loginUser.nm}님의 마이페이지</h2>
 						<div>
 							<p>닉네임<span>Nickname</span></p>
-							<input type="text" value="${loginUser.nm}" name="nm">			
+							<input type="text" value="${loginUser.nm}" name="nm" required>			
 						</div>
 						<div>
 							<p>비밀번호 변경<span>Password</span></p>
@@ -51,6 +51,18 @@
 		<div id="sectionFavPerfume">
 			<div id="title">찜한 향수</div>
 			<div id="detailSection">
+			<c:forEach items="${data}" var="item">
+			<div id="favPerfume" onclick="moveToDetail(${item.i_p})">
+				<div id="favPerfumeImg">
+					<img class="perfumeImg" src="${item.p_pic}">
+				</div>
+				<div id="favPerfumeDetail">
+					<p>${item.b_nm_eng}</p>
+					<p id="p_nm">${item.p_nm}<p>
+					<p>${item.p_size}ml | ${item.p_price}</p>
+				</div>
+			</div>
+			</c:forEach>
 			</div>
 		</div>
 	</div>
@@ -87,16 +99,21 @@
 	function checkUptUser() {
 		uptUserFrm = document.uptUserFrm
 		
-		if(uptUserFrm.user_pw.value.length < 5){
-			alert('비밀번호는 5글자 이상입니다')
-			return false
+		if(uptUserFrm.user_pw.value.length > 0) {			
+			if(uptUserFrm.user_pw.value.length < 5){
+				alert('비밀번호는 5글자 이상입니다')
+				return false
+			}
+			if(uptUserFrm.user_pw.value != uptUserFrm.user_pwre.value) {
+				alert('비밀번호가 일치하지 않습니다')
+				return
+			}
 		}
-		if(uptUserFrm.user_pw.value != uptUserFrm.user_pwre.value) {
-			alert('비밀번호가 일치하지 않습니다')
-			return
-		}
-		
 		uptUserFrm.submit();
+	}
+	
+	function moveToDetail(i_p) {
+		location.href = '/common/detail?i_p=' + i_p
 	}
 
 </script>

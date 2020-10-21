@@ -67,7 +67,6 @@
 		WHERE A.i_p = #{i_p}
 	</select>
 	
-	
 	<insert id="insPerfume" parameterType="PerfumeVO">
 		INSERT INTO t_perfume
 		(p_price, p_size, p_brand, p_nm, p_pic)

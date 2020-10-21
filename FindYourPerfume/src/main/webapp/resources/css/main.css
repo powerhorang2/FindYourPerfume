@@ -4,6 +4,7 @@
 	text-decoration: none;
 	color: #000;	
 }
+
 .box {
     width: 150px;
     height: 150px; 
@@ -14,6 +15,10 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.material-icons {
+	color: red;
 }
 
 .swiper-container {

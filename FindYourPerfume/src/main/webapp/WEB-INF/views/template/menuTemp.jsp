@@ -11,8 +11,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/res/css/common.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
 <c:forEach items="${css}" var="item">
 	<link rel="stylesheet" type="text/css" href="/res/css/${item}.css">
 </c:forEach>
@@ -21,7 +21,7 @@
 	<div id="container">
 		<header>
 			<div id="headerLeft">
-				<div class="ml15" id="main" style="font-family:'Montserrat', sans-serif; font-style: italic;"><a href="#">FindYourPerfume</a></div>	
+				<div class="ml15" id="main" style="font-family:'Montserrat', sans-serif; font-style: italic;"><a href="/common/main">FindYourPerfume</a></div>	
 			</div>
 			<div id="headerRight">
 				<a class="ml15" href="/user/myPage">

@@ -43,7 +43,7 @@
 				</c:choose>
 			</c:otherwise>
 		</c:choose>
-		<c:if test="${loginUser.i_user != null}">
+		<c:if test="${loginUser.i_user == null}">
 			<a href="/user/join" id="btnLogout">회원가입 하러가기</a>
 		</c:if>
 	<div class="topPerfume">

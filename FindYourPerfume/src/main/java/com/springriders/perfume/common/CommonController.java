@@ -42,6 +42,7 @@ public class CommonController {
 		int i_user = SecurityUtils.getLoginUserPk(req);
 
 		param.setI_user(i_user);
+		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		
 		List<PerfumeDMI> topPerfume = service.selTopPerfumeList(param);
 		model.addAttribute("topPerfume", topPerfume);
@@ -53,7 +54,6 @@ public class CommonController {
 			model.addAttribute("recPerfume", recPerfume);
 		}
 		
-		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		model.addAttribute("perfume", perfume);
 
 		model.addAttribute(Const.CSS,"main");
@@ -97,6 +97,7 @@ public class CommonController {
 		
 		int i_user = SecurityUtils.getLoginUserPk(req);
 		param.setI_user(i_user);
+
 		param.setI_p(579);
 		PerfumeDMI perfume = service.selPerfume(param);
 		List<NoteCodeVO> noteList = service.selPerfumeNoteList(param);
