@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <div class="brandContainer">
-
 	<div id="brandLeft">
 		<div>
 			<div class="msg">${data.msg}</div>
@@ -65,21 +64,22 @@
 					<a href="/user/join" id="btnLogout">회원가입 하러가기</a>
 				</c:if>
 
-				<div>
-					<div id="selBrandAlphabet">
-						<c:forEach items="${brandAlphabet}" var="item">
-							<p onclick="choiceAlphabet(`${item}`)">${item}</p>
-						</c:forEach>
-					</div>
-					<div id="brandList">
-						<c:forEach items="${brandAlphabet}" var="item">
-							<div>
-								<a href="#">${item}</a>
-							</div>
-						</c:forEach>
+				
+			<!--알파벳 클릭  -->
+				<div id="selBrandAlphabet">
+					<c:forEach items="${brandAlphabet}" var="item">
+						<p onclick="choiceAlphabet(`${item}`)">${item}</p>
+					</c:forEach>
+				</div>
+				<div id="sel_brand">
+					<div id="SelBrandNm">
+ 						<div>
+							<c:forEach items="${brandEnm}" var="data">
+								<p>${data.b_nm_eng}</p>
+							</c:forEach>
+						</div> 
 					</div>
 				</div>
-
 			</div>
 		</div>
 		<!-- 작업주우우우우우우우우우우우우우우웅 -->
@@ -123,10 +123,8 @@
 				<div class="swiper-scrollbar"></div>
 			</div>
 		</c:if>
-
 		<div id="sel_div">
 			<div id="brandAlphabet" class="perfumeMain">
-
 				<c:forEach items="${perfume}" var="item">
 					<div class="perfumePic">
 						<c:if test="${loginUser != null}">
@@ -145,7 +143,6 @@
 							<div>향수 이름 : ${item.p_nm}</div>
 							<div>향수 용량 : ${item.p_size}ml 향수 가격 : ${item.p_price}</div>
 						</div>
-
 					</div>
 				</c:forEach>
 				<div></div>
@@ -159,14 +156,14 @@
 <script>
 	var brandList = []
 
-	function choiceAlphabet(b_nm_eng) {
+	function choiceAlphabet(b_nm_initial) {
 		axios.get('/common/ajaxSelBrandAlphabet', {
 			params : {
-				b_nm_eng : b_nm_eng
+				b_nm_initial : b_nm_initial
 			}
-		}).then(
-				function(res) {
+		}).then(function(res) {
 					sel_div.innerText = ''
+					console.log(res.data.length)
 					for (var i = 0; i < res.data.length; i++) {
 
 						var div = document.createElement('div');
@@ -191,22 +188,33 @@
 						div.append(div_price)
 
 						sel_div.append(div)
-
-						/* 	div.innerHTML = (res.data[i].p_nm + res.data[i].b_nm_eng
-							+ res.data[i].p_size + ' ' + res.data[i].p_price + "<img src=" + res.data[i].p_pic + "/>"); */
-						/* 		var div = document.createElement('div');
-								div.setAttribute('class', 'brandAlphabet');
-								div.innerHTML = res.data[i].b_nm_eng;
-								sel_div.append(div)
-						 */
-						/* console.log(res.data[i])
-						console.log(res.data[i].b_nm_eng)
-						console.log(res.data[i].b_nm_kor)
-						 */
-
+				
+	
 					}
 
 				})
+	}
+	
+	function choiceBrand(b_nm_initial) {
+		axios.get('/common/ajaxSelBrandNm',{
+			params : {
+				b_nm_initial : b_nm_initial
+			}
+		}).then(function(res){
+			sel_brand.innerText = ''
+			for (var i = 0; i < res.data.length; i++) {
+				
+				var div = document.createElement('div'); 
+				var div_eng = document.createElement('div');
+				div.setAttribute('class', 'brandNm');
+				
+				div_eng.innerText = res.data[i].b_nm_eng
+				div.append(div_eng)
+		
+		
+				sel_brand.append(div)
+			}
+		})
 	}
 
 	function numberFormat(inputNumber) {

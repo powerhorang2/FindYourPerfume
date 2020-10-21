@@ -59,7 +59,6 @@
 
 	<select id="selPerfume" parameterType="PerfumePARAM" resultType="PerfumeDMI">
 		SELECT A.i_p, A.p_nm, A.p_price, b_nm_eng, A.p_size, A.p_pic, C.i_user
-
 		FROM t_perfume A
 		LEFT JOIN c_code_brand B
 		ON A.p_brand = B.p_brand
@@ -74,16 +73,14 @@
 		FROM t_perfume A
 		LEFT JOIN c_code_brand B
 		ON A.p_brand = B.p_brand
-		WHERE b_nm_eng LIKE '${b_nm_eng}%'
+		WHERE b_nm_eng LIKE '${b_nm_initial}%'
 	</select>
-	<select id="selBrandNm" parameterType="perfumePARAM" resultType="perfumePARAM">
-		SELECT A.i_p, A.p_brand, A.p_nm, A.p_price, B.b_nm_eng, A.p_size, A.p_pic
-		FROM t_perfume A
-		LEFT JOIN c_code_brand B
-		ON A.p_brand = B.p_brand
-		WHERE b_nm_eng LIKE 'ABERCROMBIE'
+	<select id="selBrandEnm" parameterType="perfumeDMI" resultType="perfumeDMI">
+		select b_nm_eng from c_code_brand where b_nm_eng like '${b_nm_initial}%'
 	</select>
-
+	<select id="selBrandNm" parameterType="perfumeDMI" resultType="perfumeDMI">
+		select b_nm_eng from c_code_brand where b_nm_eng like '${b_nm_initial}%'
+	</select>
 	<insert id="insPerfume" parameterType="PerfumeVO">
 		INSERT INTO t_perfume
 		(p_price, p_size, p_brand, p_nm, p_pic)

@@ -38,18 +38,17 @@ public class CommonController {
 	@Autowired
 	private CmtService cmtService;
 	
+	//parameter NoteCodeVO 삭제했음
 	@RequestMapping(value="/main", method = RequestMethod.GET)
-	public String main(PerfumePARAM param,NoteCodeVO vo, Model model, HttpServletRequest req) {
+	public String main(PerfumePARAM param, NoteCodeVO vo, PerfumeDMI dm, Model model, HttpServletRequest req) {
 		
 		int i_user = SecurityUtils.getLoginUserPk(req);
-
-		param.setI_user(i_user);
-
-
+		
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
-//		List<PerfumeDMI> brandNm = service.selBrandNm(param);
-
-				
+		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
+		
+		System.out.println(brandEnm.get(0).getB_nm_eng());
+		
 		List<String> brandAlphabet = new ArrayList();
         char aString = 65 ;
         
@@ -84,9 +83,8 @@ public class CommonController {
 
 		
         model.addAttribute("brandAlphabet", brandAlphabet);
+        model.addAttribute("brandEnm", brandEnm);
 		model.addAttribute("perfume", perfume);
-
-//		model.addAttribute("brandNm", brandNm);
 
 
 		model.addAttribute(Const.CSS, "main");
@@ -150,10 +148,25 @@ public class CommonController {
 	@RequestMapping("/ajaxSelBrandAlphabet")
 	@ResponseBody
 	public List<PerfumeDMI> ajaxSelBrandAlphabet(PerfumeDMI dm){
-		System.out.println(dm.getB_nm_eng());
+		System.out.println(dm.getB_nm_initial());
+		
 		return service.selBrandAlphabet(dm);
 	}
 	
+	@RequestMapping("ajaxSelBrandNm")
+	@ResponseBody
+	public List<PerfumeDMI> ajaxSelBrandNm(PerfumeDMI dm){
+		return service.selBrandNm(dm);
+	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 }
