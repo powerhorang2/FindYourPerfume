@@ -1,0 +1,13 @@
+@charset "UTF-8";
+.container { 
+  position: absolute;
+  width: 600px; 
+  margin-left: -330px; 
+  margin-top: -200px; 
+  left: 50%; 
+  top: 50%; 
+}
+
+.table{
+	margin-left: auto; margin-right: auto;
+}

@@ -9,6 +9,5 @@
 	 	<div><input type="password" name="user_pw" placeholder="비밀번호"></div>
 		<div><input type="submit" value="로그인"></div>
 	</form>
-	<a href="/user/join">회원가입 하러가기</a>
-<!-- dd -->	
+	<a href="/user/join">회원가입 하러가기</a>	
 </div>

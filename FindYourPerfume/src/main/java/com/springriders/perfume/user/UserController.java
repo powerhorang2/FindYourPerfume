@@ -90,6 +90,7 @@ public class UserController {
 		if(err > 0){
 			model.addAttribute("msg", "에러");
 		}
+		model.addAttribute(Const.CSS, "join");
 		model.addAttribute(Const.TITLE, "회원가입");
 		model.addAttribute(Const.VIEW, "user/join");
 	
