@@ -144,19 +144,21 @@
 				div.append(div_eng)
 				div.append(div_size)
 				div.append(div_price)
+				
+				
+				sel_div.append(div)
 			
 			/* 	div.innerHTML = (res.data[i].p_nm + res.data[i].b_nm_eng
-						+ res.data[i].p_size + ' ' + res.data[i].p_price + "<img src=" + res.data[i].p_pic + "/>"); */
-				sel_div.append(div)
+				+ res.data[i].p_size + ' ' + res.data[i].p_price + "<img src=" + res.data[i].p_pic + "/>"); */
 		/* 		var div = document.createElement('div');
 				div.setAttribute('class', 'brandAlphabet');
 				div.innerHTML = res.data[i].b_nm_eng;
 				sel_div.append(div)
  */
-				console.log(res.data[i])
+				/* console.log(res.data[i])
 				console.log(res.data[i].b_nm_eng)
 				console.log(res.data[i].b_nm_kor)
-	
+	 */
 
 			}
 			

@@ -41,6 +41,8 @@ public class CommonController {
 		param.setI_user(i_user);
 
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
+//		List<PerfumeDMI> brandNm = service.selBrandNm(param);
+
 				
 		List<String> brandAlphabet = new ArrayList();
         char aString = 65 ;
@@ -65,6 +67,8 @@ public class CommonController {
 		
         model.addAttribute("brandAlphabet", brandAlphabet);
 		model.addAttribute("perfume", perfume);
+//		model.addAttribute("brandNm", brandNm);
+
 		
 
 		model.addAttribute(Const.CSS, "main");

@@ -34,6 +34,12 @@ public class CommonService {
 		return mapper.selBrandAlphabet(dm);
 	}
 
+//	public List<PerfumeDMI> selBrandNm(PerfumePARAM param) {
+//
+//		return mapper.selBrandNm(param);
+//	}
+
+
 
 
 }
