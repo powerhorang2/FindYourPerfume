@@ -67,9 +67,11 @@
 				
 			<!--알파벳 클릭  -->
 				<div id="selBrandAlphabet">
+					<p onclick="choiceAlphabetMain()">ALL</p>					
 					<c:forEach items="${brandAlphabet}" var="item">
-						<p onclick="choiceAlphabet(`${item}`)">${item}</p>
+						<p onclick="choiceAlphabetMain(`${item}`)">${item}</p>
 					</c:forEach>
+					<p onclick="choiceAlphabetMain(`${item.})">ETC</p>
 				</div>
 				<div id="sel_brand">
 					<div id="SelBrandNm">
@@ -156,14 +158,13 @@
 <script>
 	var brandList = []
 
-	function choiceAlphabet(b_nm_initial) {
+	function choiceAlphabetMain(b_nm_initial) {
 		axios.get('/common/ajaxSelBrandAlphabet', {
 			params : {
 				b_nm_initial : b_nm_initial
 			}
 		}).then(function(res) {
 					sel_div.innerText = ''
-					console.log(res.data.length)
 					for (var i = 0; i < res.data.length; i++) {
 
 						var div = document.createElement('div');
@@ -182,41 +183,41 @@
 								+ numberFormat(res.data[i].p_price) + '원'
 
 						div.append(img)
-						div.append(div_kor)
 						div.append(div_eng)
+						div.append(div_kor)
 						div.append(div_size)
 						div.append(div_price)
 
 						sel_div.append(div)
-				
-	
 					}
-
 				})
-	}
-	
-	function choiceBrand(b_nm_initial) {
 		axios.get('/common/ajaxSelBrandNm',{
 			params : {
 				b_nm_initial : b_nm_initial
 			}
 		}).then(function(res){
 			sel_brand.innerText = ''
-			for (var i = 0; i < res.data.length; i++) {
+			for (var i = 0; i < res.data.length; i++){
 				
 				var div = document.createElement('div'); 
 				var div_eng = document.createElement('div');
 				div.setAttribute('class', 'brandNm');
-				
+		
 				div_eng.innerText = res.data[i].b_nm_eng
 				div.append(div_eng)
-		
-		
-				sel_brand.append(div)
+
+				sel_brand.append(div)	
+				
 			}
 		})
+				
 	}
+	
+	function choiceAlphabet(b_nm_initial) {
+		console.log(b_nm_initial)
 
+	}
+		
 	function numberFormat(inputNumber) {
 		return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}

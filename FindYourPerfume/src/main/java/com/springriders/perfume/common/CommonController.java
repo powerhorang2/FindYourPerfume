@@ -47,8 +47,6 @@ public class CommonController {
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
 		
-		System.out.println(brandEnm.get(0).getB_nm_eng());
-		
 		List<String> brandAlphabet = new ArrayList();
         char aString = 65 ;
         
@@ -158,9 +156,6 @@ public class CommonController {
 	public List<PerfumeDMI> ajaxSelBrandNm(PerfumeDMI dm){
 		return service.selBrandNm(dm);
 	}
-	
-	
-	
 	
 	
 	
