@@ -45,7 +45,7 @@
 			<td>프로필 이미지</td>
 			<!-- <td><input type="file" name="profile_img" accept="image/*" onchange="previewImage(this)" ><br></td> -->
 			 <td><input type="file" name="file" accept="image/*" onchange="previewImage(this)" ><br></td>
-			<td><div id="preview"></div></td>
+			<td><div class="box" id="preview"></div></td>
 		</tr>
 		<tr>
 			<th>선호 노트</th>
