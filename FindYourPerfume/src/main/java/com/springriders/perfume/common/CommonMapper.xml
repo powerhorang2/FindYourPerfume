@@ -7,6 +7,36 @@
 	<select id="selNoteCodeList" parameterType="NoteCodeVO" resultType="NoteCodeVO">
 		SELECT nt_d_c, nt_d_nm FROM c_nt_d
 	</select>
+	<select id="selUserNoteList" parameterType="PerfumePARAM" resultType="NoteCodeVO">
+		SELECT nt_m_c
+		FROM t_user_favorite_note
+		WHERE i_user = #{i_user}
+	</select>
+	<select id="selRecPerfumeList" parameterType="NoteCodeVO" resultType="PerfumeDMI">
+		SELECT A.i_p, B.p_nm, B.p_price, B.p_pic, B.p_size, C.b_nm_eng 
+		FROM t_user_favorite_perfume A
+		INNER JOIN t_perfume B
+		ON A.i_p = B.i_p
+		INNER JOIN c_code_brand C
+		ON B.p_brand = C.p_brand
+		INNER JOIN t_note D
+		ON B.i_p = D.i_p
+		INNER JOIN c_nt_d E
+		ON D.nt_d_c = E.nt_d_c
+		INNER JOIN c_nt_m F
+		ON E.nt_m_c = F.nt_m_c
+		WHERE F.nt_m_c = #{nt_m_c}
+		GROUP BY i_p LIMIT 0,5
+	</select>
+	<select id="selTopPerfumeList" parameterType="PerfumePARAM" resultType="PerfumeDMI">
+		SELECT A.i_p, B.p_nm, B.p_price, B.p_pic, B.p_size, C.b_nm_eng
+		FROM t_user_favorite_perfume A
+		INNER JOIN t_perfume B
+		ON A.i_p = B.i_p
+		INNER JOIN c_code_brand C
+		ON B.p_brand = C.p_brand
+		GROUP BY i_p LIMIT 0,5
+	</select>
 	<select id="selPerfumeList" parameterType="PerfumePARAM" resultType="PerfumeDMI">
 		SELECT A.i_p, A.p_nm, A.p_price, B.b_nm_eng, A.p_size, A.p_pic, C.i_user
 		FROM t_perfume A
@@ -27,11 +57,14 @@
 		SELECT MAX(i_p) as i_p FROM t_perfume
 	</select>
 	<select id="selPerfume" parameterType="PerfumePARAM" resultType="PerfumeDMI">
-		SELECT A.i_p, A.p_nm, A.p_price, B.b_nm_eng, A.p_size, A.p_pic
+		SELECT A.i_p, A.p_nm, A.p_price, b_nm_eng, A.p_size, A.p_pic, C.i_user
 		FROM t_perfume A
 		LEFT JOIN c_code_brand B
 		ON A.p_brand = B.p_brand
-		WHERE i_p = #{i_p}
+		LEFT JOIN t_user_favorite_perfume C
+		ON A.i_p = C.i_p
+		AND C.i_user = #{i_user}
+		WHERE A.i_p = #{i_p}
 	</select>
 	
 	<insert id="insPerfume" parameterType="PerfumeVO">

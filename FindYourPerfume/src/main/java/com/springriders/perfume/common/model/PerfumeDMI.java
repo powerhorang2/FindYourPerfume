@@ -5,7 +5,6 @@ public class PerfumeDMI extends PerfumeVO {
 	private String b_nm_kor;
 	private int i_user;
 	
-	
 	public String getB_nm_eng() {
 		return b_nm_eng;
 	}
@@ -24,8 +23,4 @@ public class PerfumeDMI extends PerfumeVO {
 	public void setI_user(int i_user) {
 		this.i_user = i_user;
 	}
-	
-
-	
-
 }

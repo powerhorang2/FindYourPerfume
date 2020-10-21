@@ -16,5 +16,9 @@
 		<typeAlias type="com.springriders.perfume.user.model.UserVO" alias="UserVO" />
 		<typeAlias type="com.springriders.perfume.user.model.UserDMI" alias="UserDMI" />
 		<typeAlias type="com.springriders.perfume.user.model.UserPARAM" alias="UserPARAM" />
+		
+		<typeAlias type="com.springriders.perfume.cmt.model.CmtVO" alias="CmtVO" />
+		<typeAlias type="com.springriders.perfume.cmt.model.CmtPARAM" alias="CmtPARAM" />
+		<typeAlias type="com.springriders.perfume.cmt.model.CmtDMI" alias="CmtDMI" />
 	</typeAliases>
 </configuration>
