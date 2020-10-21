@@ -16,6 +16,11 @@ import com.springriders.perfume.crawler.model.CrawlerPerfumeVO;
 public interface CommonMapper {
 	List<BrandCodeVO> selBrandCodeList(BrandCodeVO p);
 	List<NoteCodeVO> selNoteCodeList(NoteCodeVO p); 
+
+	List<NoteCodeVO> selUserNoteList(PerfumePARAM param);
+	List<PerfumeDMI> selTopPerfumeList(PerfumePARAM param);
+	List<PerfumeDMI> selRecPerfumeList(NoteCodeVO vo);
+
 	List<PerfumeDMI> selPerfumeList(PerfumePARAM param);
 	List<NoteCodeVO> selPerfumeNoteList(PerfumePARAM param);
 	List<PerfumeDMI> selPerfumeChoice(PerfumeDMI vo);
@@ -31,6 +36,6 @@ public interface CommonMapper {
 	int insPerfume(PerfumeVO vo);
 	int insPerfumeNote(NoteCodeVO vo);
 	
-	
+
 }
 

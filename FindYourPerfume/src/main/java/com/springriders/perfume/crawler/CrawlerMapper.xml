@@ -42,8 +42,7 @@
 		VALUES
 		(#{i_p}, #{nt_d_c})
 	</insert>
-	
-	
+
 </mapper>
   
 

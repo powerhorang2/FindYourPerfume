@@ -1,16 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
-<!DOCTYPE html>
  <div class="adminContainer">
 	<div id="adminLeft">
 		안녕
 	</div>
 	<div id="adminRight">
+		<form name="uptUserFrm" id="uptFrm" action="/user/uptUser" enctype="multipart/form-data" method="post">
+		<input type="hidden" name="user_type" value="2">
 		<div id="sectionProfile">
 			<div id="containerImg">
-				<div id="profileImg"></div>
-				<div><input class="button" type="submit" value="사진변경"></div>
+				<c:if test="${loginUser.profile_img == null}">
+					<div id="profileImg">
+						<img class="profile" src="/res/img/profileImg/default_img.jpg">					
+					</div>
+				</c:if>
+				<c:if test="${loginUser.profile_img != null}">
+					<div id="profileImg">
+						<img class="profile" src="/res/img/profileImg/${loginUser.profile_img}">
+					</div>
+				</c:if>
+ 				<div class="btn">
+					<label for="profile_pic">사진선택</label>
+					<input type="file" id="profile_pic" name="profile_pic" accept="image/*" onchange="previewProfileImage(this)" value="사진추가">
+				</div> 
 			</div>
 			<div id="containerInfo">
 				<div>
@@ -19,8 +32,53 @@
 					<p>굔도쿠짱짱맨</p>a
 					<p>생년월일<span>Birthday</span></p>
 					<p>1991년 1월 22일</p>
+					<h2>${loginUser.nm}님의 관리자페이지</h2>
+					<div>
+						<p>닉네임<span>Nickname</span></p>
+						<input type="text" value="${loginUser.nm}" name="nm" required>			
+					</div>
+					<div>
+						<p>비밀번호 변경<span>Password</span></p>
+						<input type="password" name="user_pw">
+					</div>
+					<div>
+						<p>비밀번호 확인<span>Password check</span></p>
+						<input type="password" name="user_pwre">
+					</div>
 				</div>
-				<div id="submitProfile"><input class="button" type="submit" value="수정완료"></div>
+				<div id="submitProfile"><input class="button" type="button" value="수정완료" onclick="checkUptUser()"></div>
+			</div>
+		</div>
+		</form><hr>
+		<div id="sectionAddAdmin">
+			<div id="title">관리자 권한 부여</div>
+			<div id="addAdminContainer">
+				<div id="addAuth">
+					<p>관리자 권한 부여</p>
+					<form name="AuthFrm" id="AuthFrm" action="/user/changeAuth" method="post">
+					<input type="hidden" name="user_type" value="1">
+					<select id="user_id" name="i_user">
+						<option value="0">유저 선택하기</option>
+						<c:forEach items="${userList}" var="item">
+							<option value="${item.i_user}">${item.user_id}</option>
+						</c:forEach>
+					</select>
+					<input class="button" type="submit" value="권한부여">
+					</form>
+				</div>
+				<div id="removeAuth">
+					<p>관리자 권한 제거</p>
+					<form name="AuthFrm" id="AuthFrm" action="/user/changeAuth" method="post">	
+					<input type="hidden" name="user_type" value="2">
+					<select id="user_id" name="i_user">
+						<option value="0">관리자 선택하기</option>
+						<c:forEach items="${adminList}" var="item">
+							<option value="${item.i_user}">${item.user_id}</option>
+						</c:forEach>
+					</select>
+					<input class="button" type="submit" value="권한제거">
+					</form>
+				</div>
 			</div>
 		</div><hr>
 		<div id="sectionAddPerfume">
@@ -30,8 +88,8 @@
 					<div id="containerPerfumeImg">
 						<div id="perfumeImg"></div>
 						<div class="btn">
-							<label for="file">사진선택</label>
-							<input type="file" id="file" name="p_pic" accept="image/*" onchange="previewImage(this)" value="사진추가">
+							<label for="p_pic">사진선택</label>
+							<input type="file" id="p_pic" name="p_pic" accept="image/*" onchange="previewPerfumeImage(this)" value="사진추가">
 						</div>
 					</div>
 					<div id="containerPerfumeInfo">
@@ -45,7 +103,7 @@
 								<select name="p_brand">
 									<option value="0">브랜드 선택하기</option>
 									<c:forEach items="${brandList}" var="item">
-										<option value="${item.p_brand}">${item.engNm}</option>
+										<option value="${item.p_brand}">${item.b_nm_eng}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -72,8 +130,55 @@
 		</div>
 	</div>
 </div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
-	function previewImage(f){
+	function checkUptUser() {
+		uptUserFrm = document.uptUserFrm
+		
+		if(uptUserFrm.user_pw.value.length > 0) {			
+			if(uptUserFrm.user_pw.value.length < 5){
+				alert('비밀번호는 5글자 이상입니다')
+				return false
+			}
+			if(uptUserFrm.user_pw.value != uptUserFrm.user_pwre.value) {
+				alert('비밀번호가 일치하지 않습니다')
+				return
+			}
+		}
+		uptUserFrm.submit();
+	}
+	
+	function previewProfileImage(f){
+		
+		var file = f.files;
+	
+		// 확장자 체크
+		if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)){
+			alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+	
+			// 선택한 파일 초기화
+			f.outerHTML = f.outerHTML;
+	
+			document.getElementById('preview').innerHTML = '';
+		}
+		else {
+	
+			// FileReader 객체 사용
+			var reader = new FileReader();
+	
+			// 파일 읽기가 완료되었을때 실행
+			reader.onload = function(rst){
+				console.log(f)
+				document.getElementById('profileImg').innerHTML = '<img src="' + rst.target.result + '" width="100%" height="100%">';
+			}
+			// 파일을 읽는다
+			reader.readAsDataURL(file[0]);
+		}
+	}
+
+
+	function previewPerfumeImage(f){
 	
 		var file = f.files;
 	
@@ -93,13 +198,34 @@
 	
 			// 파일 읽기가 완료되었을때 실행
 			reader.onload = function(rst){
+				console.log(f)
 				document.getElementById('perfumeImg').innerHTML = '<img src="' + rst.target.result + '" width="100%" height="100%">';
 			}
-	
 			// 파일을 읽는다
 			reader.readAsDataURL(file[0]);
 		}
 	}
+	
+	function refreshPage(){
+		location.reload()
+	}
+	
+	function addAdmin() {
+		const i_user = uptUserFrm.i_user.value
+		
+		console.log(i_user)
+		
+ 		axios.post('/user/ajaxAddAdmin', {
+			i_user: i_user
+		}).then(function(res) {
+			console.log(res)
+			if(res.data == '1') { //권한 부여 성공
+				alert('권한 부여 완료')
+			}
+		}) 
+		refreshPage()
+	}
+	
 	
 	function checkAddPerfume(){
 		AddPerfume = document.addPerfumeFrm
@@ -133,9 +259,6 @@
 			alert("노트를 1개 이상 선택해주세요.")
 			return
 		}
-			
-		AddPerfume.submit();
-		
-		
+		AddPerfume.submit();	
 	}
 </script>

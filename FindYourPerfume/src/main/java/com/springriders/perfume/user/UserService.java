@@ -17,6 +17,7 @@ import com.springriders.perfume.common.CommonMapper;
 import com.springriders.perfume.common.model.BrandCodeVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
 import com.springriders.perfume.common.model.PerfumeVO;
+import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.user.model.UserPARAM;
 import com.springriders.perfume.user.model.UserVO;
 
@@ -37,7 +38,12 @@ public class UserService {
 		String realPath = mReq.getServletContext().getRealPath(path);
 		String saveFileNm = FileUtils.saveFile(realPath, mf);
 	
-		param.setProfile_img(saveFileNm);
+		if(saveFileNm == null) {
+			saveFileNm = "default_img.jpg";
+			param.setProfile_img(saveFileNm);
+		} else {
+			param.setProfile_img(saveFileNm);			
+		}
 		
 		String pw = param.getUser_pw();
 		String salt = SecurityUtils.generateSalt();
@@ -62,7 +68,6 @@ public class UserService {
 		}
 		return Const.SUCCESS;
 	}
-	
 
 	public int login(UserVO param) {
 		if(param.getUser_id().equals("")) { return Const.EMPTY_ID; }
@@ -85,6 +90,22 @@ public class UserService {
 			param.setProfile_img(dbUser.getProfile_img());
 			param.setBd(dbUser.getBd());
 			return Const.SUCCESS;
+	}
+	
+	public int changeAuth(UserPARAM param) {
+		mapper.changeAuth(param);
+		
+		return Const.SUCCESS;
+	}
+	
+	public List<UserVO> selUserList() {
+		UserVO p = new UserVO();
+		return mapper.selUserList(p);
+	}
+	
+	public List<UserVO> selAdminList() {
+		UserVO p = new UserVO();
+		return mapper.selAdminList(p);
 	}
 	
 	public List<BrandCodeVO> selBrandList() {
@@ -134,28 +155,35 @@ public class UserService {
 		}
 		return Const.SUCCESS;
 	}
-
-
 	
 	public int uptUser(MultipartHttpServletRequest mReq, HttpSession hs) {
 		int i_user = SecurityUtils.getLoginUserPk(hs);
 		String user_pw = mReq.getParameter("user_pw");
+		System.out.println("user_pw : " + user_pw);
 		String salt = SecurityUtils.generateSalt();
 		String nm = mReq.getParameter("nm");
+		System.out.println("nm : " + nm);
 		String cryptPw = SecurityUtils.getEncrypt(user_pw, salt);
 		
 		MultipartFile mf = mReq.getFile("profile_pic");
-	
+		
 		String path = "/resources/img/profileImg/";
 		String realPath = mReq.getServletContext().getRealPath(path);
 		String saveFileNm = FileUtils.saveFile(realPath, mf);
+		System.out.println("saveFileNm : " + saveFileNm);
 		
 		UserVO vo = new UserVO();
 		vo.setI_user(i_user);
-		vo.setSalt(salt);
-		vo.setNm(nm);
-		vo.setProfile_img(saveFileNm);
-		vo.setUser_pw(cryptPw);
+		if(!user_pw.equals("")) {
+			vo.setUser_pw(cryptPw);
+			vo.setSalt(salt);			
+		}
+		if(!nm.equals("")) {
+			vo.setNm(nm);			
+		}
+		if(saveFileNm != null) {
+			vo.setProfile_img(saveFileNm);			
+		}
 		
 		mapper.uptUser(vo);
 		vo = mapper.selUser(vo);
@@ -164,19 +192,11 @@ public class UserService {
 		return Const.SUCCESS;
 	}
 	
-//	public List<UserDMI> selFavoriteList(UserPARAM param) {	
-//		List<UserDMI> list = mapper.selFavoriteList(param);
-//		
-//		for(UserDMI vo : list) {
-//			RestPARAM param2 = new RestPARAM();
-//			param2.setI_rest(vo.getI_rest());
-//			
-//			List<RestRecMenuVO> eachRecMenuList = restMapper.selRestRecMenus(param2);
-//			vo.setMenuList(eachRecMenuList);
-//		}
-//		
-//		return list;
-//	}
+	public List<PerfumeDMI> selFavoriteList(UserPARAM param) {	
+		List<PerfumeDMI> list = mapper.selFavoriteList(param);
+	
+		return list;
+	}
 	
 	
 //	나중에 auth기능 구현해보기

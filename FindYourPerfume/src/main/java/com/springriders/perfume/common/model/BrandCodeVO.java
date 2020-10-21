@@ -24,7 +24,4 @@ public class BrandCodeVO {
 		this.b_nm_kor = b_nm_kor;
 	}
 
-
-	
-	
 }

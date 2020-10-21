@@ -29,7 +29,8 @@ public class UserController {
 	
 	@RequestMapping(value="/admin", method = RequestMethod.GET)
 	public String admin(UserPARAM param, Model model) {
-//		model.addAttribute("data", service.admin(param));
+		model.addAttribute("userList", service.selUserList());
+		model.addAttribute("adminList", service.selAdminList());
 		model.addAttribute("brandList", service.selBrandList());
 		model.addAttribute("noteList", service.selNoteList());
 		
@@ -38,7 +39,14 @@ public class UserController {
 		model.addAttribute(Const.VIEW, "user/admin");
 		return ViewRef.TEMP_MENU;
 	}
+	
+	@RequestMapping(value="/changeAuth", method = RequestMethod.POST)
+	public String changeAuth(UserPARAM param, Model model) {
+		int result = service.changeAuth(param);
 
+		return "redirect:/user/admin";
+	}
+	
 	@RequestMapping(value="/addPerfume", method = RequestMethod.POST)
 	public String addPerfume(MultipartHttpServletRequest mReq, RedirectAttributes ra) {
 		int result = service.insPerfume(mReq);
@@ -57,8 +65,7 @@ public class UserController {
 		UserPARAM param = new UserPARAM();
 		param.setI_user(i_user);
 		
-//		model.addAttribute("data", service.selFavoriteList(param));
-		
+		model.addAttribute("data", service.selFavoriteList(param));
 		
 		model.addAttribute(Const.CSS, "myPage");		
 		model.addAttribute(Const.TITLE,"마이페이지");
@@ -69,7 +76,11 @@ public class UserController {
 	@RequestMapping(value="/uptUser", method = RequestMethod.POST)
 	public String uptUser(UserPARAM param, MultipartHttpServletRequest mReq, HttpSession hs, RedirectAttributes ra) {
 		int result = service.uptUser(mReq, hs);
-
+		int user_type = param.getUser_type();
+		
+		if(user_type == 2) {
+			return "redirect:/user/admin";
+		}
 		return "redirect:/user/myPage";			
 	}
 	
@@ -79,9 +90,10 @@ public class UserController {
 		if(err > 0){
 			model.addAttribute("msg", "에러");
 		}
+		model.addAttribute(Const.CSS, "join");
 		model.addAttribute(Const.TITLE, "회원가입");
 		model.addAttribute(Const.VIEW, "user/join");
-		
+	
 		return ViewRef.TEMP_MENU;
 	}
 
@@ -93,11 +105,9 @@ public class UserController {
 		if(result == 1) {
 			return "redirect:/user/login";
 		}
-		
 		ra.addAttribute("err", result);
 		return "redirect:/user/join";
 	}
-	
 	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(Model model) {
@@ -130,9 +140,9 @@ public class UserController {
 	@RequestMapping(value="/ajaxIdChk", method = RequestMethod.POST)
 	@ResponseBody
 	public String ajaxIdChk(@RequestBody UserVO param) {
+		System.out.println(param.getUser_id());
+		
 		int result = service.login(param);
 		return String.valueOf(result);
-	}
-	
-	
+	}	
 }

@@ -82,6 +82,18 @@ hr {
 	justify-content: space-between;
 }
 
+.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerInfo {
+	padding: 0px 50px 20px 50px;
+	min-width: 850px;
+	width: 70%;
+	position: relative;
+}
+
+.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerInfo > #submitProfile {
+	position: absolute;
+	bottom: 0;
+	right: 100px;
+}
 .adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerImg {
 	width: 200px;
 	height: 250px;
@@ -106,26 +118,15 @@ hr {
 	object-fit: cover;
 }
 
-.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerInfo {
-	padding: 0px 50px 20px 50px;
-	min-width: 850px;
-	width: 70%;
-	position: relative;
-}
-
-.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerInfo > #submitProfile {
-	position: absolute;
-	bottom: 0;
-	right: 100px;
-	
-}
 
 .adminContainer > #adminRight > #sectionFavPerfume {
 	
 }
 
 .adminContainer > #adminRight > #sectionFavPerfume > #detailSection {
-	display: flex;	
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: 70px;
 }
 
 .adminContainer > #adminRight > #sectionFavPerfume > #title {
@@ -139,55 +140,67 @@ hr {
 	margin: 0 0 20px 100px;
 }
 
-.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > form {
+.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > #favPerfume {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+	width: 260px;	
+	margin: 0 20px 50px;
 }
 
-.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > form > #containerPerfumeImg {
-	margin: 20px 0 0 100px; 
+.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > #favPerfume:hover {
+	cursor: pointer;
+    font-weight: bold;
+}
+
+.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > #favPerfume > #favPerfumeImg {
+	margin: 0 20px; 
 	width: 200px;
 	height: 250px;
-	border: 1px solid black;
+
 }
 
-.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > form > #containerPerfumeImg > .perfumeImg {
+.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > #favPerfume > #favPerfumeImg > .perfumeImg {
 	width: 200px;
 	height: 200px;
-	border: 1px solid black;
-	border-radius: 100px;
+}
+
+.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > #favPerfume > #favPerfumeDetail > #p_nm {
+	width: 200px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 
-.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > form > #containerPerfumeInfo {
+.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > #favPerfume > #containerPerfumeInfo {
 	width: 70%;
 	min-width: 850px;
 	padding: 0px 50px 20px 50px;
 	position: relative;
 }
 
-.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > form > #containerPerfumeInfo > #submitPerfume {
+.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > #favPerfume > #containerPerfumeInfo > #submitPerfume {
 	position: absolute;
 	bottom: 0;
 	right: 100px;
 }
 
-.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > form > #containerPerfumeInfo > #mainInfo {
+.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > #favPerfume > #containerPerfumeInfo > #mainInfo {
 	display: flex;
 	flex-direction: row;
 }
 
-.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > form > #containerPerfumeInfo > #mainInfo > div {
+.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > #favPerfume > #containerPerfumeInfo > #mainInfo > div {
 	margin-right: 15px;
 }
 
-.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > form > #containerPerfumeInfo > #notesInfo {
+.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > #favPerfume > #containerPerfumeInfo > #notesInfo {
 	margin-top: 20px;
 	display: flex;
 	flex-wrap: wrap;
 }
 
-.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > form > #containerPerfumeInfo > #notesInfo > div{
+.adminContainer > #adminRight > #sectionFavPerfume > #detailSection > #favPerfume > #containerPerfumeInfo > #notesInfo > div{
 	width: 20%;
 	margin: 0 10px 10px 0;
 }

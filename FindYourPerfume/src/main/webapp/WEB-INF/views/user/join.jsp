@@ -4,24 +4,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <title>회원가입</title>
-<style>
-.container { 
-  position: absolute;
-  width: 600px; 
-  height: 500px; 
-  margin-left: -330px; 
-  margin-top: -200px; 
-  left: 50%; 
-  top: 50%; 
-}
+<div class="container">
+	<div>
+		<h1>회원가입<span>Create an account</span></h1>	
+	</div>
 
-.table{
-	margin-left: auto; margin-right: auto;
-}
-
-</style>
- <div class="container">
- <h1>회원가입</h1>
 	<form id="frm" class="frm" action="/user/join" method="post" enctype="multipart/form-data" onsubmit="return userChk()">
 	<table>
 		<tr>

@@ -2,6 +2,7 @@ package com.springriders.perfume.common.model;
 
 public class PerfumePARAM extends PerfumeVO {
 	private int[] nt_d_c;
+	
 	private int i_user;
 	
 	public int[] getNt_d_c() {

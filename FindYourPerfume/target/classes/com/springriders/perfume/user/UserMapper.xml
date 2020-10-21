@@ -5,9 +5,19 @@
 		INSERT INTO t_user
 		(user_type, i_user, user_id, user_pw, salt, nm, bd, gender, profile_img)
 		VALUES
-		(#{user_type}, #{i_user}, #{user_id}, #{user_pw}, #{salt}, #{nm}, #{bd}, #{gender}, #{profile_img})
+		(1, #{i_user}, #{user_id}, #{user_pw}, #{salt}, #{nm}, #{bd}, #{gender}, #{profile_img})
 	</insert>
 
+	<select id="selUserList" parameterType="UserVO" resultType="UserVO">
+		SELECT i_user, user_type, user_id
+		FROM t_user
+		WHERE user_type = 1
+	</select>
+	<select id="selAdminList" parameterType="UserVO" resultType="UserVO">
+		SELECT i_user, user_type, user_id
+		FROM t_user
+		WHERE user_type = 2
+	</select>
 	<select id="selUserPk" parameterType="UserVO" resultType="UserPARAM">
 		SELECT MAX(i_user) as i_user FROM t_user
 	</select>
@@ -26,23 +36,38 @@
 	</select> 
 	
 	<select id="selFavoriteList" parameterType="UserPARAM" 
-		resultType="UserDMI">
-		SELECT A.i_rest, A.i_user, A.r_dt
-			, B.nm AS rest_nm
-			, B.addr AS rest_addr
-		FROM t_user_favorite A
-		INNER JOIN t_restaurant B
-		ON A.i_rest = B.i_rest
-		WHERE A.i_user = #{i_user}
+		resultType="PerfumeDMI">
+		SELECT A.i_p, A.p_nm, A.p_price, B.b_nm_eng, A.p_size, A.p_pic
+		FROM t_perfume A
+		INNER JOIN c_code_brand B
+		ON A.p_brand = B.p_brand
+		INNER JOIN t_user_favorite_perfume C
+		ON A.i_p = C.i_p
+		WHERE C.i_user = #{i_user};
 	</select>
 	
 	<update id="uptUser" parameterType="UserVO">
 		UPDATE t_user
 		SET
-		user_pw = #{user_pw}
-		,nm = #{nm}
+		nm = #{nm}
+		<if test="user_pw != null">
+		,user_pw = #{user_pw}
 		,salt = #{salt}
+		</if>
+		<if test="profile_img != null">
 		,profile_img = #{profile_img}
+		</if>
+		WHERE i_user = #{i_user}
+	</update>
+	<update id="changeAuth" parameterType="UserPARAM">
+		UPDATE t_user
+		SET
+		<if test="user_type == 1">
+		user_type = 2		
+		</if>
+		<if test="user_type == 2">
+		user_type = 1		
+		</if>
 		WHERE i_user = #{i_user}
 	</update>
 </mapper>
