@@ -2,7 +2,60 @@
 
 .material-icons { color: red; }
 
-img {
-	width: 100px;
-	height: 100px;
+#detailContainer {
+	width: 100%;
+	height: 2000px;
+}
+
+#cmtContainer {
+	width: 80%;
+	height: 500px;
+	margin: 0 auto;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+#cmtContainer > #cmtContents {
+	width: 80%;
+	margin: 0px auto;
+	display: flex;
+	flex-direction: row;
+}
+
+#cmtContainer > .cmt_cnt {
+	width: 80%;
+	height: 60px;
+	margin: 0px auto;
+}
+
+#cmtContainer > .cmt_cnt > div {
+	margin: 0 auto;
+	padding: 20px 0px;
+}
+
+#cmtContainer > .cmt_cnt > div > span {
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+#cmtContents > .cmt {
+	width: 600px;
+	height: 150px;
+	border: 1px solid black;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+
+#cmtContents > .cmt {
+	display: flex;
+	flex-direction: row;
+}
+
+.cmt_userData {
+	padding: 0px 10px;
+	border-right: 1px solid black;
+}
+
+.cmt_cmt {
+	padding: 0px 10px;
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -140,6 +141,7 @@ public class CommonController {
 		
 		model.addAttribute("perfume", perfume);
 		model.addAttribute("noteList", noteList);
+		model.addAttribute("cmtList", cmtList);
 		
 		model.addAttribute(Const.CSS, "detail");
 		model.addAttribute(Const.TITLE, "디테일 페이지"); //가게명
@@ -153,6 +155,19 @@ public class CommonController {
 		System.out.println(dm.getB_nm_eng());
 		return service.selBrandAlphabet(dm);
 	}
+	@RequestMapping(value = "/ajaxSelCmtList", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public @ResponseBody List<CmtDMI> ajaxSelCmtList(){
+		System.out.println("넘어왔음?");
+		PerfumePARAM param = new PerfumePARAM();
+		param.setI_p(579);
+		return cmtService.selCmtList(param);
+	}
+	@RequestMapping(value = "/ajaxInsCmt", method = RequestMethod.POST)
+	public @ResponseBody int ajaxInsCmt(@RequestBody CmtDMI param) {
+		return 1;
+	}
+	
+	
 	
 	
 	
