@@ -46,7 +46,6 @@
 		<c:if test="${loginUser.i_user != null}">
 			<a href="/user/join" id="btnLogout">회원가입 하러가기</a>
 		</c:if>
-	</div>
 	<div class="topPerfume">
 		<c:forEach items="${topPerfume}" var="item">
 			<div>향수 이름 : ${item.p_nm}</div>
@@ -59,16 +58,30 @@
 		<div>===================분리선=================</div>
 	</div>
 	<c:if test="${loginUser != null}">
-		<div class="recPerfume">
-			<c:forEach items="${recPerfume}" var="item">
-				<div>향수 이름 : ${item.p_nm}</div>
-				<div>향수 용량 : ${item.p_size}ml</div>
-				<div><img src="${item.p_pic}"></div>
-				<div>향수 브랜드 : ${item.b_nm_eng}</div>
-				<div>향수 가격 : ${item.p_price}</div>
-				<div>------------------------------------------</div>
-			</c:forEach>
-			<div>===================분리선=================</div>
+		<!-- Slider main container -->
+		<div class="swiper-container">
+		    <!-- Additional required wrapper -->
+		    <div class="swiper-wrapper">
+		        <!-- Slides -->
+		        <c:forEach items="${recPerfume}" var="item">
+					<div class="swiper-slide">
+						<span>향수 이름 : ${item.p_nm}</span>
+						<span>향수 용량 : ${item.p_size}ml</span>
+						<span><img src="${item.p_pic}"></span>
+						<span>향수 브랜드 : ${item.b_nm_eng}</span>
+						<span>향수 가격 : ${item.p_price}</span>
+					</div>
+				</c:forEach>
+		    </div>
+		    <!-- If we need pagination -->
+		    <div class="swiper-pagination"></div>
+		
+		    <!-- If we need navigation buttons -->
+		    <div class="swiper-button-prev"></div>
+		    <div class="swiper-button-next"></div>
+		
+		    <!-- If we need scrollbar -->
+		    <div class="swiper-scrollbar"></div>
 		</div>
 	</c:if>
 	<div>	
@@ -89,3 +102,23 @@
 			<div>------------------------------------------</div>
 		</c:forEach>
 	</div>
+</div>
+<!-- Initialize Swiper -->
+	<script>
+	  var swiper = new Swiper('.swiper-container', {
+	    slidesPerView: 5,
+	    spaceBetween: 30,
+	    slidesPerGroup: 5,
+	    loop: true,
+	    loopFillGroupWithBlank: true,
+	    pagination: {
+	      el: '.swiper-pagination',
+	      clickable: true,
+	    },
+	    navigation: {
+	      nextEl: '.swiper-button-next',
+	      prevEl: '.swiper-button-prev',
+	    },
+	  });
+	</script>
+

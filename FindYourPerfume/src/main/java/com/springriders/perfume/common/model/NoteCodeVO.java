@@ -3,6 +3,7 @@ package com.springriders.perfume.common.model;
 public class NoteCodeVO {
 	private int i_p;
 	private int nt_d_c;
+	private int nt_m_c;
 	private String nt_d_nm;
 	private String nt_d_nm_kor;
 
@@ -17,6 +18,12 @@ public class NoteCodeVO {
 	}
 	public void setNt_d_c(int nt_d_c) {
 		this.nt_d_c = nt_d_c;
+	}
+	public int getNt_m_c() {
+		return nt_m_c;
+	}
+	public void setNt_m_c(int nt_m_c) {
+		this.nt_m_c = nt_m_c;
 	}
 	public String getNt_d_nm() {
 		return nt_d_nm;

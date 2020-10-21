@@ -14,9 +14,9 @@ import com.springriders.perfume.common.model.PerfumeVO;
 public interface CommonMapper {
 	List<BrandCodeVO> selBrandCodeList(BrandCodeVO p);
 	List<NoteCodeVO> selNoteCodeList(NoteCodeVO p); 
-	List<PerfumeDMI> selUserNoteList(PerfumePARAM param);
+	List<NoteCodeVO> selUserNoteList(PerfumePARAM param);
 	List<PerfumeDMI> selTopPerfumeList(PerfumePARAM param);
-	List<PerfumeDMI> selRecPerfumeList(PerfumePARAM param);
+	List<PerfumeDMI> selRecPerfumeList(NoteCodeVO vo);
 	List<PerfumeDMI> selPerfumeList(PerfumePARAM param);
 	List<NoteCodeVO> selPerfumeNoteList(PerfumePARAM param);
 	

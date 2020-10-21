@@ -1,5 +1,6 @@
 package com.springriders.perfume.common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,15 @@ public class CommonService {
 		return mapper.selTopPerfumeList(param);
 	}
 
-	public List<PerfumeDMI> selRecPerfumeList(PerfumePARAM param) {
-		return mapper.selRecPerfumeList(param);
+	public List<PerfumeDMI> selRecPerfumeList(List<NoteCodeVO> list) {
+		List<PerfumeDMI> recList = new ArrayList();
+		NoteCodeVO vo = new NoteCodeVO();
+		for(int i=0; i<list.size(); i++) {
+			vo = list.get(i);
+			recList.addAll(mapper.selRecPerfumeList(vo));
+		}
+		
+		return recList;
 	}
 	
 	public List<PerfumeDMI> selPerfumeList(PerfumePARAM param) {
@@ -35,7 +43,7 @@ public class CommonService {
 		return mapper.selPerfume(param);
 	}
 
-	public List<PerfumeDMI> selUserNoteList(PerfumePARAM param) {
+	public List<NoteCodeVO> selUserNoteList(PerfumePARAM param) {
 		return mapper.selUserNoteList(param);
 	}
 
