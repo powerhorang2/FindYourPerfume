@@ -98,7 +98,8 @@ hr {
 	display: flex;	
 }
 
-.adminContainer > #adminRight > #sectionAddPerfume > #title {
+.adminContainer > #adminRight > #sectionAddPerfume > #title,
+.adminContainer > #adminRight > #sectionDelPerfume > #title {
 	width: 80px;
 	height: 30px;
 	line-height: 30px;
@@ -172,4 +173,9 @@ hr {
 	margin: 0 10px 10px 0;
 }
 
+.adminContainer > #adminRight > #sectionDelPerfume > #delPerfumeContainer {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 20px 100px;
 }
+

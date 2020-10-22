@@ -83,9 +83,6 @@ span {
     line-height: 24px;
 }
 
-.joinContainer > div > #frm > #joinMain > #basicInf > #user_id > #idChk > button {
-
-}
 .joinContainer > div > #frm > #joinMain > #additionalInf > #profileImgContainer > #uploadProfileImg {
 	display: flex;
 	align-items: center;

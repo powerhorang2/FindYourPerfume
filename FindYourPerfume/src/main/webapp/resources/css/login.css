@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+#loginVid { 
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -999;
+}
+
 hr {
 	margin: 20px 0;
 }
@@ -27,6 +36,12 @@ span {
 	justify-content: center;
 }
 
+.loginContainer > div {
+	border: 1px solid #404040;
+	padding: 30px;
+	background-color: #fff;	
+}
+
 .loginContainer > div > #loginHeader {
 	display: flex;
 	justify-content: space-between;
@@ -38,6 +53,21 @@ span {
 	cursor: pointer;
 	margin-top: 10px;
 	font-size: 30px;
+}
+
+.loginContainer > div > #frm > #loginMain {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.hidden {
+	display: hidden;
+}
+.loginContainer > div > #frm > #loginMain > #idChkResult {
+    text-align: right;
+    font-size: 12px;
+    line-height: 24px;	
 }
 
 .loginContainer > div > #frm > #loginFooter {

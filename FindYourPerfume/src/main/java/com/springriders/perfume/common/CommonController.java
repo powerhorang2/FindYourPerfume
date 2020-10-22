@@ -42,35 +42,22 @@ public class CommonController {
 	public String main(PerfumePARAM param,NoteCodeVO vo, Model model, HttpServletRequest req) {
 		
 		int i_user = SecurityUtils.getLoginUserPk(req);
-
 		param.setI_user(i_user);
-
-
+		System.out.println("p_brand : " + param.getP_brand());
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
-//		List<PerfumeDMI> brandNm = service.selBrandNm(param);
-
-				
 		List<String> brandAlphabet = new ArrayList();
+		
         char aString = 65 ;
         
         while(true){
-            // 특수문자 시작시 알파벳 소문자로 고정
             if(aString == 91)
                 aString = 97 ;
- 
-            // 아스키 코드를 문자형으로 변환
             String str = String.valueOf(aString) ;
-
             brandAlphabet.add(str);
-  
-            // 아스키값 증가
             aString++ ;
- 
-            // 알파벳 소문자 z가 끝날시 종료 처리
             if(aString > 90)
                 break ;
         }
-
 		
 		List<PerfumeDMI> topPerfume = service.selTopPerfumeList(param);
 		model.addAttribute("topPerfume", topPerfume);
@@ -130,9 +117,8 @@ public class CommonController {
 		
 		int i_user = SecurityUtils.getLoginUserPk(req);
 		param.setI_user(i_user);
-
-
 		param.setI_p(579);
+		
 		PerfumeDMI perfume = service.selPerfume(param);
 		List<NoteCodeVO> noteList = service.selPerfumeNoteList(param);
 		
@@ -154,6 +140,28 @@ public class CommonController {
 		return service.selBrandAlphabet(dm);
 	}
 	
+	@RequestMapping("/ajaxSelBrandPerfume")
+	@ResponseBody
+	public List<PerfumeDMI> ajaxSelBrandPerfume(PerfumePARAM param){
+		System.out.println(param.getP_brand());
+		return service.selPerfumeList(param);
+	}
+	
+	@RequestMapping(value="/delPerfume", method = RequestMethod.POST)
+	public String delPerfume(PerfumePARAM param, CommonVO vo, HttpSession hs, RedirectAttributes ra) {
+		System.out.println("i_p : " + param.getI_p());
+		int result = service.delPerfume(param);
+		
+		String msg = null;
+		if(result == Const.SUCCESS) {
+			msg = "삭제가 완료되었습니다";
+		}
+
+		vo.setMsg(msg);
+		ra.addFlashAttribute("data", vo);
+		
+		return "redirect:/user/admin";
+	}
 	
 	
 }

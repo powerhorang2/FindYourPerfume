@@ -27,11 +27,6 @@
 			</div>
 			<div id="containerInfo">
 				<div>
-					<h2>??님의 관리자페이지</h2>
-					<p>닉네임<span>Nickname</span></p>
-					<p>굔도쿠짱짱맨</p>a
-					<p>생년월일<span>Birthday</span></p>
-					<p>1991년 1월 22일</p>
 					<h2>${loginUser.nm}님의 관리자페이지</h2>
 					<div>
 						<p>닉네임<span>Nickname</span></p>
@@ -128,11 +123,64 @@
 				</form>
 			</div>
 		</div>
+		<div id="sectionDelPerfume">
+			<div id="title">향수 삭제</div>
+			<div id="delPerfumeContainer">
+				<div id="delPerfume">
+					<form name="delPerfumeFrm" id="delPerfumeFrm" action="/common/delPerfume" method="post">
+					<input type="hidden" name="user_type" value="1">
+					<select id="p_brand" name="p_brand" onchange="selPerfume(this.value)">
+						<option value="0">브랜드 선택하기</option>
+						<c:forEach items="${brandList}" var="item">
+							<option value="${item.p_brand}">${item.b_nm_eng}</option>
+						</c:forEach>
+					</select>
+					<select id="p_nm" name="i_p">
+						<option value="0">향수 선택하기</option>
+					</select>
+					<input class="button" type="button" onclick="confirmDelPerfume()" value="삭제">
+					</form>
+				</div>
+			</div>
+		</div><hr>
 	</div>
 </div>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
+	function selPerfume(p_brand) {
+		console.log(p_brand)
+		
+		axios.get('/common/ajaxSelBrandPerfume', {
+			params : {
+				p_brand
+			}
+		}).then(function(res) {
+			p_nm.innerText = ''
+			console.log(res.data.length)
+			
+			for(i=0; i<res.data.length; i++) {
+				console.log(res.data[i].i_p)
+				console.log(res.data[i].p_nm)
+				
+				var option = document.createElement('option')
+				option.value = res.data[i].i_p
+				option.name = 'i_p'
+				option.innerHTML = res.data[i].p_nm
+
+				p_nm.append(option)
+			}
+		})
+	}
+	
+ 	function confirmDelPerfume() {
+		var chk = confirm('삭제하시겠습니까?')
+		if(chk == true) {
+			document.delPerfumeFrm.submit()		
+		}
+		return
+	} 
+	
 	function checkUptUser() {
 		uptUserFrm = document.uptUserFrm
 		
@@ -150,83 +198,39 @@
 	}
 	
 	function previewProfileImage(f){
-		
 		var file = f.files;
-	
-		// 확장자 체크
 		if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)){
 			alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
-	
-			// 선택한 파일 초기화
 			f.outerHTML = f.outerHTML;
-	
 			document.getElementById('preview').innerHTML = '';
 		}
 		else {
-	
-			// FileReader 객체 사용
 			var reader = new FileReader();
-	
-			// 파일 읽기가 완료되었을때 실행
 			reader.onload = function(rst){
 				console.log(f)
 				document.getElementById('profileImg').innerHTML = '<img src="' + rst.target.result + '" width="100%" height="100%">';
 			}
-			// 파일을 읽는다
 			reader.readAsDataURL(file[0]);
 		}
 	}
 
-
 	function previewPerfumeImage(f){
-	
 		var file = f.files;
-	
-		// 확장자 체크
 		if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)){
 			alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
-	
-			// 선택한 파일 초기화
 			f.outerHTML = f.outerHTML;
-	
 			document.getElementById('preview').innerHTML = '';
 		}
 		else {
-	
-			// FileReader 객체 사용
 			var reader = new FileReader();
-	
-			// 파일 읽기가 완료되었을때 실행
 			reader.onload = function(rst){
 				console.log(f)
 				document.getElementById('perfumeImg').innerHTML = '<img src="' + rst.target.result + '" width="100%" height="100%">';
 			}
-			// 파일을 읽는다
 			reader.readAsDataURL(file[0]);
 		}
 	}
-	
-	function refreshPage(){
-		location.reload()
-	}
-	
-	function addAdmin() {
-		const i_user = uptUserFrm.i_user.value
-		
-		console.log(i_user)
-		
- 		axios.post('/user/ajaxAddAdmin', {
-			i_user: i_user
-		}).then(function(res) {
-			console.log(res)
-			if(res.data == '1') { //권한 부여 성공
-				alert('권한 부여 완료')
-			}
-		}) 
-		refreshPage()
-	}
-	
-	
+
 	function checkAddPerfume(){
 		AddPerfume = document.addPerfumeFrm
 		
@@ -259,6 +263,6 @@
 			alert("노트를 1개 이상 선택해주세요.")
 			return
 		}
-		AddPerfume.submit();	
+		AddPerfume.submit()
 	}
 </script>
