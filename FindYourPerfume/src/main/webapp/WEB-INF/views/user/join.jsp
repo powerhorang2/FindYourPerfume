@@ -6,7 +6,7 @@
 <title>회원가입</title>
 <div class="joinContainer">
 	<div>
-	<form id="frm" action="/user/join" method="post" enctype="multipart/form-data" onsubmit="return userChk()">
+	<form name="frm" id="frm" action="/user/join" method="post" enctype="multipart/form-data" onsubmit="return userChk()">
 	<div id="joinHeader">
 		<h1>회원가입<span>Create an account</span></h1>
 		<span class="material-icons" onclick="moveToPage(`/common/main`)" id="btnReturn">home</span>
@@ -42,7 +42,7 @@
 				<div>성별<span>Gender</span></div>
 				<div id="selectGender">
 					<div><label><input type="radio" name="gender" value="1">남<span>Male</span></label></div>
-					<div><label><input type="radio" name="female" value="2">여<span>Female</span></label></div>				
+					<div><label><input type="radio" name="gender" value="2">여<span>Female</span></label></div>				
 				</div>
 			</div>
 		</div>
@@ -54,8 +54,8 @@
 					<div id="profileImg"></div>
 				</div>
 				<div class="btn" id="btn">
-					<label for="profile_img">사진선택</label>
-					<input type="file" id="profile_img" name="profile_img" accept="image/*" onchange="previewImage(this)" value="사진선택"><br>					
+					<label for="profile_image">사진선택</label>
+					<input type="file" id="profile_image" name="file" accept="image/*" onchange="previewImage(this)" value="사진선택"><br>					
 				</div>
 			</div>
 			<div id="noteContainer">

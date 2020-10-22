@@ -30,13 +30,15 @@ public class UserService {
 	@Autowired
 	private UserMapper mapper;
 
-	public int join(UserPARAM param, MultipartHttpServletRequest mReq) {
+	public int join(MultipartHttpServletRequest mReq, UserPARAM param) {
 		
 		MultipartFile mf = mReq.getFile("file");
 		
 		String path = "/resources/img/profileImg/";
 		String realPath = mReq.getServletContext().getRealPath(path);
 		String saveFileNm = FileUtils.saveFile(realPath, mf);
+		
+		System.out.println(saveFileNm);
 	
 		if(saveFileNm == null) {
 			saveFileNm = "default_img.jpg";
