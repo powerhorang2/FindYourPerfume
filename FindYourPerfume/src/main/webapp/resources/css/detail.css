@@ -56,6 +56,11 @@
 	border-right: 1px solid black;
 }
 
+.cmt_userData_userNm_img {
+	width: 20px;
+	height: 20px;	
+}
+
 .cmt_cmt {
 	padding: 0px 10px;
 }

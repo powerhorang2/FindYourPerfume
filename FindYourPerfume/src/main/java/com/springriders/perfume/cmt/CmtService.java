@@ -17,10 +17,6 @@ public class CmtService {
 	@Autowired
 	private CmtMapper mapper;
 	
-	public int insCmt(CmtPARAM param) {
-		return mapper.insCmt(param);
-	}
-
 	public List<CmtDMI> selCmtList(PerfumePARAM param) {
 		List<CmtDMI> cmtList = mapper.selCmtList(param);
 		System.out.println("쿼리문 접근 이후");

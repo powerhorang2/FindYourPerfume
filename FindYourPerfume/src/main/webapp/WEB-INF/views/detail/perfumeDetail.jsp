@@ -29,77 +29,12 @@
 		<div class="cmt_cnt">
 			<div>
 				<span class="cmt_cnt_text">회원 후기</span>
-				<span class="cmt_cnt_content">(2)</span>
+				<span class="cmt_cnt_content"></span>
 			</div>
 		</div>
 		<div id="cmtContents">
-			<div class="cmt">
-				
-				<div class="cmt_userData">
-					<div class="cmt_userData_i_cmt">
-						<p class="cmt_userData_i_cmt_p">1번 후기</p>
-					</div>
-					<div class="cmt_userData_userNm">
-						<p class="cmt_userData_userNm_p"><img class="cmt_userData_userNm_img" src="/res/img/profileImg/"> 경덕이형 옆자리</p>
-					</div>
-					<div class="cmt_userData_userAge">
-						<p class="cmt_userData_userAge_p">20대/남자</p>
-					</div>
-				</div>
-				<div class="cmt_cmt">
-					<div class="cmt_cmt_div">
-						<p class="cmt_cmt_div_p">이 향수 비추합니다. 냄새가 경덕이형 발냄새 같네요.</p>
-					</div>
-				</div>
-			</div>
-				
-			<div class="cmt">
-				
-				<div class="cmt_userData">
-					<div class="cmt_userData_i_cmt">
-						<p class="cmt_userData_i_cmt_p">1번 후기</p>
-					</div>
-					<div class="cmt_userData_userNm">
-						<p class="cmt_userData_userNm_p"><img class="cmt_userData_userNm_img" src="/res/img/profileImg/"> 경덕이형 옆자리</p>
-					</div>
-					<div class="cmt_userData_userAge">
-						<p class="cmt_userData_userAge_p">20대/남자</p>
-					</div>
-				</div>
-				<div class="cmt_cmt">
-					<div class="cmt_cmt_div">
-						<p class="cmt_cmt_div_p">이 향수 비추합니다. 냄새가 경덕이형 발냄새 같네요.</p>
-					</div>
-				</div>
-			</div>
-		</div>
 		
-	
-	<!--
-	<c:forEach items="${cmtList}" var="item">
-		<div class="cmt">
-			<div class="cmt_i_cmt">
-				<div>
-					<p>${item.i_cmt}</p>
-				</div>
-			</div>
-			<div class="cmt_userData">
-				<div>
-					<p>${item.nm}</p>
-					<img src="/res/img/profileImg/${item.profile_img}">
-				</div>
-				<div>
-					<p>${item.ageGroup}대/${item.gender}</p>
-				</div>
-			</div>
-			<div class="cmt_cmt">
-				<div>
-					<p>${item.cmt}</p>
-				</div>
-			</div>
-			
 		</div>
-	</c:forEach>-->
 	</div>
 	<c:if test="${loginUser != null}">
 		<form id="frm" class="frm" action="/cmt/insCmt?i_p=${perfume.i_p}" method="post">
@@ -111,41 +46,137 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
 	
+	// cmtList 생성 함수 호출
 	ajaxSelCmtList()
+	
+	// 로그인 유저의 변수 생성 후 값 설정 
+	var i_user = `${loginUser.i_user}`
+	
+	i_user = Number(i_user);
+	
+	var loginUser = new Object();
+	
+	function setLoginUser(loginUser) {
+		loginUser.i_user = i_user;
+	}
+	
+	setLoginUser(loginUser)
+	
+	// cmtList 생성 함수 - 비동기
 	function ajaxSelCmtList() {
-		axios.get('/common/ajaxSelCmtList', {
+		axios.get('/cmt/ajaxSelCmtList', {
 			params : {}
 		}).then(function(res) {
-			console.log(res.data)
 				cmtContents.innerText = ''
 				var cmt_cnt_content = document.querySelector(".cmt_cnt_content");
-				cmt_cnt_content.innerText = '(' + res.data.length + ')'
-			
-				for (var i = 0; i < res.data.length; i++) {
-					var cmt = document.createElement('div');
-					var cmt_userData = document.createElement('div');
-					cmt_cmt.setAttribute('class', 'cmt_cmt');
-					
-					cmt.append(cmt_userData)
-					cmt.append(cmt_cmt)
-					
-					div_eng.innerText = '향수 브랜드 : ' + res.data[i].b_nm_eng
-					div_kor.innerText = '향수 이름 : ' + res.data[i].p_nm
-					div_size.innerText = '향수 용량 : ' + res.data[i].p_size
-					div_price.innerText = '향수 가격 : '
-							+ numberFormat(res.data[i].p_price) + '원'
-
-					div.append(img)
-					div.append(div_kor)
-					div.append(div_eng)
-					div.append(div_size)
-					div.append(div_price)
-
-					cmtContents.append(div)
-				}
+				cmt_cnt_content.innerText = '(' + res.data.length + ')';
+				
+				res.data.forEach(function(item) {					
+					createCmt(item)
+					if(loginUser.i_user == item.i_user) {
+						createCmtUpd(item);
+						createCmtDel(item);
+					}
+				})
 		})
 	}
-	function name() {
+	
+	// cmt 생성 함수
+	function createCmt(item) {
+		var cmt = document.createElement('div');
+		var cmt_userData = document.createElement('div');
+		var cmt_userData_i_cmt = document.createElement('div');
+		var cmt_userData_i_cmt_p = document.createElement('p');
+		var cmt_userData_userNm = document.createElement('div');
+		var cmt_userData_userNm_p = document.createElement('p');
+		var cmt_userData_userNm_img = document.createElement('img');
+		var cmt_userData_userAge = document.createElement('div');
+		var cmt_userData_userAge_p = document.createElement('p');
+		var Cmt_userData_userI_user = document.createElement('div');
+		var cmt_cmt = document.createElement('div');
+		var cmt_cmt_div = document.createElement('div');
+		var cmt_cmt_div_p = document.createElement('p');
+		
+		cmt.setAttribute('class', 'cmt');
+		cmt_userData.setAttribute('class', 'cmt_userData_' + item.i_cmt);
+		cmt_userData_i_cmt.setAttribute('class', 'cmt_userData_i_cmt');
+		cmt_userData_i_cmt_p.setAttribute('class', 'cmt_userData_i_cmt_p');
+		cmt_userData_userNm.setAttribute('class', 'cmt_userData_userNm');
+		cmt_userData_userNm_p.setAttribute('class', 'cmt_userData_userNm_p');
+		cmt_userData_userNm_img.setAttribute('class', 'cmt_userData_userNm_img');
+		cmt_userData_userAge.setAttribute('class', 'cmt_userData_userAge');
+		cmt_userData_userAge_p.setAttribute('class', 'cmt_userData_userAge_p');
+		cmt_cmt.setAttribute('class', 'cmt_cmt');
+		cmt_cmt_div.setAttribute('class', 'cmt_cmt_div');
+		cmt_cmt_div_p.setAttribute('class', 'cmt_cmt_div_p');
+		
+		cmt_userData_i_cmt_p.innerText = item.i_cmt + '번 후기'
+		cmt_userData_userNm_img.src = '/res/img/profileImg/' + item.profile_img
+		cmt_userData_userNm_p.innerText = item.nm
+		cmt_userData_userAge_p.innerText = item.ageGroup + '/' + item.gender
+		cmt_cmt_div_p.innerText = item.cmt
+
+		cmt.append(cmt_userData)
+		cmt.append(cmt_cmt)
+		cmt_userData.append(cmt_userData_i_cmt)
+		cmt_userData.append(cmt_userData_userNm)
+		cmt_userData.append(cmt_userData_userAge)
+		cmt_userData_i_cmt.append(cmt_userData_i_cmt_p)
+		cmt_userData_userNm.append(cmt_userData_userNm_p)
+		cmt_userData_userNm_p.append(cmt_userData_userNm_img)
+		cmt_userData_userAge.append(cmt_userData_userAge_p)
+		cmt_cmt.append(cmt_cmt_div)
+		cmt_cmt_div.append(cmt_cmt_div_p)
+
+		cmtContents.append(cmt)
+	}
+	
+	// cmt 수정 생성 함수
+	function createCmtUpd(item) {
+		var cmt_userData = document.querySelector(".cmt_userData_" + item.i_cmt);
+		
+		var cmt_upd = document.createElement('div');
+		var cmt_upd_bt = document.createElement('span');
+		
+		cmt_upd.setAttribute('class', 'cmt_upd');
+		cmt_upd_bt.setAttribute('class', 'cmt_upd_bt');
+		
+		cmt_upd_bt.innerText = "수정";
+		
+		// cmt_upd_bt.setAttribute('onclick', 'ajaxUpdCmt('+item+')');
+		cmt_upd_bt.addEventListener('click', event => ajaxUpdCmt(item));
+		
+		cmt_upd.append(cmt_upd_bt)
+		cmt_userData.append(cmt_upd)
+	}
+	
+	// cmt 수정 함수
+	function ajaxUpdCmt(item) {
 		
 	}
+	
+	// cmt 삭제 생성 함수
+	function createCmtDel(item) {
+		var cmt_userData = document.querySelector(".cmt_userData_" + item.i_cmt);
+		
+		var cmt_del = document.createElement('div');
+		var cmt_del_bt = document.createElement('span');
+		
+		cmt_del.setAttribute('class', 'cmt_del');
+		cmt_del_bt.setAttribute('class', 'cmt_del_bt');
+		
+		cmt_del_bt.innerText = "삭제";
+		
+		// cmt_del_bt.setAttribute('onclick', 'ajaxDelCmt('+item+')');
+		cmt_del_bt.addEventListener('click', event => ajaxDelCmt(item));
+		
+		cmt_del.append(cmt_del_bt)
+		cmt_userData.append(cmt_del)
+	}
+	
+	// cmt 삭제 함수
+	function ajaxDelCmt(item) {
+		
+	}
+	
 </script>
