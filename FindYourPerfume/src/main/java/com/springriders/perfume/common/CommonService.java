@@ -6,9 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springriders.perfume.common.model.BrandCodeVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
+import com.springriders.perfume.crawler.model.CrawlerBrandVO;
+import com.springriders.perfume.crawler.model.CrawlerPerfumeVO;
 
 @Service
 public class CommonService {
@@ -19,6 +22,7 @@ public class CommonService {
 	public List<PerfumeDMI> selTopPerfumeList(PerfumePARAM param) {
 		return mapper.selTopPerfumeList(param);
 	}
+
 
 	public List<PerfumeDMI> selRecPerfumeList(List<NoteCodeVO> list) {
 		List<PerfumeDMI> recList = new ArrayList();
@@ -43,8 +47,20 @@ public class CommonService {
 		return mapper.selPerfume(param);
 	}
 
+
+	public List<PerfumeDMI> selBrandAlphabet(PerfumeDMI dm) {
+		return mapper.selBrandAlphabet(dm);
+	}
+
+//	public List<PerfumeDMI> selBrandNm(PerfumePARAM param) {
+//
+//		return mapper.selBrandNm(param);
+//	}
+
+
 	public List<NoteCodeVO> selUserNoteList(PerfumePARAM param) {
 		return mapper.selUserNoteList(param);
 	}
+
 
 }

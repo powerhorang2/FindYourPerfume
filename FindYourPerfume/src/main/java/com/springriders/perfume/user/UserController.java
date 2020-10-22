@@ -111,6 +111,7 @@ public class UserController {
 	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(Model model) {
+		model.addAttribute(Const.CSS, "login");
 		model.addAttribute(Const.TITLE, "로그인");
 		model.addAttribute(Const.VIEW, "/user/login");
 		

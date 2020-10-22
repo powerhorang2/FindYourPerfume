@@ -1,4 +1,50 @@
 @charset "UTF-8";
-.container { 
 
+hr {
+	margin: 20px 0;
+}
+
+.frm {
+	padding-top: 0;
+}
+
+input[type="text"], input[type="password"], input[type="date"] {
+	padding-left: 20px;
+	width: 300px;
+	height: 30px;
+	margin: 5px 0 10px;
+}
+
+span {
+	margin-left: 5px;
+	font-size: 0.8em;
+}
+
+.loginContainer { 
+	height: 800px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.loginContainer > div > #loginHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.loginContainer > div > #loginHeader > #btnReturn {
+	color: #3e3e3e;
+	cursor: pointer;
+	margin-top: 10px;
+	font-size: 30px;
+}
+
+.loginContainer > div > #frm > #loginFooter {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.loginContainer > div > #frm > #loginFooter > input {
+	margin-left: 10px;
 }

@@ -9,7 +9,7 @@
 	<form id="frm" action="/user/join" method="post" enctype="multipart/form-data" onsubmit="return userChk()">
 	<div id="joinHeader">
 		<h1>회원가입<span>Create an account</span></h1>
-		<span class="material-icons" onclick="returnMain()" id="btnReturn">forward</span>
+		<span class="material-icons" onclick="moveToPage(`/common/main`)" id="btnReturn">home</span>
 	</div><hr>
 	<div id="joinMain">
 		<div id="basicInf">
@@ -89,8 +89,8 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-	function returnMain() {
-		location.href = '/common/main'
+	function moveToPage(p) {
+		location.href = p
 	}
 	
 		//노트 

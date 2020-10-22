@@ -1,5 +1,6 @@
 package com.springriders.perfume.common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springriders.perfume.Const;
@@ -42,7 +44,33 @@ public class CommonController {
 		int i_user = SecurityUtils.getLoginUserPk(req);
 
 		param.setI_user(i_user);
+
+
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
+//		List<PerfumeDMI> brandNm = service.selBrandNm(param);
+
+				
+		List<String> brandAlphabet = new ArrayList();
+        char aString = 65 ;
+        
+        while(true){
+            // 특수문자 시작시 알파벳 소문자로 고정
+            if(aString == 91)
+                aString = 97 ;
+ 
+            // 아스키 코드를 문자형으로 변환
+            String str = String.valueOf(aString) ;
+
+            brandAlphabet.add(str);
+  
+            // 아스키값 증가
+            aString++ ;
+ 
+            // 알파벳 소문자 z가 끝날시 종료 처리
+            if(aString > 90)
+                break ;
+        }
+
 		
 		List<PerfumeDMI> topPerfume = service.selTopPerfumeList(param);
 		model.addAttribute("topPerfume", topPerfume);
@@ -53,10 +81,15 @@ public class CommonController {
 			List<PerfumeDMI> recPerfume = service.selRecPerfumeList(userNote);
 			model.addAttribute("recPerfume", recPerfume);
 		}
+
 		
+        model.addAttribute("brandAlphabet", brandAlphabet);
 		model.addAttribute("perfume", perfume);
 
-		model.addAttribute(Const.CSS,"main");
+//		model.addAttribute("brandNm", brandNm);
+
+
+		model.addAttribute(Const.CSS, "main");
 		model.addAttribute(Const.TITLE, "main");
 		model.addAttribute(Const.VIEW, "main");
 		
@@ -98,6 +131,7 @@ public class CommonController {
 		int i_user = SecurityUtils.getLoginUserPk(req);
 		param.setI_user(i_user);
 
+
 		param.setI_p(579);
 		PerfumeDMI perfume = service.selPerfume(param);
 		List<NoteCodeVO> noteList = service.selPerfumeNoteList(param);
@@ -111,6 +145,13 @@ public class CommonController {
 		model.addAttribute(Const.TITLE, "디테일 페이지"); //가게명
 		model.addAttribute(Const.VIEW, "detail/perfumeDetail");
 		return ViewRef.TEMP_MENU;
+	}
+	
+	@RequestMapping("/ajaxSelBrandAlphabet")
+	@ResponseBody
+	public List<PerfumeDMI> ajaxSelBrandAlphabet(PerfumeDMI dm){
+		System.out.println(dm.getB_nm_eng());
+		return service.selBrandAlphabet(dm);
 	}
 	
 	

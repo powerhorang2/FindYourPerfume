@@ -36,6 +36,7 @@ public class CrawlerPerfumeVO {
 	public void setP_pic(String p_pic) {
 		this.p_pic = p_pic;
 	}
+
 	public String getP_brand_nm() {
 		return p_brand_nm;
 	}

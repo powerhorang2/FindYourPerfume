@@ -27,6 +27,11 @@
 			</div>
 			<div id="containerInfo">
 				<div>
+					<h2>??님의 관리자페이지</h2>
+					<p>닉네임<span>Nickname</span></p>
+					<p>굔도쿠짱짱맨</p>a
+					<p>생년월일<span>Birthday</span></p>
+					<p>1991년 1월 22일</p>
 					<h2>${loginUser.nm}님의 관리자페이지</h2>
 					<div>
 						<p>닉네임<span>Nickname</span></p>

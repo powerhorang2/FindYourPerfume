@@ -23,4 +23,5 @@ public class BrandCodeVO {
 	public void setB_nm_kor(String b_nm_kor) {
 		this.b_nm_kor = b_nm_kor;
 	}
+
 }
