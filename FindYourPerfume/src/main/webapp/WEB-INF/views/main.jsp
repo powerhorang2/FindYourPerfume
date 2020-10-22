@@ -67,17 +67,19 @@
 				
 			<!--알파벳 클릭  -->
 				<div id="selBrandAlphabet">
-					<p onclick="choiceAlphabetMain()">ALL</p>					
+						<p onclick="choiceAlphabetMain()">ALL</p>	
 					<c:forEach items="${brandAlphabet}" var="item">
 						<p onclick="choiceAlphabetMain(`${item}`)">${item}</p>
 					</c:forEach>
-					<p onclick="choiceAlphabetMain(`${item.})">ETC</p>
+					<p onclick="choiceAlphabetMain('ETC')">ETC</p>
 				</div>
 				<div id="sel_brand">
 					<div id="SelBrandNm">
  						<div>
 							<c:forEach items="${brandEnm}" var="data">
 								<p>${data.b_nm_eng}</p>
+							</c:forEach>
+							<c:forEach items="${brandFullNm}" var="item">
 							</c:forEach>
 						</div> 
 					</div>
@@ -88,6 +90,7 @@
 	</div>
 	<div id="brandRight">
 		<div class="topPerfume">
+
 			<c:forEach items="${topPerfume}" var="item">
 				<div>향수 이름 : ${item.p_nm}</div>
 				<div>향수 용량 : ${item.p_size}ml</div>
@@ -99,7 +102,7 @@
 				<div>------------------------------------------</div>
 			</c:forEach>
 			<div>===================분리선=================</div>
-		</div>
+
 		<c:if test="${loginUser != null}">
 			<!-- Slider main container -->
 			<div class="swiper-container">
@@ -125,6 +128,7 @@
 				<div class="swiper-scrollbar"></div>
 			</div>
 		</c:if>
+		</div>
 		<div id="sel_div">
 			<div id="brandAlphabet" class="perfumeMain">
 				<c:forEach items="${perfume}" var="item">
@@ -157,8 +161,11 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 	var brandList = []
+	
+	choiceAlphabetMain(undefined)
 
 	function choiceAlphabetMain(b_nm_initial) {
+		console.log(b_nm_initial)
 		axios.get('/common/ajaxSelBrandAlphabet', {
 			params : {
 				b_nm_initial : b_nm_initial
@@ -166,6 +173,7 @@
 		}).then(function(res) {
 					sel_div.innerText = ''
 					for (var i = 0; i < res.data.length; i++) {
+						
 
 						var div = document.createElement('div');
 						var div_kor = document.createElement('div');
@@ -198,26 +206,62 @@
 		}).then(function(res){
 			sel_brand.innerText = ''
 			for (var i = 0; i < res.data.length; i++){
-				
-				var div = document.createElement('div'); 
+				console.log(res.data[i])
+				var b_nm_eng = res.data[i].b_nm_eng
+				var div = document.createElement('span'); 
 				var div_eng = document.createElement('div');
-				div.setAttribute('class', 'brandNm');
-		
-				div_eng.innerText = res.data[i].b_nm_eng
+				div.setAttribute('onclick', `choiceAlphabetFullNm(\'\${res.data[i].b_nm_eng}\')`);
+				div_eng.innerText = b_nm_eng
 				div.append(div_eng)
 
 				sel_brand.append(div)	
-				
 			}
 		})
 				
 	}
 	
+	function choiceAlphabetFullNm(b_nm_eng){
+		console.log('섭섭')
+		console.log('ㅎㅎ : ' + b_nm_eng);
+		axios.get('/common/ajaxSelBrandFullAp',{
+			params : {
+				b_nm_eng : b_nm_eng
+			}
+		}).then(function(res){
+			sel_div.innerText = ''
+			for (var i = 0; i < res.data.length; i++){
+				var div = document.createElement('div');
+				var div_kor = document.createElement('div');
+				var div_eng = document.createElement('div');
+				var div_size = document.createElement('div');
+				var div_price = document.createElement('div');
+				var img = document.createElement('img');
+				
+				img.src = res.data[i].p_pic
+				div_eng.innerText = '향수 브랜드 : ' + res.data[i].b_nm_eng
+				div_kor.innerText = '향수 이름 : ' + res.data[i].p_nm
+				div_size.innerText = '향수 용량 : ' + res.data[i].p_size
+				div_price.innerText = '향수 가격 : '
+						+ numberFormat(res.data[i].p_price) + '원'
+
+				div.append(img)
+				div.append(div_eng)
+				div.append(div_kor)
+				div.append(div_size)
+				div.append(div_price)
+
+				sel_div.append(div)
+			}
+		})
+	}
+	 
+	
 	function choiceAlphabet(b_nm_initial) {
 		console.log(b_nm_initial)
 
 	}
-		
+	
+	//가격에 , 붙이기
 	function numberFormat(inputNumber) {
 		return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
