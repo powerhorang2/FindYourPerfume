@@ -80,6 +80,7 @@
 								<p>${data.b_nm_eng}</p>
 							</c:forEach>
 							<c:forEach items="${brandFullNm}" var="item">
+								<p onclick="choiceAlphabetFullNm(`${item}`)">${item}</p>
 							</c:forEach>
 						</div> 
 					</div>
@@ -151,7 +152,7 @@
 						</div>
 					</div>
 				</c:forEach>
-				<div></div>
+
 			</div>
 		</div>
 
@@ -174,7 +175,6 @@
 					sel_div.innerText = ''
 					for (var i = 0; i < res.data.length; i++) {
 						
-
 						var div = document.createElement('div');
 						var div_kor = document.createElement('div');
 						var div_eng = document.createElement('div');
@@ -221,8 +221,8 @@
 	}
 	
 	function choiceAlphabetFullNm(b_nm_eng){
-		console.log('섭섭')
 		console.log('ㅎㅎ : ' + b_nm_eng);
+		
 		axios.get('/common/ajaxSelBrandFullAp',{
 			params : {
 				b_nm_eng : b_nm_eng

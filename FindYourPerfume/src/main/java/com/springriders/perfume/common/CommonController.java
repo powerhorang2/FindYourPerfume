@@ -46,11 +46,7 @@ public class CommonController {
 		
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
-		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(param);
-		
-		for(PerfumeDMI f : brandFullNm) {
-			System.out.println("ㅎㅇ:" + f.getB_nm_eng());
-		}
+		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
 		
 		List<String> brandAlphabet = new ArrayList();
         char aString = 65 ;
@@ -151,7 +147,7 @@ public class CommonController {
 	@RequestMapping("/ajaxSelBrandAlphabet")
 	@ResponseBody
 	public List<PerfumeDMI> ajaxSelBrandAlphabet(PerfumePARAM param){
-		System.out.println(param.getB_nm_initial()); 
+		System.out.println("우우우웅 : " + param.getB_nm_initial()); 
 		
 		return service.selBrandAlphabet(param);
 	}
@@ -164,8 +160,9 @@ public class CommonController {
 	
 	@RequestMapping("/ajaxSelBrandFullAp")
 	@ResponseBody
-	public List<PerfumeDMI> ajaxSelBranFulldAp(PerfumePARAM param){
-		return service.selBrandFullAp(param);
+	public List<PerfumeDMI> ajaxSelBranFullAp(PerfumeDMI dmi){
+		System.out.println("나니 ? " + dmi.getB_nm_eng()); 
+		return service.selBrandFullAp(dmi);
 	}
 	
 	

@@ -28,7 +28,7 @@ public interface CommonMapper {
 	List<PerfumeDMI> selBrandEnm(PerfumeDMI dm);
 	List<PerfumeDMI> selBrandNm(PerfumePARAM param);
 	List<PerfumeDMI> selBrandFullNm(PerfumePARAM param);
-	List<PerfumeDMI> selBrandFullAp(PerfumePARAM param);
+	List<PerfumeDMI> selBrandFullAp(PerfumeDMI dmi);
 	
 
 	

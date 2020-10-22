@@ -78,9 +78,9 @@ public class CommonService {
 	}
 
 
-	public List<PerfumeDMI> selBrandFullAp(PerfumePARAM param) {
+	public List<PerfumeDMI> selBrandFullAp(PerfumeDMI dmi) {
 		
-		return mapper.selBrandFullAp(param);
+		return mapper.selBrandFullAp(dmi);
 	}
 
 
