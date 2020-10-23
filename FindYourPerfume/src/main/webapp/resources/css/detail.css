@@ -51,7 +51,7 @@
 	flex-direction: row;
 }
 
-.cmt:first-child {
+.cmt > div:first-child {
 	padding: 0px 10px;
 	border-right: 1px solid black;
 }
@@ -65,7 +65,15 @@
 	padding: 0px 10px;
 }
 
-.cmt:first-child:last-child {
+.cmt_userData_userAge + div {
 	display: flex;
 	flex-direction: row;
+}
+
+.cmt_userData_userAge + div > .cmt_upd {
+	width: 50px;
+}
+
+.cmt_userData_userAge + div > .cmt_del {
+	width: 50px;
 }
