@@ -91,7 +91,7 @@
 	</div>
 	<div id="brandRight">
 		<div class="topPerfume">
-
+		<div id="hiddenSwiper">
 			<c:forEach items="${topPerfume}" var="item">
 				<div>향수 이름 : ${item.p_nm}</div>
 				<div>향수 용량 : ${item.p_size}ml</div>
@@ -103,7 +103,12 @@
 				<div>------------------------------------------</div>
 			</c:forEach>
 			<div>===================분리선=================</div>
-
+		</div>
+		<div id="filter">
+			<div>
+				필터링~~~~~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!
+			</div>
+		</div>
 		<c:if test="${loginUser != null}">
 			<!-- Slider main container -->
 			<div class="swiper-container">
@@ -229,6 +234,7 @@
 			}
 		}).then(function(res){
 			sel_div.innerText = ''
+			hiddenSwiper.innerText = ''
 			for (var i = 0; i < res.data.length; i++){
 				var div = document.createElement('div');
 				var div_kor = document.createElement('div');

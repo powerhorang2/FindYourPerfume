@@ -147,8 +147,6 @@ public class CommonController {
 	@RequestMapping("/ajaxSelBrandAlphabet")
 	@ResponseBody
 	public List<PerfumeDMI> ajaxSelBrandAlphabet(PerfumePARAM param){
-		System.out.println("우우우웅 : " + param.getB_nm_initial()); 
-		
 		return service.selBrandAlphabet(param);
 	}
 	
@@ -161,7 +159,6 @@ public class CommonController {
 	@RequestMapping("/ajaxSelBrandFullAp")
 	@ResponseBody
 	public List<PerfumeDMI> ajaxSelBranFullAp(PerfumeDMI dmi){
-		System.out.println("나니 ? " + dmi.getB_nm_eng()); 
 		return service.selBrandFullAp(dmi);
 	}
 	
