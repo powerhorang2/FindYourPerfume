@@ -1,23 +1,80 @@
 @charset "UTF-8";
-.container { 
-  position: absolute;
-  width: 400px; 
-  height: 400px; 
-  text-align: center; 
-  margin-left: -200px; 
-  margin-top: -200px; 
-  left: 50%; 
-  top: 50%; 
+
+#loginVid { 
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -10;
 }
 
-.box {
-    width: 150px;
-    height: 150px; 
-    border-radius: 70%;
-    overflow: hidden;
+hr {
+	margin: 20px 0;
 }
 
-a {
-	color: #000;
+.frm {
+	padding-top: 0;
+}
 
+input[type="text"], input[type="password"], input[type="date"] {
+	padding-left: 20px;
+	width: 300px;
+	height: 30px;
+	margin: 5px 0 10px;
+}
+
+span {
+	margin-left: 5px;
+	font-size: 0.8em;
+}
+
+.loginContainer { 
+	height: 800px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.loginContainer > div {
+	border: 1px solid #404040;
+	padding: 30px;
+	background-color: #fff;	
+}
+
+.loginContainer > div > #loginHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.loginContainer > div > #loginHeader > #btnReturn {
+	color: #3e3e3e;
+	cursor: pointer;
+	margin-top: 10px;
+	font-size: 30px;
+}
+
+.loginContainer > div > #frm > #loginMain {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.hidden {
+	display: hidden;
+}
+.loginContainer > div > #frm > #loginMain > #idChkResult {
+    text-align: right;
+    font-size: 12px;
+    line-height: 24px;	
+}
+
+.loginContainer > div > #frm > #loginFooter {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.loginContainer > div > #frm > #loginFooter > input {
+	margin-left: 10px;
 }

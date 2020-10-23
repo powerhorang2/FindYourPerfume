@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springriders.perfume.Const;
+import com.springriders.perfume.FileUtils;
 import com.springriders.perfume.SecurityUtils;
 import com.springriders.perfume.ViewRef;
 import com.springriders.perfume.user.model.UserPARAM;
@@ -98,9 +99,11 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/join", method = RequestMethod.POST)
-	public String join(UserPARAM param, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
+	public String join(MultipartHttpServletRequest mReq, UserPARAM param, RedirectAttributes ra) {
+	
+		System.out.println("user_id : " + mReq.getParameter("user_id"));
 		
-		int result = service.join(param, mReq);
+		int result = service.join(mReq, param);
 		
 		if(result == 1) {
 			return "redirect:/user/login";
@@ -111,6 +114,7 @@ public class UserController {
 	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(Model model) {
+		model.addAttribute(Const.CSS, "login");
 		model.addAttribute(Const.TITLE, "로그인");
 		model.addAttribute(Const.VIEW, "/user/login");
 		

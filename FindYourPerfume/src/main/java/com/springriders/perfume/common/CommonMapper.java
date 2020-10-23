@@ -27,18 +27,20 @@ public interface CommonMapper {
 	List<PerfumeDMI> selBrandAlphabet(PerfumePARAM param);
 	List<PerfumeDMI> selBrandEnm(PerfumeDMI dm);
 	List<PerfumeDMI> selBrandNm(PerfumePARAM param);
+
 	List<PerfumeDMI> selBrandFullNm(PerfumePARAM param);
 	List<PerfumeDMI> selBrandFullAp(PerfumeDMI dmi);
 	
 
 	
-	
 	PerfumeVO selPerfumePk(PerfumeVO vo);
 	PerfumeDMI selPerfume(PerfumePARAM param);
 	
-	
 	int insPerfume(PerfumeVO vo);
 	int insPerfumeNote(NoteCodeVO vo);
+
+	int delPerfume(PerfumePARAM param);
+	
 
 }
 
