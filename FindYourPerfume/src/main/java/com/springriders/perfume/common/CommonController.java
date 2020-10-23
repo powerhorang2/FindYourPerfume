@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -137,6 +138,7 @@ public class CommonController {
 		
 		model.addAttribute("perfume", perfume);
 		model.addAttribute("noteList", noteList);
+		model.addAttribute("cmtList", cmtList);
 		
 		model.addAttribute(Const.CSS, "detail");
 		model.addAttribute(Const.TITLE, "디테일 페이지"); //가게명
@@ -161,9 +163,5 @@ public class CommonController {
 	public List<PerfumeDMI> ajaxSelBranFullAp(PerfumeDMI dmi){
 		return service.selBrandFullAp(dmi);
 	}
-	
-	
-	
 
-	
 }
