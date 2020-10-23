@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.springriders.perfume.common.model.BrandCodeVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
+import com.springriders.perfume.common.model.PagingVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.common.model.PerfumeVO;
@@ -40,6 +41,9 @@ public interface CommonMapper {
 	int insPerfumeNote(NoteCodeVO vo);
 
 	int delPerfume(PerfumePARAM param);
+	
+	
+	// 페이징 int selPageNum(PagingVO pVO);
 	
 
 }

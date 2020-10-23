@@ -62,11 +62,14 @@ public class UserService {
 		param.setI_user(param.getI_user());
 		System.out.println("i_user : " + param.getI_user());
 		
-		for(String strUserNotes : strUserNote) {
-			int nt_m_c = CommonUtils.parseStringToInt(strUserNotes);
-			param.setNt_m_c(nt_m_c);
+		if(mReq.getParameter("nt_m_c") != null) {
 			
-			mapper.insUserNote(param);	
+			for(String strUserNotes : strUserNote) {
+				int nt_m_c = CommonUtils.parseStringToInt(strUserNotes);
+				param.setNt_m_c(nt_m_c);
+				
+				mapper.insUserNote(param);	
+			}
 		}
 		return Const.SUCCESS;
 	}

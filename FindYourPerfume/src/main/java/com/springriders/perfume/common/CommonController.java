@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +21,7 @@ import com.springriders.perfume.cmt.CmtService;
 import com.springriders.perfume.cmt.model.CmtDMI;
 import com.springriders.perfume.common.model.CommonVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
+import com.springriders.perfume.common.model.PagingVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.user.UserService;
@@ -50,7 +50,11 @@ public class CommonController {
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
 		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
-
+		
+	//	PagingVO pVO = new PagingVO(); 페이징
+		
+	//	int pageNum = service.selPageNum(pVO);
+		
 		List<String> brandAlphabet = new ArrayList();
 		
         char aString = 65 ;
@@ -75,6 +79,7 @@ public class CommonController {
 			model.addAttribute("recPerfume", recPerfume);
 		}
 
+		/* model.addAttribute("pageNum", pageNum); */
 		model.addAttribute("brandFullNm", brandFullNm);
         model.addAttribute("brandAlphabet", brandAlphabet);
         model.addAttribute("brandEnm", brandEnm);
@@ -119,10 +124,10 @@ public class CommonController {
 
 	@RequestMapping("/detail")
 	public String detail(PerfumePARAM param, Model model, HttpServletRequest req) {
-		
+		System.out.println("i_pddd : " + param.getI_p());
 		int i_user = SecurityUtils.getLoginUserPk(req);
 		param.setI_user(i_user);
-		param.setI_p(579);
+		param.setI_p(param.getI_p());
 		
 		PerfumeDMI perfume = service.selPerfume(param);
 		List<NoteCodeVO> noteList = service.selPerfumeNoteList(param);
@@ -179,5 +184,18 @@ public class CommonController {
 	public List<PerfumeDMI> ajaxSelBranFullAp(PerfumeDMI dmi){
 		return service.selBrandFullAp(dmi);
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

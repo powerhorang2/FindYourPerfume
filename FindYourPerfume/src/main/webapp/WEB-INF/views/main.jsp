@@ -104,11 +104,6 @@
 			</c:forEach>
 			<div>===================분리선=================</div>
 		</div>
-		<div id="filter">
-			<div>
-				필터링~~~~~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!
-			</div>
-		</div>
 		<c:if test="${loginUser != null}">
 			<!-- Slider main container -->
 			<div class="swiper-container">
@@ -135,32 +130,29 @@
 			</div>
 		</c:if>
 		</div>
-		<div id="sel_div">
-			<div id="brandAlphabet" class="perfumeMain">
-				<c:forEach items="${perfume}" var="item">
-					<div class="perfumePic">
-						<c:if test="${loginUser != null}">
-							<span id="favorite" class="material-icons"> <c:choose>
-									<c:when test="${loginUser.i_user == item.i_user}">favorite</c:when>
-									<c:otherwise>favorite_border</c:otherwise>
-								</c:choose>
-							</span>
-						</c:if>
-
-						<div id="brand">
-							<div>
-								<img src="${item.p_pic}">
-							</div>
-							<div>향수 브랜드 : ${item.b_nm_eng}</div>
-							<div>향수 이름 : ${item.p_nm}</div>
-							<div>향수 용량 : ${item.p_size}ml 향수 가격 : ${item.p_price}</div>
-						</div>
-					</div>
-				</c:forEach>
-
+		<div id="filter">
+			<div>
+				필터링~~~~~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!
 			</div>
 		</div>
-
+		<div id="sel_div">
+			<div id="brandAlphabet" class="perfumeMain">
+			</div>
+			</div> 
+	<%-- 페이징	<div id="page">
+		<c:forEach begin="1" end="${pagingNum}" var="item">
+			<c:choose>
+				<c:when test="${page == item}">
+					<span class="pagingFont pageSelected">${item}</span>
+				</c:when>
+				<c:otherwise>
+					<span class="pagingFont">
+						<a href="#"></a>
+					</span>
+				</c:otherwise>
+				</c:choose>
+			</c:forEach>
+		</div> --%>
 	</div>
 
 </div>
@@ -168,7 +160,7 @@
 <script>
 	var brandList = []
 	
-	choiceAlphabetMain(undefined)
+ 	choiceAlphabetMain(undefined)
 
 	function choiceAlphabetMain(b_nm_initial) {
 		console.log(b_nm_initial)
@@ -180,7 +172,10 @@
 					sel_div.innerText = ''
 					for (var i = 0; i < res.data.length; i++) {
 						
-						var div = document.createElement('div');
+						
+						
+						var div = document.createElement('span');
+						div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`);
 						var div_kor = document.createElement('div');
 						var div_eng = document.createElement('div');
 						var div_size = document.createElement('div');
@@ -191,7 +186,7 @@
 						img.src = res.data[i].p_pic
 						div_eng.innerText = '향수 브랜드 : ' + res.data[i].b_nm_eng
 						div_kor.innerText = '향수 이름 : ' + res.data[i].p_nm
-						div_size.innerText = '향수 용량 : ' + res.data[i].p_size
+						div_size.innerText = '향수 용량 : ' + res.data[i].p_size + 'ml'
 						div_price.innerText = '향수 가격 : '
 								+ numberFormat(res.data[i].p_price) + '원'
 
@@ -223,6 +218,11 @@
 			}
 		})
 				
+	}
+	
+	function moveToDetail(i_p) {
+		console.log(i_p)
+		location.href="/common/detail?i_p=" + i_p
 	}
 	
 	function choiceAlphabetFullNm(b_nm_eng){
