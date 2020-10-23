@@ -1,5 +1,20 @@
 @charset "UTF-8";
 
+.longInput, input[type="date"] {
+	width: 250px;
+	height: 30px;	
+}
+
+.shortInput {
+	width: 70px;
+	height: 30px;
+}
+
+.normalInput {
+	width: 120px;
+	height: 30px;
+}
+
 hr {
 	margin: 50px 0;
 }
@@ -33,18 +48,36 @@ hr {
 	min-width: 850px;
 	width: 70%;
 	position: relative;
+	display: flex;
+	flex-direction: column;
 }
 
 .adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerInfo > #submitProfile {
 	position: absolute;
 	bottom: 0;
-	right: 100px;	
+	right: 100px;
+}
+
+.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerInfo > #infoContents {
+	display: flex;
+}
+
+.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerInfo > #infoContents > 
+#nickNameBox {
+	margin-right: 50px;
+}
+
+.adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerInfo > #infoContents > 
+#nickNameBox > #r_dt_data {
+	line-height: 30px;	
 }
 
 .adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerImg {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	width: 200px;
-	height: 250px;
-	margin-left: 100px;
+	margin: 30px 50px 0;
 }
 
 .adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerImg > #profileImg {
@@ -53,20 +86,13 @@ hr {
 	border: 1px solid black;
 	border-radius: 100px;
 	overflow: hidden;
-	width: 150px;
-    height: 150px; 
-    border-radius: 70%;
-    overflow: hidden;
+    margin-bottom: 20px;
 }
 
 .adminContainer > #adminRight > #uptFrm > #sectionProfile > #containerImg > #profileImg > img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-}
-
-.adminContainer > #adminRight > #sectionAddAdmin {
-	
 }
 
 .adminContainer > #adminRight > #sectionAddAdmin > #title {
@@ -116,9 +142,11 @@ hr {
 }
 
 .adminContainer > #adminRight > #sectionAddPerfume > #detailSection > form > #containerPerfumeImg {
-	margin: 20px 0 0 100px; 
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	width: 200px;
-	height: 250px;
+	margin: 30px 50px 0 100px;
 }
 
 .adminContainer > #adminRight > #sectionAddPerfume > #detailSection > form > #containerPerfumeImg > #perfumeImg {
@@ -127,9 +155,7 @@ hr {
 	border: 1px solid black;
 	border-radius: 100px;
 	overflow: hidden;
-	width: 150px;
-    height: 150px; 
-    border-radius: 70%;
+    margin-bottom: 20px;
 }
 
 .adminContainer > #adminRight > #sectionAddPerfume > #detailSection > form > #containerPerfumeImg > #perfumeImg > img {
@@ -138,18 +164,17 @@ hr {
 	object-fit: cover;
 }
 
-
-
 .adminContainer > #adminRight > #sectionAddPerfume > #detailSection > form > #containerPerfumeInfo {
 	width: 70%;
 	min-width: 850px;
-	padding: 0px 50px 20px 50px;
+	padding: 0px 50px 20px 0;
 	position: relative;
 }
 
 .adminContainer > #adminRight > #sectionAddPerfume > #detailSection > form > #containerPerfumeInfo > #submitPerfume {
+	margin-top: 50px;
 	position: absolute;
-	bottom: 0;
+	bottom: -30px;
 	right: 100px;
 }
 
@@ -162,20 +187,63 @@ hr {
 	margin-right: 15px;
 }
 
-.adminContainer > #adminRight > #sectionAddPerfume > #detailSection > form > #containerPerfumeInfo > #notesInfo {
-	margin-top: 20px;
+.adminContainer > #adminRight > #sectionAddPerfume > #detailSection > form > #containerPerfumeInfo > #notesInfo > div {
+	margin-top: 10px;
 	display: flex;
 	flex-wrap: wrap;
 }
 
-.adminContainer > #adminRight > #sectionAddPerfume > #detailSection > form > #containerPerfumeInfo > #notesInfo > div{
+.adminContainer > #adminRight > #sectionAddPerfume > #detailSection > form > #containerPerfumeInfo > #notesInfo > p {
+	margin-top: 30px;
+}
+
+.adminContainer > #adminRight > #sectionAddPerfume > #detailSection > form > #containerPerfumeInfo > #notesInfo > div > div {
 	width: 20%;
 	margin: 0 10px 10px 0;
+}
+
+.adminContainer > #adminRight > #sectionDelPerfume {
+	margin-top: 50px;
 }
 
 .adminContainer > #adminRight > #sectionDelPerfume > #delPerfumeContainer {
     display: flex;
     flex-direction: row;
+    align-items: center;
     margin: 0 0 20px 100px;
+    position: relative;
+}
+
+.adminContainer > #adminRight > #sectionDelPerfume > #delPerfumeContainer > #delPerfume >
+#delPerfumeFrm > #submitDelPerfume {
+	margin-top: 50px;
+	position: absolute;
+	bottom: 30px;
+	right: 100px;
+}
+
+.adminContainer > #adminRight > #sectionDelPerfume > #delPerfumeContainer > #containerDelPerfumeImg {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 200px;
+	margin: 30px 50px 0 0;
+}
+
+.adminContainer > #adminRight > #sectionDelPerfume > #delPerfumeContainer > #containerDelPerfumeImg >
+#delPerfumeImg {
+	width: 200px;
+	height: 200px;
+	border: 1px solid black;
+	border-radius: 100px;
+	overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.adminContainer > #adminRight > #sectionDelPerfume > #delPerfumeContainer > #containerDelPerfumeImg >
+#delPerfumeImg > img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;	
 }
 

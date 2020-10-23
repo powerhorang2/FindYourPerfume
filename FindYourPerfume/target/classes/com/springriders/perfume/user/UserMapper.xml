@@ -29,7 +29,7 @@
 	</insert>
 
 	<select id="selUser" parameterType="UserVO" resultType="UserVO">
-		SELECT i_user, user_id, user_pw, salt, nm, user_type, bd, profile_img, r_dt
+		SELECT i_user, user_id, user_pw, salt, nm, user_type, bd, profile_img, r_dt, m_dt
 		FROM t_user
 		WHERE <if test="i_user > 0"> i_user = #{i_user}</if>
 		<if test="user_id != null and user_id != ''">user_id = #{user_id}</if>

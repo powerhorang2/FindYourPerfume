@@ -131,11 +131,6 @@ span {
 
 .joinContainer > div > #frm > #joinFooter {
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 }
-
-.joinContainer > div > #frm > #joinFooter > input {
-	margin-left: 10px;
-}
-
 
