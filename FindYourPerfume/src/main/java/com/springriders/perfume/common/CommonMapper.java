@@ -26,15 +26,14 @@ public interface CommonMapper {
 	List<PerfumeDMI> selPerfumeChoice(PerfumeDMI vo);
 	List<PerfumeDMI> selBrandAlphabet(PerfumeDMI dm);
 	List<PerfumeDMI> selBrandNm(PerfumePARAM param);
-
-	
 	
 	PerfumeVO selPerfumePk(PerfumeVO vo);
 	PerfumeDMI selPerfume(PerfumePARAM param);
 	
-	
 	int insPerfume(PerfumeVO vo);
 	int insPerfumeNote(NoteCodeVO vo);
+	
+	int delPerfume(PerfumePARAM param);
 	
 
 }

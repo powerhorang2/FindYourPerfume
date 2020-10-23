@@ -14,7 +14,7 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 <c:forEach items="${css}" var="item">
-	<link rel="stylesheet" type="text/css" href="/res/css/${item}.css">
+	<link rel="stylesheet" type="text/css" href="/res/css/${item}.css?ver=2">
 </c:forEach>
 </head>
 <body>

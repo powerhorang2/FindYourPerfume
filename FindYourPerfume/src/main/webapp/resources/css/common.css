@@ -17,6 +17,50 @@ a {
 	text-decoration: none;
 }
 
+.button {
+	font-family: 'Montserrat';
+	background-color: #fff;
+	border: 1px solid #000;	
+	padding: 5px;
+	cursor: pointer;
+	width: 80px;
+	height: 30px;
+	font-size: 14px;
+	text-align: cetner;
+	transition: background-color 0.2s;
+}
+
+.button:hover, .btn > label:hover {
+    background-color: #464646;
+    color: #fff;
+}
+
+.btn > label, .button:active {
+    background-color: #8a8a8a;
+}
+
+.btn > label {
+    background-color: #fff;
+    border: 1px solid #000;
+    padding: 5px;
+    cursor: pointer;
+    width: 80px;
+    height: 30px;
+	font-size: 14px;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.btn > input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
 .font-NotoSans-500 {
 	font-family: 'Noto Sans KR';
 	font-weight: 500;
@@ -87,8 +131,7 @@ a {
 
 .frm {
 	padding: 15px;
-	border: 1px solid #bdc3c7;
 }
 
-.msg { color: red; }
+.msg {color: #5f5f5f;}
 

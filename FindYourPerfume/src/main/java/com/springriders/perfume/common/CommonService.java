@@ -61,6 +61,10 @@ public class CommonService {
 	public List<NoteCodeVO> selUserNoteList(PerfumePARAM param) {
 		return mapper.selUserNoteList(param);
 	}
+	
+	public int delPerfume(PerfumePARAM param) {
+		return mapper.delPerfume(param);
+	}
 
 
 }

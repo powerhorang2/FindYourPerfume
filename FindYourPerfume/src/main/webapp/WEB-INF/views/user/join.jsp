@@ -4,89 +4,108 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <title>회원가입</title>
-<div class="container">
+<div class="joinContainer">
 	<div>
-		<h1>회원가입<span>Create an account</span></h1>	
-	</div>
-
-	<form id="frm" class="frm" action="/user/join" method="post" enctype="multipart/form-data" onsubmit="return userChk()">
-	<table>
-		<tr>
-			<th>아이디</th>
-			<td><div id="idChkResult" class="msg"></div>
-				<div><input type="text" name="user_id" placeholder="아이디" onchange="idValue()">
-				<button type="button" onclick="chkId()">중복체크</button>
-			</div>
-			</td>
-		</tr>
-		<tr>
-			<th>비밀번호</th>
-			<td><input type="password" name="user_pw" placeholder="비밀번호"></td>
-		</tr>
-		<tr>
-			<th>비밀번호 확인</th>
-			<td><input type="password" name="user_pwre" placeholder="비밀번호 확인"></td>
-		</tr>
-		<tr>
-			<th>닉네임</th>
-			<td><input type="text" name="nm" placeholder="닉네임"></td>
-		</tr>
-		<tr>
-			<th>생년월일</th>
-			<td><input type="date" name="bd" placeholder="yyyy-mm-dd"></td>
-		</tr>
-		<tr>
-			<th>성별</th>
-			<td><input type="radio" name="gender" value="1">남</td>
-			<td><input type="radio" name="gender" value="2">여</td>
-		</tr>
-		
-		<tr>
-			<td>프로필 이미지</td>
-			<!-- <td><input type="file" name="profile_img" accept="image/*" onchange="previewImage(this)" ><br></td> -->
-			 <td><input type="file" name="file" accept="image/*" onchange="previewImage(this)" ><br></td>
-			<td><div class="box" id="preview"></div></td>
-		</tr>
-		<tr>
-			<th>선호 노트</th>
-			<td>
-				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="1">시트러스
-				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="2">아로마
-				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="3">플로랄<br>
-				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="4">그린
-				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="5">과일
-				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="6">스파이시<br>
-				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="7">우드
-				<input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="8">발사믹
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<div>
-	           		<input type="reset" value="초기화">
- 					<input type="submit" value="회원가입"> 
-					<input type="hidden" id="idchk" value="1">
+	<form name="frm" id="frm" action="/user/join" method="post" enctype="multipart/form-data" onsubmit="return userChk()">
+	<div id="joinHeader">
+		<h1>회원가입<span>Create an account</span></h1>
+		<span class="material-icons" onclick="moveToPage(`/common/main`)" id="btnReturn">home</span>
+	</div><hr>
+	<div id="joinMain">
+		<div id="basicInf">
+			<div id="title">기본정보</div>
+			<div id="user_id">
+				<div id="idChk">
+					<div>아이디<span>ID</span></div>
+					<div id="idChkResult" class="msg"></div>
+					<button class="button" type="button" onclick="chkId()">중복체크</button>
 				</div>
-			<td>
-        </tr>
-	</table>
+				<div><input type="text" name="user_id" placeholder="아이디" onchange="idValue()"></div>
+			</div>
+			<div>
+				<div>비밀번호<span>Password</span></div>
+				<div><input type="password" name="user_pw" placeholder="비밀번호"></div>		
+			</div>
+			<div>
+				<div>비밀번호 확인<span>Confirm Password</span></div>
+				<div><input type="password" name="user_pwre" placeholder="비밀번호 확인"></div>		
+			</div>
+			<div>
+				<div>닉네임<span>Nickname</span></div>
+				<div><input type="text" name="nm" placeholder="닉네임"></div>		
+			</div>
+			<div>
+				<div>생년월일<span>Date of Birth</span></div>
+				<div><input type="date" name="bd" placeholder="yyyy-mm-dd"></div>		
+			</div>
+			<div>
+				<div>성별<span>Gender</span></div>
+				<div id="selectGender">
+					<div><label><input type="radio" name="gender" value="1">남<span>Male</span></label></div>
+					<div><label><input type="radio" name="gender" value="2">여<span>Female</span></label></div>				
+				</div>
+			</div>
+		</div>
+		<div id="additionalInf">
+			<div id="title">추가정보</div>
+			<div id="profileImgContainer">
+				<div>프로필 이미지<span>Profile Image</span></div>
+				<div id="uploadProfileImg">
+					<div id="profileImg"></div>
+				</div>
+				<div class="btn" id="btn">
+					<label for="profile_image">사진선택</label>
+					<input type="file" id="profile_image" name="file" accept="image/*" onchange="previewImage(this)" value="사진선택"><br>					
+				</div>
+			</div>
+			<div id="noteContainer">
+				<div id="noteContainerTitle">선호 노트<span>Preferred scent</span></div>
+				<div id="noteList">
+					<div>
+						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="1">시트러스<span>Citrus</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="2">아로마<span>Aromatics</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="3">플로랄<span>Floral</span></label></div>
+					</div>
+					<div>
+						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="4">그린<span>Green</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="5">과일<span>Fruity</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="6">스파이시<span>Spices</span></label></div>
+					</div>
+					<div>
+						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="7">우드<span>Wooded</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="8">발사믹<span>Balsamic</span></label></div>				
+					</div>
+				</div>			
+			</div>
+		</div>
+	</div><hr>
+	<div id="joinFooter">
+		<input class="button" type="reset" value="초기화">
+		<input class="button" type="submit" value="회원가입"> 
+		<input type="hidden" id="idchk" value="1">
+	</div>
 	</form>
+	</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+	function moveToPage(p) {
+		location.href = p
+	}
+	
 		//노트 
-		function count_ck(obj){
-		var chkbox = document.getElementsByName("nt_m_c");
-		var chkCnt = 0;
-		for(var i=0;i<chkbox.length; i++){
-			if(chkbox[i].checked){
-				chkCnt++;
-			}
+	function count_ck(obj){
+	var chkbox = document.getElementsByName("nt_m_c");
+	var chkCnt = 0;
+	for(var i=0;i<chkbox.length; i++){
+		if(chkbox[i].checked){
+			chkCnt++;
 		}
-		if(chkCnt>3) {
-			alert("최대 3개까지 선택 할 수있습니다.");
-			obj.checked = false;
-			return false;
+	}
+	if(chkCnt>3) {
+		alert("최대 3개까지 선택 할 수있습니다.");
+		obj.checked = false;
+		return false;
 		}
 	}
 	
@@ -147,7 +166,6 @@
 			if(res.data == '4'){
 				idChkResult.innerText = '아이디를 입력해주세요'
 			}
-		
 		})
 	}
 	
@@ -157,8 +175,7 @@
    		a.value = 1
    		console.log('value = ' + a.value)
     }
-	
-	
+
 	//이미지 미리보기
     function previewImage(f){
     	var file = f.files;
@@ -167,14 +184,14 @@
     		alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
     		// 선택한 파일 초기화
     		f.outerHTML = f.outerHTML;
-    		document.getElementById('preview').innerHTML = '';
+    		document.getElementById('profileImg').innerHTML = '';
     	}
     	else {
     		// FileReader 객체 사용
     		var reader = new FileReader();
     		// 파일 읽기가 완료되었을때 실행
     		reader.onload = function(rst){
-    			document.getElementById('preview').innerHTML = '<img src="' + rst.target.result + '">';
+    			document.getElementById('profileImg').innerHTML = '<img src="' + rst.target.result + '">';
     		}
     		// 파일을 읽는다
     		reader.readAsDataURL(file[0]);
