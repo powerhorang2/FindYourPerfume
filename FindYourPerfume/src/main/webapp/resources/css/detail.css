@@ -51,7 +51,7 @@
 	flex-direction: row;
 }
 
-.cmt_userData {
+.cmt:first-child {
 	padding: 0px 10px;
 	border-right: 1px solid black;
 }
@@ -63,4 +63,9 @@
 
 .cmt_cmt {
 	padding: 0px 10px;
+}
+
+.cmt:first-child:last-child {
+	display: flex;
+	flex-direction: row;
 }

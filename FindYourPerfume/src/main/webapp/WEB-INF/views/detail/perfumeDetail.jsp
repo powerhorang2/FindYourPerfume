@@ -133,21 +133,24 @@
 	
 	// cmt 수정 생성 함수
 	function createCmtUpd(item) {
-		var cmt_userData = document.querySelector(".cmt_userData_" + item.i_cmt);
+		var cmt_userData = document.querySelector('.cmt_userData_' + item.i_cmt);
 		
+		var cmt_userData_ud = document.createElement('div');
 		var cmt_upd = document.createElement('div');
 		var cmt_upd_bt = document.createElement('span');
 		
+		cmt_userData_ud.setAttribute('class', 'cmt_userData_ud_'+ item.i_cmt)
 		cmt_upd.setAttribute('class', 'cmt_upd');
 		cmt_upd_bt.setAttribute('class', 'cmt_upd_bt');
 		
-		cmt_upd_bt.innerText = "수정";
+		cmt_upd_bt.innerText = '수정';
 		
 		// cmt_upd_bt.setAttribute('onclick', 'ajaxUpdCmt('+item+')');
 		cmt_upd_bt.addEventListener('click', event => ajaxUpdCmt(item));
 		
 		cmt_upd.append(cmt_upd_bt)
-		cmt_userData.append(cmt_upd)
+		cmt_userData_ud.append(cmt_upd)
+		cmt_userData.append(cmt_userData_ud)
 	}
 	
 	// cmt 수정 함수
@@ -157,7 +160,9 @@
 	
 	// cmt 삭제 생성 함수
 	function createCmtDel(item) {
-		var cmt_userData = document.querySelector(".cmt_userData_" + item.i_cmt);
+		var cmt_userData = document.querySelector('.cmt_userData_' + item.i_cmt);
+		
+		var cmt_userData_ud = document.querySelector('.cmt_userData_ud_'+ item.i_cmt)
 		
 		var cmt_del = document.createElement('div');
 		var cmt_del_bt = document.createElement('span');
@@ -165,13 +170,13 @@
 		cmt_del.setAttribute('class', 'cmt_del');
 		cmt_del_bt.setAttribute('class', 'cmt_del_bt');
 		
-		cmt_del_bt.innerText = "삭제";
+		cmt_del_bt.innerText = '삭제';
 		
 		// cmt_del_bt.setAttribute('onclick', 'ajaxDelCmt('+item+')');
 		cmt_del_bt.addEventListener('click', event => ajaxDelCmt(item));
 		
 		cmt_del.append(cmt_del_bt)
-		cmt_userData.append(cmt_del)
+		cmt_userData_ud.append(cmt_del)
 	}
 	
 	// cmt 삭제 함수
