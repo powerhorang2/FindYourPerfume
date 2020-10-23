@@ -28,11 +28,15 @@
 		(#{i_user}, #{nt_m_c})
 	</insert>
 
-	<select id="selUser" parameterType="UserVO" resultType="UserVO">
-		SELECT i_user, user_id, user_pw, salt, nm, user_type, bd, profile_img, r_dt
-		FROM t_user
-		WHERE <if test="i_user > 0"> i_user = #{i_user}</if>
-		<if test="user_id != null and user_id != ''">user_id = #{user_id}</if>
+	<select id="selUser" parameterType="UserVO" resultType="UserDMI">
+		SELECT A.i_user, A.user_id, A.user_pw, A.salt, A.nm, A.user_type, A.bd, A.profile_img, A.r_dt, B.val as strGender
+		FROM t_user A
+		INNER JOIN c_code_d B
+		ON A.gender = B.cd
+		WHERE
+		<if test="i_user > 0"> A.i_user = #{i_user}</if>
+		<if test="user_id != null and user_id != ''">A.user_id = #{user_id}</if>
+		AND B.i_m = 1
 	</select> 
 	
 	<select id="selFavoriteList" parameterType="UserPARAM" resultType="PerfumeDMI">

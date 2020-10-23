@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springriders.perfume.cmt.CmtMapper">
+	<insert id="InsCmt" parameterType="CmtPARAM">
+		INSERT INTO t_perfume_cmt
+		(i_p, i_user, cmt)
+		VALUES
+		(#{i_p}, #{i_user}, #{cmt})
+	</insert>
 	<select id="selCmtList" parameterType="PerfumePARAM" resultType="CmtDMI">
 		SELECT A.i_cmt, B.i_user, B.nm, B.profile_img, A.cmt, C.val as gender, B.bd, A.m_dt
 		FROM t_perfume_cmt A
@@ -11,4 +17,19 @@
 		WHERE A.i_p = #{i_p}
 		AND C.i_m = 1
 	</select>
+	<update id="UpdCmt" parameterType="CmtPARAM">
+		UPDATE t_perfume_cmt
+		SET cmt = #{cmt}
+		WHERE i_cmt = #{i_cmt}
+		AND i_p = #{i_p}
+		AND i_user = #{i_user}
+	</update>
+	
+	<delete id="DelCmt" parameterType="CmtPARAM">
+		DELETE t_perfume_cmt
+		WHERE i_cmt = #{i_cmt}
+		AND i_p = #{i_p}
+		AND i_user = #{i_user}
+	</delete>
+
 </mapper>

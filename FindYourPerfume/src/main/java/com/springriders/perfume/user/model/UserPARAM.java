@@ -4,6 +4,8 @@ public class UserPARAM extends UserVO {
 	private String msg;
 	private String loginMsg;
 	private int nt_m_c;
+	private String strGender;
+	private int ageGroup;
 
 	public int getNt_m_c() {
 		return nt_m_c;
@@ -27,5 +29,21 @@ public class UserPARAM extends UserVO {
 
 	public void setMsg(String msg) {
 		this.msg = msg;
+	}
+
+	public String getStrGender() {
+		return strGender;
+	}
+
+	public void setStrGender(String strGender) {
+		this.strGender = strGender;
+	}
+
+	public int getAgeGroup() {
+		return ageGroup;
+	}
+
+	public void setAgeGroup(int ageGroup) {
+		this.ageGroup = ageGroup;
 	}
 }

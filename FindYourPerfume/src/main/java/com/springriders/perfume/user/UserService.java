@@ -1,5 +1,7 @@
 package com.springriders.perfume.user;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -16,8 +18,9 @@ import com.springriders.perfume.SecurityUtils;
 import com.springriders.perfume.common.CommonMapper;
 import com.springriders.perfume.common.model.BrandCodeVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
-import com.springriders.perfume.common.model.PerfumeVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
+import com.springriders.perfume.common.model.PerfumeVO;
+import com.springriders.perfume.user.model.UserDMI;
 import com.springriders.perfume.user.model.UserPARAM;
 import com.springriders.perfume.user.model.UserVO;
 
@@ -71,11 +74,12 @@ public class UserService {
 		return Const.SUCCESS;
 	}
 
-	public int login(UserVO param) {
+	public int login(UserPARAM param) {
 		if(param.getUser_id().equals("")) { return Const.EMPTY_ID; }
 		if(param.getUser_id().equals("")) { return Const.NO_ID; }
 		
-		UserVO dbUser = mapper.selUser(param);
+		UserDMI dbUser = mapper.selUser(param);
+		
 		if(dbUser == null) {
 			return Const.NO_ID;
 		}
@@ -85,13 +89,35 @@ public class UserService {
 		if(!cryptPw.equals(dbUser.getUser_pw())) {
 			return Const.NO_PW;
 		}
-			param.setUser_type(dbUser.getUser_type());
-			param.setI_user(dbUser.getI_user());
-			param.setUser_pw(null);
-			param.setNm(dbUser.getNm());
-			param.setProfile_img(dbUser.getProfile_img());
-			param.setBd(dbUser.getBd());
-			return Const.SUCCESS;
+			
+		String bd = dbUser.getBd();	
+		String strYear = bd.substring(0,4);
+		int userYear = CommonUtils.parseStringToInt(strYear);
+		
+		// 현재 년도 뽑기
+		SimpleDateFormat format = new SimpleDateFormat("yyyy");
+		Date date = new Date();
+		String strNowYear = format.format(date);
+		int nowYear = CommonUtils.parseStringToInt(strNowYear);
+		
+		// 유저 나이 뽑기
+		int age = nowYear - userYear + 1;
+		
+		// 유저 세대 뽑기
+		String strAgeGroup = String.valueOf(age);
+		strAgeGroup = strAgeGroup.substring(0,1);
+		strAgeGroup += 0;
+		int ageGroup = CommonUtils.parseStringToInt(strAgeGroup);
+		
+		param.setAgeGroup(ageGroup);
+		param.setStrGender(dbUser.getStrGender());
+		param.setUser_type(dbUser.getUser_type());
+		param.setI_user(dbUser.getI_user());
+		param.setUser_pw(null);
+		param.setNm(dbUser.getNm());
+		param.setProfile_img(dbUser.getProfile_img());
+		param.setBd(dbUser.getBd());
+		return Const.SUCCESS;
 	}
 	
 	public int changeAuth(UserPARAM param) {

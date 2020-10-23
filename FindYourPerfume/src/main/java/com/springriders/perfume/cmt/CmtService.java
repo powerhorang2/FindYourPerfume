@@ -49,4 +49,34 @@ public class CmtService {
 		return cmtList;
 	}
 
+	public int InsCmt(CmtPARAM param) {
+		
+		if(param.getCmt().equals("")) {
+			return 0;
+		}
+		
+		if(param.getCmt().length() > 50) {
+			return 0;
+		}
+		
+		return mapper.InsCmt(param);
+	}
+
+	public int DelCmt(CmtPARAM param) {
+		return mapper.DelCmt(param);
+	}
+
+	public int UpdCmt(CmtPARAM param) {
+		
+		if(param.getCmt().equals("")) {
+			return 0;
+		}
+		
+		if(param.getCmt().length() > 50) {
+			return 0;
+		}
+		
+		return mapper.UpdCmt(param);
+	}
+
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springriders.perfume.SecurityUtils;
 import com.springriders.perfume.cmt.model.CmtDMI;
@@ -35,7 +34,24 @@ public class CmtController {
 	}
 	
 	@RequestMapping(value = "/ajaxInsCmt", method = RequestMethod.POST)
-	public @ResponseBody int ajaxInsCmt(@RequestBody CmtDMI param) {
-		return 1;
+	public @ResponseBody int ajaxInsCmt(@RequestBody CmtPARAM param, HttpSession hs) {
+		int i_user = SecurityUtils.getLoginUser(hs).getI_user();
+		param.setI_user(i_user);
+		return service.InsCmt(param);
 	}
+	
+	@RequestMapping(value = "/ajaxDelCmt", method = RequestMethod.POST)
+	public @ResponseBody int ajaxDelCmt(@RequestBody CmtPARAM param, HttpSession hs) {
+		int i_user = SecurityUtils.getLoginUser(hs).getI_user();
+		param.setI_user(i_user);
+		return service.DelCmt(param);
+	}
+	
+	@RequestMapping(value = "/ajaxUpdCmt", method = RequestMethod.POST)
+	public @ResponseBody int ajaxUpdCmt(@RequestBody CmtPARAM param, HttpSession hs) {
+		int i_user = SecurityUtils.getLoginUser(hs).getI_user();
+		param.setI_user(i_user);
+		return service.UpdCmt(param);
+	}
+	
 }

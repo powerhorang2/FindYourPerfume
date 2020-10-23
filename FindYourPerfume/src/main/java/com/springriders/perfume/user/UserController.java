@@ -143,7 +143,7 @@ public class UserController {
 	
 	@RequestMapping(value="/ajaxIdChk", method = RequestMethod.POST)
 	@ResponseBody
-	public String ajaxIdChk(@RequestBody UserVO param) {
+	public String ajaxIdChk(@RequestBody UserPARAM param) {
 		System.out.println(param.getUser_id());
 		
 		int result = service.login(param);

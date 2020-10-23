@@ -77,3 +77,25 @@
 .cmt_userData_userAge + div > .cmt_del {
 	width: 50px;
 }
+
+.cmt_upd_bt {
+	cursor: pointer;
+}
+
+.cmt_del_bt {
+	cursor: pointer;
+}
+
+.cmt_upd_bt:hover {
+	font-size: 1.2rem;	
+}
+
+.cmt_del_bt:hover {
+	font-size: 1.2rem;
+}
+
+.cmt_box {
+	width: 80%;
+	height: 500px;
+	margin: 0 auto;
+}

@@ -19,6 +19,10 @@ public class SecurityUtils {
 		return loginUser == null ? 0 : loginUser.getI_user();
 	}
 	
+	public static UserVO getLoginUser(HttpSession hs) {
+		return (UserVO)hs.getAttribute(Const.LOGIN_USER);
+	}
+	
 	public static UserVO getLoginUser(HttpServletRequest request) {
 		HttpSession hs = request.getSession();
 		return (UserVO)hs.getAttribute(Const.LOGIN_USER);
