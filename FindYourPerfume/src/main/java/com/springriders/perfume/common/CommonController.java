@@ -39,13 +39,18 @@ public class CommonController {
 	@Autowired
 	private CmtService cmtService;
 	
+	//parameter NoteCodeVO 삭제했음
 	@RequestMapping(value="/main", method = RequestMethod.GET)
-	public String main(PerfumePARAM param,NoteCodeVO vo, Model model, HttpServletRequest req) {
+	public String main(PerfumePARAM param, NoteCodeVO vo, PerfumeDMI dm, Model model, HttpServletRequest req) {
 		
 		int i_user = SecurityUtils.getLoginUserPk(req);
+
 		param.setI_user(i_user);
 		System.out.println("p_brand : " + param.getP_brand());
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
+		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
+		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
+
 		List<String> brandAlphabet = new ArrayList();
 		
         char aString = 65 ;
@@ -70,11 +75,10 @@ public class CommonController {
 			model.addAttribute("recPerfume", recPerfume);
 		}
 
-		
+		model.addAttribute("brandFullNm", brandFullNm);
         model.addAttribute("brandAlphabet", brandAlphabet);
+        model.addAttribute("brandEnm", brandEnm);
 		model.addAttribute("perfume", perfume);
-
-//		model.addAttribute("brandNm", brandNm);
 
 
 		model.addAttribute(Const.CSS, "main");
@@ -137,11 +141,16 @@ public class CommonController {
 	
 	@RequestMapping("/ajaxSelBrandAlphabet")
 	@ResponseBody
-	public List<PerfumeDMI> ajaxSelBrandAlphabet(PerfumeDMI dm){
-		System.out.println(dm.getB_nm_eng());
-		return service.selBrandAlphabet(dm);
+	public List<PerfumeDMI> ajaxSelBrandAlphabet(PerfumePARAM param){
+		return service.selBrandAlphabet(param);
 	}
 	
+
+	@RequestMapping("/ajaxSelBrandNm")
+	@ResponseBody
+	public List<PerfumeDMI> ajaxSelBrandNm(PerfumePARAM param){
+		return service.selBrandNm(param);
+	}
 	@RequestMapping("/ajaxSelBrandPerfume")
 	@ResponseBody
 	public List<PerfumeDMI> ajaxSelBrandPerfume(PerfumePARAM param){
@@ -165,8 +174,10 @@ public class CommonController {
 		return "redirect:/user/admin";
 	}
 	
-	
-	
-	
-	
+	@RequestMapping("/ajaxSelBrandFullAp")
+	@ResponseBody
+	public List<PerfumeDMI> ajaxSelBranFullAp(PerfumeDMI dmi){
+		return service.selBrandFullAp(dmi);
+	}
+
 }

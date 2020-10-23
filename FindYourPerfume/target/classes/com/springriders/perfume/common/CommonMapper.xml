@@ -66,7 +66,6 @@
 
 	<select id="selPerfume" parameterType="PerfumePARAM" resultType="PerfumeDMI">
 		SELECT A.i_p, A.p_nm, A.p_price, b_nm_eng, A.p_size, A.p_pic, C.i_user
-
 		FROM t_perfume A
 		LEFT JOIN c_code_brand B
 		ON A.p_brand = B.p_brand
@@ -76,21 +75,48 @@
 		WHERE A.i_p = #{i_p}
 	</select>
 
-	<select id="selBrandAlphabet" parameterType="perfumeDMI" resultType="perfumeDMI">
+	<select id="selBrandAlphabet" parameterType="perfumePARAM" resultType="perfumeDMI">
 		SELECT A.i_p, A.p_brand, A.p_nm, A.p_price, B.b_nm_eng, A.p_size, A.p_pic
 		FROM t_perfume A
-		LEFT JOIN c_code_brand B
+		INNER JOIN c_code_brand B
 		ON A.p_brand = B.p_brand
-		WHERE b_nm_eng LIKE '${b_nm_eng}%'
+		<if test="b_nm_initial=='ETC'">
+			WHERE B.b_nm_eng LIKE '${b_nm_initial}%'
+		</if>
+		<if test="b_nm_initial!='ETC'">
+			WHERE B.b_nm_eng NOT IN ('ETC')
+			AND B.b_nm_eng LIKE '${b_nm_initial}%'
+		</if>
 	</select>
-	<select id="selBrandNm" parameterType="perfumePARAM" resultType="perfumePARAM">
+	<select id="selBrandEnm" parameterType="perfumePARAM" resultType="perfumeDMI">
+		SELECT b_nm_eng FROM c_code_brand 
+		WHERE b_nm_eng like '${b_nm_initial}%'
+	</select>
+	<select id="selBrandFullNm" parameterType="perfumeDMI" resultType="perfumeDMI">
+		SELECT b_nm_eng FROM c_code_brand 
+	</select>
+	<select id="selBrandFullAp" parameterType="perfumeDMI" resultType="perfumeDMI">
+		select A.i_p, A.p_nm, A.p_brand, A.p_price, B.b_nm_eng, A.p_size, A.p_pic
+		from t_perfume A
+		inner join c_code_brand B
+		on A.p_brand = B.p_brand 
+		where B.b_nm_eng like '${b_nm_eng}'
+	</select>
+	<select id="selBrandNm" parameterType="perfumePARAM" resultType="perfumeDMI">
 		SELECT A.i_p, A.p_brand, A.p_nm, A.p_price, B.b_nm_eng, A.p_size, A.p_pic
 		FROM t_perfume A
-		LEFT JOIN c_code_brand B
+		INNER JOIN c_code_brand B
 		ON A.p_brand = B.p_brand
-		WHERE b_nm_eng LIKE 'ABERCROMBIE'
+		<if test="b_nm_initial=='ETC'">
+			WHERE B.b_nm_eng = 'ETC'
+			GROUP BY B.b_nm_eng
+		</if> 
+		<if test="b_nm_initial!='ETC'">
+			WHERE B.b_nm_eng NOT IN ('ETC')
+			AND B.b_nm_eng LIKE '${b_nm_initial}%'
+			GROUP BY B.b_nm_eng
+		</if>
 	</select>
-
 	<insert id="insPerfume" parameterType="PerfumeVO">
 		INSERT INTO t_perfume
 		(p_price, p_size, p_brand, p_nm, p_pic)

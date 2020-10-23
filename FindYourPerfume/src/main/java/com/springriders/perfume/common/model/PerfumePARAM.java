@@ -2,9 +2,17 @@ package com.springriders.perfume.common.model;
 
 public class PerfumePARAM extends PerfumeVO {
 	private int[] nt_d_c;
-	
+	private String b_nm_initial;
 	private int i_user;
 	
+	public String getB_nm_initial() {
+		return b_nm_initial;
+	}
+
+	public void setB_nm_initial(String b_nm_initial) {
+		this.b_nm_initial = b_nm_initial;
+	}
+
 	public int[] getNt_d_c() {
 		return nt_d_c;
 	}

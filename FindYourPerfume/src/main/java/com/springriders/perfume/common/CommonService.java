@@ -48,19 +48,41 @@ public class CommonService {
 	}
 
 
-	public List<PerfumeDMI> selBrandAlphabet(PerfumeDMI dm) {
-		return mapper.selBrandAlphabet(dm);
+	public List<PerfumeDMI> selBrandAlphabet(PerfumePARAM param) {
+		System.out.println("gg : " + param.getB_nm_initial());
+		return mapper.selBrandAlphabet(param);
 	}
-
-//	public List<PerfumeDMI> selBrandNm(PerfumePARAM param) {
-//
-//		return mapper.selBrandNm(param);
-//	}
 
 
 	public List<NoteCodeVO> selUserNoteList(PerfumePARAM param) {
 		return mapper.selUserNoteList(param);
 	}
+
+
+
+	public List<PerfumeDMI> selBrandEnm(PerfumeDMI dm) {
+		return mapper.selBrandEnm(dm);
+	}
+
+
+
+
+	public List<PerfumeDMI> selBrandNm(PerfumePARAM param) {
+
+		return mapper.selBrandNm(param);
+	}
+
+
+	public List<PerfumeDMI> selBrandFullNm(PerfumePARAM param) {
+		return mapper.selBrandFullNm(param);
+	}
+
+
+	public List<PerfumeDMI> selBrandFullAp(PerfumeDMI dmi) {
+		
+		return mapper.selBrandFullAp(dmi);
+	}
+
 	
 	public int delPerfume(PerfumePARAM param) {
 		return mapper.delPerfume(param);
