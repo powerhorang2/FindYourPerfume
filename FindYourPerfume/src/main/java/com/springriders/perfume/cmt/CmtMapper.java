@@ -13,6 +13,5 @@ public interface CmtMapper {
 
 	List<CmtDMI> selCmtList(PerfumePARAM param);
 	
-	int insCmt(CmtPARAM param);
 
 }

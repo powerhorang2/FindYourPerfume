@@ -35,8 +35,7 @@
 		<if test="user_id != null and user_id != ''">user_id = #{user_id}</if>
 	</select> 
 	
-	<select id="selFavoriteList" parameterType="UserPARAM" 
-		resultType="PerfumeDMI">
+	<select id="selFavoriteList" parameterType="UserPARAM" resultType="PerfumeDMI">
 		SELECT A.i_p, A.p_nm, A.p_price, B.b_nm_eng, A.p_size, A.p_pic
 		FROM t_perfume A
 		INNER JOIN c_code_brand B
