@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
 <div class="brandContainer">
 	<div id="brandLeft">
 		<div>
@@ -138,8 +137,10 @@
 		<div id="sel_div">
 			<div id="brandAlphabet" class="perfumeMain">
 			</div>
-			</div> 
-	
+		</div>
+		<div id="paging">
+		   페이지이이이이이이이잉 ㅣㅇ ㅓ어러려ㅕ려벼다 
+		</div> 	
 	</div>
 
 </div>
