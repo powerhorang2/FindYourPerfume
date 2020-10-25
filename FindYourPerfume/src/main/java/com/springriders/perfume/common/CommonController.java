@@ -50,10 +50,7 @@ public class CommonController {
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
 		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
-		
-	//	PagingVO pVO = new PagingVO(); 페이징
-		
-	//	int pageNum = service.selPageNum(pVO);
+	
 		
 		List<String> brandAlphabet = new ArrayList();
 		

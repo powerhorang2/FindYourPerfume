@@ -139,20 +139,7 @@
 			<div id="brandAlphabet" class="perfumeMain">
 			</div>
 			</div> 
-	<%-- 페이징	<div id="page">
-		<c:forEach begin="1" end="${pagingNum}" var="item">
-			<c:choose>
-				<c:when test="${page == item}">
-					<span class="pagingFont pageSelected">${item}</span>
-				</c:when>
-				<c:otherwise>
-					<span class="pagingFont">
-						<a href="#"></a>
-					</span>
-				</c:otherwise>
-				</c:choose>
-			</c:forEach>
-		</div> --%>
+	
 	</div>
 
 </div>

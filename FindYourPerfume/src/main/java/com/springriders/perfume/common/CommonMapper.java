@@ -42,9 +42,7 @@ public interface CommonMapper {
 
 	int delPerfume(PerfumePARAM param);
 	
-	
-	// 페이징 int selPageNum(PagingVO pVO);
-	
+
 
 }
 

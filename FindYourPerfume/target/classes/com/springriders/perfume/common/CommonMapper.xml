@@ -117,9 +117,7 @@
 			GROUP BY B.b_nm_eng
 		</if>
 	</select>
-<!-- 	<select id="selPageNum" parameterType="pagingVO" resultType="pagingVO">
-		 SELECT CEIL(COUNT(i_p) / 10) FROM t_perfume; 
-	</select> 페이징 오류-->
+
 	<insert id="insPerfume" parameterType="PerfumeVO">
 		INSERT INTO t_perfume
 		(p_price, p_size, p_brand, p_nm, p_pic)

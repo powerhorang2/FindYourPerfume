@@ -90,10 +90,5 @@ public class CommonService {
 	}
 
 
-	//public int selPageNum(PagingVO pVO) {
-		
-	//	return mapper.selPageNum(pVO);
-	// 페이징}
-
 
 }
