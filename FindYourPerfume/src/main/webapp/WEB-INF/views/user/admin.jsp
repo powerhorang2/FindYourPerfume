@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script>
+
+</script>
  <div class="adminContainer">
 	<div id="adminLeft">
 		안녕
@@ -11,14 +14,14 @@
 		<div id="sectionProfile">
 			<div id="containerImg">
 				<c:if test="${loginUser.profile_img == null}">
-					<div id="profileImg">
-						<img class="profile" src="/res/img/profileImg/default_img.jpg">					
-					</div>
+				<div id="profileImg">
+					<img class="profile" src="/res/img/profileImg/default_img.jpg">					
+				</div>
 				</c:if>
 				<c:if test="${loginUser.profile_img != null}">
-					<div id="profileImg">
-						<img class="profile" src="/res/img/profileImg/${loginUser.profile_img}">
-					</div>
+				<div id="profileImg">
+					<img class="profile" src="/res/img/profileImg/${loginUser.profile_img}">
+				</div>
 				</c:if>
  				<div class="btn">
 					<label for="profile_pic">사진선택</label>
@@ -28,17 +31,27 @@
 			<div id="containerInfo">
 				<div>
 					<h2>${loginUser.nm}님의 관리자페이지</h2>
-					<div>
-						<p>닉네임<span>Nickname</span></p>
-						<input type="text" value="${loginUser.nm}" name="nm" required>			
+				</div>
+				<div id="infoContents">
+					<div id="nickNameBox">
+						<div>
+							<p>닉네임<span>Nickname</span></p>
+							<input class="longInput" type="text" value="${loginUser.nm}" name="nm" required>			
+						</div>
+						<div id="r_dt">
+							<p>가입일자<span>Date of Join</span></p>
+							<p class="ml10" id="r_dt_data">${loginUser.r_dt}</p>
+						</div>	
 					</div>
 					<div>
-						<p>비밀번호 변경<span>Password</span></p>
-						<input type="password" name="user_pw">
-					</div>
-					<div>
-						<p>비밀번호 확인<span>Password check</span></p>
-						<input type="password" name="user_pwre">
+						<div>
+							<p>비밀번호 변경<span>Password</span></p>
+							<input class="longInput" type="password" name="user_pw">
+						</div>
+						<div>
+							<p>비밀번호 확인<span>Password check</span></p>
+							<input class="longInput" type="password" name="user_pwre">
+						</div>					
 					</div>
 				</div>
 				<div id="submitProfile"><input class="button" type="button" value="수정완료" onclick="checkUptUser()"></div>
@@ -52,7 +65,7 @@
 					<p>관리자 권한 부여</p>
 					<form name="AuthFrm" id="AuthFrm" action="/user/changeAuth" method="post">
 					<input type="hidden" name="user_type" value="1">
-					<select id="user_id" name="i_user">
+					<select class="longInput" id="user_id" name="i_user">
 						<option value="0">유저 선택하기</option>
 						<c:forEach items="${userList}" var="item">
 							<option value="${item.i_user}">${item.user_id}</option>
@@ -65,7 +78,7 @@
 					<p>관리자 권한 제거</p>
 					<form name="AuthFrm" id="AuthFrm" action="/user/changeAuth" method="post">	
 					<input type="hidden" name="user_type" value="2">
-					<select id="user_id" name="i_user">
+					<select class="longInput" id="user_id" name="i_user">
 						<option value="0">관리자 선택하기</option>
 						<c:forEach items="${adminList}" var="item">
 							<option value="${item.i_user}">${item.user_id}</option>
@@ -91,11 +104,11 @@
 						<div id="mainInfo">
 							<div>
 								<p>이름<span>Name</span></p>
-								<input type="text" name="p_nm">
+								<input class="longInput" type="text" name="p_nm">
 							</div>
 							<div>
 								<p>브랜드<span>Brand</span></p>
-								<select name="p_brand">
+								<select class="longInput" name="p_brand">
 									<option value="0">브랜드 선택하기</option>
 									<c:forEach items="${brandList}" var="item">
 										<option value="${item.p_brand}">${item.b_nm_eng}</option>
@@ -104,21 +117,26 @@
 							</div>
 							<div>
 								<p>용량<span>Size</span></p>
-								<input type="text" name="p_size">
+								<input class="shortInput" type="text" name="p_size">
 							</div>
 							<div>
 								<p>가격<span>Price</span></p>
-								<input type="text" name="p_price">
+								<input class="normalInput" type="text" name="p_price">
 							</div>
 						</div>
 						<div id="notesInfo">
+							<p>노트<span>Notes</span></p>
+							<div>
 							<c:forEach items="${noteList}" var="data">
 								<div>
 									<label><input id="p_note" type="checkbox" name="p_note" value="${data.nt_d_c}" required>${data.nt_d_nm}</label>
 								</div>
 							</c:forEach>
+							</div>
 						</div>
-						<div id="submitPerfume"><input class="button" type="button" value="등록완료" onclick="checkAddPerfume()"></div>
+						<div id="submitPerfume">
+							<input class="button" type="button" value="등록완료" onclick="checkAddPerfume()">
+						</div>
 					</div>
 				</form>
 			</div>
@@ -126,19 +144,24 @@
 		<div id="sectionDelPerfume">
 			<div id="title">향수 삭제</div>
 			<div id="delPerfumeContainer">
+				<div id="containerDelPerfumeImg">
+					<div id="delPerfumeImg"></div>
+				</div>
 				<div id="delPerfume">
 					<form name="delPerfumeFrm" id="delPerfumeFrm" action="/common/delPerfume" method="post">
 					<input type="hidden" name="user_type" value="1">
-					<select id="p_brand" name="p_brand" onchange="selPerfume(this.value)">
+					<select class="longInput" id="p_brand" name="p_brand" onchange="selPerfume(this.value)">
 						<option value="0">브랜드 선택하기</option>
 						<c:forEach items="${brandList}" var="item">
 							<option value="${item.p_brand}">${item.b_nm_eng}</option>
 						</c:forEach>
 					</select>
-					<select id="p_nm" name="i_p">
+					<select class="longInput ml10" id="p_nm" name="i_p" onchange="selDelPerfumePic(this.value)">
 						<option value="0">향수 선택하기</option>
 					</select>
-					<input class="button" type="button" onclick="confirmDelPerfume()" value="삭제">
+					<div id="submitDelPerfume">
+						<input class="button" type="button" onclick="confirmDelPerfume()" value="삭제">
+					</div>
 					</form>
 				</div>
 			</div>
@@ -149,15 +172,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	function selPerfume(p_brand) {
-		console.log(p_brand)
-		
-		axios.get('/common/ajaxSelBrandPerfume', {
+			axios.get('/common/ajaxSelBrandPerfume', {
 			params : {
 				p_brand
 			}
 		}).then(function(res) {
 			p_nm.innerText = ''
 			console.log(res.data.length)
+			
+			var option = document.createElement('option')
+			option.value = 0
+			option.name = 'i_p'
+			option.innerHTML = '향수 선택하기'
+
+			p_nm.append(option)
 			
 			for(i=0; i<res.data.length; i++) {
 				console.log(res.data[i].i_p)
@@ -167,12 +195,26 @@
 				option.value = res.data[i].i_p
 				option.name = 'i_p'
 				option.innerHTML = res.data[i].p_nm
-
+	
 				p_nm.append(option)
 			}
-		})
+		}) 
 	}
 	
+	function selDelPerfumePic(i_p) {
+		console.log(i_p)
+		
+		axios.get('/common/ajaxSelPerfumePic', {
+			params : {
+				i_p
+			}
+		}).then(function(res) {
+			console.log(res.data.p_pic)
+	
+			document.getElementById('delPerfumeImg').innerHTML = '<img src="' + res.data.p_pic + '" width="100%" height="100%">';
+		})	
+	} 
+
  	function confirmDelPerfume() {
 		var chk = confirm('삭제하시겠습니까?')
 		if(chk == true) {
@@ -230,6 +272,15 @@
 			reader.readAsDataURL(file[0]);
 		}
 	}
+	
+ 	function previewDelPerfumeImage(f){
+		var reader = new FileReader();
+		reader.onload = function(rst){
+			console.log(f)
+			document.getElementById('perfumeImg').innerHTML = '<img src="' + rst.target.result + '" width="100%" height="100%">';
+		}
+		reader.readAsDataURL(file[0]);
+	} 
 
 	function checkAddPerfume(){
 		AddPerfume = document.addPerfumeFrm
