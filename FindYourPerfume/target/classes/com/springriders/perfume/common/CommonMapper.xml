@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springriders.perfume.common.CommonMapper">
+	<insert id="insPerfume" parameterType="PerfumeVO">
+		INSERT INTO t_perfume
+		(p_price, p_size, p_brand, p_nm, p_pic)
+		VALUES
+		(#{p_price}, #{p_size}, #{p_brand}, #{p_nm}, #{p_pic})
+	</insert>
+	<insert id="insPerfumeNote" parameterType="NoteCodeVO">
+		INSERT INTO t_note
+		(i_p, nt_d_c)
+		VALUES
+		(#{i_p}, #{nt_d_c})
+	</insert>
 	<select id="selBrandCodeList" parameterType="BrandCodeVO" resultType="BrandCodeVO">
 		SELECT p_brand, b_nm_eng, b_nm_kor FROM c_code_brand
 	</select>
@@ -121,18 +133,6 @@
 		SELECT i_p, p_pic FROM t_perfume
 		WHERE i_p = #{i_p}
 	</select>
-	<insert id="insPerfume" parameterType="PerfumeVO">
-		INSERT INTO t_perfume
-		(p_price, p_size, p_brand, p_nm, p_pic)
-		VALUES
-		(#{p_price}, #{p_size}, #{p_brand}, #{p_nm}, #{p_pic})
-	</insert>
-	<insert id="insPerfumeNote" parameterType="NoteCodeVO">
-		INSERT INTO t_note
-		(i_p, nt_d_c)
-		VALUES
-		(#{i_p}, #{nt_d_c})
-	</insert>
 	
 	<delete id="delPerfume" parameterType="PerfumePARAM">
 		DELETE FROM t_perfume WHERE i_p = #{i_p}
