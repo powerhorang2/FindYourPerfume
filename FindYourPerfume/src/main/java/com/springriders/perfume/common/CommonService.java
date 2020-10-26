@@ -89,6 +89,10 @@ public class CommonService {
 		return mapper.delPerfume(param);
 	}
 
+	
+	public PerfumeDMI selPerfumePic(PerfumePARAM param) {
+		return mapper.selPerfumePic(param);
+	}
 
 
 }

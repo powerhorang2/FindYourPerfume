@@ -112,12 +112,6 @@ public class CommonController {
 		ra.addFlashAttribute("data", vo);
 		return "redirect:/common/main";
 	}
-	
-	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logout(HttpSession hs) {
-		hs.invalidate();
-		return "redirect:/common/main";
-	}
 
 	@RequestMapping("/detail")
 	public String detail(PerfumePARAM param, Model model, HttpServletRequest req) {
@@ -180,6 +174,12 @@ public class CommonController {
 	@ResponseBody
 	public List<PerfumeDMI> ajaxSelBranFullAp(PerfumeDMI dmi){
 		return service.selBrandFullAp(dmi);
+	}
+	
+	@RequestMapping("/ajaxSelPerfumePic")
+	@ResponseBody
+	public PerfumeDMI ajaxSelPerfumePic(PerfumePARAM param){
+		return service.selPerfumePic(param);
 	}
 
 	

@@ -1,10 +1,12 @@
 package com.springriders.perfume.user;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +16,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springriders.perfume.Const;
-import com.springriders.perfume.FileUtils;
 import com.springriders.perfume.SecurityUtils;
 import com.springriders.perfume.ViewRef;
 import com.springriders.perfume.user.model.UserPARAM;
@@ -29,7 +30,18 @@ public class UserController {
 	private UserService service;
 	
 	@RequestMapping(value="/admin", method = RequestMethod.GET)
-	public String admin(UserPARAM param, Model model) {
+	public String admin(UserPARAM param, Model model, HttpServletRequest request, HttpSession hs) {
+		
+		UserVO vo = SecurityUtils.getLoginUser(request);
+		if(vo == null) {
+			return "redirect:/user/login";
+		}
+		int user_type = vo.getUser_type();
+		if(user_type != Const.ADMIN) {
+			hs.invalidate();
+			return "redirect:/user/login";
+		}
+		
 		model.addAttribute("userList", service.selUserList());
 		model.addAttribute("adminList", service.selAdminList());
 		model.addAttribute("brandList", service.selBrandList());
@@ -60,7 +72,17 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
-	public String myPage(Model model, HttpSession hs) {
+	public String myPage(Model model, HttpSession hs, HttpServletRequest request) {
+		
+		UserVO vo = SecurityUtils.getLoginUser(request);
+		if(vo == null) {
+			return "redirect:/user/login";
+		}
+		int user_type = vo.getUser_type();
+		if(user_type == Const.ADMIN) {
+			return "redirect:/user/admin";
+		}
+		
 		int i_user = SecurityUtils.getLoginUserPk(hs);
 		
 		UserPARAM param = new UserPARAM();
@@ -86,7 +108,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/join", method = RequestMethod.GET)
-	public String join(Model model, @RequestParam(defaultValue = "0") int err) {
+	public String join(Model model, HttpServletRequest request, @RequestParam(defaultValue = "0") int err) {
+		
+		if(SecurityUtils.loginChk(request) == true) {
+			return "redirect:/common/main";
+		}
 		
 		if(err > 0){
 			model.addAttribute("msg", "에러");
@@ -105,15 +131,23 @@ public class UserController {
 		
 		int result = service.join(mReq, param);
 		
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
 		if(result == 1) {
+			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbb");
 			return "redirect:/user/login";
 		}
 		ra.addAttribute("err", result);
+		System.out.println("ccccccccccccccccc");
 		return "redirect:/user/join";
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
-	public String login(Model model) {
+	public String login(Model model, HttpServletRequest request) {
+		
+//		if(SecurityUtils.loginChk(request) == true) {
+//			return "redirect:/common/main";
+//		}
+		
 		model.addAttribute(Const.CSS, "login");
 		model.addAttribute(Const.TITLE, "로그인");
 		model.addAttribute(Const.VIEW, "/user/login");
@@ -139,6 +173,12 @@ public class UserController {
 		ra.addFlashAttribute("data", param);
 		return "redirect:/user/login";
 		
+	}
+
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String logout(HttpSession hs) {
+		hs.invalidate();
+		return "redirect:/common/main";
 	}
 	
 	@RequestMapping(value="/ajaxIdChk", method = RequestMethod.POST)

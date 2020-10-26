@@ -38,7 +38,7 @@ public class UserService {
 		String realPath = mReq.getServletContext().getRealPath(path);
 		String saveFileNm = FileUtils.saveFile(realPath, mf);
 		
-		System.out.println(saveFileNm);
+		System.out.println("saveFileNm :" +  saveFileNm);
 	
 		if(saveFileNm == null) {
 			saveFileNm = "default_img.jpg";
@@ -47,13 +47,14 @@ public class UserService {
 			param.setProfile_img(saveFileNm);			
 		}
 		
+		System.out.println("user_pw : " + param.getUser_pw());
 		String pw = param.getUser_pw();
 		String salt = SecurityUtils.generateSalt();
 		String cryptPw = SecurityUtils.getEncrypt(pw, salt);
 		
 		param.setSalt(salt);
 		param.setUser_pw(cryptPw);
-		
+
 		String[] strUserNote = mReq.getParameterValues("nt_m_c");
 	
 		mapper.insUser(param);
@@ -61,7 +62,7 @@ public class UserService {
 		param = mapper.selUserPk(param);
 		param.setI_user(param.getI_user());
 		System.out.println("i_user : " + param.getI_user());
-		
+
 		if(mReq.getParameter("nt_m_c") != null) {
 			
 			for(String strUserNotes : strUserNote) {
@@ -70,6 +71,7 @@ public class UserService {
 				
 				mapper.insUserNote(param);	
 			}
+
 		}
 		return Const.SUCCESS;
 	}
@@ -94,6 +96,8 @@ public class UserService {
 			param.setNm(dbUser.getNm());
 			param.setProfile_img(dbUser.getProfile_img());
 			param.setBd(dbUser.getBd());
+			param.setR_dt(dbUser.getR_dt());
+			System.out.println("r_dt : " + dbUser.getR_dt());
 			return Const.SUCCESS;
 	}
 	

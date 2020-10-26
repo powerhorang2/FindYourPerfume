@@ -37,7 +37,7 @@
 									<div>${loginUser.nm}관리자님환영합니다.</div>
 									<div>
 										<a href="/user/admin" id="btnLogout">Admin</a> <a
-											href="/common/logout" id="btnLogout">Logout</a>
+											href="/user/logout" id="btnLogout">Logout</a>
 									</div>
 								</div>
 							</c:when>
@@ -50,7 +50,7 @@
 									<div>${loginUser.nm}님환영합니다.</div>
 									<div>
 										<a href="/user/myPage" id="btnLogout">My Page</a> <a
-											href="/common/logout" id="btnLogout">Logout</a>
+											href="/user/logout" id="btnLogout">Logout</a>
 									</div>
 								</div>
 							</c:otherwise>

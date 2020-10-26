@@ -22,6 +22,7 @@ public interface CommonMapper {
 	List<PerfumeDMI> selTopPerfumeList(PerfumePARAM param);
 	List<PerfumeDMI> selRecPerfumeList(NoteCodeVO vo);
 
+	PerfumeDMI selPerfumePic(PerfumePARAM param);
 	List<PerfumeDMI> selPerfumeList(PerfumePARAM param);
 	List<NoteCodeVO> selPerfumeNoteList(PerfumePARAM param);
 	List<PerfumeDMI> selPerfumeChoice(PerfumeDMI vo);
