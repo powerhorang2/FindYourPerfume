@@ -12,12 +12,15 @@ import com.springriders.perfume.common.model.PerfumePARAM;
 public interface CmtMapper {
 
 	List<CmtDMI> selCmtList(PerfumePARAM param);
+	
+	List<CmtDMI> selPageCmtList(CmtPARAM param);
+	
+	CmtDMI selPageCnt(CmtPARAM param);
 
 	int InsCmt(CmtPARAM param);
 
 	int DelCmt(CmtPARAM param);
 
 	int UpdCmt(CmtPARAM param);
-	
 
 }

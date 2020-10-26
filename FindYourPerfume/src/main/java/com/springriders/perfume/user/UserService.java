@@ -225,6 +225,14 @@ public class UserService {
 	
 		return list;
 	}
+
+	public int delUserFavorite(UserPARAM param) {
+		return mapper.delUserFavorite(param);
+	}
+
+	public int insUserFavorite(UserPARAM param) {
+		return mapper.insUserFavorite(param);
+	}
 	
 	
 //	나중에 auth기능 구현해보기

@@ -6,6 +6,7 @@ public class UserPARAM extends UserVO {
 	private int nt_m_c;
 	private String strGender;
 	private int ageGroup;
+	private int i_p;
 
 	public int getNt_m_c() {
 		return nt_m_c;
@@ -46,4 +47,13 @@ public class UserPARAM extends UserVO {
 	public void setAgeGroup(int ageGroup) {
 		this.ageGroup = ageGroup;
 	}
+
+	public int getI_p() {
+		return i_p;
+	}
+
+	public void setI_p(int i_p) {
+		this.i_p = i_p;
+	}
+	
 }

@@ -24,5 +24,7 @@ public interface UserMapper {
 	List<UserVO> selAdminList(UserVO param);
 
 	int uptUser(UserVO vo);
+	int delUserFavorite(UserPARAM param);
+	int insUserFavorite(UserPARAM param);
 
 }

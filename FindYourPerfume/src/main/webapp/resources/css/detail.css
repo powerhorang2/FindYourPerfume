@@ -99,3 +99,8 @@
 	height: 500px;
 	margin: 0 auto;
 }
+
+/* 하트 css */
+#favorite {
+	cursor: pointer;
+}

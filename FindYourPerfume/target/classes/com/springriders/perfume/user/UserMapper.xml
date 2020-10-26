@@ -7,6 +7,13 @@
 		VALUES
 		(1, #{i_user}, #{user_id}, #{user_pw}, #{salt}, #{nm}, #{bd}, #{gender}, #{profile_img})
 	</insert>
+	
+	<insert id="insUserFavorite" parameterType="UserPARAM">
+		INSERT INTO t_user_favorite_perfume
+		(i_p, i_user)
+		VALUES
+		(#{i_p}, #{i_user})
+	</insert>
 
 	<select id="selUserList" parameterType="UserVO" resultType="UserVO">
 		SELECT i_user, user_type, user_id
@@ -73,4 +80,10 @@
 		</if>
 		WHERE i_user = #{i_user}
 	</update>
+	
+	<delete id="delUserFavorite" parameterType="UserPARAM">
+		DELETE FROM t_user_favorite_perfume
+		WHERE i_p = #{i_p}
+		AND i_user = #{i_user}	
+	</delete>
 </mapper>

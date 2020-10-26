@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.springriders.perfume.Const;
 import com.springriders.perfume.SecurityUtils;
 import com.springriders.perfume.cmt.model.CmtDMI;
 import com.springriders.perfume.cmt.model.CmtPARAM;
@@ -26,10 +27,7 @@ public class CmtController {
 	private CmtService service;
 
 	@RequestMapping(value = "/ajaxSelCmtList", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public @ResponseBody List<CmtDMI> ajaxSelCmtList(){
-		System.out.println("넘어왔음?");
-		PerfumePARAM param = new PerfumePARAM();
-		param.setI_p(579);
+	public @ResponseBody List<CmtDMI> ajaxSelCmtList(PerfumePARAM param){
 		return service.selCmtList(param);
 	}
 	
@@ -52,6 +50,20 @@ public class CmtController {
 		int i_user = SecurityUtils.getLoginUser(hs).getI_user();
 		param.setI_user(i_user);
 		return service.UpdCmt(param);
+	}
+	
+	@RequestMapping(value = "/ajaxSelPageCnt", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public @ResponseBody int ajaxSelPageCnt(CmtPARAM param){
+		param.setRecord_cnt(Const.RECORD_CNT); //한 페이지당 6개 뿌리겠다
+		
+		int result = service.selPageCnt(param);
+		return result;
+	}
+	
+	@RequestMapping(value = "/ajaxSelPage", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public @ResponseBody CmtDMI ajaxSelPage(CmtPARAM param){
+		
+		return service.selPageCmtList(param);
 	}
 	
 }

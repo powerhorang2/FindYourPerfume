@@ -4,20 +4,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <div id="detailContainer">
-	<c:if test="${loginUser != null}">
-		<span id="favorite" class="material-icons">
-			<c:choose>
-				<c:when test="${loginUser.i_user == perfume.i_user}">favorite</c:when>
-				<c:otherwise>favorite_border</c:otherwise>
-			</c:choose>
-		</span>
-	</c:if>
-	
 	<div><img src="${perfume.p_pic}"></div>
 	<div>${perfume.p_nm}</div>
 	<div>${perfume.p_size}ml</div>
 	<div>${perfume.b_nm_eng}</div>
 	<div>${perfume.p_price}원</div>
+	<div id="userFavorite"></div>
 	<h2>노트정보</h2>
 	<span>
 		<c:forEach items="${noteList}" var="item">
@@ -33,7 +25,8 @@
 			</div>
 		</div>
 		<div id="cmtContents">
-		
+		</div>
+		<div id="fontCenter">
 		</div>
 	</div>
 	<div class="cmt_box">
@@ -41,43 +34,127 @@
 		<div>
 			<div>${loginUser.nm}/${loginUser.ageGroup}대/${loginUser.strGender}</div>
 			<p><textarea id="cmt_val" cols="50" rows="10" name="cmt" placeholder="댓글을 등록해보세요. (50자 이내)"></textarea></p>
-			<p><input id="i_p_val" name="i_p" type="hidden" value="${perfume.i_p}"></p>
 		    <p><input type="button" value="등록" onclick="return cmtChk()"></p>
-	    <div>
+	    </div>
 	</c:if>
 	</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
 	
-	// cmtList 생성 함수 호출
-	ajaxSelCmtList()
-	
 	// 로그인 유저의 변수 생성 후 값 설정 
-	var i_user = `${loginUser.i_user}`
+	var loginUserI_user = `${loginUser.i_user}`
 	
-	i_user = Number(i_user);
+	// 타입 변환 (String => int)
+	loginUserI_user = Number(loginUserI_user);
 	
 	var loginUser = new Object();
 	
 	function setLoginUser(loginUser) {
-		loginUser.i_user = i_user;
+		loginUser.i_user = loginUserI_user;
 	}
 	
 	setLoginUser(loginUser)
 	
+	// 향수 관련 변수 생성 후 값 설정
+	var perfumeI_user = `${perfume.i_user}`
 	var i_p = `${perfume.i_p}`
 	
+	// 타입 변환 (String => int)
+	perfumeI_user = Number(perfumeI_user);
+	i_p = Number(i_p);
+	
+	var perfume = new Object();
+	
+	function setPerfume(perfume) {
+		perfume.i_user = perfumeI_user;
+		perfume.i_p = i_p;
+	}
+	
+	setPerfume(perfume)
+	
+	// UserFavorite 생성 함수 호출
+	if(loginUser.i_user > 0) {
+		createUserFavorite()
+	}
+	
+	// cmtList 생성 함수 호출
+	ajaxSelCmtList(perfume.i_p)
+	
+	// 페이지 번호 생성
+	ajaxSelPageCnt(i_p)
+	
+	
+	
+	function ajaxDelUserFavorite() {
+		axios.post('/user/ajaxDelUserFavorite', {
+			i_p : perfume.i_p
+		}).then(function(res) {
+			if(res.data == 1) {
+				favorite.innerText = 'favorite_border';
+				perfume.i_user = null;
+			} else {
+				alert('좋아요 취소에 실패하셨습니다.')
+			}
+			
+		})
+		
+	}
+	
+	function ajaxInsUserFavorite() {
+		axios.post('/user/ajaxInsUserFavorite', {
+			i_p : perfume.i_p
+		}).then(function(res) {
+			if(res.data == 1) {
+				favorite.innerText = 'favorite';
+				perfume.i_user = loginUser.i_user;
+			} else {
+				alert('좋아요에 실패하셨습니다.')
+			}
+			
+		})
+	}
+	
+	function changeFavorite() {
+
+		if(favorite.innerText == 'favorite') {
+			ajaxDelUserFavorite()
+		} else if(favorite.innerText == 'favorite_border') {
+			ajaxInsUserFavorite()
+		}
+	}
+	
+	function createUserFavorite() {
+		
+		var span = document.createElement('span');
+		
+		span.setAttribute('id', 'favorite');
+		span.setAttribute('class', 'material-icons');
+		
+		if(loginUser.i_user == perfume.i_user) {
+			span.innerText = 'favorite';
+		} else {
+			span.innerText = 'favorite_border';
+		}
+
+		span.addEventListener('click', event => changeFavorite());
+		
+		userFavorite.append(span)
+	}
+	
 	// cmtList 생성 함수 - 비동기
-	function ajaxSelCmtList() {
+	function ajaxSelCmtList(i_p) {
 		axios.get('/cmt/ajaxSelCmtList', {
-			params : {}
+			params : {
+				i_p : i_p
+			}
 		}).then(function(res) {
 			cmtContents.innerText = ''
 			var cmt_cnt_content = document.querySelector(".cmt_cnt_content");
 			cmt_cnt_content.innerText = '(' + res.data.length + ')';
 			
-			res.data.forEach(function(item) {					
+			res.data.forEach(function(item) {
+				item.i_p = this.i_p
 				createCmt(item)
 				if(loginUser.i_user == item.i_user) {
 					createCmtUpd(item);
@@ -91,8 +168,6 @@
 	function createCmt(item) {
 		var cmt = document.createElement('div');
 		var cmt_userData = document.createElement('div');
-		var cmt_userData_i_cmt = document.createElement('div');
-		var cmt_userData_i_cmt_p = document.createElement('p');
 		var cmt_userData_userNm = document.createElement('div');
 		var cmt_userData_userNm_p = document.createElement('p');
 		var cmt_userData_userNm_img = document.createElement('img');
@@ -105,8 +180,6 @@
 		
 		cmt.setAttribute('class', 'cmt');
 		cmt_userData.setAttribute('class', 'cmt_userData_' + item.i_cmt);
-		cmt_userData_i_cmt.setAttribute('class', 'cmt_userData_i_cmt');
-		cmt_userData_i_cmt_p.setAttribute('class', 'cmt_userData_i_cmt_p');
 		cmt_userData_userNm.setAttribute('class', 'cmt_userData_userNm');
 		cmt_userData_userNm_p.setAttribute('class', 'cmt_userData_userNm_p');
 		cmt_userData_userNm_img.setAttribute('class', 'cmt_userData_userNm_img');
@@ -116,7 +189,7 @@
 		cmt_cmt_div.setAttribute('class', 'cmt_cmt_div');
 		cmt_cmt_div_p.setAttribute('class', 'cmt_cmt_div_p_' + item.i_cmt);
 		
-		cmt_userData_i_cmt_p.innerText = item.i_cmt + '번 댓글'
+		
 		cmt_userData_userNm_img.src = '/res/img/profileImg/' + item.profile_img
 		cmt_userData_userNm_p.innerText = item.nm
 		cmt_userData_userAge_p.innerText = item.ageGroup + '대/' + item.gender
@@ -124,10 +197,8 @@
 
 		cmt.append(cmt_userData)
 		cmt.append(cmt_cmt)
-		cmt_userData.append(cmt_userData_i_cmt)
 		cmt_userData.append(cmt_userData_userNm)
 		cmt_userData.append(cmt_userData_userAge)
-		cmt_userData_i_cmt.append(cmt_userData_i_cmt_p)
 		cmt_userData_userNm.append(cmt_userData_userNm_p)
 		cmt_userData_userNm_p.append(cmt_userData_userNm_img)
 		cmt_userData_userAge.append(cmt_userData_userAge_p)
@@ -180,9 +251,41 @@
 		cmt_userData_ud.append(cmt_del)
 	}
 	
+	function ajaxSelPageCnt(i_p) {
+		axios.get('/cmt/ajaxSelPageCnt', {
+			params : {
+				i_p : i_p
+			}
+		}).then(function(res) {
+			console.log(res.data)
+			var pagingCnt = res.data;
+			
+			for(var page=1; page<=pagingCnt; page++) {
+				var span = document.createElement('span');
+				
+				span.innerText = page;
+				
+				span.addEventListener('click', event => ajaxSelPage(i_p, page));
+				
+				fontCenter.append(span);
+			}
+		})
+	}
+	
+	function ajaxSelPage(i_p, page) {
+		axios.get('/cmt/ajaxSelPage', {
+			params : {
+				i_p : i_p,
+				page : page
+			}
+		}).then(function(res) {
+			console.log(res.data)
+			
+		})
+	}
+	
 	function cmtDel(item) {
 		if (confirm("댓글을 삭제 하시겠습니까??") == true) {    //확인
-			
 			ajaxDelCmt(item)
 
 		}else {   //취소
@@ -196,7 +299,6 @@
 	// cmt 수정 완료
 	function CmtUpdSuccessChk(item) {
 		var cmt_val_i_cmt = document.querySelector('#cmt_val_'+ item.i_cmt)
-		console.log(cmt_val_i_cmt.value)
 		
 		if(cmt_val_i_cmt.value == '') {
 			alert('수정을 위해 댓글을 입력해주세요.')
@@ -214,9 +316,9 @@
 		}
 		
 		if (confirm("댓글을 수정 하시겠습니까??") == true) {    //확인
-
+			console.log(item.cmt)
 			item.cmt = cmt_val_i_cmt.value
-			
+			console.log(item.cmt)
 			ajaxUpdCmt(item)
 
 		}else {   //취소
@@ -297,10 +399,10 @@
 	}
 	
 	// cmt 등록 함수
-	function ajaxInsCmt(cmt, i_p) {
+	function ajaxInsCmt(cmt) {
 		axios.post('/cmt/ajaxInsCmt', {
 			cmt : cmt,
-			i_p : i_p
+			i_p : perfume.i_p
 		}).then(function(res) {
 			console.log(res.data)
 			if(res.data == 1) {
@@ -318,7 +420,7 @@
 		axios.post('/cmt/ajaxUpdCmt', {
 			i_cmt : item.i_cmt,
 			cmt : item.cmt,
-			i_p : item.i_p
+			i_p : perfume.i_p
 		}).then(function(res) {
 			console.log(res.data)
 			if(res.data == 1) {
@@ -335,7 +437,7 @@
 	function ajaxDelCmt(item) {
 		axios.post('/cmt/ajaxDelCmt', {
 			i_cmt : item.i_cmt,
-			i_p : item.i_p
+			i_p : perfume.i_p
 		}).then(function(res) {
 			console.log(res.data)
 			if(res.data == 1) {
@@ -350,7 +452,6 @@
 	
 	function cmtChk() {
 		var InsCmt = cmt_val.value
-		var InsI_p = i_p_val.value
 		if(InsCmt.length == ''){
 			alert('댓글을 입력해주세요.')
 			return false
@@ -361,7 +462,7 @@
 			return false
 		}
 				
-		ajaxInsCmt(InsCmt, InsI_p)
+		ajaxInsCmt(InsCmt)
 	}
 	
 	
