@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.springriders.perfume.common.model.BrandCodeVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
+import com.springriders.perfume.common.model.PagingVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.crawler.model.CrawlerBrandVO;
@@ -88,7 +89,7 @@ public class CommonService {
 		return mapper.delPerfume(param);
 	}
 
-
+	
 	public PerfumeDMI selPerfumePic(PerfumePARAM param) {
 		return mapper.selPerfumePic(param);
 	}
