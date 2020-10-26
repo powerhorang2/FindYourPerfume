@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<style>
+	#list {
+		display: none;
+	}
+</style>
 <div class="brandContainer">
 	<div id="brandLeft">
 		<div>
@@ -138,18 +143,45 @@
 			<div id="brandAlphabet" class="perfumeMain">
 			</div>
 		</div>
-		<div id="paging">
-		<hr>
-		   페이지이잉
-		</div> 	
+		<button id="more">
+			더보기
+		</button>
 	</div>
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+/*  	 $(document).ready(function(){
+	 $("#list").slice(0,1).show();
+	
+ })  */
+ 	
+
+  	$(function(){
+ 		$("#sel_div").slice(0,1).show();
+	$("#more").click(function(e){
+		console.log($("#sel_div").length)
+		console.log($("#sel_div:hidden").length)
+		e.preventDefault();
+		$("#sel_div").slice(0,1).show();
+		if($("#sel_div:none").length == 0) {
+			alert("no more sibal");
+		}
+	})
+})
+ 
+ 
+/*  function more() {
+	 console.log('1')
+	 console.log('2')
+ }  */
+/*   function more(){
+	 $("#list").show();
+ }  */
+
 	var brandList = []
 	
- 	choiceAlphabetMain(undefined)
+ 	 choiceAlphabetMain(undefined) 
 
 	function choiceAlphabetMain(b_nm_initial) {
 		console.log(b_nm_initial)
@@ -165,6 +197,7 @@
 						
 						var div = document.createElement('span');
 						div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`);
+						div.setAttribute('id', 'list');
 						var div_kor = document.createElement('div');
 						var div_eng = document.createElement('div');
 						var div_size = document.createElement('div');
@@ -226,6 +259,7 @@
 			hiddenSwiper.innerText = ''
 			for (var i = 0; i < res.data.length; i++){
 				var div = document.createElement('div');
+				div.setAttribute('id', 'list');
 				var div_kor = document.createElement('div');
 				var div_eng = document.createElement('div');
 				var div_size = document.createElement('div');
@@ -280,3 +314,4 @@
 		},
 	});
 </script>
+
