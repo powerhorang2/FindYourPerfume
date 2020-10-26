@@ -32,11 +32,197 @@
 			</div>
 		</header>
 		<section>
-			<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>
+		<div id="commonContainer">
+			<div id="sidebar">
+				<div id="loginContainer">
+					<!-- 로그아웃 상태 -->
+					<c:choose>
+						<c:when test="${loginUser.i_user == null}">
+							<div id="loginBox">
+								<div class="msg">${data.msg}</div>
+								<form class="frm" action="/common/main" method="post">
+									<div>
+										<div>
+											<input class="loginBar" type="text" name="user_id" placeholder="아이디를 입력해주세요"
+												value="${data.user_id}">
+										</div>
+										<div>
+											<input class="loginBar" type="password" name="user_pw" placeholder="비밀번호를 입력해주세요">
+										</div>
+									</div>
+									<div id="loginBtnBox">
+										<input type="submit" class="button" value="LOGIN">
+										<input type="button" onclick="moveToPage(`/user/join`)" class="button" value="JOIN">
+									</div>
+								</form>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 상태 -->
+							<c:choose>
+								<c:when test="${loginUser.user_type == '2'}">
+									<div id="loginBox">
+										<div id="profileImgBox" style="background: #BDBDBD;">
+												<img id="sidebarImg"
+													src="/res/img/profileImg/${loginUser.profile_img}">
+										</div>
+										<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다.</div>
+										<div id="loginBtnBox">
+											<input type="button" onclick="moveToPage(`/user/admin`)" class="button" value="ADMIN">
+											<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
+										</div>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div id="loginBox">
+										<div id="profileImgBox" style="background: #BDBDBD;">
+											<img id="sidebarImg"
+												src="/res/img/profileImg/${loginUser.profile_img}">
+										</div>
+										<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다</div>
+										<div id="loginBtnBox">
+											<input type="button" onclick="moveToPage(`/user/myPage`)" class="button" value="MYPAGE">
+											<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
+										</div>
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</div>
+					
+				<!--알파벳 클릭  -->
+				<div id="selBrandAlphabet">
+					<div>
+						<p onclick="choiceAlphabetMain()">ALL</p>	
+						<c:forEach items="${brandAlphabet}" var="item">
+							<p onclick="choiceAlphabetMain(`${item}`)">${item}</p>
+						</c:forEach>
+						<p onclick="choiceAlphabetMain('ETC')">ETC</p>
+					</div>
+				</div>
+				<div id="selBrand">
+					<div id="selBrandNm">
+						<c:forEach items="${brandEnm}" var="data">
+							<p>${data.b_nm_eng}</p>
+						</c:forEach>
+						<c:forEach items="${brandFullNm}" var="item">
+							<p onclick="choiceAlphabetFullNm(`${item}`)">${item}</p>
+						</c:forEach>
+					</div>
+				</div>
+			</div>
+			<div>		
+				<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>
+			</div>
+		</div>
 		</section>
 		<footer>
 			<span></span>
 		</footer>
 	</div>
+	<script>
+		function moveToPage(p) {
+			location.href = p;
+		}
+		
+		var brandList = []
+		
+	 	choiceAlphabetMain(undefined)
+
+		function choiceAlphabetMain(b_nm_initial) {
+			console.log(b_nm_initial)
+			axios.get('/common/ajaxSelBrandAlphabet', {
+				params : {
+					b_nm_initial : b_nm_initial
+				}
+			}).then(function(res) {
+						sel_div.innerText = ''
+						for (var i = 0; i < res.data.length; i++) {	
+							
+							var div = document.createElement('span');
+							div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`);
+							var div_kor = document.createElement('div');
+							var div_eng = document.createElement('div');
+							var div_size = document.createElement('div');
+							var div_price = document.createElement('div');
+							var img = document.createElement('img');
+							div.setAttribute('class', 'brandAlphabet');
+
+							img.src = res.data[i].p_pic
+							div_eng.innerText = '향수 브랜드 : ' + res.data[i].b_nm_eng
+							div_kor.innerText = '향수 이름 : ' + res.data[i].p_nm
+							div_size.innerText = '향수 용량 : ' + res.data[i].p_size + 'ml'
+							div_price.innerText = '향수 가격 : '
+									+ numberFormat(res.data[i].p_price) + '원'
+
+							div.append(img)
+							div.append(div_eng)
+							div.append(div_kor)
+							div.append(div_size)
+							div.append(div_price)
+
+							sel_div.append(div)
+						}
+					})
+			axios.get('/common/ajaxSelBrandNm',{
+				params : {
+					b_nm_initial : b_nm_initial
+				}
+			}).then(function(res){
+				selBrand.innerText = ''
+				for (var i = 0; i < res.data.length; i++){
+					console.log(res.data[i])
+					var b_nm_eng = res.data[i].b_nm_eng
+					var div = document.createElement('span'); 
+					var div_eng = document.createElement('div');
+					div.setAttribute('onclick', `choiceAlphabetFullNm(\'\${res.data[i].b_nm_eng}\')`);
+					div_eng.innerText = b_nm_eng
+					div.append(div_eng)
+
+					selBrand.append(div)	
+				}
+			})
+					
+		}
+		
+		function choiceAlphabetFullNm(b_nm_eng){
+			console.log('ㅎㅎ : ' + b_nm_eng);
+			
+			axios.get('/common/ajaxSelBrandFullAp',{
+				params : {
+					b_nm_eng : b_nm_eng
+				}
+			}).then(function(res){
+				sel_div.innerText = ''
+				hiddenSwiper.innerText = ''
+				for (var i = 0; i < res.data.length; i++){
+					var div = document.createElement('div');
+					var div_kor = document.createElement('div');
+					var div_eng = document.createElement('div');
+					var div_size = document.createElement('div');
+					var div_price = document.createElement('div');
+					var img = document.createElement('img');
+					
+					img.src = res.data[i].p_pic
+					div_eng.innerText = '향수 브랜드 : ' + res.data[i].b_nm_eng
+					div_kor.innerText = '향수 이름 : ' + res.data[i].p_nm
+					div_size.innerText = '향수 용량 : ' + res.data[i].p_size
+					div_price.innerText = '향수 가격 : '
+							+ numberFormat(res.data[i].p_price) + '원'
+
+					div.append(img)
+					div.append(div_eng)
+					div.append(div_kor)
+					div.append(div_size)
+					div.append(div_price)
+
+					sel_div.append(div)
+				}
+			})
+		}
+		
+		
+	</script>
 </body>
 </html>

@@ -121,7 +121,7 @@ public class UserController {
 		model.addAttribute(Const.TITLE, "회원가입");
 		model.addAttribute(Const.VIEW, "user/join");
 	
-		return ViewRef.TEMP_MENU;
+		return ViewRef.TEMP_MENU_NO_SIDEBAR;
 	}
 
 	@RequestMapping(value="/join", method = RequestMethod.POST)
@@ -152,7 +152,7 @@ public class UserController {
 		model.addAttribute(Const.TITLE, "로그인");
 		model.addAttribute(Const.VIEW, "/user/login");
 		
-		return ViewRef.TEMP_MENU;
+		return ViewRef.TEMP_MENU_NO_SIDEBAR;
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
@@ -167,6 +167,8 @@ public class UserController {
 			msg = "아이디를 확인해 주세요";
 		}else if(result == Const.NO_PW) {
 			msg = "비밀번호를 확인해 주세요";
+		}else if(result == Const.EMPTY_ID) {
+			msg = "아이디를 입력해 주세요";
 		}
 		
 		param.setMsg(msg);

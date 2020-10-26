@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div class="adminContainer">
-	<div id="adminLeft">
-		안녕
-	</div>
-	<div id="adminRight">
+<div class="myPageContainer">
+	<div id="myPageRight">
 		<form name="uptUserFrm" id="uptFrm" action="/user/uptUser" enctype="multipart/form-data" method="post">
 			<div id="sectionProfile">
 				<div id="containerImg">
@@ -27,24 +24,36 @@
 				<div id="containerInfo">
 					<div>
 						<h2>${loginUser.nm}님의 마이페이지</h2>
-						<div>
-							<p>닉네임<span>Nickname</span></p>
-							<input type="text" value="${loginUser.nm}" name="nm" required>			
+					</div>
+					<div id="infoContents">
+						<div id="nickNameBox">
+							<div>
+								<p>닉네임<span>Nickname</span></p>
+								<input class="longInput" type="text" value="${loginUser.nm}" name="nm" required>			
+							</div>
+							<div>
+								<p>생년월일<span>Date of Birth</span></p>
+								<p class="ml10" id="bd_data">${loginUser.bd}</p>
+							</div>
+							<div id="r_dt">
+								<p>가입일자<span>Date of Join</span></p>
+								<p class="ml10" id="r_dt_data">${loginUser.r_dt}</p>
+							</div>	
 						</div>
 						<div>
-							<p>비밀번호 변경<span>Password</span></p>
-							<input type="password" name="user_pw">
-						</div>
-						<div>
-							<p>비밀번호 확인<span>Password check</span></p>
-							<input type="password" name="user_pwre">
-						</div>
-						<div>
-							<p>생년월일<span>Birthday</span></p>
-							${loginUser.bd}
+							<div>
+								<p>비밀번호 변경<span>Password</span></p>
+								<input class="longInput" type="password" name="user_pw">
+							</div>
+							<div>
+								<p>비밀번호 확인<span>Password check</span></p>
+								<input class="longInput" type="password" name="user_pwre">
+							</div>					
 						</div>
 					</div>
-					<div id="submitProfile"><input class="button" type="button" value="수정완료" onclick="checkUptUser()"></div>
+					<div id="submitProfile">
+						<input class="button" type="button" value="수정완료" onclick="checkUptUser()">
+					</div>
 				</div>
 			</div>
 		</form><hr>
@@ -97,8 +106,6 @@
 	}
 	
 	function checkUptUser() {
-		uptUserFrm = document.uptUserFrm
-		
 		if(uptUserFrm.user_pw.value.length > 0) {			
 			if(uptUserFrm.user_pw.value.length < 5){
 				alert('비밀번호는 5글자 이상입니다')
