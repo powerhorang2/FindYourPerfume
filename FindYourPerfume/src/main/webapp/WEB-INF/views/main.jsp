@@ -153,33 +153,7 @@
 	var brandList = new Array();
 	var sIdx = 5;
 	var eIdx = 10;
-/*  	 $(document).ready(function(){
-	 $("#list").slice(0,1).show();
-	
- })  */
- 	
-
-  	$(function(){
- 		$("#sel_div").slice(0,1).show();
-	$("#more").click(function(e){
-		console.log($("#sel_div").length)
-		console.log($("#sel_div:hidden").length)
-		e.preventDefault();
-		$("#sel_div").slice(0,1).show();
-		if($("#sel_div:none").length == 0) {
-			alert("no more sibal");
-		}
-	})
-})
- 
- 
-/*  function more() {
-	 console.log('1')
-	 console.log('2')
- }  */
-/*   function more(){
-	 $("#list").show();
- }  */
+	var rowAllCnt = 0
 
 	function BrandVO(b_nm_eng, i_p, i_user, p_brand, p_nm, p_pic, p_price, p_size){
 		this.b_nm_eng = b_nm_eng
@@ -203,58 +177,45 @@
 		}
  	}
  	//더 보기 버튼 눌렀을 때 idx 증가하면서, 뒤의 배열 추가
-  /* 	function more() {
- 			
- 			//이전에 디비접속해서 갯수를 알아온다음
- 			//select count(*) from ~~~~; //갯수
- 			//var db_count=0;
- 			/*
- 			if(db_count < count){
- 				
- 			} else {
- 				
- 			}
- 			*/
- 			
- 			//var count=0; 생성 총갯수를 위한 변수
- 		
- /* 			for (var i = sIdx; i < eIdx; i++) {
-		
-			console.log(brandList[i])
+   	function more() {
+ 		// 235
+ 		if((rowAllCnt-1) - sIdx < 6){eIdx = rowAllCnt}
+		for (sIdx; sIdx < eIdx; sIdx++) {
+			console.log(sIdx)
 			var div = document.createElement('div');
-			div.setAttribute('onclick', 'moveToDetail(${brandList[i].i_p})');
+			div.setAttribute('onclick', 'moveToDetail(${brandList[sIdx].i_p})');
 			div.setAttribute('class', 'brandAlphabet');
 			
 			var img = document.createElement('img');
-			img.src = brandList[i].p_pic
+			img.src = brandList[sIdx].p_pic
 			div.append(img)
 			
 			var div_kor = document.createElement('div');
-			div_kor.innerText = '향수 이름 : ' + brandList[i].p_nm
+			div_kor.innerText = '향수 이름 : ' + brandList[sIdx].p_nm
 			div.append(div_kor)
 			
 			var div_eng = document.createElement('div');
-			div_eng.innerText = '향수 브랜드 : ' + brandList[i].b_nm_eng
+			div_eng.innerText = '향수 브랜드 : ' + brandList[sIdx].b_nm_eng
 			div.append(div_eng)
 			
 			var div_size = document.createElement('div');
-			div_size.innerText = '향수 용량 : ' + brandList[i].p_size + 'ml'
+			div_size.innerText = '향수 용량 : ' + brandList[sIdx].p_size + 'ml'
 			div.append(div_size)
 			
 			var div_price = document.createElement('div');
-			div_price.innerText = '향수 가격 : '+ numberFormat(brandList[i].p_price) + '원'
+			div_price.innerText = '향수 가격 : '+ numberFormat(brandList[sIdx].p_price) + '원'
 			div.append(div_price)
-
 
 			sel_div.append(div)
 		}
-			sIdx = sIdx + 5
-			eIdx = eIdx + 5 
-			
-			//count=count*10;
-			
-	}  */
- 	 choiceAlphabetMain(undefined) 
+		if(rowAllCnt - sIdx >= 5){
+			eIdx += 5
+			console.log("eIdx : "+eIdx)
+		}else{
+			alert('마지막입니다.')
+		}
+	}  
+
 
 	function choiceAlphabetMain(b_nm_initial) {
 		console.log(b_nm_initial)
@@ -265,9 +226,7 @@
 			}
 		}).then(function(res) {
 					sel_div.innerText = ''
-					for (var i = 0; i < res.data.length; i++) {
-						
-						
+					for (var i = 0; i < res.data.length; i++) {					
 						
 						var div = document.createElement('span');
 						div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`);
@@ -319,9 +278,12 @@
 				b_nm_initial : b_nm_initial
 			}
 		}).then(function(res) {
-				var tempArr = res.data
+				var tempArr = res.data.selBrandAlpahbet
 				brandList = new Array();
+				console.log(res)
+				rowAllCnt = res.data.rowAllCnt
 				
+				console.log(rowAllCnt)
 		 		if(b_nm_initial != undefined){makeArrayList(tempArr)} 
 				
 				sel_div.innerText = ''
@@ -332,23 +294,23 @@
 					div.setAttribute('class', 'brandAlphabet');				
 
 					var img = document.createElement('img');
-					img.src = res.data[i].p_pic
+					img.src = tempArr[i].p_pic
 					div.append(img)
 	
 					var div_kor = document.createElement('div');
-					div_kor.innerText = '향수 이름 : ' + res.data[i].p_nm
+					div_kor.innerText = '향수 이름 : ' + tempArr[i].p_nm
 					div.append(div_kor)
 					
 					var div_eng = document.createElement('div');
-					div_eng.innerText = '향수 브랜드 : ' + res.data[i].b_nm_eng
+					div_eng.innerText = '향수 브랜드 : ' + tempArr[i].b_nm_eng
 					div.append(div_eng)
 					
 					var div_size = document.createElement('div');
-					div_size.innerText = '향수 용량 : ' + res.data[i].p_size + 'ml'
+					div_size.innerText = '향수 용량 : ' + tempArr[i].p_size + 'ml'
 					div.append(div_size)
 					
 					var div_price = document.createElement('div');
-					div_price.innerText = '향수 가격 : '+ numberFormat(res.data[i].p_price) + '원'
+					div_price.innerText = '향수 가격 : '+ numberFormat(tempArr[i].p_price) + '원'
 					div.append(div_price)
 					sel_div.append(div)
 					idx = 5

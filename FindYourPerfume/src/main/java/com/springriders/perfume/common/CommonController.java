@@ -21,9 +21,9 @@ import com.springriders.perfume.cmt.CmtService;
 import com.springriders.perfume.cmt.model.CmtDMI;
 import com.springriders.perfume.common.model.CommonVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
-import com.springriders.perfume.common.model.PagingVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
+import com.springriders.perfume.common.model.PerfumeTemp;
 import com.springriders.perfume.user.UserService;
 
 @Controller
@@ -137,8 +137,8 @@ public class CommonController {
 	
 	@RequestMapping("/ajaxSelBrandAlphabet")
 	@ResponseBody
-	public List<PerfumeDMI> ajaxSelBrandAlphabet(PerfumePARAM param){
-		return service.selBrandAlphabet(param);
+	public PerfumeTemp ajaxSelBrandAlphabet(PerfumePARAM param){
+		return service.selBrandAlphabetCnt(param);
 	}
 	
 
