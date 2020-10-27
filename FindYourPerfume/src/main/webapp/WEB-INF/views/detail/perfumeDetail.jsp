@@ -26,7 +26,7 @@
 		</div>
 		<div id="cmtContents">
 		</div>
-		<div id="fontCenter">
+		<div id="pageGroup">
 		</div>
 	</div>
 	<div class="cmt_box">
@@ -78,13 +78,17 @@
 		createUserFavorite()
 	}
 	
-	// cmtList 생성 함수 호출
-	ajaxSelCmtList(perfume.i_p)
-	
 	// 페이지 번호 생성
 	ajaxSelPageCnt(i_p)
 	
+	// 처음 페이지 변수 생성 후 선택 표시 !
+	var first_page = 1;
 	
+	// cmtList 생성 함수 호출
+	ajaxSelPage(perfume.i_p, first_page)
+	
+	// 현재 페이지 변수 생성
+	var now_page = 1;
 	
 	function ajaxDelUserFavorite() {
 		axios.post('/user/ajaxDelUserFavorite', {
@@ -143,7 +147,7 @@
 	}
 	
 	// cmtList 생성 함수 - 비동기
-	function ajaxSelCmtList(i_p) {
+	/*function ajaxSelCmtList(i_p) {
 		axios.get('/cmt/ajaxSelCmtList', {
 			params : {
 				i_p : i_p
@@ -162,7 +166,7 @@
 				}
 			})
 		})
-	}
+	}*/
 	
 	// cmt 생성 함수
 	function createCmt(item) {
@@ -257,19 +261,50 @@
 				i_p : i_p
 			}
 		}).then(function(res) {
-			console.log(res.data)
-			var pagingCnt = res.data;
 			
-			for(var page=1; page<=pagingCnt; page++) {
+			var cmt_cnt_content = document.querySelector(".cmt_cnt_content");
+			
+			cmt_cnt_content.innerText = '';
+			
+			pageGroup.innerText = '';
+			
+			cmt_cnt_content.innerText = '(' + res.data.cmt_cnt + ')';
+			
+			let pagingCnt = res.data.page_cnt;
+			
+			for(let page = 1; page <= pagingCnt; page++) {
 				var span = document.createElement('span');
 				
+				span.classList.add('cmt_page', 'page_' + page)
+				
 				span.innerText = page;
+			
+				span.addEventListener('click', event => ajaxSelPage(perfume.i_p, page));
+				span.addEventListener('click', event => selPage(page, pagingCnt));
 				
-				span.addEventListener('click', event => ajaxSelPage(i_p, page));
-				
-				fontCenter.append(span);
+				pageGroup.append(span);
+			}
+			if(now_page == 1) {
+				var first = document.querySelector('.page_'+ first_page)
+				first.classList.add('on');
+			} else {
+				var nowPage = document.querySelector('.page_'+ now_page)
+				nowPage.classList.add('on');
 			}
 		})
+	}
+	
+	function selPage(page, pagingCnt) {
+		var all_page = document.querySelectorAll('.cmt_page');
+		for(var i=0; i<pagingCnt; i++) {
+			all_page[i].classList.remove('on');
+		}
+		
+		var this_page = document.querySelector('.page_'+ page)
+		this_page.classList.add('on');
+		
+		// 페이지 선택했을 때 현재 페이지 값 변경
+		now_page = page;
 	}
 	
 	function ajaxSelPage(i_p, page) {
@@ -280,7 +315,16 @@
 			}
 		}).then(function(res) {
 			console.log(res.data)
-			
+			cmtContents.innerText = ''
+			res.data.forEach(function(item) {
+				console.log(item.cmt)
+				item.i_p = this.i_p
+				createCmt(item)
+				if(loginUser.i_user == item.i_user) {
+					createCmtUpd(item);
+					createCmtDel(item);
+				}
+			})
 		})
 	}
 	
@@ -408,7 +452,8 @@
 			if(res.data == 1) {
 				alert('댓글이 정상적으로 등록되었습니다.')
 				// 리스트 다시 불러오기
-				ajaxSelCmtList()
+				ajaxSelPageCnt(perfume.i_p)
+				ajaxSelPage(perfume.i_p, now_page)
 			}else {
 				alert('댓글 등록에 실패했습니다.')
 			}
@@ -426,7 +471,8 @@
 			if(res.data == 1) {
 				alert('댓글이 정상적으로 수정되었습니다.')
 				// 리스트 다시 불러오기
-				ajaxSelCmtList()
+				ajaxSelPageCnt(perfume.i_p)
+				ajaxSelPage(perfume.i_p, now_page)
 			}else {
 				alert('댓글 수정에 실패했습니다.')
 			}
@@ -443,7 +489,8 @@
 			if(res.data == 1) {
 				alert('댓글이 정상적으로 삭제되었습니다.')
 				// 리스트 다시 불러오기
-				ajaxSelCmtList()
+				ajaxSelPageCnt(perfume.i_p)
+				ajaxSelPage(perfume.i_p, now_page)
 			}else {
 				alert('댓글 삭제에 실패했습니다.')
 			}

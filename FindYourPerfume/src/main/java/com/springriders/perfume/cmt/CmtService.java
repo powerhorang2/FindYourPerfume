@@ -80,19 +80,18 @@ public class CmtService {
 		return mapper.UpdCmt(param);
 	}
 
-	public int selPageCnt(CmtPARAM param) {
+	public CmtDMI selPageCnt(CmtPARAM param) {
 		CmtDMI dmi = mapper.selPageCnt(param);
 		int page_cnt = (dmi.getPage_cnt() == 0 ? 1 : dmi.getPage_cnt());
 		dmi.setPage_cnt(page_cnt);
-		System.out.println("page_cnt : " + page_cnt);
-		return page_cnt;
+		return dmi;
 	}
 
 
-	public CmtDMI selPageCmtList(CmtPARAM param) {
+	public List<CmtDMI> selPageCmtList(CmtPARAM param) {
 		int page = param.getPage();
 		int eIdx = page * Const.RECORD_CNT;
-		int sIdx = eIdx - Const.RECORD_CNT;
+		int sIdx = eIdx - Const.RECORD_CNT + 1;
 		param.seteIdx(eIdx);
 		param.setsIdx(sIdx);
 		

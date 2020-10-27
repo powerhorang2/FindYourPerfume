@@ -110,29 +110,28 @@
 			</div>
 		</div>
 		<c:if test="${loginUser != null}">
-			<!-- Slider main container -->
+			<!-- 클래스명은 변경하면 안 됨 -->
 			<div class="swiper-container">
-				<!-- Additional required wrapper -->
 				<div class="swiper-wrapper">
-					<!-- Slides -->
 					<c:forEach items="${recPerfume}" var="item">
 						<div class="swiper-slide">
-							<span>향수 이름 : ${item.p_nm}</span> <span>향수 용량 :
-								${item.p_size}ml</span> <span><img src="${item.p_pic}"></span> <span>향수
-								브랜드 : ${item.b_nm_eng}</span> <span>향수 가격 : ${item.p_price}</span>
+							<span>향수 이름 : ${item.p_nm}</span>
+							<span>향수 용량 :${item.p_size}ml</span>
+							<span><img src="${item.p_pic}"></span>
+							<span>향수 브랜드 : ${item.b_nm_eng}</span>
+							<span>향수 가격 : ${item.p_price}</span>
 						</div>
 					</c:forEach>
 				</div>
-				<!-- If we need pagination -->
+			
+				<!-- 네비게이션 -->
+				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			
+				<!-- 페이징 -->
 				<div class="swiper-pagination"></div>
-
-				<!-- If we need navigation buttons -->
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-button-next"></div>
-
-				<!-- If we need scrollbar -->
-				<div class="swiper-scrollbar"></div>
 			</div>
+			<div style="text-align:center; margin-top:5px;">랜덤사진 갤러리</div>
 		</c:if>
 		</div>
 		<div id="sel_div">
@@ -254,19 +253,25 @@
 
 <!-- Initialize Swiper -->
 <script>
-	var swiper = new Swiper('.swiper-container', {
-		slidesPerView : 5,
-		spaceBetween : 30,
-		slidesPerGroup : 5,
-		loop : true,
+	new Swiper('.swiper-container', {
+	
+		slidesPerView : 4, // 동시에 보여줄 슬라이드 갯수
+		spaceBetween : 30, // 슬라이드간 간격
+		slidesPerGroup : 1, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
+	
+		// 그룹수가 맞지 않을 경우 빈칸으로 메우기
+		// 3개가 나와야 되는데 1개만 있다면 2개는 빈칸으로 채워서 3개를 만듬
 		loopFillGroupWithBlank : true,
-		pagination : {
+	
+		loop : false, // 무한 반복
+	
+		pagination : { // 페이징
 			el : '.swiper-pagination',
-			clickable : true,
+			clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
 		},
-		navigation : {
-			nextEl : '.swiper-button-next',
-			prevEl : '.swiper-button-prev',
+		navigation : { // 네비게이션
+			nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+			prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
 		},
 	});
 </script>

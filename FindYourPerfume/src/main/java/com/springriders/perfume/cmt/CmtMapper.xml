@@ -37,10 +37,11 @@
 		  WHERE 
 		      1=1
 		) list
-		WHERE rnum >= #{sIdx} AND rnum <= #{eIdx}
+		WHERE rnum <![CDATA[ >= ]]> #{sIdx} 
+		AND rnum <![CDATA[ <= ]]> #{eIdx}
 	</select>
 	<select id="selPageCnt" parameterType="CmtPARAM" resultType="CmtDMI">
-		SELECT CEIL(COUNT(i_cmt) / #{record_cnt}) AS page_cnt
+		SELECT CEIL(COUNT(i_cmt) / #{record_cnt}) AS page_cnt, COUNT(i_cmt) AS cmt_cnt
 		FROM t_perfume_cmt
 		WHERE i_p = #{i_p}
 	</select>

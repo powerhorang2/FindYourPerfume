@@ -53,16 +53,13 @@ public class CmtController {
 	}
 	
 	@RequestMapping(value = "/ajaxSelPageCnt", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public @ResponseBody int ajaxSelPageCnt(CmtPARAM param){
+	public @ResponseBody CmtDMI ajaxSelPageCnt(CmtPARAM param){
 		param.setRecord_cnt(Const.RECORD_CNT); //한 페이지당 6개 뿌리겠다
-		
-		int result = service.selPageCnt(param);
-		return result;
+		return service.selPageCnt(param);
 	}
 	
 	@RequestMapping(value = "/ajaxSelPage", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public @ResponseBody CmtDMI ajaxSelPage(CmtPARAM param){
-		
+	public @ResponseBody List<CmtDMI> ajaxSelPage(CmtPARAM param){
 		return service.selPageCmtList(param);
 	}
 	
