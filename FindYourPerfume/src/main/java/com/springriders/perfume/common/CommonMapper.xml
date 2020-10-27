@@ -120,7 +120,7 @@
 		FROM t_perfume A
 		INNER JOIN c_code_brand B
 		ON A.p_brand = B.p_brand
-		<if test="b_nm_initial == 'ETC'">
+ 		<if test="b_nm_initial=='ETC'">
 			WHERE B.b_nm_eng = 'ETC'
 		</if> 
 		<if test="b_nm_initial !='ETC' and b_nm_initial != 'ALL'">
