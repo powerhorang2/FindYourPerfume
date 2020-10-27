@@ -79,13 +79,7 @@ hr {
 }
 
 .myPageContainer > #myPageRight > #sectionFavPerfume {
-	
-}
 
-.myPageContainer > #myPageRight > #sectionFavPerfume > #detailSection {
-	display: flex;
-	flex-wrap: wrap;
-	margin-left: 70px;
 }
 
 .myPageContainer > #myPageRight > #sectionFavPerfume > #title {
@@ -97,6 +91,24 @@ hr {
 	box-sizing: border-box;
 	text-align: center;
 	margin: 0 0 20px 100px;
+}
+
+.myPageContainer > #myPageRight > #sectionFavPerfume > #detailSection {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: 70px;
+}
+
+.myPageContainer > #myPageRight > #sectionFavPerfume > #detailSection > #emptyMsg {
+	padding-right: 50px;
+	margin: 30px auto;
+	width: 1300px;
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 3em;
+	color: #c0c0c0;
 }
 
 .myPageContainer > #myPageRight > #sectionFavPerfume > #detailSection > #favPerfume {
@@ -162,4 +174,16 @@ hr {
 .myPageContainer > #myPageRight > #sectionFavPerfume > #detailSection > #favPerfume > #containerPerfumeInfo > #notesInfo > div{
 	width: 20%;
 	margin: 0 10px 10px 0;
+}
+
+.myPageContainer > #myPageRight > #sectionFavNote > #title {
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #333333;
+    font-weight: bold;
+    box-sizing: border-box;
+    text-align: center;
+    margin: 0 0 20px 100px;
+
 }

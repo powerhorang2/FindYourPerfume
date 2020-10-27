@@ -60,18 +60,48 @@
 		<div id="sectionFavPerfume">
 			<div id="title">찜한 향수</div>
 			<div id="detailSection">
-			<c:forEach items="${data}" var="item">
-			<div id="favPerfume" onclick="moveToDetail(${item.i_p})">
-				<div id="favPerfumeImg">
-					<img class="perfumeImg" src="${item.p_pic}">
+			<c:if test="${empty data}">
+				<div id="emptyMsg">
+					<div>
+						<p>나만의 향수들을 추가해보세요</p>
+					</div>
 				</div>
-				<div id="favPerfumeDetail">
-					<p>${item.b_nm_eng}</p>
-					<p id="p_nm">${item.p_nm}<p>
-					<p>${item.p_size}ml | ${item.p_price}</p>
+			</c:if>
+			<c:if test="${!empty data}">
+				<c:forEach items="${data}" var="item">
+				<div id="favPerfume" onclick="moveToDetail(${item.i_p})">
+					<div id="favPerfumeImg">
+						<img class="perfumeImg" src="${item.p_pic}">
+					</div>
+					<div id="favPerfumeDetail">
+						<p>${item.b_nm_eng}</p>
+						<p id="p_nm">${item.p_nm}<p>
+						<p>${item.p_size}ml | ${item.p_price}</p>
+					</div>
 				</div>
+				</c:forEach>							
+			</c:if>
 			</div>
-			</c:forEach>
+		</div><hr>
+		<div id="sectionFavNote">
+			<div id="title">선호 노트</div>
+			<div id="noteContainer">
+				<div id="noteList">
+					<div>
+						<div><label><input type="checkbox" name="nt_m_c" value="1">시트러스<span>Citrus</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" value="2">아로마<span>Aromatics</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" value="3">플로랄<span>Floral</span></label></div>
+					</div>
+					<div>
+						<div><label><input type="checkbox" name="nt_m_c" value="4">그린<span>Green</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" value="5">과일<span>Fruity</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" value="6">스파이시<span>Spices</span></label></div>
+					</div>
+					<div>
+						<div><label><input type="checkbox" name="nt_m_c" value="7">우드<span>Wooded</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" value="8">발사믹<span>Balsamic</span></label></div>				
+					</div>
+				</div>	
 			</div>
 		</div>
 	</div>

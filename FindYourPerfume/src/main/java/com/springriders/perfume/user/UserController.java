@@ -1,12 +1,14 @@
 package com.springriders.perfume.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.springriders.perfume.Const;
 import com.springriders.perfume.SecurityUtils;
 import com.springriders.perfume.ViewRef;
+import com.springriders.perfume.common.CommonService;
+import com.springriders.perfume.common.model.PerfumeDMI;
+import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.user.model.UserPARAM;
 import com.springriders.perfume.user.model.UserVO;
 
@@ -28,6 +33,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+	private CommonService cService;
 	
 	@RequestMapping(value="/admin", method = RequestMethod.GET)
 	public String admin(UserPARAM param, Model model, HttpServletRequest request, HttpSession hs) {
@@ -72,7 +80,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
-	public String myPage(Model model, HttpSession hs, HttpServletRequest request) {
+	public String myPage(Model model, PerfumePARAM param, PerfumeDMI dm, HttpSession hs, HttpServletRequest request) {
 		
 		UserVO vo = SecurityUtils.getLoginUser(request);
 		if(vo == null) {
@@ -82,13 +90,37 @@ public class UserController {
 		if(user_type == Const.ADMIN) {
 			return "redirect:/user/admin";
 		}
+
+		List<PerfumeDMI> perfume = cService.selPerfumeList(param);
+		List<PerfumeDMI> brandEnm = cService.selBrandEnm(dm);
+		List<PerfumeDMI> brandFullNm = cService.selBrandFullNm(dm);
+		
+		List<String> brandAlphabet = new ArrayList();
+		
+        char aString = 65 ;
+        
+        while(true){
+            if(aString == 91)
+                aString = 97 ;
+            String str = String.valueOf(aString) ;
+            brandAlphabet.add(str);
+            aString++ ;
+            if(aString > 90)
+                break ;
+        }
 		
 		int i_user = SecurityUtils.getLoginUserPk(hs);
 		
-		UserPARAM param = new UserPARAM();
-		param.setI_user(i_user);
+		UserPARAM p = new UserPARAM();
+		p.setI_user(i_user);
 		
-		model.addAttribute("data", service.selFavoriteList(param));
+		model.addAttribute("brandFullNm", brandFullNm);
+        model.addAttribute("brandAlphabet", brandAlphabet);
+        model.addAttribute("brandEnm", brandEnm);
+		model.addAttribute("perfume", perfume);
+		
+		model.addAttribute("data", service.selFavoriteList(p));
+		
 		
 		model.addAttribute(Const.CSS, "myPage");		
 		model.addAttribute(Const.TITLE,"마이페이지");

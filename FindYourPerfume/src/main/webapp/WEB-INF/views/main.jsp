@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<div class="brandContainer">
-	<div id="brandRight">
-		<div id="hiddenSwiper">
-		<div class="topPerfume">
+<div id="brandContainer">
+	<div id="hiddenSwiper">
+		<div id="topPerfume">
 			<div id="topPerfumeTitle">MOST LOVED PERFUMES</div>
 			<div id="topPerfumeList">
 			<c:forEach items="${topPerfume}" var="item">
@@ -19,32 +18,40 @@
 			</c:forEach>
 			</div>
 		</div>
-<%-- 		<c:if test="${loginUser != null}">
-			<!-- Slider main container -->
-			<div class="swiper-container">
-				<!-- Additional required wrapper -->
-				<div class="swiper-wrapper">
-					<!-- Slides -->
-					<c:forEach items="${recPerfume}" var="item">
-						<div class="swiper-slide">
-							<span>향수 이름 : ${item.p_nm}</span> <span>향수 용량 :
-								${item.p_size}ml</span> <span><img src="${item.p_pic}"></span> <span>향수
-								브랜드 : ${item.b_nm_eng}</span> <span>향수 가격 : ${item.p_price}</span>
-						</div>
-					</c:forEach>
+		<div id="recPerfume">
+	 		<c:if test="${loginUser != null}">
+				<div id="recPerfumeTitle">RECOMMENDS YOU MIGHT LIKE</div>
+				<!-- Slider main container -->
+				<div class="swiper-container">
+					<!-- Additional required wrapper -->
+					<div class="swiper-wrapper">
+						<!-- Slides -->
+						<c:forEach items="${recPerfume}" var="item">
+							<div class="swiper-slide">
+								<div id="topPImg">
+									<img src="${item.p_pic}">
+								</div>
+								<div><b>${item.b_nm_eng}</b></div>
+								<div id="topPerfumeNm">${item.p_nm}</div>
+								<div>${item.p_size}ml | ${item.p_price}</div>
+							</div>
+						</c:forEach>
+					</div>
+					<!-- If we need pagination -->
+					<div class="swiper-pagination"></div>
+	
+					<!-- If we need navigation buttons -->
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
 				</div>
-				<!-- If we need pagination -->
-				<div class="swiper-pagination"></div>
-
-				<!-- If we need navigation buttons -->
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-button-next"></div>
-
-				<!-- If we need scrollbar -->
-				<div class="swiper-scrollbar"></div>
-			</div>
-		</c:if> --%>
+			</c:if>
 		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 		<div id="filter">
 			<div>
 				필터링~~~~~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!
@@ -59,7 +66,6 @@
 		   페이지이잉
 		</div> 	
 	</div>
-
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
@@ -78,10 +84,10 @@
 <!-- Initialize Swiper -->
 <script>
 	var swiper = new Swiper('.swiper-container', {
-		slidesPerView : 5,
+		slidesPerView : 3,
 		spaceBetween : 30,
-		slidesPerGroup : 5,
-		loop : true,
+		slidesPerGroup : 1,
+		loop : false,
 		loopFillGroupWithBlank : true,
 		pagination : {
 			el : '.swiper-pagination',

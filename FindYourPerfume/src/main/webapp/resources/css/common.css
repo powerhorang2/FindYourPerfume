@@ -168,7 +168,6 @@ a {
 }
 
 #container > section > #commonContainer > #sidebar {
-	border: 1px solid blue;
     width: 300px;
     min-width: 300px;
     height: 100%;
@@ -256,6 +255,11 @@ a {
 #container > section > #commonContainer > #sidebar > #selBrand > span:hover {
 	font-weight: bolder;
 	color: #4a4a4a;	
+}
+
+#container > section > #commonContainer > #mainContainer {
+	width: 100%;
+	height: 100%;
 }
 
 /* 섹션 끝, 푸터 시작 */

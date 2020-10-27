@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500;1,900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/res/css/common.css">
+<link rel="stylesheet" type="text/css" href="/res/css/common.css?ver=1">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
@@ -102,17 +102,9 @@
 					</div>
 				</div>
 				<div id="selBrand">
-					<div id="selBrandNm">
-						<c:forEach items="${brandEnm}" var="data">
-							<p>${data.b_nm_eng}</p>
-						</c:forEach>
-						<c:forEach items="${brandFullNm}" var="item">
-							<p onclick="choiceAlphabetFullNm(`${item}`)">${item}</p>
-						</c:forEach>
-					</div>
 				</div>
 			</div>
-			<div>		
+			<div id="mainContainer">		
 				<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>
 			</div>
 		</div>
