@@ -397,7 +397,7 @@
 			
 			for (var i = 0; i < 5; i++){
 				var div = document.createElement('div');
-				div.setAttribute('id', 'list');
+				div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`);
 				var div_kor = document.createElement('div');
 				var div_eng = document.createElement('div');
 				var div_size = document.createElement('div');
