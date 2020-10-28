@@ -181,12 +181,25 @@ public class UserController {
 		return "redirect:/common/main";
 	}
 	
-	@RequestMapping(value="/ajaxIdChk", method = RequestMethod.POST)
-	@ResponseBody
-	public String ajaxIdChk(@RequestBody UserVO param) {
-		System.out.println(param.getUser_id());
+	@RequestMapping(value="/ajaxDelUserFavorite", method = RequestMethod.POST)
+	public @ResponseBody int ajaxDelUserFavorite(@RequestBody UserPARAM param, HttpSession hs) {
 		
-		int result = service.login(param);
-		return String.valueOf(result);
-	}	
+		int i_user = SecurityUtils.getLoginUser(hs).getI_user();
+		param.setI_user(i_user);
+		
+		return service.delUserFavorite(param);
+		
+	}
+	
+	@RequestMapping(value="/ajaxInsUserFavorite", method = RequestMethod.POST)
+	public @ResponseBody int ajaxInsUserFavorite(@RequestBody UserPARAM param, HttpSession hs) {
+	
+		int i_user = SecurityUtils.getLoginUser(hs).getI_user();
+		param.setI_user(i_user);
+		
+		return service.insUserFavorite(param);
+		
+	}
+	
+	
 }

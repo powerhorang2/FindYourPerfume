@@ -6,7 +6,8 @@ public class CmtDMI extends CmtVO {
 	private String bd;
 	private int ageGroup;
 	private String gender;
-	private int Cmt_cnt;
+	private int cmt_cnt;
+	private int page_cnt;
 	
 	public String getNm() {
 		return nm;
@@ -39,10 +40,16 @@ public class CmtDMI extends CmtVO {
 		this.gender = gender;
 	}
 	public int getCmt_cnt() {
-		return Cmt_cnt;
+		return cmt_cnt;
 	}
 	public void setCmt_cnt(int cmt_cnt) {
-		Cmt_cnt = cmt_cnt;
+		this.cmt_cnt = cmt_cnt;
+	}
+	public int getPage_cnt() {
+		return page_cnt;
+	}
+	public void setPage_cnt(int page_cnt) {
+		this.page_cnt = page_cnt;
 	}
 	
 }

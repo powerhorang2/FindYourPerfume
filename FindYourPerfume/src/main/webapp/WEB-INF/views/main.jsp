@@ -155,7 +155,6 @@
 	var eIdx = 10;
 	var brandList = new Array();
 	var rowAllCnt = 0
-
 	function BrandVO(b_nm_eng, i_p, i_user, p_brand, p_nm, p_pic, p_price, p_size){
 		this.b_nm_eng = b_nm_eng
 		this.i_p = i_p
@@ -211,7 +210,6 @@
    	   				var div_price = document.createElement('div');
    	   				div_price.innerText = '향수 가격 : '+ numberFormat(brandList[sIdx].p_price) + '원'
    	   				div.append(div_price)
-
    	   				sel_div.append(div)
    	   			}
    	   			if(rowAllCnt - sIdx >= 5){
@@ -259,7 +257,6 @@
 	   				var div_price = document.createElement('div');
 	   				div_price.innerText = '향수 가격 : '+ numberFormat(pick_brandList[sIdx].p_price) + '원'
 	   				div.append(div_price)
-
 	   				sel_div.append(div)
 	   			}
 	   			if(pick_brandList.length - sIdx >= 5){
@@ -272,7 +269,6 @@
    		}
 	}
  	
-
 	function choiceAlphabetMain(b_nm_initial) {
 		console.log(b_nm_initial)
 		idx = 0;
@@ -293,20 +289,17 @@
 						var div_price = document.createElement('div');
 						var img = document.createElement('img');
 						div.setAttribute('class', 'brandAlphabet');
-
 						img.src = res.data[i].p_pic
 						div_eng.innerText = '향수 브랜드 : ' + res.data[i].b_nm_eng
 						div_kor.innerText = '향수 이름 : ' + res.data[i].p_nm
 						div_size.innerText = '향수 용량 : ' + res.data[i].p_size + 'ml'
 						div_price.innerText = '향수 가격 : '
 								+ numberFormat(res.data[i].p_price) + '원'
-
 						div.append(img)
 						div.append(div_eng)
 						div.append(div_kor)
 						div.append(div_size)
 						div.append(div_price)
-
 						sel_div.append(div)
 					}
 				})
@@ -323,11 +316,9 @@
 				div.setAttribute('onclick', `choiceAlphabetFullNm(\'\${res.data[i].b_nm_eng}\')`);
 				div_eng.innerText = b_nm_eng
 				div.append(div_eng)
-
 				sel_brand.append(div)	
 			}
 		})
-
 		axios.get('/common/ajaxSelBrandAlphabet', {
 /*  			console.log(listMore) */
 			params : {
@@ -349,7 +340,6 @@
 					var div = document.createElement('div');
 					div.setAttribute('onclick', `moveToDetail(\'\${tempArr[i].i_p}\')`);
 					div.setAttribute('class', 'brandAlphabet');				
-
 					var img = document.createElement('img');
 					img.src = tempArr[i].p_pic
 					div.append(img)
@@ -424,7 +414,6 @@
 				div_price.innerText = '향수 가격 : '
 						+ numberFormat(res.data[i].p_price) + '원'
 				div.append(div_price)
-
 				sel_div.append(div)
 			}
 		})
@@ -440,11 +429,9 @@
   	  $("#sel_div>div").hide();
    	  $("#sel_div>div").slice(0,3).show();
 	}
-
 	function more(){
   	  $("#sel_div>div").slice(3,6).show();
 	}
-
 </script> -->
 
 <!-- Initialize Swiper -->
@@ -465,4 +452,3 @@
 		},
 	});
 </script>
-
