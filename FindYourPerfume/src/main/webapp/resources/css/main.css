@@ -1,24 +1,63 @@
 @charset "UTF-8";
 
-#btnLogout {
-	text-decoration: none;
-	color: #000;	
+#topPerfume {
+	display: flex;
+	flex-direction: column;
+	min-width: 1300px;
 }
-.box {
-    width: 150px;
-    height: 150px; 
-    border-radius: 70%;
-    overflow: hidden;
+
+#topPerfume > #topPerfumeTitle {
+	font-weight: bolder;
+	text-align: center;
+	font-size: 1.5em;
+	margin: 50px 0 50px;
 }
-.profile {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+
+#topPerfume > #topPerfumeList {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
+
+#topPerfume > #topPerfumeList > #topPerfumeItem {
+	text-align: center;
+	width: 250px;
+	height: 400px;
+	margin: 0 15px;
+}
+
+#topPerfume > #topPerfumeList > #topPerfumeItem > #topPerfumeNm {
+	width: 230px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	margin-left: 10px;
+}
+
+#topPerfume > #topPerfumeList > #topPerfumeItem > #topPImg {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#topPerfume > #topPerfumeList > #topPerfumeItem > #topPImg > img {
+	margin: 20px 0;
+	width: 220px;
+	height: 220px;
+}
+
+#recPerfume > #recPerfumeTitle {
+	font-weight: bolder;
+	text-align: center;
+	font-size: 1.5em;
+	margin: 50px 0 0px;
+}
+
 
 .material-icons {
 	color: red;
 }
+
 .perfumeMain{
 	text-align: center;
 	margin-top: 20px;
@@ -26,67 +65,60 @@
 	flex-wrap: wrap;	
 }
 
-.loginUserInfo{
-	border: 1px solid black;
-}
-.brandContainer {
+#brandContainer {
 	display: flex;
-	width: 100%;
-	height: 100%;
+	flex-direction: column;
+	justify-content: center;
+	padding-right: 300px;
 }
 
-
-.brandContainer > #brandLeft {
-	width: 300px;
-	min-width: 300px;
-	height: 100%;
-	padding: 15px;
-	background-color: lightgray;
-}
-.brandContainer > #brandRight {
-	padding: 50px 100px;
-	width: 100%;
-}
-.brandName {
-	width: 70px;
-	height: 80px;
-}
-#selBrandAlphabet {
-	display: flex;
-	flex-wrap: wrap;
-	margin: 15px 0 70px;
-}
-
-#selBrandAlphabet > a {
-	width: 18px;
-	text-align: center;
-	margin: 5px;
-}
-.choiceBrand{
-	border: 1px solid black;
-	height: 300px;
-}
-
+#recPerfume {
+	min-width: 1300px;
 }
 
 .swiper-container {
+<<<<<<< HEAD
 	height:500px;
 	border:5px solid silver;
 	border-radius:7px;
 	box-shadow:0 0 20px #ccc inset;
+=======
+	width: 70%;
+	height: 400px;
+}
+
+.swiper-wrapper {
+>>>>>>> branch 'kyondoku' of https://github.com/powerhorang2/FindYourPerfume.git
 }
 .swiper-slide {
+<<<<<<< HEAD
 	width: 500px;
 	text-align:center;
 	display:flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
 	align-items:center; /* 위아래 기준 중앙정렬 */
 	justify-content:center; /* 좌우 기준 중앙정렬 */
+=======
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+} 
+
+.swiper-slide img {
+	max-width: 100%;
+	width: 200px;
+	height: 200px;
+>>>>>>> branch 'kyondoku' of https://github.com/powerhorang2/FindYourPerfume.git
 }
+<<<<<<< HEAD
 .swiper-slide img {
 	box-shadow:0 0 5px #555;
 	max-width:100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
 	/* 이 예제에서 필요해서 설정했습니다. 상황에따라 다를 수 있습니다. */
 }
+=======
+
+>>>>>>> branch 'kyondoku' of https://github.com/powerhorang2/FindYourPerfume.git
 
 .material-icons { color: red; }
 
@@ -97,9 +129,17 @@
     border: 1px solid black;
    
 }
+<<<<<<< HEAD
 .more a{
 		color : black;
+=======
+
+.swiper-button-prev, .swiper-button-next, .swiper-pagination {
+	color: #535353;
+	font-weight: bolder;
+>>>>>>> branch 'kyondoku' of https://github.com/powerhorang2/FindYourPerfume.git
 }
+
 
 
 

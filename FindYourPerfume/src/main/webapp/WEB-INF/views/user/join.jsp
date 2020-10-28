@@ -62,18 +62,18 @@
 				<div id="noteContainerTitle">선호 노트<span>Preferred scent</span></div>
 				<div id="noteList">
 					<div>
-						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="1">시트러스<span>Citrus</span></label></div>
-						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="2">아로마<span>Aromatics</span></label></div>
-						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="3">플로랄<span>Floral</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" value="1">시트러스<span>Citrus</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" value="2">아로마<span>Aromatics</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" value="3">플로랄<span>Floral</span></label></div>
 					</div>
 					<div>
-						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="4">그린<span>Green</span></label></div>
-						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="5">과일<span>Fruity</span></label></div>
-						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="6">스파이시<span>Spices</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" value="4">그린<span>Green</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" value="5">과일<span>Fruity</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" value="6">스파이시<span>Spices</span></label></div>
 					</div>
 					<div>
-						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="7">우드<span>Wooded</span></label></div>
-						<div><label><input type="checkbox" name="nt_m_c" onclick="count_ck(this);" value="8">발사믹<span>Balsamic</span></label></div>				
+						<div><label><input type="checkbox" name="nt_m_c" value="7">우드<span>Wooded</span></label></div>
+						<div><label><input type="checkbox" name="nt_m_c" value="8">발사믹<span>Balsamic</span></label></div>				
 					</div>
 				</div>			
 			</div>
@@ -91,22 +91,6 @@
 <script>
 	function moveToPage(p) {
 		location.href = p
-	}
-	
-		//노트 
-	function count_ck(obj){
-	var chkbox = document.getElementsByName("nt_m_c");
-	var chkCnt = 0;
-	for(var i=0;i<chkbox.length; i++){
-		if(chkbox[i].checked){
-			chkCnt++;
-		}
-	}
-	if(chkCnt>3) {
-		alert("최대 3개까지 선택 할 수있습니다.");
-		obj.checked = false;
-		return false;
-		}
 	}
 	
 	//회원가입 체크
