@@ -39,7 +39,7 @@
 	<select id="selUserPk" parameterType="UserVO" resultType="UserPARAM">
 		SELECT MAX(i_user) as i_user FROM t_user
 	</select>
-	<select id="selUser" parameterType="UserVO" resultType="UserVO">
+	<select id="selUser" parameterType="UserVO" resultType="UserDMI">
 		SELECT i_user, user_id, user_pw, salt, nm, user_type, date_format(bd, "%Y년 %c월 %e일") as bd,
 		profile_img, date_format(r_dt, "%Y년 %c월 %e일") as r_dt, date_format(m_dt, "%Y년 %c월 %e일") as m_dt
 		FROM t_user
