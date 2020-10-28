@@ -91,6 +91,7 @@ public class UserController {
 			return "redirect:/user/admin";
 		}
 
+
 		List<PerfumeDMI> perfume = cService.selPerfumeList(param);
 		List<PerfumeDMI> brandEnm = cService.selBrandEnm(dm);
 		List<PerfumeDMI> brandFullNm = cService.selBrandFullNm(dm);
@@ -109,10 +110,15 @@ public class UserController {
                 break ;
         }
 		
-		int i_user = SecurityUtils.getLoginUserPk(hs);
+        int i_user = SecurityUtils.getLoginUserPk(hs);
 		
 		UserPARAM p = new UserPARAM();
 		p.setI_user(i_user);
+		System.out.println("i_user: " + p.getI_user());
+		List<PerfumeDMI> favNotesList = service.selFavNotes(p);
+		
+		System.out.println("찍히니? : " + favNotesList.get(0).getNt_m_c());
+		System.out.println("찍히니? : " + favNotesList.get(1).getNt_m_c());
 		
 		model.addAttribute("brandFullNm", brandFullNm);
         model.addAttribute("brandAlphabet", brandAlphabet);
@@ -120,6 +126,7 @@ public class UserController {
 		model.addAttribute("perfume", perfume);
 		
 		model.addAttribute("data", service.selFavoriteList(p));
+		model.addAttribute("favNotes", favNotesList);
 		
 		
 		model.addAttribute(Const.CSS, "myPage");		
@@ -223,4 +230,29 @@ public class UserController {
 		int result = service.login(param);
 		return String.valueOf(result);
 	}	
+	
+	@RequestMapping(value="/ajaxAddFavNotes", method = RequestMethod.POST)
+	@ResponseBody
+	public String ajaxAddFavNotes(@RequestBody PerfumePARAM param, HttpSession hs) {
+		int i_user = SecurityUtils.getLoginUserPk(hs);		
+		param.setI_user(i_user);
+		
+		int result = service.ajaxAddFavNotes(param);
+		
+		return "redirect:/user/myPage";
+	}	
+
+	@RequestMapping(value="/ajaxDelFavNotes", method = RequestMethod.POST)
+	@ResponseBody
+	public String ajaxDelFavNotes(@RequestBody PerfumePARAM param, HttpSession hs) {
+        int i_user = SecurityUtils.getLoginUserPk(hs);		
+		param.setI_user(i_user);
+		
+		int result = service.ajaxDelFavNotes(param);
+		
+		return "redirect:/user/myPage";
+	}	
+	
+	
+	
 }

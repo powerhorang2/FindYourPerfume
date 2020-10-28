@@ -180,18 +180,4 @@ public class CommonController {
 	public PerfumeDMI ajaxSelPerfumePic(PerfumePARAM param){
 		return service.selPerfumePic(param);
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

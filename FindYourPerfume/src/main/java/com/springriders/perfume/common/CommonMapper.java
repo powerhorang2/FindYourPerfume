@@ -6,12 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.springriders.perfume.common.model.BrandCodeVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
-import com.springriders.perfume.common.model.PagingVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.common.model.PerfumeVO;
-import com.springriders.perfume.crawler.model.CrawlerBrandVO;
-import com.springriders.perfume.crawler.model.CrawlerPerfumeVO;
+import com.springriders.perfume.user.model.UserPARAM;
 
 @Mapper
 public interface CommonMapper {

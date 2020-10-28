@@ -185,5 +185,76 @@ hr {
     box-sizing: border-box;
     text-align: center;
     margin: 0 0 20px 100px;
+}
 
+.myPageContainer > #myPageRight > #sectionFavNote > #noteContainer {
+	padding-right: 50px;
+	margin: 30px auto;
+	width: 1300px;
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.myPageContainer > #myPageRight > #sectionFavNote > #noteContainer > #noteList {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;	
+}
+
+.myPageContainer > #myPageRight > #sectionFavNote > #noteContainer > #noteList > div {
+	margin-bottom: 30px;
+	display: flex;	
+}
+
+.myPageContainer > #myPageRight > #sectionFavNote > #noteContainer > #noteList > div > div {
+	width: 200px;
+	font-size: 1.2em;
+    position: relative;
+    display: inline-block;
+}
+
+.myPageContainer > #myPageRight > #sectionFavNote > #noteContainer > #noteList > div > div > label {
+    display: block;
+}
+
+.myPageContainer > #myPageRight > #sectionFavNote > #noteContainer > #noteList > div > div > label > 
+input[type="checkbox"] {
+	width: 15px;
+	height: 15px;
+}
+
+
+.myPageContainer > #myPageRight > #sectionFavNote > #noteContainer > #noteList > div > div > label:hover + p.arrow_box {
+ 	display: block;
+}
+
+.myPageContainer > #myPageRight > #sectionFavNote > #noteContainer > #noteList > div > div > .arrow_box {
+ 	display: none;
+  	position: absolute;
+  	width: 200px;
+  	padding: 8px;
+  	left: 10px;
+  	border-radius: 8px;
+  	background: #333;
+  	color: #fff;
+  	font-size: 14px;
+  	z-index: 999;
+  	text-align: center;
+}
+
+.myPageContainer > #myPageRight > #sectionFavNote > #noteContainer > #noteList > div > div > .arrow_box:after {
+	 position: absolute;
+	 bottom: 100%;
+	 left: 75px;
+	 width: 0;
+	 height: 0;
+	 margin-left: -10px;
+	 border: solid transparent;
+  	 border-color: rgba(51, 51, 51, 0);
+	 border-bottom-color: #333;
+	 border-width: 10px;
+	 pointer-events: none;
+	 content: " ";
 }

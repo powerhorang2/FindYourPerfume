@@ -206,15 +206,11 @@
 	}
 	
 	function selDelPerfumePic(i_p) {
-		console.log(i_p)
-		
 		axios.get('/common/ajaxSelPerfumePic', {
 			params : {
 				i_p
 			}
 		}).then(function(res) {
-			console.log(res.data.p_pic)
-	
 			document.getElementById('delPerfumeImg').innerHTML = '<img src="' + res.data.p_pic + '" width="100%" height="100%">';
 		})	
 	} 

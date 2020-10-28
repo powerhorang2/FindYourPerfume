@@ -18,6 +18,7 @@ import com.springriders.perfume.common.model.BrandCodeVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
 import com.springriders.perfume.common.model.PerfumeVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
+import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.user.model.UserPARAM;
 import com.springriders.perfume.user.model.UserVO;
 
@@ -207,6 +208,17 @@ public class UserService {
 		return list;
 	}
 	
+	public List<PerfumeDMI> selFavNotes(UserPARAM p) {
+		return mapper.selFavNotes(p);
+	}
+
+	public int ajaxAddFavNotes(PerfumePARAM param) {
+		return mapper.ajaxAddFavNotes(param);
+	}
+
+	public int ajaxDelFavNotes(PerfumePARAM param) {
+		return mapper.ajaxDelFavNotes(param);
+	}
 	
 //	나중에 auth기능 구현해보기
 	
