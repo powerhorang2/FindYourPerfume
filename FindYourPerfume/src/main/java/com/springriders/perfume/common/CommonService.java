@@ -6,12 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springriders.perfume.common.model.BrandCodeVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
-import com.springriders.perfume.crawler.model.CrawlerBrandVO;
-import com.springriders.perfume.crawler.model.CrawlerPerfumeVO;
+import com.springriders.perfume.common.model.PerfumeTemp;
 
 @Service
 public class CommonService {
@@ -50,7 +48,16 @@ public class CommonService {
 
 	public List<PerfumeDMI> selBrandAlphabet(PerfumePARAM param) {
 		System.out.println("gg : " + param.getB_nm_initial());
+		
 		return mapper.selBrandAlphabet(param);
+	}
+	
+	public PerfumeTemp selBrandAlphabetCnt(PerfumePARAM param) {
+		PerfumeTemp vo = new PerfumeTemp();
+		vo.setSelBrandAlpahbet(mapper.selBrandAlphabet(param));
+		vo.setRowAllCnt(vo.getSelBrandAlpahbet().size());
+		System.out.println("cnt 출력 : "+vo.getRowAllCnt());
+		return vo;
 	}
 
 
@@ -59,12 +66,9 @@ public class CommonService {
 	}
 
 
-
 	public List<PerfumeDMI> selBrandEnm(PerfumeDMI dm) {
 		return mapper.selBrandEnm(dm);
 	}
-
-
 
 
 	public List<PerfumeDMI> selBrandNm(PerfumePARAM param) {
@@ -86,6 +90,11 @@ public class CommonService {
 	
 	public int delPerfume(PerfumePARAM param) {
 		return mapper.delPerfume(param);
+	}
+
+	
+	public PerfumeDMI selPerfumePic(PerfumePARAM param) {
+		return mapper.selPerfumePic(param);
 	}
 
 

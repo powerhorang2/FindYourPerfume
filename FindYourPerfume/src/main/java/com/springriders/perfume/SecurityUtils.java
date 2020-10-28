@@ -1,5 +1,7 @@
 package com.springriders.perfume;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -30,6 +32,13 @@ public class SecurityUtils {
 	
 	public static boolean isLogout(HttpServletRequest request) {				
 		return getLoginUser(request) == null;
+	}
+	
+	public static boolean loginChk(HttpServletRequest request) {		
+		if(getLoginUser(request) != null) {
+			return true;			
+		}
+		return false;
 	}
 	
 	public static String generateSalt() {

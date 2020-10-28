@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +23,7 @@ import com.springriders.perfume.common.model.CommonVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
+import com.springriders.perfume.common.model.PerfumeTemp;
 import com.springriders.perfume.user.UserService;
 
 @Controller
@@ -50,7 +50,8 @@ public class CommonController {
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
 		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
-
+	
+		
 		List<String> brandAlphabet = new ArrayList();
 		
         char aString = 65 ;
@@ -75,6 +76,7 @@ public class CommonController {
 			model.addAttribute("recPerfume", recPerfume);
 		}
 
+		/* model.addAttribute("pageNum", pageNum); */
 		model.addAttribute("brandFullNm", brandFullNm);
         model.addAttribute("brandAlphabet", brandAlphabet);
         model.addAttribute("brandEnm", brandEnm);
@@ -110,19 +112,14 @@ public class CommonController {
 		ra.addFlashAttribute("data", vo);
 		return "redirect:/common/main";
 	}
-	
-	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logout(HttpSession hs) {
-		hs.invalidate();
-		return "redirect:/common/main";
-	}
 
 	@RequestMapping("/detail")
 	public String detail(PerfumePARAM param, Model model, HttpServletRequest req) {
-		
+		System.out.println("i_pddd : " + param.getI_p());
 		int i_user = SecurityUtils.getLoginUserPk(req);
 		param.setI_user(i_user);
-		param.setI_p(350);
+		
+		param.setI_p(param.getI_p());
 		
 		PerfumeDMI perfume = service.selPerfume(param);
 		List<NoteCodeVO> noteList = service.selPerfumeNoteList(param);
@@ -141,8 +138,8 @@ public class CommonController {
 	
 	@RequestMapping("/ajaxSelBrandAlphabet")
 	@ResponseBody
-	public List<PerfumeDMI> ajaxSelBrandAlphabet(PerfumePARAM param){
-		return service.selBrandAlphabet(param);
+	public PerfumeTemp ajaxSelBrandAlphabet(PerfumePARAM param){
+		return service.selBrandAlphabetCnt(param);
 	}
 	
 
@@ -179,5 +176,24 @@ public class CommonController {
 	public List<PerfumeDMI> ajaxSelBranFullAp(PerfumeDMI dmi){
 		return service.selBrandFullAp(dmi);
 	}
+	
+	@RequestMapping("/ajaxSelPerfumePic")
+	@ResponseBody
+	public PerfumeDMI ajaxSelPerfumePic(PerfumePARAM param){
+		return service.selPerfumePic(param);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

@@ -41,7 +41,7 @@ public class UserService {
 		String realPath = mReq.getServletContext().getRealPath(path);
 		String saveFileNm = FileUtils.saveFile(realPath, mf);
 		
-		System.out.println(saveFileNm);
+		System.out.println("saveFileNm :" +  saveFileNm);
 	
 		if(saveFileNm == null) {
 			saveFileNm = "default_img.jpg";
@@ -50,13 +50,14 @@ public class UserService {
 			param.setProfile_img(saveFileNm);			
 		}
 		
+		System.out.println("user_pw : " + param.getUser_pw());
 		String pw = param.getUser_pw();
 		String salt = SecurityUtils.generateSalt();
 		String cryptPw = SecurityUtils.getEncrypt(pw, salt);
 		
 		param.setSalt(salt);
 		param.setUser_pw(cryptPw);
-		
+
 		String[] strUserNote = mReq.getParameterValues("nt_m_c");
 	
 		mapper.insUser(param);
@@ -64,12 +65,16 @@ public class UserService {
 		param = mapper.selUserPk(param);
 		param.setI_user(param.getI_user());
 		System.out.println("i_user : " + param.getI_user());
-		
-		for(String strUserNotes : strUserNote) {
-			int nt_m_c = CommonUtils.parseStringToInt(strUserNotes);
-			param.setNt_m_c(nt_m_c);
+
+		if(mReq.getParameter("nt_m_c") != null) {
 			
-			mapper.insUserNote(param);	
+			for(String strUserNotes : strUserNote) {
+				int nt_m_c = CommonUtils.parseStringToInt(strUserNotes);
+				param.setNt_m_c(nt_m_c);
+				
+				mapper.insUserNote(param);	
+			}
+
 		}
 		return Const.SUCCESS;
 	}
@@ -89,35 +94,14 @@ public class UserService {
 		if(!cryptPw.equals(dbUser.getUser_pw())) {
 			return Const.NO_PW;
 		}
-			
-		String bd = dbUser.getBd();	
-		String strYear = bd.substring(0,4);
-		int userYear = CommonUtils.parseStringToInt(strYear);
-		
-		// 현재 년도 뽑기
-		SimpleDateFormat format = new SimpleDateFormat("yyyy");
-		Date date = new Date();
-		String strNowYear = format.format(date);
-		int nowYear = CommonUtils.parseStringToInt(strNowYear);
-		
-		// 유저 나이 뽑기
-		int age = nowYear - userYear + 1;
-		
-		// 유저 세대 뽑기
-		String strAgeGroup = String.valueOf(age);
-		strAgeGroup = strAgeGroup.substring(0,1);
-		strAgeGroup += 0;
-		int ageGroup = CommonUtils.parseStringToInt(strAgeGroup);
-		
-		param.setAgeGroup(ageGroup);
-		param.setStrGender(dbUser.getStrGender());
-		param.setUser_type(dbUser.getUser_type());
-		param.setI_user(dbUser.getI_user());
-		param.setUser_pw(null);
-		param.setNm(dbUser.getNm());
-		param.setProfile_img(dbUser.getProfile_img());
-		param.setBd(dbUser.getBd());
-		return Const.SUCCESS;
+			param.setUser_type(dbUser.getUser_type());
+			param.setI_user(dbUser.getI_user());
+			param.setUser_pw(null);
+			param.setNm(dbUser.getNm());
+			param.setProfile_img(dbUser.getProfile_img());
+			param.setBd(dbUser.getBd());
+			param.setR_dt(dbUser.getR_dt());
+			return Const.SUCCESS;
 	}
 	
 	public int changeAuth(UserPARAM param) {
