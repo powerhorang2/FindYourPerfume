@@ -51,7 +51,6 @@ public class CommonController {
 		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
 		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
 	
-		
 		List<String> brandAlphabet = new ArrayList();
 		
         char aString = 65 ;
@@ -182,18 +181,4 @@ public class CommonController {
 	public PerfumeDMI ajaxSelPerfumePic(PerfumePARAM param){
 		return service.selPerfumePic(param);
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.user.model.UserDMI;
+import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.user.model.UserPARAM;
 import com.springriders.perfume.user.model.UserVO;
 
@@ -17,6 +18,7 @@ public interface UserMapper {
 	int changeAuth(UserPARAM param);
 	
 	List<PerfumeDMI> selFavoriteList(UserPARAM param);
+	List<PerfumeDMI> selFavNotes(UserPARAM p);
 
 	UserPARAM selUserPk(UserVO param);
 	UserDMI selUser(UserVO param);
@@ -24,7 +26,11 @@ public interface UserMapper {
 	List<UserVO> selAdminList(UserVO param);
 
 	int uptUser(UserVO vo);
+
 	int delUserFavorite(UserPARAM param);
 	int insUserFavorite(UserPARAM param);
+
+	int ajaxAddFavNotes(PerfumePARAM param);
+	int ajaxDelFavNotes(PerfumePARAM param);
 
 }

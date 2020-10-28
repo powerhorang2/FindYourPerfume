@@ -1,7 +1,5 @@
 package com.springriders.perfume.user;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -21,6 +19,7 @@ import com.springriders.perfume.common.model.NoteCodeVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumeVO;
 import com.springriders.perfume.user.model.UserDMI;
+import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.user.model.UserPARAM;
 import com.springriders.perfume.user.model.UserVO;
 
@@ -218,6 +217,17 @@ public class UserService {
 		return mapper.insUserFavorite(param);
 	}
 	
+	public List<PerfumeDMI> selFavNotes(UserPARAM p) {
+		return mapper.selFavNotes(p);
+	}
+
+	public int ajaxAddFavNotes(PerfumePARAM param) {
+		return mapper.ajaxAddFavNotes(param);
+	}
+
+	public int ajaxDelFavNotes(PerfumePARAM param) {
+		return mapper.ajaxDelFavNotes(param);
+	}
 	
 //	나중에 auth기능 구현해보기
 	
