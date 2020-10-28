@@ -26,10 +26,10 @@ public class CmtController {
 	@Autowired
 	private CmtService service;
 
-	@RequestMapping(value = "/ajaxSelCmtList", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public @ResponseBody List<CmtDMI> ajaxSelCmtList(PerfumePARAM param){
-		return service.selCmtList(param);
-	}
+//	@RequestMapping(value = "/ajaxSelCmtList", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+//	public @ResponseBody List<CmtDMI> ajaxSelCmtList(PerfumePARAM param){
+//		return service.selCmtList(param);
+//	}
 	
 	@RequestMapping(value = "/ajaxInsCmt", method = RequestMethod.POST)
 	public @ResponseBody int ajaxInsCmt(@RequestBody CmtPARAM param, HttpSession hs) {

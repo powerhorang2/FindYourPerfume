@@ -122,16 +122,16 @@ public class CommonController {
 		
 		int i_user = SecurityUtils.getLoginUserPk(req);
 		param.setI_user(i_user);
-		param.setI_p(579);
+		param.setI_p(350);
 		
 		PerfumeDMI perfume = service.selPerfume(param);
 		List<NoteCodeVO> noteList = service.selPerfumeNoteList(param);
 		
-		List<CmtDMI> cmtList = cmtService.selCmtList(param);
+//		List<CmtDMI> cmtList = cmtService.selCmtList(param);
 		
 		model.addAttribute("perfume", perfume);
 		model.addAttribute("noteList", noteList);
-		model.addAttribute("cmtList", cmtList);
+//		model.addAttribute("cmtList", cmtList);
 		
 		model.addAttribute(Const.CSS, "detail");
 		model.addAttribute(Const.TITLE, "디테일 페이지"); //가게명

@@ -196,7 +196,13 @@
 		
 		cmt_userData_userNm_img.src = '/res/img/profileImg/' + item.profile_img
 		cmt_userData_userNm_p.innerText = item.nm
-		cmt_userData_userAge_p.innerText = item.ageGroup + '대/' + item.gender
+		if(item.ageGroup == 1) {
+			cmt_userData_userAge_p.innerText = '10세 미만/' + item.gender
+		} else if(item.ageGroup == 100) {
+			cmt_userData_userAge_p.innerText = '100세 이상/' + item.gender
+		} else {
+			cmt_userData_userAge_p.innerText = item.ageGroup + '대/' + item.gender
+		}
 		cmt_cmt_div_p.innerText = item.cmt
 
 		cmt.append(cmt_userData)
@@ -279,7 +285,7 @@
 				
 				span.innerText = page;
 			
-				span.addEventListener('click', event => ajaxSelPage(perfume.i_p, page));
+				span.addEventListener('click', event => ajaxSelPage(perfume.i_p, page, pagingCnt));
 				span.addEventListener('click', event => selPage(page, pagingCnt));
 				
 				pageGroup.append(span);
@@ -307,14 +313,20 @@
 		now_page = page;
 	}
 	
-	function ajaxSelPage(i_p, page) {
+	function ajaxSelPage(i_p, page, pagingCnt) {
 		axios.get('/cmt/ajaxSelPage', {
 			params : {
 				i_p : i_p,
 				page : page
 			}
 		}).then(function(res) {
-			console.log(res.data)
+			if(res.data.length == 0 && now_page != 1) {
+				now_page -= 1
+				selPage(now_page, pagingCnt)
+				ajaxSelPage(i_p, now_page)
+			} else if(res.data.length == 0 && now_page == 1) {
+				selPage(now_page, pagingCnt)
+			}
 			cmtContents.innerText = ''
 			res.data.forEach(function(item) {
 				console.log(item.cmt)
@@ -451,9 +463,11 @@
 			console.log(res.data)
 			if(res.data == 1) {
 				alert('댓글이 정상적으로 등록되었습니다.')
+				cmt_val.value = '';
 				// 리스트 다시 불러오기
+				now_page = 1
 				ajaxSelPageCnt(perfume.i_p)
-				ajaxSelPage(perfume.i_p, now_page)
+				ajaxSelPage(perfume.i_p, first_page)
 			}else {
 				alert('댓글 등록에 실패했습니다.')
 			}

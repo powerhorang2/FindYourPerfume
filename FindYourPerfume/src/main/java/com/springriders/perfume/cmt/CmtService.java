@@ -18,37 +18,37 @@ public class CmtService {
 	@Autowired
 	private CmtMapper mapper;
 	
-	public List<CmtDMI> selCmtList(PerfumePARAM param) {
-		
-		List<CmtDMI> cmtList = mapper.selCmtList(param);
-		for(int i=0; i<cmtList.size(); i++) {
-			
-			// 유저 생년 뽑기
-			String bd = cmtList.get(i).getBd();	
-			String strYear = bd.substring(0,4);
-			int userYear = CommonUtils.parseStringToInt(strYear);
-			
-			// 현재 년도 뽑기
-			SimpleDateFormat format = new SimpleDateFormat("yyyy");
-			Date date = new Date();
-			String strNowYear = format.format(date);
-			int nowYear = CommonUtils.parseStringToInt(strNowYear);
-			
-			// 유저 나이 뽑기
-			int age = nowYear - userYear + 1;
-			
-			// 유저 세대 뽑기
-			String strAgeGroup = String.valueOf(age);
-			strAgeGroup = strAgeGroup.substring(0,1);
-			strAgeGroup += 0;
-			int ageGroup = CommonUtils.parseStringToInt(strAgeGroup);
-			
-			// 인덱스 값에 세대 넣기
-			cmtList.get(i).setAgeGroup(ageGroup);
-			
-		}
-		return cmtList;
-	}
+//	public List<CmtDMI> selCmtList(PerfumePARAM param) {
+//		
+//		List<CmtDMI> cmtList = mapper.selCmtList(param);
+//		for(int i=0; i<cmtList.size(); i++) {
+//			
+//			// 유저 생년 뽑기
+//			String bd = cmtList.get(i).getBd();	
+//			String strYear = bd.substring(0,4);
+//			int userYear = CommonUtils.parseStringToInt(strYear);
+//			
+//			// 현재 년도 뽑기
+//			SimpleDateFormat format = new SimpleDateFormat("yyyy");
+//			Date date = new Date();
+//			String strNowYear = format.format(date);
+//			int nowYear = CommonUtils.parseStringToInt(strNowYear);
+//			
+//			// 유저 나이 뽑기
+//			int age = nowYear - userYear + 1;
+//			
+//			// 유저 세대 뽑기
+//			String strAgeGroup = String.valueOf(age);
+//			strAgeGroup = strAgeGroup.substring(0,1);
+//			strAgeGroup += 0;
+//			int ageGroup = CommonUtils.parseStringToInt(strAgeGroup);
+//			
+//			// 인덱스 값에 세대 넣기
+//			cmtList.get(i).setAgeGroup(ageGroup);
+//			
+//		}
+//		return cmtList;
+//	}
 
 	public int InsCmt(CmtPARAM param) {
 		
@@ -91,7 +91,8 @@ public class CmtService {
 	public List<CmtDMI> selPageCmtList(CmtPARAM param) {
 		int page = param.getPage();
 		int eIdx = page * Const.RECORD_CNT;
-		int sIdx = eIdx - Const.RECORD_CNT + 1;
+		int sIdx = eIdx - Const.RECORD_CNT;
+		param.setRecord_cnt(Const.RECORD_CNT);
 		param.seteIdx(eIdx);
 		param.setsIdx(sIdx);
 		
@@ -112,14 +113,23 @@ public class CmtService {
 			// 유저 나이 뽑기
 			int age = nowYear - userYear + 1;
 			
-			// 유저 세대 뽑기
-			String strAgeGroup = String.valueOf(age);
-			strAgeGroup = strAgeGroup.substring(0,1);
-			strAgeGroup += 0;
-			int ageGroup = CommonUtils.parseStringToInt(strAgeGroup);
+			int ageGroup = 0;
 			
-			// 인덱스 값에 세대 넣기
-			cmtList.get(i).setAgeGroup(ageGroup);
+			if(10 <= age && age < 100) {
+				// 유저 세대 뽑기
+				String strAgeGroup = String.valueOf(age);
+				strAgeGroup = strAgeGroup.substring(0,1);
+				strAgeGroup += 0;
+				ageGroup = CommonUtils.parseStringToInt(strAgeGroup);
+			} else if(age < 10) {
+				// 10세 미만이면 1 보내주기
+				ageGroup = 1;
+			} else if(age >= 100) {
+				// 100세 이상이면 100 보내주기
+				ageGroup = 100;
+			}
+				// 인덱스 값에 세대 넣기
+				cmtList.get(i).setAgeGroup(ageGroup);
 			
 		}
 		return cmtList;

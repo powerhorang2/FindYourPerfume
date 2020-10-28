@@ -11,7 +11,7 @@ import com.springriders.perfume.common.model.PerfumePARAM;
 @Mapper
 public interface CmtMapper {
 
-	List<CmtDMI> selCmtList(PerfumePARAM param);
+//	List<CmtDMI> selCmtList(PerfumePARAM param);
 	
 	List<CmtDMI> selPageCmtList(CmtPARAM param);
 	
