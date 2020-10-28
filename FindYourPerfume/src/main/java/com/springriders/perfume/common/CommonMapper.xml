@@ -86,8 +86,6 @@
 		AND C.i_user = #{i_user}
 		WHERE A.i_p = #{i_p}
 	</select>
-
-	
 	<select id="selBrandEnm" parameterType="perfumePARAM" resultType="perfumeDMI">
 		SELECT b_nm_eng FROM c_code_brand 
 		WHERE b_nm_eng like '${b_nm_initial}%'

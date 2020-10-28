@@ -141,7 +141,9 @@
 		</div>
 		<div id="paging">
 		<hr>
-			<button onclick="more()" style="width: 300px;">더보기</button>
+			<div class="more">
+				<button id="more" onclick="more()">더보기</button>
+			</div>
 		</div> 	
 	</div>
 
@@ -149,10 +151,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-
-	var brandList = new Array();
 	var sIdx = 5;
 	var eIdx = 10;
+	var brandList = new Array();
 	var rowAllCnt = 0
 
 	function BrandVO(b_nm_eng, i_p, i_user, p_brand, p_nm, p_pic, p_price, p_size){
@@ -177,45 +178,100 @@
 		}
  	}
  	//더 보기 버튼 눌렀을 때 idx 증가하면서, 뒤의 배열 추가
-   	function more() {
- 		// 235
- 		if((rowAllCnt-1) - sIdx < 6){eIdx = rowAllCnt}
-		for (sIdx; sIdx < eIdx; sIdx++) {
-			console.log(sIdx)
-			var div = document.createElement('div');
-			div.setAttribute('onclick', 'moveToDetail(${brandList[sIdx].i_p})');
-			div.setAttribute('class', 'brandAlphabet');
-			
-			var img = document.createElement('img');
-			img.src = brandList[sIdx].p_pic
-			div.append(img)
-			
-			var div_kor = document.createElement('div');
-			div_kor.innerText = '향수 이름 : ' + brandList[sIdx].p_nm
-			div.append(div_kor)
-			
-			var div_eng = document.createElement('div');
-			div_eng.innerText = '향수 브랜드 : ' + brandList[sIdx].b_nm_eng
-			div.append(div_eng)
-			
-			var div_size = document.createElement('div');
-			div_size.innerText = '향수 용량 : ' + brandList[sIdx].p_size + 'ml'
-			div.append(div_size)
-			
-			var div_price = document.createElement('div');
-			div_price.innerText = '향수 가격 : '+ numberFormat(brandList[sIdx].p_price) + '원'
-			div.append(div_price)
+   	function more(b_nm_eng) {
+   		if(b_nm_eng == null) {
+   			if (rowAllCnt == sIdx){
+   				alert('마지막입니다.')
+   			} else {
+   			// 235
+   	   	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt}
+   	   	 	
+   	   			for (sIdx; sIdx < eIdx; sIdx++) {
+   	   				console.log(sIdx)
+   	   				var div = document.createElement('div');
+   	   				div.setAttribute('onclick', 'moveToDetail('+brandList[sIdx].i_p+')');//수정해야됨
+   	   				div.setAttribute('class', 'brandAlphabet');
+   	   				
+   	   				var img = document.createElement('img');
+   	   				img.src = brandList[sIdx].p_pic
+   	   				div.append(img)
+   	   				
+   	   				var div_kor = document.createElement('div');
+   	   				div_kor.innerText = '향수 이름 : ' + brandList[sIdx].p_nm
+   	   				div.append(div_kor)
+   	   				
+   	   				var div_eng = document.createElement('div');
+   	   				div_eng.innerText = '향수 브랜드 : ' + brandList[sIdx].b_nm_eng
+   	   				div.append(div_eng)
+   	   				
+   	   				var div_size = document.createElement('div');
+   	   				div_size.innerText = '향수 용량 : ' + brandList[sIdx].p_size + 'ml'
+   	   				div.append(div_size)
+   	   				
+   	   				var div_price = document.createElement('div');
+   	   				div_price.innerText = '향수 가격 : '+ numberFormat(brandList[sIdx].p_price) + '원'
+   	   				div.append(div_price)
 
-			sel_div.append(div)
-		}
-		if(rowAllCnt - sIdx >= 5){
-			eIdx += 5
-			console.log("eIdx : "+eIdx)
-		}else{
-			alert('마지막입니다.')
-		}
-	}  
+   	   				sel_div.append(div)
+   	   			}
+   	   			if(rowAllCnt - sIdx >= 5){
+   	   				eIdx += 5
+   	   				console.log("eIdx : "+eIdx)
+   	   			}
+   			}
+   			
+   		} else {
+   			var pick_brandList = new Array();
+   	   		for(var i=0; i<brandList.length; i++) {
+   	   			if(brandList[i].b_nm_eng == b_nm_eng) {
+   	   				pick_brandList.push(brandList[i])
+   	   			}
+   	   		}
+   	   		console.log(pick_brandList);
+   	   		
+   	   		if(pick_brandList.length == sIdx) {
+				alert('마지막입니다.')
+			} else {
+				if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}
+		   	 	
+	   			for (sIdx; sIdx < eIdx; sIdx++) {
+	   				console.log(sIdx)
+	   				var div = document.createElement('div');
+	   				div.setAttribute('onclick', 'moveToDetail('+pick_brandList[sIdx].i_p+')');//수정해야됨
+	   				div.setAttribute('class', 'brandAlphabet');
+	   				
+	   				var img = document.createElement('img');
+	   				img.src = pick_brandList[sIdx].p_pic
+	   				div.append(img)
+	   				
+	   				var div_kor = document.createElement('div');
+	   				div_kor.innerText = '향수 이름 : ' + pick_brandList[sIdx].p_nm
+	   				div.append(div_kor)
+	   				
+	   				var div_eng = document.createElement('div');
+	   				div_eng.innerText = '향수 브랜드 : ' + pick_brandList[sIdx].b_nm_eng
+	   				div.append(div_eng)
+	   				
+	   				var div_size = document.createElement('div');
+	   				div_size.innerText = '향수 용량 : ' + pick_brandList[sIdx].p_size + 'ml'
+	   				div.append(div_size)
+	   				
+	   				var div_price = document.createElement('div');
+	   				div_price.innerText = '향수 가격 : '+ numberFormat(pick_brandList[sIdx].p_price) + '원'
+	   				div.append(div_price)
 
+	   				sel_div.append(div)
+	   			}
+	   			if(pick_brandList.length - sIdx >= 5){
+	   				eIdx += 5
+	   				console.log("eIdx : "+eIdx)
+	   			}
+			}
+   	   		
+   			
+   		}
+	}
+ 	
 
 	function choiceAlphabetMain(b_nm_initial) {
 		console.log(b_nm_initial)
@@ -279,6 +335,7 @@
 			}
 		}).then(function(res) {
 				var tempArr = res.data.selBrandAlpahbet
+				console.log(`length : \${tempArr.length}`)
 				brandList = new Array();
 				console.log(res)
 				rowAllCnt = res.data.rowAllCnt
@@ -325,7 +382,10 @@
 	
 	//브랜드 이름 클릭
 	function choiceAlphabetFullNm(b_nm_eng){
-		console.log('ㅎㅎ : ' + b_nm_eng);
+		sIdx = 5;
+		eIdx = 10;
+		var more = document.querySelector('#more');
+		more.setAttribute('onclick', "more("+"'"+b_nm_eng+"'"+")")
 		
 		axios.get('/common/ajaxSelBrandFullAp',{
 			params : {
@@ -335,7 +395,7 @@
 			sel_div.innerText = ''
 			hiddenSwiper.innerText = ''
 			
-			for (var i = 0; i < res.data.length; i++){
+			for (var i = 0; i < 5; i++){
 				var div = document.createElement('div');
 				div.setAttribute('id', 'list');
 				var div_kor = document.createElement('div');

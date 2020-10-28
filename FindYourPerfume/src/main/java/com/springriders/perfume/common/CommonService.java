@@ -51,6 +51,7 @@ public class CommonService {
 		
 		return mapper.selBrandAlphabet(param);
 	}
+	
 	public PerfumeTemp selBrandAlphabetCnt(PerfumePARAM param) {
 		PerfumeTemp vo = new PerfumeTemp();
 		vo.setSelBrandAlpahbet(mapper.selBrandAlphabet(param));
@@ -65,12 +66,9 @@ public class CommonService {
 	}
 
 
-
 	public List<PerfumeDMI> selBrandEnm(PerfumeDMI dm) {
 		return mapper.selBrandEnm(dm);
 	}
-
-
 
 
 	public List<PerfumeDMI> selBrandNm(PerfumePARAM param) {
