@@ -112,9 +112,11 @@
 					<!-- Slides -->
 					<c:forEach items="${recPerfume}" var="item">
 						<div class="swiper-slide">
-							<span>향수 이름 : ${item.p_nm}</span> <span>향수 용량 :
-								${item.p_size}ml</span> <span><img src="${item.p_pic}"></span> <span>향수
-								브랜드 : ${item.b_nm_eng}</span> <span>향수 가격 : ${item.p_price}</span>
+							<span>향수 이름 : ${item.p_nm}</span>
+							<span>향수 용량 : ${item.p_size}ml</span>
+							<span><img src="${item.p_pic}"></span>
+							<span>향수 브랜드 : ${item.b_nm_eng}</span>
+							<span>향수 가격 : ${item.p_price}</span>
 						</div>
 					</c:forEach>
 				</div>
