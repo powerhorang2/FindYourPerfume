@@ -38,6 +38,10 @@
 							<p>닉네임<span>Nickname</span></p>
 							<input class="longInput" type="text" value="${loginUser.nm}" name="nm" required>			
 						</div>
+						<div>
+							<p>생년월일<span>Date of Birth</span></p>
+							<p class="ml10" id="bd_data">${loginUser.bd}</p>
+						</div>
 						<div id="r_dt">
 							<p>가입일자<span>Date of Join</span></p>
 							<p class="ml10" id="r_dt_data">${loginUser.r_dt}</p>
@@ -202,15 +206,11 @@
 	}
 	
 	function selDelPerfumePic(i_p) {
-		console.log(i_p)
-		
 		axios.get('/common/ajaxSelPerfumePic', {
 			params : {
 				i_p
 			}
 		}).then(function(res) {
-			console.log(res.data.p_pic)
-	
 			document.getElementById('delPerfumeImg').innerHTML = '<img src="' + res.data.p_pic + '" width="100%" height="100%">';
 		})	
 	} 

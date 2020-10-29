@@ -7,12 +7,23 @@
 		VALUES
 		(1, #{i_user}, #{user_id}, #{user_pw}, #{salt}, #{nm}, #{bd}, #{gender}, #{profile_img})
 	</insert>
-	
 	<insert id="insUserFavorite" parameterType="UserPARAM">
 		INSERT INTO t_user_favorite_perfume
 		(i_p, i_user)
 		VALUES
 		(#{i_p}, #{i_user})
+	</insert>
+	<insert id="insUserNote" parameterType="UserPARAM">
+		INSERT INTO t_user_favorite_note
+		(i_user, nt_m_c)
+		VALUES
+		(#{i_user}, #{nt_m_c})
+	</insert>
+	<insert id="ajaxAddFavNotes" parameterType="PerfumePARAM">
+		INSERT INTO t_user_favorite_note
+		(i_user, nt_m_c)
+		VALUES
+		(#{i_user}, #{nt_m_c})
 	</insert>
 
 	<select id="selUserList" parameterType="UserVO" resultType="UserVO">
@@ -28,24 +39,13 @@
 	<select id="selUserPk" parameterType="UserVO" resultType="UserPARAM">
 		SELECT MAX(i_user) as i_user FROM t_user
 	</select>
-	<insert id="insUserNote" parameterType="UserPARAM">
-		insert into t_user_favorite_note
-		(i_user, nt_m_c)
-		values
-		(#{i_user}, #{nt_m_c})
-	</insert>
-	
 	<select id="selUser" parameterType="UserVO" resultType="UserDMI">
-		SELECT A.i_user, A.user_id, A.user_pw, A.salt, A.nm, A.user_type, A.bd, A.profile_img, A.r_dt, B.val as strGender
-		FROM t_user A
-		INNER JOIN c_code_d B
-		ON A.gender = B.cd
-		WHERE
-		<if test="i_user > 0"> A.i_user = #{i_user}</if>
-		<if test="user_id != null and user_id != ''">A.user_id = #{user_id}</if>
-		AND B.i_m = 1
+		SELECT i_user, user_id, user_pw, salt, nm, user_type, date_format(bd, "%Y년 %c월 %e일") as bd,
+		profile_img, date_format(r_dt, "%Y년 %c월 %e일") as r_dt, date_format(m_dt, "%Y년 %c월 %e일") as m_dt
+		FROM t_user
+		WHERE <if test="i_user > 0"> i_user = #{i_user}</if>
+		<if test="user_id != null and user_id != ''">user_id = #{user_id}</if>
 	</select> 
-	
 	<select id="selFavoriteList" parameterType="UserPARAM" resultType="PerfumeDMI">
 		SELECT A.i_p, A.p_nm, A.p_price, B.b_nm_eng, A.p_size, A.p_pic
 		FROM t_perfume A
@@ -54,6 +54,13 @@
 		INNER JOIN t_user_favorite_perfume C
 		ON A.i_p = C.i_p
 		WHERE C.i_user = #{i_user};
+	</select>
+	<select id="selFavNotes" parameterType="UserPARAM" resultType="PerfumeDMI">
+		SELECT A.nt_m_c, A.nt_m_nm_kor
+		FROM c_nt_m A
+		INNER JOIN t_user_favorite_note B
+		ON A.nt_m_c = B.nt_m_c
+		WHERE B.i_user = #{i_user};
 	</select>
 	
 	<update id="uptUser" parameterType="UserVO">
@@ -80,10 +87,14 @@
 		</if>
 		WHERE i_user = #{i_user}
 	</update>
-	
 	<delete id="delUserFavorite" parameterType="UserPARAM">
 		DELETE FROM t_user_favorite_perfume
 		WHERE i_p = #{i_p}
-		AND i_user = #{i_user}	
+		AND i_user = #{i_user}
+	</delete>	
+	<delete id="ajaxDelFavNotes" parameterType="PerfumePARAM">
+		DELETE FROM t_user_favorite_note
+		WHERE i_user = #{i_user}
+		AND nt_m_c = #{nt_m_c};
 	</delete>
 </mapper>

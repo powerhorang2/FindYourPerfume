@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<div class="brandContainer">
-	<div id="brandLeft">
+<!-- <div class="brandContainer"> -->
+<%-- 	<div id="brandLeft">
 		<div>
 			<div class="msg">${data.msg}</div>
 			<div class="loginUser">
@@ -74,7 +74,7 @@
 					<p onclick="choiceAlphabetMain('ETC')">ETC</p>
 				</div>
 				<div id="sel_brand">
-					<%-- <div id="SelBrandNm">
+					<div id="SelBrandNm">
  						<div>
 							 <c:forEach items="${brandEnm}" var="data">
 								<p>${data.b_nm_eng}</p>
@@ -83,72 +83,77 @@
 								<p onclick="choiceAlphabetFullNm(`${item}`)">${item}</p>
 							</c:forEach>
 						</div> 
-					</div> --%>
+					</div>
 				</div>
 			</div>
 		</div>
 		<!-- 작업주우우우우우우우우우우우우우우웅 -->
-	</div>
-	<div id="brandRight">
+	</div> --%>
+<!-- 	<div id="brandRight">
 		<div class="topPerfume">
-		<div id="hiddenSwiper">
-			<c:forEach items="${topPerfume}" var="item">
-				<div>향수 이름 : ${item.p_nm}</div>
-				<div>향수 용량 : ${item.p_size}ml</div>
-				<div>
-					<img src="${item.p_pic}">
-				</div>
-				<div>향수 브랜드 : ${item.b_nm_eng}</div>
-				<div>향수 가격 : ${item.p_price}</div>
-				<div>------------------------------------------</div>
-			</c:forEach>
-			<div>===================분리선=================</div>
-		</div>
-		<c:if test="${loginUser != null}">
-			<!-- Slider main container -->
-			<div class="swiper-container">
-				<!-- Additional required wrapper -->
-				<div class="swiper-wrapper">
-					<!-- Slides -->
-					<c:forEach items="${recPerfume}" var="item">
-						<div class="swiper-slide">
-							<span>향수 이름 : ${item.p_nm}</span>
-							<span>향수 용량 : ${item.p_size}ml</span>
-							<span><img src="${item.p_pic}"></span>
-							<span>향수 브랜드 : ${item.b_nm_eng}</span>
-							<span>향수 가격 : ${item.p_price}</span>
+		<div id="hiddenSwiper"> -->
+<div id="brandContainer">
+	<div id="hiddenSwiper">
+		<div id="topPerfume">
+			<div id="topPerfumeTitle">MOST LOVED PERFUMES</div>
+			<div id="topPerfumeList">
+				<c:forEach items="${topPerfume}" var="item">
+					<div id="topPerfumeItem">
+						<div id="topPImg">
+							<img src="${item.p_pic}">
 						</div>
-					</c:forEach>
+						<div>
+							<b>${item.b_nm_eng}</b>
+						</div>
+						<div id="topPerfumeNm">${item.p_nm}</div>
+						<div>${item.p_size}ml|${item.p_price}</div>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+		<div id="recPerfume">
+			<c:if test="${loginUser != null}">
+				<div id="recPerfumeTitle">RECOMMENDS YOU MIGHT
+					LIKE(#<span id="rec_note_nm">모기향</span>)</div>
+				<!-- Slider main container -->
+				<div class="swiper-container">
+					<!-- Additional required wrapper -->
+					<div class="swiper-wrapper">
+						<!-- Slides -->
+						<c:forEach items="${recPerfume}" var="item">
+							<div class="swiper-slide">
+								<div id="topPImg">
+									<img src="${item.p_pic}">
+								</div>
+								<div><b>${item.b_nm_eng}</b></div>
+								<div id="perfumeNm">${item.p_nm}</div>
+								<div>${item.p_size}ml&emsp;${item.p_price}원</div>
+							</div>
+						</c:forEach>
+					</div>
+					<!-- If we need pagination -->
+					<div class="swiper-pagination"></div>
+
+					<!-- If we need navigation buttons -->
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
 				</div>
-				<!-- If we need pagination -->
-				<div class="swiper-pagination"></div>
-
-				<!-- If we need navigation buttons -->
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-button-next"></div>
-
-				<!-- If we need scrollbar -->
-				<div class="swiper-scrollbar"></div>
-			</div>
-		</c:if>
+			</c:if>
 		</div>
-		<div id="filter">
-			<div>
-				필터링~~~~~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!
-			</div>
-		</div>
-		<div id="sel_div">
-			<div id="brandAlphabet" class="perfumeMain">
-			</div>
-		</div>
-		<div id="paging">
-		<hr>
-			<div class="more">
-				<button id="more" onclick="more()">더보기</button>
-			</div>
-		</div> 	
 	</div>
-
+	<br> <br> <br> <br> <br> <br>
+	<div id="filter">
+		<div>필터링~~~~~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!</div>
+	</div>
+	<div id="sel_div">
+		<div id="brandAlphabet" class="perfumeMain"></div>
+	</div>
+	<div id="paging">
+		<hr>
+		<div class="more">
+			<button id="more" onclick="more()">더보기</button>
+		</div>
+	</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -157,7 +162,8 @@
 	var eIdx = 10;
 	var brandList = new Array();
 	var rowAllCnt = 0
-	function BrandVO(b_nm_eng, i_p, i_user, p_brand, p_nm, p_pic, p_price, p_size){
+	function BrandVO(b_nm_eng, i_p, i_user, p_brand, p_nm, p_pic, p_price,
+			p_size) {
 		this.b_nm_eng = b_nm_eng
 		this.i_p = i_p
 		this.i_user = i_user
@@ -167,123 +173,141 @@
 		this.p_price = p_price
 		this.p_size = p_size
 	}
+
+	// 총 슬라이드 페이지
+	var slide_page = `${slide_page}`
 	
- 	choiceAlphabetMain('ALL')
- 	//향수 컨테이너 담는 arrayList 만들기
- 	function makeArrayList(tempArr){
- 		for (var i = 0; i < tempArr.length; i++) {
-			var brandVO = new BrandVO(tempArr[i].b_nm_eng, tempArr[i].i_p, tempArr[i].i_user, tempArr[i].p_brand,
-						tempArr[i].p_nm, tempArr[i].p_pic, tempArr[i].p_price, tempArr[i].p_size)
-			
+	// 슬라이드 페이지 인덱스 값
+	var current_idx = 0;
+	
+	choiceAlphabetMain('ALL')
+	//향수 컨테이너 담는 arrayList 만들기
+	function makeArrayList(tempArr) {
+		for (var i = 0; i < tempArr.length; i++) {
+			var brandVO = new BrandVO(tempArr[i].b_nm_eng, tempArr[i].i_p,
+					tempArr[i].i_user, tempArr[i].p_brand, tempArr[i].p_nm,
+					tempArr[i].p_pic, tempArr[i].p_price, tempArr[i].p_size)
+
 			brandList.push(brandVO)
 		}
- 	}
- 	//더 보기 버튼 눌렀을 때 idx 증가하면서, 뒤의 배열 추가
-   	function more(b_nm_eng) {
-   		if(b_nm_eng == null) {
-   			if (rowAllCnt == sIdx){
-   				alert('마지막입니다.')
-   			} else {
-   			// 235
-   	   	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt}
-   	   	 	
-   	   			for (sIdx; sIdx < eIdx; sIdx++) {
-   	   				console.log(sIdx)
-   	   				var div = document.createElement('div');
-   	   				div.setAttribute('onclick', 'moveToDetail('+brandList[sIdx].i_p+')');//수정해야됨
-   	   				div.setAttribute('class', 'brandAlphabet');
-   	   				
-   	   				var img = document.createElement('img');
-   	   				img.src = brandList[sIdx].p_pic
-   	   				div.append(img)
-   	   				
-   	   				var div_kor = document.createElement('div');
-   	   				div_kor.innerText = '향수 이름 : ' + brandList[sIdx].p_nm
-   	   				div.append(div_kor)
-   	   				
-   	   				var div_eng = document.createElement('div');
-   	   				div_eng.innerText = '향수 브랜드 : ' + brandList[sIdx].b_nm_eng
-   	   				div.append(div_eng)
-   	   				
-   	   				var div_size = document.createElement('div');
-   	   				div_size.innerText = '향수 용량 : ' + brandList[sIdx].p_size + 'ml'
-   	   				div.append(div_size)
-   	   				
-   	   				var div_price = document.createElement('div');
-   	   				div_price.innerText = '향수 가격 : '+ numberFormat(brandList[sIdx].p_price) + '원'
-   	   				div.append(div_price)
-   	   				sel_div.append(div)
-   	   			}
-   	   			if(rowAllCnt - sIdx >= 5){
-   	   				eIdx += 5
-   	   				console.log("eIdx : "+eIdx)
-   	   			}
-   			}
-   			
-   		} else {
-   			var pick_brandList = new Array();
-   	   		for(var i=0; i<brandList.length; i++) {
-   	   			if(brandList[i].b_nm_eng == b_nm_eng) {
-   	   				pick_brandList.push(brandList[i])
-   	   			}
-   	   		}
-   	   		console.log(pick_brandList);
-   	   		
-   	   		if(pick_brandList.length == sIdx) {
+	}
+	//더 보기 버튼 눌렀을 때 idx 증가하면서, 뒤의 배열 추가
+	function more(b_nm_eng) {
+		if (b_nm_eng == null) {
+			if (rowAllCnt == sIdx) {
 				alert('마지막입니다.')
 			} else {
-				if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}
-		   	 	
-	   			for (sIdx; sIdx < eIdx; sIdx++) {
-	   				console.log(sIdx)
-	   				var div = document.createElement('div');
-	   				div.setAttribute('onclick', 'moveToDetail('+pick_brandList[sIdx].i_p+')');//수정해야됨
-	   				div.setAttribute('class', 'brandAlphabet');
-	   				
-	   				var img = document.createElement('img');
-	   				img.src = pick_brandList[sIdx].p_pic
-	   				div.append(img)
-	   				
-	   				var div_kor = document.createElement('div');
-	   				div_kor.innerText = '향수 이름 : ' + pick_brandList[sIdx].p_nm
-	   				div.append(div_kor)
-	   				
-	   				var div_eng = document.createElement('div');
-	   				div_eng.innerText = '향수 브랜드 : ' + pick_brandList[sIdx].b_nm_eng
-	   				div.append(div_eng)
-	   				
-	   				var div_size = document.createElement('div');
-	   				div_size.innerText = '향수 용량 : ' + pick_brandList[sIdx].p_size + 'ml'
-	   				div.append(div_size)
-	   				
-	   				var div_price = document.createElement('div');
-	   				div_price.innerText = '향수 가격 : '+ numberFormat(pick_brandList[sIdx].p_price) + '원'
-	   				div.append(div_price)
-	   				sel_div.append(div)
-	   			}
-	   			if(pick_brandList.length - sIdx >= 5){
-	   				eIdx += 5
-	   				console.log("eIdx : "+eIdx)
-	   			}
+				// 235
+				if ((rowAllCnt - 1) - sIdx < 5) {
+					eIdx = rowAllCnt
+				}
+
+				for (sIdx; sIdx < eIdx; sIdx++) {
+					console.log(sIdx)
+					var div = document.createElement('div');
+					div.setAttribute('onclick', 'moveToDetail('
+							+ brandList[sIdx].i_p + ')');//수정해야됨
+					div.setAttribute('class', 'brandAlphabet');
+
+					var img = document.createElement('img');
+					img.src = brandList[sIdx].p_pic
+					div.append(img)
+
+					var div_kor = document.createElement('div');
+					div_kor.innerText = '향수 이름 : ' + brandList[sIdx].p_nm
+					div.append(div_kor)
+
+					var div_eng = document.createElement('div');
+					div_eng.innerText = '향수 브랜드 : ' + brandList[sIdx].b_nm_eng
+					div.append(div_eng)
+
+					var div_size = document.createElement('div');
+					div_size.innerText = '향수 용량 : ' + brandList[sIdx].p_size
+							+ 'ml'
+					div.append(div_size)
+
+					var div_price = document.createElement('div');
+					div_price.innerText = '향수 가격 : '
+							+ numberFormat(brandList[sIdx].p_price) + '원'
+					div.append(div_price)
+					sel_div.append(div)
+				}
+				if (rowAllCnt - sIdx >= 5) {
+					eIdx += 5
+					console.log("eIdx : " + eIdx)
+				}
 			}
-   	   		
-   			
-   		}
+
+		} else {
+			var pick_brandList = new Array();
+			for (var i = 0; i < brandList.length; i++) {
+				if (brandList[i].b_nm_eng == b_nm_eng) {
+					pick_brandList.push(brandList[i])
+				}
+			}
+			console.log(pick_brandList);
+
+			if (pick_brandList.length == sIdx) {
+				alert('마지막입니다.')
+			} else {
+				if ((pick_brandList.length - 1) - sIdx < 5) {
+					eIdx = pick_brandList.length
+				}
+
+				for (sIdx; sIdx < eIdx; sIdx++) {
+					console.log(sIdx)
+					var div = document.createElement('div');
+					div.setAttribute('onclick', 'moveToDetail('
+							+ pick_brandList[sIdx].i_p + ')');//수정해야됨
+					div.setAttribute('class', 'brandAlphabet');
+
+					var img = document.createElement('img');
+					img.src = pick_brandList[sIdx].p_pic
+					div.append(img)
+
+					var div_kor = document.createElement('div');
+					div_kor.innerText = '향수 이름 : ' + pick_brandList[sIdx].p_nm
+					div.append(div_kor)
+
+					var div_eng = document.createElement('div');
+					div_eng.innerText = '향수 브랜드 : '
+							+ pick_brandList[sIdx].b_nm_eng
+					div.append(div_eng)
+
+					var div_size = document.createElement('div');
+					div_size.innerText = '향수 용량 : '
+							+ pick_brandList[sIdx].p_size + 'ml'
+					div.append(div_size)
+
+					var div_price = document.createElement('div');
+					div_price.innerText = '향수 가격 : '
+							+ numberFormat(pick_brandList[sIdx].p_price) + '원'
+					div.append(div_price)
+					sel_div.append(div)
+				}
+				if (pick_brandList.length - sIdx >= 5) {
+					eIdx += 5
+					console.log("eIdx : " + eIdx)
+				}
+			}
+
+		}
 	}
- 	
+
 	function choiceAlphabetMain(b_nm_initial) {
-		console.log(b_nm_initial)
 		idx = 0;
 		axios.get('/common/ajaxSelBrandAlphabet', {
 			params : {
 				b_nm_initial : b_nm_initial
 			}
-		}).then(function(res) {
+		}).then(
+				function(res) {
 					sel_div.innerText = ''
-					for (var i = 0; i < res.data.length; i++) {					
-						
+					for (var i = 0; i < res.data.length; i++) {
+
 						var div = document.createElement('span');
-						div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`);
+						div.setAttribute('onclick',
+								`moveToDetail(\'\${res.data[i].i_p}\')`);
 						div.setAttribute('id', 'list');
 						var div_kor = document.createElement('div');
 						var div_eng = document.createElement('div');
@@ -294,7 +318,8 @@
 						img.src = res.data[i].p_pic
 						div_eng.innerText = '향수 브랜드 : ' + res.data[i].b_nm_eng
 						div_kor.innerText = '향수 이름 : ' + res.data[i].p_nm
-						div_size.innerText = '향수 용량 : ' + res.data[i].p_size + 'ml'
+						div_size.innerText = '향수 용량 : ' + res.data[i].p_size
+								+ 'ml'
 						div_price.innerText = '향수 가격 : '
 								+ numberFormat(res.data[i].p_price) + '원'
 						div.append(img)
@@ -305,122 +330,135 @@
 						sel_div.append(div)
 					}
 				})
-		axios.get('/common/ajaxSelBrandNm',{
-			params : {
-				b_nm_initial : b_nm_initial
-			}
-		}).then(function(res){
-			sel_brand.innerText = ''
-			for (var i = 0; i < res.data.length; i++){
-				var b_nm_eng = res.data[i].b_nm_eng
-				var div = document.createElement('span'); 
-				var div_eng = document.createElement('div');
-				div.setAttribute('onclick', `choiceAlphabetFullNm(\'\${res.data[i].b_nm_eng}\')`);
-				div_eng.innerText = b_nm_eng
-				div.append(div_eng)
-				sel_brand.append(div)	
-			}
-		})
+		axios
+				.get('/common/ajaxSelBrandNm', {
+					params : {
+						b_nm_initial : b_nm_initial
+					}
+				})
+				.then(
+						function(res) {
+							selBrand.innerText = ''
+							for (var i = 0; i < res.data.length; i++) {
+								var b_nm_eng = res.data[i].b_nm_eng
+								var div = document.createElement('span');
+								var div_eng = document.createElement('div');
+								div
+										.setAttribute('onclick',
+												`choiceAlphabetFullNm(\'\${res.data[i].b_nm_eng}\')`);
+								div_eng.innerText = b_nm_eng
+								div.append(div_eng)
+								selBrand.append(div)
+							}
+						})
 		axios.get('/common/ajaxSelBrandAlphabet', {
-/*  			console.log(listMore) */
+			/*  			console.log(listMore) */
 			params : {
 				b_nm_initial : b_nm_initial
 			}
-		}).then(function(res) {
-				var tempArr = res.data.selBrandAlpahbet
-				console.log(`length : \${tempArr.length}`)
-				brandList = new Array();
-				console.log(res)
-				rowAllCnt = res.data.rowAllCnt
-				
-				console.log(rowAllCnt)
-		 		if(b_nm_initial != undefined){makeArrayList(tempArr)} 
-				
-				sel_div.innerText = ''
-				
-				for (var i = 0; i < 5; i++) {
-					var div = document.createElement('div');
-					div.setAttribute('onclick', `moveToDetail(\'\${tempArr[i].i_p}\')`);
-					div.setAttribute('class', 'brandAlphabet');				
-					var img = document.createElement('img');
-					img.src = tempArr[i].p_pic
-					div.append(img)
-	
-					var div_kor = document.createElement('div');
-					div_kor.innerText = '향수 이름 : ' + tempArr[i].p_nm
-					div.append(div_kor)
-					
-					var div_eng = document.createElement('div');
-					div_eng.innerText = '향수 브랜드 : ' + tempArr[i].b_nm_eng
-					div.append(div_eng)
-					
-					var div_size = document.createElement('div');
-					div_size.innerText = '향수 용량 : ' + tempArr[i].p_size + 'ml'
-					div.append(div_size)
-					
-					var div_price = document.createElement('div');
-					div_price.innerText = '향수 가격 : '+ numberFormat(tempArr[i].p_price) + '원'
-					div.append(div_price)
-					sel_div.append(div)
-					idx = 5
-				}
-			})
+		}).then(
+				function(res) {
+					var tempArr = res.data.selBrandAlpahbet
+					console.log(`length : \${tempArr.length}`)
+					brandList = new Array();
+					console.log(res)
+					rowAllCnt = res.data.rowAllCnt
+
+					console.log(rowAllCnt)
+					if (b_nm_initial != undefined) {
+						makeArrayList(tempArr)
+					}
+
+					sel_div.innerText = ''
+
+					for (var i = 0; i < 5; i++) {
+						var div = document.createElement('div');
+						div.setAttribute('onclick',
+								`moveToDetail(\'\${tempArr[i].i_p}\')`);
+						div.setAttribute('class', 'brandAlphabet');
+						var img = document.createElement('img');
+						img.src = tempArr[i].p_pic
+						div.append(img)
+
+						var div_kor = document.createElement('div');
+						div_kor.innerText = '향수 이름 : ' + tempArr[i].p_nm
+						div.append(div_kor)
+
+						var div_eng = document.createElement('div');
+						div_eng.innerText = '향수 브랜드 : ' + tempArr[i].b_nm_eng
+						div.append(div_eng)
+
+						var div_size = document.createElement('div');
+						div_size.innerText = '향수 용량 : ' + tempArr[i].p_size
+								+ 'ml'
+						div.append(div_size)
+
+						var div_price = document.createElement('div');
+						div_price.innerText = '향수 가격 : '
+								+ numberFormat(tempArr[i].p_price) + '원'
+						div.append(div_price)
+						sel_div.append(div)
+						idx = 5
+					}
+				})
 	}
 	//디테일페이지 이동
 	function moveToDetail(i_p) {
 		console.log(i_p)
-		location.href="/common/detail?i_p=" + i_p
+		location.href = "/common/detail?i_p=" + i_p
 	}
-	
+
 	//브랜드 이름 클릭
-	function choiceAlphabetFullNm(b_nm_eng){
+	function choiceAlphabetFullNm(b_nm_eng) {
 		sIdx = 5;
 		eIdx = 10;
 		var more = document.querySelector('#more');
-		more.setAttribute('onclick', "more("+"'"+b_nm_eng+"'"+")")
-		
-		axios.get('/common/ajaxSelBrandFullAp',{
+		more.setAttribute('onclick', "more(" + "'" + b_nm_eng + "'" + ")")
+
+		axios.get('/common/ajaxSelBrandFullAp', {
 			params : {
 				b_nm_eng : b_nm_eng
 			}
-		}).then(function(res){
-			sel_div.innerText = ''
-			hiddenSwiper.innerText = ''
-			
-			for (var i = 0; i < 5; i++){
-				var div = document.createElement('div');
-				div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`);
-				var div_kor = document.createElement('div');
-				var div_eng = document.createElement('div');
-				var div_size = document.createElement('div');
-				var div_price = document.createElement('div');
-				var img = document.createElement('img');
-				
-				var img = document.createElement('img');
-				img.src = res.data[i].p_pic
-				div.append(img)
-				
-				var div_kor = document.createElement('div');
-				div_kor.innerText = '향수 이름 : ' + res.data[i].p_nm
-				div.append(div_kor)
-				
-				var div_eng = document.createElement('div');
-				div_eng.innerText = '향수 브랜드 : ' + res.data[i].b_nm_eng
-				div.append(div_eng)
-				
-				var div_size = document.createElement('div');
-				div_size.innerText = '향수 용량 : ' + res.data[i].p_size
-				div.append(div_size)
-				
-				var div_price = document.createElement('div');
-				div_price.innerText = '향수 가격 : '
-						+ numberFormat(res.data[i].p_price) + '원'
-				div.append(div_price)
-				sel_div.append(div)
-			}
-		})
+		}).then(
+				function(res) {
+					sel_div.innerText = ''
+					hiddenSwiper.innerText = ''
+
+					for (var i = 0; i < 5; i++) {
+						var div = document.createElement('div');
+						div.setAttribute('onclick',
+								`moveToDetail(\'\${res.data[i].i_p}\')`);
+						var div_kor = document.createElement('div');
+						var div_eng = document.createElement('div');
+						var div_size = document.createElement('div');
+						var div_price = document.createElement('div');
+						var img = document.createElement('img');
+
+						var img = document.createElement('img');
+						img.src = res.data[i].p_pic
+						div.append(img)
+
+						var div_kor = document.createElement('div');
+						div_kor.innerText = '향수 이름 : ' + res.data[i].p_nm
+						div.append(div_kor)
+
+						var div_eng = document.createElement('div');
+						div_eng.innerText = '향수 브랜드 : ' + res.data[i].b_nm_eng
+						div.append(div_eng)
+
+						var div_size = document.createElement('div');
+						div_size.innerText = '향수 용량 : ' + res.data[i].p_size
+						div.append(div_size)
+
+						var div_price = document.createElement('div');
+						div_price.innerText = '향수 가격 : '
+								+ numberFormat(res.data[i].p_price) + '원'
+						div.append(div_price)
+						sel_div.append(div)
+					}
+				})
 	}
-	 
+
 	//가격에 쉼표 붙이기
 	function numberFormat(inputNumber) {
 		return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -438,12 +476,128 @@
 
 <!-- Initialize Swiper -->
 <script>
+
+	function changeRecNoteNm() {
+		var userNoteArr = new Array();
+		for(var i=0; i<`${userNote.length}`; i++) {
+			userNoteArr.push(`${userNote[i].b_nm_eng}`)
+		}
+		
+		// 현재 슬라이드의 페이지 인덱스 값과 유저 노트가 담긴 userNoteArr 배열의 인덱스 값을 매칭 시켜야함 2020-10-29
+		if(current_idx == userNoteArr[i].) {
+			
+		}
+		
+	}
+
+	function getSlideDataIndex(swipe){
+        current_idx = swipe.activeIndex; // 슬라이드 바뀐 후 인덱스
+        var slidesLen = swipe.slides.length; // 슬라이드의 length
+        if(swipe.params.loop){
+            switch(swipe.activeIndex){
+                case 0 :
+                	current_idx = slidesLen-(slide_page*5);
+                    break;
+                case slidesLen+slide_page :
+                	current_idx = 0;
+                    break;
+                default :
+                    current_idx = current_idx-slide_page;
+            }
+            changeRecNoteNm();
+        }
+        return  current_idx;
+    }
+	/* ========
+	 Debugger plugin, simple demo plugin to console.log some of callbacks
+	 ======== */
+	var myPlugin = {
+		name : 'debugger',
+		params : {
+			debugger : false,
+		},
+		on : {
+			init : function(swiper) {
+				if (!swiper.params.debugger)
+					return;
+			},
+			click : function(swiper, e) {
+				if (!swiper.params.debugger)
+					return;
+			},
+			tap : function(swiper, e) {
+				if (!swiper.params.debugger)
+					return;
+			},
+			doubleTap : function(swiper, e) {
+				if (!swiper.params.debugger)
+					return;
+			},
+			sliderMove : function(swiper, e) {
+				if (!swiper.params.debugger)
+					return;
+			},
+			slideChange : function(swiper) {
+				if (!swiper.params.debugger)
+					return;
+				console.log('slideChange', this.previousIndex, '->', this.activeIndex);
+				var num = getSlideDataIndex(swiper)
+	            console.log("num : "+num)
+			},
+			slideChangeTransitionStart : function(swiper) {
+				if (!swiper.params.debugger)
+					return;
+				console.log('slideChangeTransitionStart');
+			},
+			slideChangeTransitionEnd : function(swiper) {
+				if (!swiper.params.debugger)
+					return;
+				console.log('slideChangeTransitionEnd');
+			},
+			transitionStart : function(swiper) {
+				if (!swiper.params.debugger)
+					return;
+				console.log('transitionStart');
+			},
+			transitionEnd : function(swiper) {
+				if (!swiper.params.debugger)
+					return;
+				console.log('transitionEnd');
+			},
+			fromEdge : function(swiper) {
+				if (!swiper.params.debugger)
+					return;
+				console.log('fromEdge');
+			},
+			reachBeginning : function(swiper) {
+				if (!swiper.params.debugger)
+					return;
+				console.log('reachBeginning');
+			},
+			reachEnd : function(swiper) {
+				if (!swiper.params.debugger)
+					return;
+				console.log('reachEnd');
+			},
+		},
+	};
+</script>
+
+<script>
+	// Install Plugin To Swiper
+	Swiper.use(myPlugin);
+
+	// Init Swiper
 	var swiper = new Swiper('.swiper-container', {
 		slidesPerView : 5,
-		spaceBetween : 30,
+		spaceBetween : 0,
 		slidesPerGroup : 5,
 		loop : true,
-		loopFillGroupWithBlank : true,
+		loopFillGroupWithBlank : false,
+		autoplay : {
+			delay : 1000000000,
+			disableOnInteraction : false,
+		},
 		pagination : {
 			el : '.swiper-pagination',
 			clickable : true,
@@ -452,5 +606,9 @@
 			nextEl : '.swiper-button-next',
 			prevEl : '.swiper-button-prev',
 		},
+		// Enable debugger
+		debugger : true,
 	});
 </script>
+
+

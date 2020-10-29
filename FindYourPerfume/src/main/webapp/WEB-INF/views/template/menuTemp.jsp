@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500;1,900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/res/css/common.css">
+<link rel="stylesheet" type="text/css" href="/res/css/common.css?ver=1">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
@@ -33,11 +33,91 @@
 			</div>
 		</header>
 		<section>
-			<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>
+		<div id="commonContainer">
+			<div id="sidebar">
+				<div id="loginContainer">
+					<!-- 로그아웃 상태 -->
+					<c:choose>
+						<c:when test="${loginUser.i_user == null}">
+							<div id="loginBox">
+								<div class="msg">${data.msg}</div>
+								<form class="frm" action="/common/main" method="post">
+									<div>
+										<div>
+											<input class="loginBar" type="text" name="user_id" placeholder="아이디를 입력해주세요"
+												value="${data.user_id}">
+										</div>
+										<div>
+											<input class="loginBar" type="password" name="user_pw" placeholder="비밀번호를 입력해주세요">
+										</div>
+									</div>
+									<div id="loginBtnBox">
+										<input type="submit" class="button" value="LOGIN">
+										<input type="button" onclick="moveToPage(`/user/join`)" class="button" value="JOIN">
+									</div>
+								</form>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 상태 -->
+							<c:choose>
+								<c:when test="${loginUser.user_type == '2'}">
+									<div id="loginBox">
+										<div id="profileImgBox" style="background: #BDBDBD;">
+												<img id="sidebarImg"
+													src="/res/img/profileImg/${loginUser.profile_img}">
+										</div>
+										<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다.</div>
+										<div id="loginBtnBox">
+											<input type="button" onclick="moveToPage(`/user/admin`)" class="button" value="ADMIN">
+											<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
+										</div>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div id="loginBox">
+										<div id="profileImgBox" style="background: #BDBDBD;">
+											<img id="sidebarImg"
+												src="/res/img/profileImg/${loginUser.profile_img}">
+										</div>
+										<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다</div>
+										<div id="loginBtnBox">
+											<input type="button" onclick="moveToPage(`/user/myPage`)" class="button" value="MYPAGE">
+											<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
+										</div>
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</div>
+					
+				<!--알파벳 클릭  -->
+				<div id="selBrandAlphabet">
+					<div>
+						<p onclick="choiceAlphabetMain()">ALL</p>	
+						<c:forEach items="${brandAlphabet}" var="item">
+							<p onclick="choiceAlphabetMain(`${item}`)">${item}</p>
+						</c:forEach>
+						<p onclick="choiceAlphabetMain('ETC')">ETC</p>
+					</div>
+				</div>
+				<div id="selBrand">
+				</div>
+			</div>
+			<div id="mainContainer">		
+				<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>
+			</div>
+		</div>
 		</section>
 		<footer>
 			<span></span>
 		</footer>
 	</div>
+	<script>
+		function moveToPage(p) {
+			location.href = p;
+		}
+	</script>
 </body>
 </html>
