@@ -329,7 +329,7 @@
 				div.append(div_eng)
 				
 				var div_size = document.createElement('div');
-				div_size.innerText = '향수 용량 : ' + res.data[i].p_size
+				div_size.innerText = '향수 용량 : ' + res.data[i].p_size + 'ml'
 				div.append(div_size)
 				
 				var div_price = document.createElement('div');
