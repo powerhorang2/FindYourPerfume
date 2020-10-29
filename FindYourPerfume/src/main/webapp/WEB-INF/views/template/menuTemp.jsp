@@ -115,11 +115,13 @@
 		</footer>
 	</div>
 	<script>
-/* 		function moveToPage(p) {
+ 		function moveToPage(p) {
 			location.href = p;
 		}
+ 		
+ 	
 		
-		var brandList = []
+/* 		var brandList = []
 		
 	 	choiceAlphabetMain(undefined)
 
@@ -214,7 +216,7 @@
 				}
 			})
 		}
-	 */
+	  */
 	</script>
 </body>
 </html>

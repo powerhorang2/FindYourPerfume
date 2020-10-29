@@ -449,10 +449,10 @@
 <!-- Initialize Swiper -->
 <script>
 	var swiper = new Swiper('.swiper-container', {
-		slidesPerView : 5,
+		slidesPerView : 3,
 		spaceBetween : 30,
-		slidesPerGroup : 5,
-		loop : true,
+		slidesPerGroup : 1,
+		loop : false,
 		loopFillGroupWithBlank : true,
 		pagination : {
 			el : '.swiper-pagination',
