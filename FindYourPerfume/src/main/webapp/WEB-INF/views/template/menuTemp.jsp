@@ -115,7 +115,7 @@
 		</footer>
 	</div>
 	<script>
-		function moveToPage(p) {
+/* 		function moveToPage(p) {
 			location.href = p;
 		}
 		
@@ -214,8 +214,7 @@
 				}
 			})
 		}
-		
-		
+	 */
 	</script>
 </body>
 </html>
