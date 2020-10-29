@@ -16,8 +16,10 @@ import com.springriders.perfume.SecurityUtils;
 import com.springriders.perfume.common.CommonMapper;
 import com.springriders.perfume.common.model.BrandCodeVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
-import com.springriders.perfume.common.model.PerfumeVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
+import com.springriders.perfume.common.model.PerfumeVO;
+import com.springriders.perfume.user.model.UserDMI;
+import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.user.model.UserPARAM;
 import com.springriders.perfume.user.model.UserVO;
 
@@ -76,11 +78,12 @@ public class UserService {
 		return Const.SUCCESS;
 	}
 
-	public int login(UserVO param) {
+	public int login(UserPARAM param) {
 		if(param.getUser_id().equals("")) { return Const.EMPTY_ID; }
 		if(param.getUser_id().equals("")) { return Const.NO_ID; }
 		
-		UserVO dbUser = mapper.selUser(param);
+		UserDMI dbUser = mapper.selUser(param);
+		
 		if(dbUser == null) {
 			return Const.NO_ID;
 		}
@@ -97,7 +100,6 @@ public class UserService {
 			param.setProfile_img(dbUser.getProfile_img());
 			param.setBd(dbUser.getBd());
 			param.setR_dt(dbUser.getR_dt());
-			System.out.println("r_dt : " + dbUser.getR_dt());
 			return Const.SUCCESS;
 	}
 	
@@ -206,7 +208,26 @@ public class UserService {
 	
 		return list;
 	}
+
+	public int delUserFavorite(UserPARAM param) {
+		return mapper.delUserFavorite(param);
+	}
+
+	public int insUserFavorite(UserPARAM param) {
+		return mapper.insUserFavorite(param);
+	}
 	
+	public List<PerfumeDMI> selFavNotes(UserPARAM p) {
+		return mapper.selFavNotes(p);
+	}
+
+	public int ajaxAddFavNotes(PerfumePARAM param) {
+		return mapper.ajaxAddFavNotes(param);
+	}
+
+	public int ajaxDelFavNotes(PerfumePARAM param) {
+		return mapper.ajaxDelFavNotes(param);
+	}
 	
 //	나중에 auth기능 구현해보기
 	
