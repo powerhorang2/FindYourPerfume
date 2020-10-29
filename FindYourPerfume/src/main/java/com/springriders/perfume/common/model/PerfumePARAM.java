@@ -4,9 +4,7 @@ public class PerfumePARAM extends PerfumeVO {
 	private int[] nt_d_c;
 	private int nt_m_c;
 	private String b_nm_initial;
-	private int i_user;
-	
-	
+	private int i_user;	
 
 	public int getNt_m_c() {
 		return nt_m_c;

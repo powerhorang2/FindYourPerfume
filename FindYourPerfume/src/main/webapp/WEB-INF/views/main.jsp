@@ -113,7 +113,7 @@
 		   			for (sIdx; sIdx < eIdx; sIdx++) {
 		   				console.log(sIdx)
 		   				var div = document.createElement('div');
-		   				div.setAttribute('onclick', 'moveToDetail('+brandList[sIdx].i_p+')');//수정해야됨
+		   				div.setAttribute('onclick', 'moveToDetail('+ brandList[sIdx].i_p+ ')');
 		   				div.setAttribute('class', 'brandAlphabet');
 		   				
 		   				var img = document.createElement('img');
@@ -195,7 +195,10 @@
 	}
 		
 	function choiceAlphabetMain(b_nm_initial) {
+		console.log()
 		idx = 0;
+ 		var more = document.querySelector('#more');
+		more.setAttribute('onclick', "more()");
 		axios.get('/common/ajaxSelBrandAlphabet', {
 			params : {
 				b_nm_initial : b_nm_initial
@@ -355,10 +358,10 @@
 
 <script>
 	var swiper = new Swiper('.swiper-container', {
-		slidesPerView : 5,
+		slidesPerView : 3,
 		spaceBetween : 30,
-		slidesPerGroup : 5,
-		loop : true,
+		slidesPerGroup : 1,
+		loop : false,
 		loopFillGroupWithBlank : true,
 		pagination : {
 			el : '.swiper-pagination',

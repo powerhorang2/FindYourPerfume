@@ -79,14 +79,26 @@ public class UserService {
 	}
 
 	public int login(UserPARAM param) {
-		if(param.getUser_id().equals("")) { return Const.EMPTY_ID; }
-		if(param.getUser_id().equals("")) { return Const.NO_ID; }
+		String id = param.getUser_id();
 		
+		System.out.println("ㅎㅎㅎ:" + id.contains(" "));
+		
+		if(param.getUser_id().equals("")) { return Const.EMPTY_ID; }
+		if(param.getUser_id().contains(" ")) { return Const.BLANK_ID; }
+		if(param.getUser_id().equals("")) { return Const.NO_ID; }
+		if(param.getUser_id().length() < 5) { return Const.SHORT_ID; }
+			
+		
+		//String regex = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";
+		//Matcher matcher 사용해보기
+
+
 		UserDMI dbUser = mapper.selUser(param);
 		
 		if(dbUser == null) {
 			return Const.NO_ID;
 		}
+	
 		
 		String cryptPw = SecurityUtils.getEncrypt(param.getUser_pw(), dbUser.getSalt());
 		
@@ -183,7 +195,7 @@ public class UserService {
 		String saveFileNm = FileUtils.saveFile(realPath, mf);
 		System.out.println("saveFileNm : " + saveFileNm);
 		
-		UserVO vo = new UserVO();
+		UserPARAM vo = new UserPARAM();
 		vo.setI_user(i_user);
 		if(!user_pw.equals("")) {
 			vo.setUser_pw(cryptPw);
@@ -197,8 +209,8 @@ public class UserService {
 		}
 		
 		mapper.uptUser(vo);
-		vo = mapper.selUser(vo);
-		hs.setAttribute(Const.LOGIN_USER, vo);
+		UserDMI vo2 = mapper.selUser(vo);
+		hs.setAttribute(Const.LOGIN_USER, vo2);
 		
 		return Const.SUCCESS;
 	}

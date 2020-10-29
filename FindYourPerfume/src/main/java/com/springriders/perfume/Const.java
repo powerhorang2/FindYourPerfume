@@ -14,6 +14,9 @@ public class Const {
 	public static final int NO_ID = 2;
 	public static final int NO_PW = 3;
 	public static final int EMPTY_ID = 4;
+	public static final int SHORT_ID = 5;
+	public static final int BLANK_ID = 7;
+
 	
 	public static final int RECORD_CNT = 6;
 	public static final int USER = 1;
