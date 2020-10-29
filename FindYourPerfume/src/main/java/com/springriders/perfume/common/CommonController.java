@@ -21,9 +21,9 @@ import com.springriders.perfume.cmt.CmtService;
 import com.springriders.perfume.cmt.model.CmtDMI;
 import com.springriders.perfume.common.model.CommonVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
-import com.springriders.perfume.common.model.PagingVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
+import com.springriders.perfume.common.model.PerfumeTemp;
 import com.springriders.perfume.user.UserService;
 
 @Controller
@@ -117,16 +117,17 @@ public class CommonController {
 		System.out.println("i_pddd : " + param.getI_p());
 		int i_user = SecurityUtils.getLoginUserPk(req);
 		param.setI_user(i_user);
+		
 		param.setI_p(param.getI_p());
 		
 		PerfumeDMI perfume = service.selPerfume(param);
 		List<NoteCodeVO> noteList = service.selPerfumeNoteList(param);
 		
-		List<CmtDMI> cmtList = cmtService.selCmtList(param);
+//		List<CmtDMI> cmtList = cmtService.selCmtList(param);
 		
 		model.addAttribute("perfume", perfume);
 		model.addAttribute("noteList", noteList);
-		model.addAttribute("cmtList", cmtList);
+//		model.addAttribute("cmtList", cmtList);
 		
 		model.addAttribute(Const.CSS, "detail");
 		model.addAttribute(Const.TITLE, "디테일 페이지"); //가게명
@@ -136,8 +137,8 @@ public class CommonController {
 	
 	@RequestMapping("/ajaxSelBrandAlphabet")
 	@ResponseBody
-	public List<PerfumeDMI> ajaxSelBrandAlphabet(PerfumePARAM param){
-		return service.selBrandAlphabet(param);
+	public PerfumeTemp ajaxSelBrandAlphabet(PerfumePARAM param){
+		return service.selBrandAlphabetCnt(param);
 	}
 	
 

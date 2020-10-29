@@ -8,6 +8,7 @@ import com.springriders.perfume.common.model.BrandCodeVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
+import com.springriders.perfume.common.model.PerfumeTemp;
 import com.springriders.perfume.common.model.PerfumeVO;
 import com.springriders.perfume.user.model.UserPARAM;
 
@@ -30,8 +31,6 @@ public interface CommonMapper {
 
 	List<PerfumeDMI> selBrandFullNm(PerfumePARAM param);
 	List<PerfumeDMI> selBrandFullAp(PerfumeDMI dmi);
-	
-
 	
 	PerfumeVO selPerfumePk(PerfumeVO vo);
 	PerfumeDMI selPerfume(PerfumePARAM param);

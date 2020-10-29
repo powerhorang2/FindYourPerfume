@@ -51,7 +51,7 @@
 	flex-direction: row;
 }
 
-.cmt:first-child {
+.cmt > div:first-child {
 	padding: 0px 10px;
 	border-right: 1px solid black;
 }
@@ -65,7 +65,51 @@
 	padding: 0px 10px;
 }
 
-.cmt:first-child:last-child {
+.cmt_userData_userAge + div {
 	display: flex;
 	flex-direction: row;
+}
+
+.cmt_userData_userAge + div > .cmt_upd {
+	width: 50px;
+}
+
+.cmt_userData_userAge + div > .cmt_del {
+	width: 50px;
+}
+
+.cmt_upd_bt {
+	cursor: pointer;
+}
+
+.cmt_del_bt {
+	cursor: pointer;
+}
+
+.cmt_upd_bt:hover {
+	font-size: 1.2rem;	
+}
+
+.cmt_del_bt:hover {
+	font-size: 1.2rem;
+}
+
+#pageGroup > .cmt_page {
+	cursor: pointer;
+}
+
+#pageGroup > .on {
+	font-size: 1.2rem;
+	color: red;
+}
+
+.cmt_box {
+	width: 80%;
+	height: 500px;
+	margin: 0 auto;
+}
+
+/* 하트 css */
+#favorite {
+	cursor: pointer;
 }

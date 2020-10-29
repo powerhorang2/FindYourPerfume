@@ -7,6 +7,12 @@
 		VALUES
 		(1, #{i_user}, #{user_id}, #{user_pw}, #{salt}, #{nm}, #{bd}, #{gender}, #{profile_img})
 	</insert>
+	<insert id="insUserFavorite" parameterType="UserPARAM">
+		INSERT INTO t_user_favorite_perfume
+		(i_p, i_user)
+		VALUES
+		(#{i_p}, #{i_user})
+	</insert>
 	<insert id="insUserNote" parameterType="UserPARAM">
 		INSERT INTO t_user_favorite_note
 		(i_user, nt_m_c)
@@ -33,7 +39,7 @@
 	<select id="selUserPk" parameterType="UserVO" resultType="UserPARAM">
 		SELECT MAX(i_user) as i_user FROM t_user
 	</select>
-	<select id="selUser" parameterType="UserVO" resultType="UserVO">
+	<select id="selUser" parameterType="UserVO" resultType="UserDMI">
 		SELECT i_user, user_id, user_pw, salt, nm, user_type, date_format(bd, "%Y년 %c월 %e일") as bd,
 		profile_img, date_format(r_dt, "%Y년 %c월 %e일") as r_dt, date_format(m_dt, "%Y년 %c월 %e일") as m_dt
 		FROM t_user
@@ -81,7 +87,11 @@
 		</if>
 		WHERE i_user = #{i_user}
 	</update>
-	
+	<delete id="delUserFavorite" parameterType="UserPARAM">
+		DELETE FROM t_user_favorite_perfume
+		WHERE i_p = #{i_p}
+		AND i_user = #{i_user}
+	</delete>	
 	<delete id="ajaxDelFavNotes" parameterType="PerfumePARAM">
 		DELETE FROM t_user_favorite_note
 		WHERE i_user = #{i_user}
