@@ -73,7 +73,7 @@
 					</c:forEach> 
 					<p onclick="choiceAlphabetMain('ETC')">ETC</p>
 				</div>
-				<div id="sel_brand">
+				<div id="selBrand">
 					<%-- <div id="SelBrandNm">
  						<div>
 							 <c:forEach items="${brandEnm}" var="data">
@@ -146,11 +146,11 @@
 			</div>
 		</div> 	
 	</div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+
 	var sIdx = 5;
 	var eIdx = 10;
 	var brandList = new Array();
@@ -315,7 +315,7 @@
 				b_nm_initial : b_nm_initial
 			}
 		}).then(function(res){
-			sel_brand.innerText = ''
+			selBrand.innerText = ''
 			for (var i = 0; i < res.data.length; i++){
 				var b_nm_eng = res.data[i].b_nm_eng
 				var div = document.createElement('span'); 
@@ -324,7 +324,7 @@
 				div_eng.innerText = b_nm_eng
 				div.append(div_eng)
 
-				sel_brand.append(div)	
+				selBrand.append(div)	
 			}
 		})
 
@@ -374,11 +374,7 @@
 				}
 			})
 	}
-	//디테일페이지 이동
-	function moveToDetail(i_p) {
-		console.log(i_p)
-		location.href="/common/detail?i_p=" + i_p
-	}
+
 	
 	//브랜드 이름 클릭
 	function choiceAlphabetFullNm(b_nm_eng){
@@ -391,6 +387,7 @@
 			params : {
 				b_nm_eng : b_nm_eng
 			}
+		
 		}).then(function(res){
 			sel_div.innerText = ''
 			hiddenSwiper.innerText = ''
@@ -429,25 +426,20 @@
 			}
 		})
 	}
-	 
+	
+	//디테일페이지 이동
+	function moveToDetail(i_p) {
+		console.log(i_p)
+		location.href="/common/detail?i_p=" + i_p
+	}
 	//가격에 쉼표 붙이기
 	function numberFormat(inputNumber) {
 		return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
+	 
+
 </script>
-<!-- <script>
-	function a(){
-  	  $("#sel_div>div").hide();
-   	  $("#sel_div>div").slice(0,3).show();
-	}
 
-	function more(){
-  	  $("#sel_div>div").slice(3,6).show();
-	}
-
-</script> -->
-
-<!-- Initialize Swiper -->
 <script>
 	var swiper = new Swiper('.swiper-container', {
 		slidesPerView : 5,
@@ -464,5 +456,6 @@
 			prevEl : '.swiper-button-prev',
 		},
 	});
+
 </script>
 
