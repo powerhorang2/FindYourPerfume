@@ -24,6 +24,7 @@ import com.springriders.perfume.common.model.NoteCodeVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.common.model.PerfumeTemp;
+import com.springriders.perfume.common.model.PerfumeVO;
 import com.springriders.perfume.user.UserService;
 
 @Controller
@@ -50,7 +51,10 @@ public class CommonController {
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
 		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
-	
+		List<NoteCodeVO> noteList = service.selNoteList(vo);
+		
+		
+		//알파벳 A~Z 까지 뽑기
 		List<String> brandAlphabet = new ArrayList();
 		
         char aString = 65 ;
@@ -76,6 +80,7 @@ public class CommonController {
 		}
 
 		/* model.addAttribute("pageNum", pageNum); */
+		model.addAttribute("noteList", noteList);
 		model.addAttribute("brandFullNm", brandFullNm);
         model.addAttribute("brandAlphabet", brandAlphabet);
         model.addAttribute("brandEnm", brandEnm);
@@ -181,4 +186,20 @@ public class CommonController {
 	public PerfumeDMI ajaxSelPerfumePic(PerfumePARAM param){
 		return service.selPerfumePic(param);
 	}
+	
+	@RequestMapping("/ajaxSelNoteList")
+	@ResponseBody
+	public List<NoteCodeVO> ajaxSelNoteList(PerfumePARAM param) {
+		return service.ajaxSelNoteList(param);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

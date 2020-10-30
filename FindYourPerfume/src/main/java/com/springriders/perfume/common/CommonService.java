@@ -10,6 +10,7 @@ import com.springriders.perfume.common.model.NoteCodeVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.common.model.PerfumeTemp;
+import com.springriders.perfume.common.model.PerfumeVO;
 
 @Service
 public class CommonService {
@@ -96,6 +97,19 @@ public class CommonService {
 	public PerfumeDMI selPerfumePic(PerfumePARAM param) {
 		return mapper.selPerfumePic(param);
 	}
+
+
+	public List<NoteCodeVO> selNoteList(NoteCodeVO vo) {
+		return mapper.selNoteList(vo);
+	}
+
+
+	public List<NoteCodeVO> ajaxSelNoteList(PerfumePARAM param) {
+	
+		return mapper.ajaxSelNoteList(param);
+	}
+
+
 
 
 }

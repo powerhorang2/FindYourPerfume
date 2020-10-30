@@ -55,7 +55,9 @@
 		<br>
 		<div id="filter">
 			<div>
-				필터링~~~~~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!
+				<c:forEach items="${noteList}" var="item">
+					<p onclick="choiceNoteList(`${item.nt_d_c}`)">${item.nt_d_nm_kor}</p>
+				</c:forEach>
 			</div>
 		</div>
 		<div id="sel_div">
@@ -100,7 +102,7 @@
 			
 			brandList.push(brandVO)
 		}
-		}
+	}
 		//더 보기 버튼 눌렀을 때 idx 증가하면서, 뒤의 배열 추가
 		function more(b_nm_eng) {
 			if(b_nm_eng == null) {
@@ -160,7 +162,7 @@
 	   			for (sIdx; sIdx < eIdx; sIdx++) {
 	   				console.log(sIdx)
 	   				var div = document.createElement('div');
-	   				div.setAttribute('onclick', 'moveToDetail('+pick_brandList[sIdx].i_p+')');//수정해야됨
+	   				div.setAttribute('onclick', 'moveToDetail('+pick_brandList[sIdx].i_p+')');
 	   				div.setAttribute('class', 'brandAlphabet');
 	   				
 	   				var img = document.createElement('img');
@@ -353,6 +355,45 @@
 	function numberFormat(inputNumber) {
 		return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
+	
+	function choiceNoteList(nt_d_c){
+		axios.get('/common/ajaxSelNoteList',{
+			params : {
+				nt_d_c : nt_d_c
+			}
+		}).then(function(res){
+		sel_div.innerText = ''
+		console.log("gasdgasdgf : " + res.data)
+			for(var i=0; i < res.data.length; i++){
+				var div = document.createElement('div');
+			 	div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`); 
+				div.setAttribute('id', 'note');
+				
+				var img = document.createElement('img');
+   				img.src = res.data[i].p_pic
+   				div.append(img)
+   				
+   				var div_kor = document.createElement('div');
+	   			div_kor.innerText = '향수 이름 : ' + res.data[i].p_nm
+	   			div.append(div_kor)
+	   			
+	   			var div_eng = document.createElement('div');
+	   			div_eng.innerText = '향수 브랜드 : ' + res.data[i].b_nm_eng
+	   			div.append(div_eng)
+	   			
+	   			var div_size = document.createElement('div');
+	   			div_size.innerText = '향수 용량 : ' + res.data[i].p_size + 'ml'
+	   			div.append(div_size)
+	   			
+	   			var div_price = document.createElement('div');
+	   			div_price.innerText = '향수 가격 : '+ numberFormat(res.data[i].p_price) + '원'
+	   			div.append(div_price)
+	   			sel_div.append(div)
+			}
+		})
+	}
+
+
 
 </script>
 
@@ -372,6 +413,7 @@
 			prevEl : '.swiper-button-prev',
 		},
 	});
+	
 
 </script>
 

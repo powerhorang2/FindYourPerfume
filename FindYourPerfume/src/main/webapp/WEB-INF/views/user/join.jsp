@@ -22,7 +22,7 @@
 					<button class="button" type="button" onclick="chkId()">중복체크</button>
 				</div>
 				<div><input type="text" name="user_id" placeholder="아이디" onchange="idValue()" id="user_id"></div>
-				<div>4~12자의 영소문자와 숫자로 입력하세요</div>
+				<div>5~12자의 영소문자와 숫자로 입력하세요</div>
 			</div>
 			<div>
 				<div>비밀번호<span>Password</span></div>
@@ -112,7 +112,7 @@
 		}
 		
 		if(idchk.value == 3 || idchk.value == 1) {
-			alert('중복체크해주세요')
+			alert('아이디를 확인해주세요')
 			return false
 		}
 		
@@ -140,16 +140,13 @@
 
 	}
 	
-	
-	
-	
 	function chkId() {
 		const user_id = frm.user_id.value
 		
 		axios.post('/user/ajaxIdChk', {
 			user_id: user_id
 		}).then(function(res) {
-			console.log(res)
+			console.log(" dfsadsf : " + res.data)
 			if(res.data == '2') { //아이디 없음
 				idChkResult.innerText = '사용할 수 있는 아이디입니다.'
 				idchk.value = 2
@@ -166,6 +163,9 @@
 			}
 			if(res.data == '7'){
 				idChkResult.innerText = '공백은 포함할수 없습니다.'
+			}
+			if(res.data == '8'){
+				idChkResult.innerText = '아이디를 확인해주세요'
 			}
 		})
 	}
@@ -195,7 +195,6 @@
 			$("#show_txt").text("비밀번호가 일치합니다.")
 		}
 	})
-	
 	
 
 	//이미지 미리보기

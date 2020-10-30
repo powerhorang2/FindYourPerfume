@@ -1,6 +1,8 @@
 package com.springriders.perfume.user;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -87,11 +89,15 @@ public class UserService {
 		if(param.getUser_id().contains(" ")) { return Const.BLANK_ID; }
 		if(param.getUser_id().equals("")) { return Const.NO_ID; }
 		if(param.getUser_id().length() < 5) { return Const.SHORT_ID; }
-			
 		
-		//String regex = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";
-		//Matcher matcher 사용해보기
-
+		
+		//아이디 유효성검사
+		String regExp = "^[a-z0-9]{5,12}$";
+		
+		if(param.getUser_id().matches(regExp) == false) {
+			System.out.println(param.getUser_id().matches(regExp));
+			return Const.NOT_ALLOW_ID;
+		}
 
 		UserDMI dbUser = mapper.selUser(param);
 		
