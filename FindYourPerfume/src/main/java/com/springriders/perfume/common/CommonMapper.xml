@@ -20,8 +20,10 @@
 		SELECT nt_d_c, nt_d_nm FROM c_nt_d
 	</select>
 	<select id="selUserNoteList" parameterType="PerfumePARAM" resultType="NoteCodeVO">
-		SELECT nt_m_c
-		FROM t_user_favorite_note
+		SELECT A.nt_m_c, B.nt_m_nm_kor
+		FROM t_user_favorite_note A
+		INNER JOIN c_nt_m B
+		ON A.nt_m_c = B.nt_m_c
 		WHERE i_user = #{i_user}
 	</select>
 	<select id="selRecPerfumeList" parameterType="NoteCodeVO" resultType="PerfumeDMI">

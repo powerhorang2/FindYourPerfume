@@ -173,12 +173,22 @@
 		this.p_price = p_price
 		this.p_size = p_size
 	}
+	
+	// 슬라이드 당 보이는 엘리먼트 개수
+	const slides_per_view = 5;
 
 	// 총 슬라이드 페이지
 	var slide_page = `${slide_page}`
 	
 	// 슬라이드 페이지 인덱스 값
 	var current_idx = 0;
+	
+	// 유저가 좋아하는 노트 배열
+	var userNoteArr = new Array();
+	
+	<c:forEach items="${userNote}" var="item">
+		userNoteArr.push({nt_m_nm_kor: "${item.nt_m_nm_kor}"});		
+	</c:forEach>
 	
 	choiceAlphabetMain('ALL')
 	//향수 컨테이너 담는 arrayList 만들기
@@ -330,8 +340,7 @@
 						sel_div.append(div)
 					}
 				})
-		axios
-				.get('/common/ajaxSelBrandNm', {
+				axios.get('/common/ajaxSelBrandNm', {
 					params : {
 						b_nm_initial : b_nm_initial
 					}
@@ -463,48 +472,33 @@
 	function numberFormat(inputNumber) {
 		return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-</script>
-<!-- <script>
-	function a(){
-  	  $("#sel_div>div").hide();
-   	  $("#sel_div>div").slice(0,3).show();
-	}
-	function more(){
-  	  $("#sel_div>div").slice(3,6).show();
-	}
-</script> -->
-
-<!-- Initialize Swiper -->
-<script>
-
-	function changeRecNoteNm() {
-		var userNoteArr = new Array();
-		for(var i=0; i<`${userNote.length}`; i++) {
-			userNoteArr.push(`${userNote[i].b_nm_eng}`)
-		}
+	
+	function changeRecNoteNm(page_idx) {
 		
 		// 현재 슬라이드의 페이지 인덱스 값과 유저 노트가 담긴 userNoteArr 배열의 인덱스 값을 매칭 시켜야함 2020-10-29
-		if(current_idx == userNoteArr[i].) {
-			
-		}
+		var this_slide_page_note = userNoteArr[page_idx].nt_m_nm_kor
+		rec_note_nm.innerText = '';
+		rec_note_nm.innerText = this_slide_page_note;
 		
 	}
+	
 
 	function getSlideDataIndex(swipe){
         current_idx = swipe.activeIndex; // 슬라이드 바뀐 후 인덱스
         var slidesLen = swipe.slides.length; // 슬라이드의 length
+        var real_slidesLen = slide_page*slides_per_view
+       	console.log("slidesLen : " + slidesLen)
         if(swipe.params.loop){
             switch(swipe.activeIndex){
                 case 0 :
-                	current_idx = slidesLen-(slide_page*5);
+                	current_idx = slide_page-1;
                     break;
-                case slidesLen+slide_page :
+                case real_slidesLen+slides_per_view :
                 	current_idx = 0;
                     break;
                 default :
-                    current_idx = current_idx-slide_page;
+                    current_idx = (current_idx-slides_per_view)/slides_per_view;
             }
-            changeRecNoteNm();
         }
         return  current_idx;
     }
@@ -541,57 +535,56 @@
 				if (!swiper.params.debugger)
 					return;
 				console.log('slideChange', this.previousIndex, '->', this.activeIndex);
-				var num = getSlideDataIndex(swiper)
-	            console.log("num : "+num)
+				var page_idx = getSlideDataIndex(swiper);
+				console.log("page_idx : "+page_idx)
+				changeRecNoteNm(page_idx);
 			},
 			slideChangeTransitionStart : function(swiper) {
 				if (!swiper.params.debugger)
 					return;
-				console.log('slideChangeTransitionStart');
+				
 			},
 			slideChangeTransitionEnd : function(swiper) {
 				if (!swiper.params.debugger)
 					return;
-				console.log('slideChangeTransitionEnd');
+				
 			},
 			transitionStart : function(swiper) {
 				if (!swiper.params.debugger)
 					return;
-				console.log('transitionStart');
+				
 			},
 			transitionEnd : function(swiper) {
 				if (!swiper.params.debugger)
 					return;
-				console.log('transitionEnd');
+				
 			},
 			fromEdge : function(swiper) {
 				if (!swiper.params.debugger)
 					return;
-				console.log('fromEdge');
+				
 			},
 			reachBeginning : function(swiper) {
 				if (!swiper.params.debugger)
 					return;
-				console.log('reachBeginning');
+				
 			},
 			reachEnd : function(swiper) {
 				if (!swiper.params.debugger)
 					return;
-				console.log('reachEnd');
+				
 			},
 		},
 	};
-</script>
 
-<script>
 	// Install Plugin To Swiper
 	Swiper.use(myPlugin);
 
 	// Init Swiper
 	var swiper = new Swiper('.swiper-container', {
-		slidesPerView : 5,
+		slidesPerView : slides_per_view,
 		spaceBetween : 0,
-		slidesPerGroup : 5,
+		slidesPerGroup : slides_per_view,
 		loop : true,
 		loopFillGroupWithBlank : false,
 		autoplay : {
