@@ -168,7 +168,65 @@
 		})
 	}*/
 	
+	// cmt 생성 함수 (수정본) 
+	function createCmt(item) {
+		var cmt = document.createElement('div');
+		cmt.setAttribute('class', 'cmt');
+		
+		var cmt_user_img = document.createElement('div');
+		cmt_user_img.setAttribute('class', 'cmt_user_img');
+		
+		var cmt_user_img_img = document.createElement('img');
+		cmt_user_img_img.src = '/res/img/profileImg/' + item.profile_img
+		
+		var cmt_userData = document.createElement('div');
+		cmt_userData.setAttribute('class', 'cmt_userData_' + item.i_cmt);
+		
+		var cmt_userData_userNm = document.createElement('div');
+		cmt_userData_userNm.setAttribute('class', 'cmt_userData_userNm');
+		
+		var cmt_userData_userNm_p = document.createElement('p');
+		cmt_userData_userNm_p.setAttribute('class', 'cmt_userData_userNm_p');
+		cmt_userData_userNm_p.innerText = item.nm
+		
+		var cmt_userData_userAge = document.createElement('div');
+		cmt_userData_userAge.setAttribute('class', 'cmt_userData_userAge');
+		
+		var cmt_userData_userAge_p = document.createElement('p');
+		cmt_userData_userAge_p.setAttribute('class', 'cmt_userData_userAge_p');
+		if(item.ageGroup == 1) {
+			cmt_userData_userAge_p.innerText = '10세 미만/' + item.gender
+		} else if(item.ageGroup == 100) {
+			cmt_userData_userAge_p.innerText = '100세 이상/' + item.gender
+		} else {
+			cmt_userData_userAge_p.innerText = item.ageGroup + '대/' + item.gender
+		}
+		
+		var cmt_cmt = document.createElement('div');
+		cmt_cmt.setAttribute('class', 'cmt_cmt_' + item.i_cmt);
+		
+		var cmt_cmt_data = document.createElement('div');
+		cmt_cmt_data.setAttribute('class', 'cmt_cmt_data');
+		
+		var cmt_cmt_data_p = document.createElement('p');
+		cmt_cmt_data_p.setAttribute('class', 'cmt_cmt_data_' + item.i_cmt);
+		cmt_cmt_data_p.innerText = item.cmt
+		
+		cmt.append(cmt_user_img)
+		cmt.append(cmt_userData)
+		cmt.append(cmt_cmt)
+		cmt_user_img.append(cmt_user_img_img)
+		cmt_userData.append(cmt_userData_userNm)
+		cmt_userData.append(cmt_userData_userAge)
+		cmt_userData_userNm.append(cmt_userData_userNm_p)
+		cmt_userData_userAge.append(cmt_userData_userAge_p)
+		cmt_cmt.append(cmt_cmt_data)
+		cmt_cmt_data.append(cmt_cmt_data_p)
+		cmtContents.append(cmt)
+	}
+	
 	// cmt 생성 함수
+	/*
 	function createCmt(item) {
 		var cmt = document.createElement('div');
 		var cmt_userData = document.createElement('div');
@@ -177,7 +235,7 @@
 		var cmt_userData_userNm_img = document.createElement('img');
 		var cmt_userData_userAge = document.createElement('div');
 		var cmt_userData_userAge_p = document.createElement('p');
-		var Cmt_userData_userI_user = document.createElement('div');
+		var cmt_userData_userI_user = document.createElement('div');
 		var cmt_cmt = document.createElement('div');
 		var cmt_cmt_div = document.createElement('div');
 		var cmt_cmt_div_p = document.createElement('p');
@@ -217,10 +275,11 @@
 
 		cmtContents.append(cmt)
 	}
+	*/
 	
 	// cmt 수정 생성 함수
 	function createCmtUpd(item) {
-		var cmt_userData = document.querySelector('.cmt_userData_' + item.i_cmt);
+		var cmt_cmt = document.querySelector('.cmt_cmt_' + item.i_cmt);
 		
 		var cmt_userData_ud = document.createElement('div');
 		var cmt_upd = document.createElement('div');
@@ -237,12 +296,12 @@
 		
 		cmt_upd.append(cmt_upd_bt)
 		cmt_userData_ud.append(cmt_upd)
-		cmt_userData.append(cmt_userData_ud)
+		cmt_cmt.append(cmt_userData_ud)
 	}
 	
 	// cmt 삭제 생성 함수
 	function createCmtDel(item) {
-		var cmt_userData = document.querySelector('.cmt_userData_' + item.i_cmt);
+		var cmt_cmt = document.querySelector('.cmt_cmt_' + item.i_cmt);
 		
 		var cmt_userData_ud = document.querySelector('.cmt_userData_ud_'+ item.i_cmt)
 		
@@ -390,7 +449,7 @@
 		
 		if (confirm("댓글 수정을 취소 하시겠습니까??") == true) {    //확인
 			
-			ajaxSelCmtList(item)
+			ajaxSelPage(perfume.i_p, now_page)
 
 		}else {   //취소
 
@@ -402,7 +461,7 @@
 	
 	// cmt 완료 생성 함수
 	function createCmtUpdSuccess(item) {
-		var cmt_cmt_div_p = document.querySelector('.cmt_cmt_div_p_' + item.i_cmt);
+		var cmt_cmt_data = document.querySelector('.cmt_cmt_data_' + item.i_cmt);
 		
 		var div = document.createElement('div');
 		var span = document.createElement('span');
@@ -412,12 +471,12 @@
 		span.addEventListener('click', event => CmtUpdSuccessChk(item));
 		
 		div.append(span)
-		cmt_cmt_div_p.append(div)
+		cmt_cmt_data.append(div)
 	}
 	
 	// cmt 취소 생성 함수
 	function createCmtUpdReturn(item) {
-		var cmt_cmt_div_p = document.querySelector('.cmt_cmt_div_p_' + item.i_cmt);
+		var cmt_cmt_data = document.querySelector('.cmt_cmt_data_' + item.i_cmt);
 		
 		var div = document.createElement('div');
 		var span = document.createElement('span');
@@ -427,14 +486,14 @@
 		span.addEventListener('click', event => CmtUpdReturnChk(item));
 		
 		div.append(span)
-		cmt_cmt_div_p.append(div)
+		cmt_cmt_data.append(div)
 	}
 	
 	// cmt 수정 실행
 	function cmtChangeUpd(item) {
-		var cmt_cmt_div_p = document.querySelector('.cmt_cmt_div_p_' + item.i_cmt);
+		var cmt_cmt_data = document.querySelector('.cmt_cmt_data_' + item.i_cmt);
 		
-		cmt_cmt_div_p.innerText = '';
+		cmt_cmt_data.innerText = '';
 		
 		var p = document.createElement('p');
 		var textarea = document.createElement('textarea');
@@ -448,7 +507,7 @@
 		textarea.innerText = item.cmt;
 		
 		p.append(textarea);
-		cmt_cmt_div_p.append(p);
+		cmt_cmt_data.append(p);
 		
 		createCmtUpdReturn(item)
 		createCmtUpdSuccess(item)
