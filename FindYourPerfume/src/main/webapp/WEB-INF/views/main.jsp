@@ -125,7 +125,6 @@
 					필터링~~~~~!~!~!~!~!~!~!~!~!~!~!~!~!~!~!
 				</div>
 			</div> -->
-		<hr>
 		<div id="selDivContainer">
 			<div id="sel_div">
 				<div id="brandAlphabet" class="perfumeMain">
