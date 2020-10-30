@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="adminContainer">
-	<div id="adminLeft">
-		안녕
-	</div>
 	<div id="adminRight">
 		<form name="uptUserFrm" id="uptFrm" action="/user/uptUser" enctype="multipart/form-data" method="post">
 		<input type="hidden" name="user_type" value="2">

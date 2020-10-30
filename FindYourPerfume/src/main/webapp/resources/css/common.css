@@ -124,6 +124,13 @@ a {
 	height: 100%;
 }
 
+#mainContainer {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+}
+
 /* 헤더 시작 */
 
 #container > header {	
@@ -197,7 +204,7 @@ a {
 }
 
 #pop {
-	background: #ccc;
+	background: #e4e4e4;
 	position:absolute; 
 	right:30px; 
 	top:70px; 
@@ -212,6 +219,9 @@ a {
 	height: 100%;
 }
 
+#myBtn {
+	cursor: pointer;
+}
 
 
 /* 섹션 끝, 푸터 시작 */
