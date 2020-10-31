@@ -264,4 +264,13 @@ public class UserController {
 		
 		return "redirect:/user/myPage";
 	}	
+	
+	@RequestMapping(value="/ajaxIdChk", method = RequestMethod.POST)
+	@ResponseBody
+	public String ajaxIdChk(@RequestBody UserVO param) {
+		System.out.println(param.getUser_id());
+		
+ 		int result = service.login(param);
+ 		return String.valueOf(result);
+ 	}
 }

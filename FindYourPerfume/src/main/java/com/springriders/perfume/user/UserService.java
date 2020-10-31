@@ -78,7 +78,7 @@ public class UserService {
 		return Const.SUCCESS;
 	}
 
-	public int login(UserPARAM param) {
+	public int login(UserVO param) {
 		if(param.getUser_id().equals("")) { return Const.EMPTY_ID; }
 		if(param.getUser_id().equals("")) { return Const.NO_ID; }
 		
