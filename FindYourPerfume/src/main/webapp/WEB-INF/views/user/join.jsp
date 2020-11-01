@@ -196,7 +196,7 @@
 		}
 	})
 	
-
+//닉네임 글자수 제한
 	//이미지 미리보기
     function previewImage(f){
     	var file = f.files;
