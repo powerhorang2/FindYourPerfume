@@ -64,12 +64,16 @@ public class CommonController {
             if(aString > 90)
                 break ;
         }
-		
+        
 		List<PerfumeDMI> topPerfume = service.selTopPerfumeList(param);
 		model.addAttribute("topPerfume", topPerfume);
 		
 		if(i_user != 0) {
 			List<NoteCodeVO> userNote = service.selUserNoteList(param);
+			// 슬라이드 페이지
+			int slide_page = userNote.size();
+			model.addAttribute("slide_page", slide_page);
+			model.addAttribute("userNote", userNote);
 			
 			List<PerfumeDMI> recPerfume = service.selRecPerfumeList(userNote);
 			model.addAttribute("recPerfume", recPerfume);
@@ -80,6 +84,7 @@ public class CommonController {
         model.addAttribute("brandAlphabet", brandAlphabet);
         model.addAttribute("brandEnm", brandEnm);
 		model.addAttribute("perfume", perfume);
+		
 
 
 		model.addAttribute(Const.CSS, "main");

@@ -18,4 +18,7 @@ public class Const {
 	public static final int RECORD_CNT = 6;
 	public static final int USER = 1;
 	public static final int ADMIN = 2;
+	
+	public static final int SLIDERS_PER_VIEW = 5;
+	public static final int EMPTY_PERFUME_PK = -1;
 }

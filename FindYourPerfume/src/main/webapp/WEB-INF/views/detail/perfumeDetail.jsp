@@ -435,6 +435,7 @@ var loginUserI_user = `${loginUser.i_user}`
 // 타입 변환 (String => int)
 loginUserI_user = Number(loginUserI_user);
 
+
 var loginUser = new Object();
 
 function setLoginUser(loginUser) {
@@ -897,4 +898,5 @@ function cmtChk() {
          
    ajaxInsCmt(InsCmt)
 }
+
 </script>

@@ -6,6 +6,9 @@ public class NoteCodeVO {
 	private int nt_m_c;
 	private String nt_d_nm;
 	private String nt_d_nm_kor;
+	private String nt_m_nm;
+	private String nt_m_nm_kor;
+	private int sliders_per_view;
 
 	public int getI_p() {
 		return i_p;
@@ -36,6 +39,24 @@ public class NoteCodeVO {
 	}
 	public void setNt_d_nm_kor(String nt_d_nm_kor) {
 		this.nt_d_nm_kor = nt_d_nm_kor;
+	}
+	public String getNt_m_nm() {
+		return nt_m_nm;
+	}
+	public void setNt_m_nm(String nt_m_nm) {
+		this.nt_m_nm = nt_m_nm;
+	}
+	public String getNt_m_nm_kor() {
+		return nt_m_nm_kor;
+	}
+	public void setNt_m_nm_kor(String nt_m_nm_kor) {
+		this.nt_m_nm_kor = nt_m_nm_kor;
+	}
+	public int getSliders_per_view() {
+		return sliders_per_view;
+	}
+	public void setSliders_per_view(int sliders_per_view) {
+		this.sliders_per_view = sliders_per_view;
 	}
 	
 }

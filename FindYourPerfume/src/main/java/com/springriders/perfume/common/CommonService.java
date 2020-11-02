@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springriders.perfume.Const;
 import com.springriders.perfume.common.model.NoteCodeVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
@@ -25,9 +26,23 @@ public class CommonService {
 	public List<PerfumeDMI> selRecPerfumeList(List<NoteCodeVO> list) {
 		List<PerfumeDMI> recList = new ArrayList();
 		NoteCodeVO vo = new NoteCodeVO();
+		
+		// 슬라이드의 한 페이지당 보이는 향수의 갯수
 		for(int i=0; i<list.size(); i++) {
 			vo = list.get(i);
-			recList.addAll(mapper.selRecPerfumeList(vo));
+			vo.setSliders_per_view(Const.SLIDERS_PER_VIEW);
+			
+			List<PerfumeDMI> recPerfumeList = mapper.selRecPerfumeList(vo);
+			recList.addAll(recPerfumeList);
+			
+			// 유저 노트를 가진 추천 향수가 부족할 때 리스트 추가 (노트 하나 당 5개)
+			if(recPerfumeList.size() < Const.SLIDERS_PER_VIEW) {
+				for(int z=0; z < Const.SLIDERS_PER_VIEW-recPerfumeList.size(); z++) {
+					PerfumeDMI dmi = new PerfumeDMI();
+					dmi.setI_p(Const.EMPTY_PERFUME_PK);
+					recList.add(dmi);
+				}
+			}
 		}
 		
 		return recList;
