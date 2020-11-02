@@ -125,6 +125,12 @@ public class CommonService {
 	}
 
 
+	/*
+	 * public int sortPerfume(PerfumePARAM param) {
+	 * 
+	 * return mapper.sortPerfume(param); }
+	 */
+
 
 
 }

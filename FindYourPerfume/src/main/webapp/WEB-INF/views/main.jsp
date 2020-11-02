@@ -131,6 +131,13 @@
 			</div>
 			
 			<div id="selDivContainer">
+<!-- 				<form name="sortPerfume" id="sortPerfume" action="/common/sortPerfume" method="post"> -->
+					<select class="perfumeOption" onchange="sortPerfume(this.value)">
+						<option>원하는 순서를 정하세요</option>
+						<option id="sort_type" name="sort_type" value="1">가격순</option>
+						<option id="sort_type" name="sort_type" value="2">용량순</option>
+					</select>
+			<!-- 	</form> -->
 				<div id="sel_div">
 					<div id="brandAlphabet" class="perfumeMain">
 					</div>
@@ -147,6 +154,7 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+
 	var sIdx = 5;
 	var eIdx = 10;
 	var brandList = new Array();
@@ -181,6 +189,12 @@
 	</c:forEach>
 	
 	choiceAlphabetMain('ALL')
+	
+	function sortPerfume(sort_type) {
+		location.href="/common/sortPerfume?sort_type=" + sort_type
+	}
+	
+	
 	//향수 컨테이너 담는 arrayList 만들기
 	function makeArrayList(tempArr) {
 		for (var i = 0; i < tempArr.length; i++) {

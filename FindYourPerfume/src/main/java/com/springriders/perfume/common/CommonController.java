@@ -215,13 +215,14 @@ public class CommonController {
 	public List<NoteCodeVO> ajaxSelNoteList(PerfumePARAM param) {
 		return service.ajaxSelNoteList(param);
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	@RequestMapping(value="/sortPerfume", method = RequestMethod.GET)
+	public String sortPerfume(NoteCodeVO param, RedirectAttributes ra) {
+//		int result = service.sortPerfume(param);
+		
+		System.out.println("type : " + param.getSort_type());
+		return "";
+	}
 	
 	
 	

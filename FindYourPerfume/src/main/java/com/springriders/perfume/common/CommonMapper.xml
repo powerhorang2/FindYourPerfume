@@ -152,7 +152,6 @@
 		ON B.p_brand = E.p_brand
 		WHERE (A.nt_d_c = #{nt_d_c})
 	</select>
-	
 	<delete id="delPerfume" parameterType="PerfumePARAM">
 		DELETE FROM t_perfume WHERE i_p = #{i_p}
 	</delete>
