@@ -103,7 +103,7 @@
 			<div id="cmtContainer">
 				<div class="cmt_cnt">
 					<div>
-						<div class="cmt_cnt_text">댓글<span class="cmt_cnt_content"></span></div>
+						<div class="cmt_cnt_text">회원 후기<span class="cmt_cnt_content"></span></div>
 					</div>
 				</div>
 				<div id="cmtContents">
@@ -113,15 +113,15 @@
 			</div>
 			<div class="cmt_box">
 			<c:if test="${loginUser != null}">
-				<div>
+				<div id="cmtInput">
 					<div>${loginUser.nm}/${loginUser.ageGroup}대/${loginUser.strGender}</div>
-					<p><textarea id="cmt_val" cols="50" rows="10" name="cmt" placeholder="댓글을 등록해보세요. (50자 이내)"></textarea></p>
-				    <p><input type="button" value="등록" onclick="return cmtChk()"></p>
+					<div><textarea id="cmt_val" cols="50" rows="10" name="cmt" placeholder="댓글을 등록해보세요. (50자 이내)"></textarea></div>
+				    <div id="cmtInputBtn"><input type="button" class="button" value="등록" onclick="return cmtChk()"></div>
 			    </div>
 			</c:if>
 			</div>
 		</div>
-		<hr id="sectionHr">더보깅
+		<hr id="sectionHr">
 		<div id="selDivContainer">
 			<div id="sel_div">
 				<div id="brandAlphabet" class="perfumeMain">
@@ -806,19 +806,21 @@ function cmtChangeUpd(item) {
    
    cmt_cmt_data.innerText = '';
    
-   var p = document.createElement('p');
+   var div = document.createElement('div');
    var textarea = document.createElement('textarea');
    
    textarea.setAttribute('id', 'cmt_val_' + item.i_cmt);
    textarea.setAttribute('cols', '50');
    textarea.setAttribute('rows', '10');
    textarea.setAttribute('name', 'cmt');
+   textarea.setAttribute('style', 'width: 260px; height: 90px; font-family: "Montserrat"; font-size: 16px;');
+   
    textarea.setAttribute('placeholder', '댓글 수정 중... (50자 이내)');
    
    textarea.innerText = item.cmt;
    
-   p.append(textarea);
-   cmt_cmt_data.append(p);
+   div.append(textarea);
+   cmt_cmt_data.append(div);
    
    createCmtUpdReturn(item)
    createCmtUpdSuccess(item)

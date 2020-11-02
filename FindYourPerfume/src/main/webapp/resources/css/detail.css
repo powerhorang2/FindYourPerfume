@@ -157,7 +157,7 @@ hr {
 }
 
 #infoContainer > #cmtSection {
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	margin: 50px 0 0 200px;
 	width: 1000px;
 	min-width: 1000px;
@@ -167,9 +167,15 @@ hr {
 }
 
 #infoContainer > #cmtSection > #cmtContainer {
-	border: 1px solid blue;
+	/* border: 1px solid blue; */
 	width: 1000px;
 	margin-bottom: 30px;
+}
+
+#infoContainer > #cmtSection > #cmtContainer > .cmt_cnt > div > .cmt_cnt_text {
+	font-weight: bolder;
+	font-size: 1.2em;
+	margin: 0 0 10px 16px;
 }
 
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents {
@@ -182,13 +188,13 @@ hr {
 	margin: 10px;
 	padding: 10px;
 	width: 478px;
-	border: 1px solid black;
+	border: 1px solid rgba(51, 51, 51, 0.4);
 }
 
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_user_img {
 	display: flex;
 	align-items: center;
-    border: 1px solid red;
+   /*  border: 1px solid red; */
     padding: 0 10px;
 }
 
@@ -202,17 +208,22 @@ hr {
 
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_userData {
 	padding: 0 5px;
-	border: 1px solid blue;
+	/* border: 1px solid blue; */
+	width: 100px;
 }
 
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_userData > .cmt_userData_userNm {
 	font-weight: bolder;
 }
 
+#infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_userData > .cmt_userData_userAge {
+	font-size: 0.9em;
+}
+
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_cmt {
 	padding: 0 5px;
 	width: 280px;
-	border: 1px solid green;
+	/* border: 1px solid green; */
 }
 
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_cmt > .cmt_cmt_data {
@@ -224,14 +235,36 @@ hr {
 }
 
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_cmt > .cmt_userData_ud {
-	border: 1px solid pink;
+	/* border: 1px solid pink; */
 	display: flex;
 	justify-content: flex-end;
 }
 
+#infoContainer > #cmtSection > #cmtContainer > #pageGroup {
+	text-align: center;
+    margin: 20px 0;
+    font-size: 1.2em;
+}
+
 #infoContainer > #cmtSection > .cmt_box {
-	border: 1px solid red;
-	width: 880px;
+	width: 480px;
+}
+
+#infoContainer > #cmtSection > .cmt_box > #cmtInput > div {
+	margin: 15px 0;
+}
+
+#infoContainer > #cmtSection > .cmt_box > #cmtInput > #cmtInputBtn {
+	display: flex;
+	justify-content: flex-end;
+}
+
+#infoContainer > #cmtSection > .cmt_box > #cmtInput > div > textarea {
+	width: 480px;
+	height: 100px;
+	padding: 10px;
+	font-family: 'Montserrat';
+	font-size: 14px;
 }
 
 #selDivContainer {

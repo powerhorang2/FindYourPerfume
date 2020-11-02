@@ -25,6 +25,11 @@
 				<div class="ml15" id="main" style="font-family:'Montserrat', sans-serif; font-style: italic;"><a href="/common/main">FindYourPerfume</a></div>	
 			</div>
 			<div id="headerRight">
+				<a id="myBtn" class="ml15" onclick="viewLayer()">
+					<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M33.3333 16.6666C33.3333 21.2708 29.6041 24.9999 24.9999 24.9999C20.3958 24.9999 16.6666 21.2708 16.6666 16.6666C16.6666 12.0624 20.3958 8.33325 24.9999 8.33325C29.6041 8.33325 33.3333 12.0624 33.3333 16.6666ZM8.33325 37.4999C8.33325 31.9582 19.4374 29.1666 24.9999 29.1666C30.5624 29.1666 41.6666 31.9582 41.6666 37.4999V39.5832C41.6666 40.7291 40.7291 41.6666 39.5833 41.6666H10.4166C9.27075 41.6666 8.33325 40.7291 8.33325 39.5832V37.4999Z" fill="#F2F2F2"/>
+					</svg>
+				</a>
 				<div id="pop">
 					<c:choose>
 						<c:when test="${loginUser.i_user == null}">
@@ -80,11 +85,6 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
-				<a id="myBtn" class="ml15" onclick="viewLayer()">
-					<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path fill-rule="evenodd" clip-rule="evenodd" d="M33.3333 16.6666C33.3333 21.2708 29.6041 24.9999 24.9999 24.9999C20.3958 24.9999 16.6666 21.2708 16.6666 16.6666C16.6666 12.0624 20.3958 8.33325 24.9999 8.33325C29.6041 8.33325 33.3333 12.0624 33.3333 16.6666ZM8.33325 37.4999C8.33325 31.9582 19.4374 29.1666 24.9999 29.1666C30.5624 29.1666 41.6666 31.9582 41.6666 37.4999V39.5832C41.6666 40.7291 40.7291 41.6666 39.5833 41.6666H10.4166C9.27075 41.6666 8.33325 40.7291 8.33325 39.5832V37.4999Z" fill="#F2F2F2"/>
-					</svg>
-				</a>
 			</div>
 		</header>
 		<section>
@@ -97,18 +97,16 @@
 		</footer>
 	</div>
 	<script>
+		viewLayer()
+	
  		function moveToPage(p) {
 			location.href = p;
 		}
- 		
+ 	
  	    function viewLayer(){
- 	        //만일 Pop라는 녀석이 닫혀있다면??
  	        if(document.getElementById('pop').style.display=='none'){
- 	          //열어주어라
  	           document.getElementById('pop').style.display='inline'
- 	        //그렇지 않은 모든 경우라면??
  	        }else{
- 	           //닫아주어라
  	           document.getElementById('pop').style.display='none'
  	        }
  	     }
