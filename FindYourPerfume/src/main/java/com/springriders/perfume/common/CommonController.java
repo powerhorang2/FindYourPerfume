@@ -68,12 +68,16 @@ public class CommonController {
             if(aString > 90)
                 break ;
         }
-		
+        
 		List<PerfumeDMI> topPerfume = service.selTopPerfumeList(param);
 		model.addAttribute("topPerfume", topPerfume);
 		
 		if(i_user != 0) {
 			List<NoteCodeVO> userNote = service.selUserNoteList(param);
+			// 슬라이드 페이지
+			int slide_page = userNote.size();
+			model.addAttribute("slide_page", slide_page);
+			model.addAttribute("userNote", userNote);
 			
 			List<PerfumeDMI> recPerfume = service.selRecPerfumeList(userNote);
 			model.addAttribute("recPerfume", recPerfume);
@@ -85,6 +89,7 @@ public class CommonController {
         model.addAttribute("brandAlphabet", brandAlphabet);
         model.addAttribute("brandEnm", brandEnm);
 		model.addAttribute("perfume", perfume);
+		
 
 
 		model.addAttribute(Const.CSS, "main");
@@ -118,21 +123,39 @@ public class CommonController {
 	}
 
 	@RequestMapping("/detail")
-	public String detail(PerfumePARAM param, Model model, HttpServletRequest req) {
+	public String detail(PerfumePARAM param, PerfumeDMI dm, Model model, HttpServletRequest req) {
 		System.out.println("i_pddd : " + param.getI_p());
 		int i_user = SecurityUtils.getLoginUserPk(req);
 		param.setI_user(i_user);
-		
 		param.setI_p(param.getI_p());
+		
+		List<String> brandAlphabet = new ArrayList();
+		
+        char aString = 65 ;
+        
+        while(true){
+            if(aString == 91)
+                aString = 97 ;
+            String str = String.valueOf(aString) ;
+            brandAlphabet.add(str);
+            aString++ ;
+            if(aString > 90)
+                break ;
+        }
 		
 		PerfumeDMI perfume = service.selPerfume(param);
 		List<NoteCodeVO> noteList = service.selPerfumeNoteList(param);
-		
-//		List<CmtDMI> cmtList = cmtService.selCmtList(param);
-		
+		List<PerfumeDMI> perfumeList = service.selPerfumeList(param);
+		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
+		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
+
 		model.addAttribute("perfume", perfume);
 		model.addAttribute("noteList", noteList);
-//		model.addAttribute("cmtList", cmtList);
+		model.addAttribute("brandFullNm", brandFullNm);
+        model.addAttribute("brandAlphabet", brandAlphabet);
+        model.addAttribute("brandEnm", brandEnm);
+		model.addAttribute("perfumeList", perfumeList);
+
 		
 		model.addAttribute(Const.CSS, "detail");
 		model.addAttribute(Const.TITLE, "디테일 페이지"); //가게명
