@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <div id="detailContainer">
 	<div id="sidebar">
 		<div id="loginContainer">
@@ -14,16 +14,18 @@
 						<form class="frm" action="/common/main" method="post">
 							<div>
 								<div>
-									<input class="loginBar" type="text" name="user_id" placeholder="아이디를 입력해주세요"
-										value="${data.user_id}">
+									<input class="loginBar" type="text" name="user_id"
+										placeholder="아이디를 입력해주세요" value="${data.user_id}">
 								</div>
 								<div>
-									<input class="loginBar" type="password" name="user_pw" placeholder="비밀번호를 입력해주세요">
+									<input class="loginBar" type="password" name="user_pw"
+										placeholder="비밀번호를 입력해주세요">
 								</div>
 							</div>
 							<div id="loginBtnBox">
-								<input type="submit" class="button" value="LOGIN">
-								<input type="button" onclick="moveToPage(`/user/join`)" class="button" value="JOIN">
+								<input type="submit" class="button" value="LOGIN"> <input
+									type="button" onclick="moveToPage(`/user/join`)" class="button"
+									value="JOIN">
 							</div>
 						</form>
 					</div>
@@ -34,13 +36,17 @@
 						<c:when test="${loginUser.user_type == '2'}">
 							<div id="loginBox">
 								<div id="profileImgBox" style="background: #BDBDBD;">
-										<img id="sidebarImg"
-											src="/res/img/profileImg/${loginUser.profile_img}">
+									<img id="sidebarImg"
+										src="/res/img/profileImg/${loginUser.profile_img}">
 								</div>
-								<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다.</div>
+								<div id="welcomeMsg">
+									<b>${loginUser.nm}</b>님 환영합니다.
+								</div>
 								<div id="loginBtnBox">
-									<input type="button" onclick="moveToPage(`/user/admin`)" class="button" value="ADMIN">
-									<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
+									<input type="button" onclick="moveToPage(`/user/admin`)"
+										class="button" value="ADMIN"> <input type="button"
+										onclick="moveToPage(`/user/logout`)" class="button"
+										value="LOGOUT">
 								</div>
 							</div>
 						</c:when>
@@ -50,10 +56,14 @@
 									<img id="sidebarImg"
 										src="/res/img/profileImg/${loginUser.profile_img}">
 								</div>
-								<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다</div>
+								<div id="welcomeMsg">
+									<b>${loginUser.nm}</b>님 환영합니다
+								</div>
 								<div id="loginBtnBox">
-									<input type="button" onclick="moveToPage(`/user/myPage`)" class="button" value="MYPAGE">
-									<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
+									<input type="button" onclick="moveToPage(`/user/myPage`)"
+										class="button" value="MYPAGE"> <input type="button"
+										onclick="moveToPage(`/user/logout`)" class="button"
+										value="LOGOUT">
 								</div>
 							</div>
 						</c:otherwise>
@@ -61,79 +71,93 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-			
+
 		<!--알파벳 클릭  -->
 		<div id="selBrandAlphabet">
 			<div>
-				<p onclick="choiceAlphabetMain('ALL')">ALL</p>	
+				<p onclick="choiceAlphabetMain('ALL')">ALL</p>
 				<c:forEach items="${brandAlphabet}" var="item">
 					<p onclick="choiceAlphabetMain(`${item}`)">${item}</p>
 				</c:forEach>
 				<p onclick="choiceAlphabetMain('ETC')">ETC</p>
 			</div>
 		</div>
-		<div id="selBrand">
-		</div>
+		<div id="selBrand"></div>
 	</div>
 	<div>
-	<div id="infoContainer">
-		<div id="infoSection">
-			<div id="detailPic">
-				<img src="${perfume.p_pic}">
-			</div>
-			<div id="detailInfo">
-				<div id="userFavorite"></div>
-				<div id="info">
-					<div id="b_nm">${perfume.b_nm_eng}</div>
-					<div id="p_nm">${perfume.p_nm}</div>
-					<div id="p_size_price"><span>${perfume.p_size}ml</span>${perfume.p_price}원</div>
-				</div><hr/>
-				<div id="noteInfo">
-					<div id="title">노트 정보</div>
-					<div id="note">
-					<c:forEach items="${noteList}" var="item">
-						<span>${item.nt_d_nm_kor}</span>
-					</c:forEach>
+		<div id="infoContainer">
+			<div id="infoSection">
+				<div id="detailPic">
+					<img src="${perfume.p_pic}">
+				</div>
+				<div id="detailInfo">
+					<div id="userFavorite"></div>
+					<div id="info">
+						<div id="b_nm">${perfume.b_nm_eng}</div>
+						<div id="p_nm">${perfume.p_nm}</div>
+						<div id="p_size_price">
+							<span>${perfume.p_size}ml</span>${perfume.p_price}원</div>
+					</div>
+					<hr />
+					<div id="noteInfo">
+						<div id="title">노트 정보</div>
+						<div id="note">
+							<c:forEach items="${noteList}" var="item">
+								<span>${item.nt_d_nm_kor}</span>
+							</c:forEach>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<hr id="sectionHr">
- 		<div id="cmtSection">
-			<div id="cmtContainer">
-				<div class="cmt_cnt">
-					<div>
-						<div class="cmt_cnt_text">회원 후기<span class="cmt_cnt_content"></span></div>
+			<hr id="sectionHr">
+			<div id="cmtSection">
+				<div id="cmtContainer">
+					<div class="cmt_cnt">
+						<div>
+							<div class="cmt_cnt_text">
+								회원 후기<span class="cmt_cnt_content"></span>
+							</div>
+						</div>
 					</div>
+					<div id="cmtContents"></div>
+					<div id="pageGroup"></div>
 				</div>
-				<div id="cmtContents">
-				</div>
-				<div id="pageGroup">
+				<div class="cmt_box">
+					<c:if test="${loginUser != null}">
+						<div id="cmtInput">
+							<div>
+								${loginUser.nm}/
+								<c:choose>
+									<c:when test="${loginUser.ageGroup == 1}">10세 미만/</c:when>
+									<c:when test="${loginUser.ageGroup == 100}">100세 이상/</c:when>
+									<c:otherwise>${loginUser.ageGroup}대/</c:otherwise>
+								</c:choose>
+								${loginUser.strGender}
+							</div>
+							<div>
+								<textarea id="cmt_val" cols="50" rows="10" name="cmt"
+									placeholder="댓글을 등록해보세요. (50자 이내)"></textarea>
+							</div>
+							<div id="cmtInputBtn">
+								<input type="button" class="button" value="등록"
+									onclick="return cmtChk()">
+							</div>
+						</div>
+					</c:if>
 				</div>
 			</div>
-			<div class="cmt_box">
-			<c:if test="${loginUser != null}">
-				<div id="cmtInput">
-					<div>${loginUser.nm}/${loginUser.ageGroup}대/${loginUser.strGender}</div>
-					<div><textarea id="cmt_val" cols="50" rows="10" name="cmt" placeholder="댓글을 등록해보세요. (50자 이내)"></textarea></div>
-				    <div id="cmtInputBtn"><input type="button" class="button" value="등록" onclick="return cmtChk()"></div>
-			    </div>
-			</c:if>
+			<hr id="sectionHr">
+			<div id="selDivContainer">
+				<div id="sel_div">
+					<div id="brandAlphabet" class="perfumeMain"></div>
+				</div>
+			</div>
+			<div id="paging">
+				<div class="more">
+					<button class="button" id="more" onclick="more()">더보기</button>
+				</div>
 			</div>
 		</div>
-		<hr id="sectionHr">
-		<div id="selDivContainer">
-			<div id="sel_div">
-				<div id="brandAlphabet" class="perfumeMain">
-				</div>
-			</div>
-		</div>
-		<div id="paging">
-			<div class="more">
-				<button class="button" id="more" onclick="more()">더보기</button>
-			</div>
-		</div> 
-	</div>
 	</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -405,7 +429,6 @@
 				div_eng.setAttribute('id', 'brandNm');
 				div_eng.innerText = res.data[i].b_nm_eng
 				div.append(div_eng)
-
 				var div_kor = document.createElement('div');
 				div_kor.setAttribute('id', 'perfumeNm');
 				div_kor.innerText = res.data[i].p_nm
@@ -431,53 +454,37 @@
 <script type="text/javascript">
 //로그인 유저의 변수 생성 후 값 설정 
 var loginUserI_user = `${loginUser.i_user}`
-
 // 타입 변환 (String => int)
 loginUserI_user = Number(loginUserI_user);
-
-
 var loginUser = new Object();
-
 function setLoginUser(loginUser) {
    loginUser.i_user = loginUserI_user;
 }
-
 setLoginUser(loginUser)
-
 // 향수 관련 변수 생성 후 값 설정
 var perfumeI_user = `${perfume.i_user}`
 var i_p = `${perfume.i_p}`
-
 // 타입 변환 (String => int)
 perfumeI_user = Number(perfumeI_user);
 i_p = Number(i_p);
-
 var perfume = new Object();
-
 function setPerfume(perfume) {
    perfume.i_user = perfumeI_user;
    perfume.i_p = i_p;
 }
-
 setPerfume(perfume)
-
 // UserFavorite 생성 함수 호출
 if(loginUser.i_user > 0) {
    createUserFavorite()
 }
-
 // 페이지 번호 생성
 ajaxSelPageCnt(i_p)
-
 // 처음 페이지 변수 생성 후 선택 표시 !
 var first_page = 1;
-
 // cmtList 생성 함수 호출
 ajaxSelPage(perfume.i_p, first_page)
-
 // 현재 페이지 변수 생성
 var now_page = 1;
-
 function ajaxDelUserFavorite() {
    axios.post('/user/ajaxDelUserFavorite', {
       i_p : perfume.i_p
@@ -490,7 +497,6 @@ function ajaxDelUserFavorite() {
       } 
    })
 }
-
 function ajaxInsUserFavorite() {
    axios.post('/user/ajaxInsUserFavorite', {
       i_p : perfume.i_p
@@ -503,16 +509,13 @@ function ajaxInsUserFavorite() {
       }
    })
 }
-
 function changeFavorite() {
-
    if(favorite.innerText == 'favorite') {
       ajaxDelUserFavorite()
    } else if(favorite.innerText == 'favorite_border') {
       ajaxInsUserFavorite()
    }
 }
-
 function createUserFavorite() {
    
    var span = document.createElement('span');
@@ -525,12 +528,10 @@ function createUserFavorite() {
    } else {
       span.innerText = 'favorite_border';
    }
-
    span.addEventListener('click', event => changeFavorite());
    
    userFavorite.append(span)
 }
-
 // cmt 생성 함수 (수정본) 
 function createCmt(item) {
    var cmt = document.createElement('div');
@@ -588,7 +589,6 @@ function createCmt(item) {
    cmt_cmt_data.append(cmt_cmt_data_p)
    cmtContents.append(cmt)
 }
-
 // cmt 수정 생성 함수
 function createCmtUpd(item) {
    var cmt_cmt = document.querySelector('.cmt_cmt_' + item.i_cmt);
@@ -610,7 +610,6 @@ function createCmtUpd(item) {
    cmt_userData_ud.append(cmt_upd)
    cmt_cmt.append(cmt_userData_ud)
 }
-
 // cmt 삭제 생성 함수
 function createCmtDel(item) {
    var cmt_cmt = document.querySelector('.cmt_cmt_' + item.i_cmt);
@@ -631,7 +630,6 @@ function createCmtDel(item) {
    cmt_del.append(cmt_del_bt)
    cmt_userData_ud.append(cmt_del)
 }
-
 function ajaxSelPageCnt(i_p) {
    axios.get('/cmt/ajaxSelPageCnt', {
       params : {
@@ -670,7 +668,6 @@ function ajaxSelPageCnt(i_p) {
       }
    })
 }
-
 function selPage(page, pagingCnt) {
    var all_page = document.querySelectorAll('.cmt_page');
    for(var i=0; i<pagingCnt; i++) {
@@ -683,7 +680,6 @@ function selPage(page, pagingCnt) {
    // 페이지 선택했을 때 현재 페이지 값 변경
    now_page = page;
 }
-
 function ajaxSelPage(i_p, page, pagingCnt) {
    axios.get('/cmt/ajaxSelPage', {
       params : {
@@ -710,19 +706,13 @@ function ajaxSelPage(i_p, page, pagingCnt) {
       })
    })
 }
-
 function cmtDel(item) {
    if (confirm("댓글을 삭제 하시겠습니까??") == true) {    //확인
       ajaxDelCmt(item)
-
    }else {   //취소
-
        return false;
-
    }
 }
-
-
 // cmt 수정 완료
 function CmtUpdSuccessChk(item) {
    var cmt_val_i_cmt = document.querySelector('#cmt_val_'+ item.i_cmt)
@@ -747,30 +737,21 @@ function CmtUpdSuccessChk(item) {
       item.cmt = cmt_val_i_cmt.value
       console.log(item.cmt)
       ajaxUpdCmt(item)
-
    }else {   //취소
-
        return false;
-
    }
    
 }
-
 // cmt 수정 취소
 function CmtUpdReturnChk(item) {
    
    if (confirm("댓글 수정을 취소 하시겠습니까??") == true) {    //확인
       
       ajaxSelPage(perfume.i_p, now_page)
-
    }else {   //취소
-
        return false;
-
    }
-
 }
-
 // cmt 완료 생성 함수
 function createCmtUpdSuccess(item) {
    var cmt_cmt_data = document.querySelector('.cmt_cmt_data_' + item.i_cmt);
@@ -785,7 +766,6 @@ function createCmtUpdSuccess(item) {
    div.append(span)
    cmt_cmt_data.append(div)
 }
-
 // cmt 취소 생성 함수
 function createCmtUpdReturn(item) {
    var cmt_cmt_data = document.querySelector('.cmt_cmt_data_' + item.i_cmt);
@@ -800,7 +780,6 @@ function createCmtUpdReturn(item) {
    div.append(span)
    cmt_cmt_data.append(div)
 }
-
 // cmt 수정 실행
 function cmtChangeUpd(item) {
    var cmt_cmt_data = document.querySelector('.cmt_cmt_data_' + item.i_cmt);
@@ -826,7 +805,6 @@ function cmtChangeUpd(item) {
    createCmtUpdReturn(item)
    createCmtUpdSuccess(item)
 }
-
 // cmt 등록 함수
 function ajaxInsCmt(cmt) {
    axios.post('/cmt/ajaxInsCmt', {
@@ -846,7 +824,6 @@ function ajaxInsCmt(cmt) {
       }
    })
 }
-
 // cmt 수정 함수
 function ajaxUpdCmt(item) {
    axios.post('/cmt/ajaxUpdCmt', {
@@ -865,7 +842,6 @@ function ajaxUpdCmt(item) {
       }
    })
 }
-
 // cmt 삭제 함수
 function ajaxDelCmt(item) {
    axios.post('/cmt/ajaxDelCmt', {
@@ -883,7 +859,6 @@ function ajaxDelCmt(item) {
       }
    })
 }
-
 function cmtChk() {
    var InsCmt = cmt_val.value
    if(InsCmt.length == ''){
@@ -898,5 +873,4 @@ function cmtChk() {
          
    ajaxInsCmt(InsCmt)
 }
-
 </script>
