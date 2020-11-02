@@ -21,7 +21,6 @@ public interface CommonMapper {
 	List<PerfumeDMI> selTopPerfumeList(PerfumePARAM param);
 	List<PerfumeDMI> selRecPerfumeList(NoteCodeVO vo);
 
-	PerfumeDMI selPerfumePic(PerfumePARAM param);
 	List<PerfumeDMI> selPerfumeList(PerfumePARAM param);
 	List<NoteCodeVO> selPerfumeNoteList(PerfumePARAM param);
 	List<PerfumeDMI> selPerfumeChoice(PerfumeDMI vo);
@@ -31,7 +30,10 @@ public interface CommonMapper {
 
 	List<PerfumeDMI> selBrandFullNm(PerfumePARAM param);
 	List<PerfumeDMI> selBrandFullAp(PerfumeDMI dmi);
-	
+	List<NoteCodeVO> selNoteList(NoteCodeVO vo);
+	List<NoteCodeVO> ajaxSelNoteList(PerfumePARAM param);
+
+	PerfumeDMI selPerfumePic(PerfumePARAM param);
 	PerfumeVO selPerfumePk(PerfumeVO vo);
 	PerfumeDMI selPerfume(PerfumePARAM param);
 	

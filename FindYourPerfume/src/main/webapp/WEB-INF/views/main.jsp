@@ -59,7 +59,7 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-			
+
 		<!--알파벳 클릭  -->
 		<div id="selBrandAlphabet">
 			<div>
@@ -73,7 +73,6 @@
 		<div id="selBrand">
 		</div>
 	</div>
-	<div>
 		<div id="brandContainer">
 			<div id="hiddenSwiper">
 				<div id="topPerfume">
@@ -121,21 +120,29 @@
 				</div>
 			</div>
 			<hr>
+		<div class="noteList">
+			<c:forEach items="${noteList}" var="item">
+				<p onclick="choiceNoteList(`${item.nt_d_c}`)">${item.nt_d_nm_kor}</p>
+			</c:forEach>
+		</div>
 			<div id="selDivContainer">
 				<div id="sel_div">
 					<div id="brandAlphabet" class="perfumeMain">
 					</div>
 				</div>
 			</div>
-			<div id="paging">
-				<div class="more">
-					<button class="button" id="more" onclick="more()">더보기</button>
-				</div>
-			</div> 	
+	<div id="paging">
+		<div class="more">
+			<button id="more" onclick="more()">더보기</button>
+			<div style="cursor:pointer;" onclick="window.scrollTo(0,0);">
+					맨위로
+			</div>
 		</div>
 	</div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+
 	var sIdx = 5;
 	var eIdx = 10;
 	var brandList = new Array();
@@ -179,7 +186,6 @@
 			brandList.push(brandVO)
 		}
 	}
-
 	//더 보기 버튼 눌렀을 때 idx 증가하면서, 뒤의 배열 추가
 	function more(b_nm_eng) {
 		if (b_nm_eng == null) {
@@ -276,6 +282,7 @@
 	}
 
 	function choiceAlphabetMain(b_nm_initial) {
+		console.log()
 		idx = 0;
 		var more = document.querySelector('#more');
 		more.setAttribute('onclick', "more()")
@@ -385,6 +392,7 @@
 						}
 				})
 	}
+
 	//디테일페이지 이동
 	function moveToDetail(i_p) {
 		console.log(i_p)
@@ -402,6 +410,7 @@
 			params : {
 				b_nm_eng : b_nm_eng
 			}
+			
 		}).then(function(res){
  			sel_div.innerText = ''
 			hiddenSwiper.innerText = ''
@@ -441,7 +450,6 @@
 			}
 		})
 	}
-
 	//가격에 쉼표 붙이기
 	function numberFormat(inputNumber) {
 		return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -455,7 +463,57 @@
 		rec_note_nm.innerText = this_slide_page_note;
 		
 	}
-	
+
+	function choiceNoteList(nt_d_c){
+		sIdx = 5;
+		eIdx = 10;
+		var more = document.querySelector('#more');
+		more.setAttribute('onclick', "more("+"'"+nt_d_c+"'"+")")
+		axios.get('/common/ajaxSelNoteList',{
+			params : {
+				nt_d_c : nt_d_c
+			}
+		}).then(function(res){
+		sel_div.innerText = ''
+		console.log("gasdgasdgf : " + res.data)
+			for(var i=0; i < res.data.length; i++){
+				var div = document.createElement('div');
+			 	div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`); 
+				div.setAttribute('id', 'note');
+				
+				var img = document.createElement('img');
+   				img.src = res.data[i].p_pic
+   				div.append(img)
+   				
+   				var div_kor = document.createElement('div');
+	   			div_kor.innerText = '향수 이름 : ' + res.data[i].p_nm
+	   			div.append(div_kor)
+	   			
+	   			var div_eng = document.createElement('div');
+	   			div_eng.innerText = '향수 브랜드 : ' + res.data[i].b_nm_eng
+	   			div.append(div_eng)
+	   			
+	   			var div_size = document.createElement('div');
+	   			div_size.innerText = '향수 용량 : ' + res.data[i].p_size + 'ml'
+	   			div.append(div_size)
+	   			
+	   			var div_price = document.createElement('div');
+	   			div_price.innerText = '향수 가격 : '+ numberFormat(res.data[i].p_price) + '원'
+	   			div.append(div_price)
+	   			sel_div.append(div)
+			}
+		})
+	}
+
+</script>
+
+<script>
+	var swiper = new Swiper('.swiper-container', {
+		slidesPerView : 3,
+		spaceBetween : 30,
+		slidesPerGroup : 1,
+		loop : false,
+		loopFillGroupWithBlank : true,
 
 	function getSlideDataIndex(swipe){
         current_idx = swipe.activeIndex; // 슬라이드 바뀐 후 인덱스
@@ -576,6 +634,6 @@
 		// Enable debugger
 		debugger : true,
 	});
-</script>
 
+</script>
 

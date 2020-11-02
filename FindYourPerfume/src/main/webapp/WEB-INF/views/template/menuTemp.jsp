@@ -102,7 +102,6 @@
  		function moveToPage(p) {
 			location.href = p;
 		}
-
  	    function viewLayer(){
  	        if(document.getElementById('pop').style.display=='none'){
  	           document.getElementById('pop').style.display='inline'
