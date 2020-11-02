@@ -404,11 +404,6 @@ hr {
 	cursor: pointer;
 }
 
-#pageGroup > .on {
-	font-size: 1.2rem;
-	color: red;
-}
-
 .cmt_box {
 	width: 80%;
 	height: 500px;
@@ -419,3 +414,8 @@ hr {
 #favorite {
 	cursor: pointer;
 } */
+
+#pageGroup > .on {
+	font-size: 1.2rem;
+	color: red;
+}

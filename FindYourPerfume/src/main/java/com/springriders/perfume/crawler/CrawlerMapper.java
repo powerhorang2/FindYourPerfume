@@ -18,7 +18,7 @@ public interface CrawlerMapper {
 
 	int insPerfumes(CrawlerPerfumeVO vo);
 	
-	List<CrawlerPerfumeVO> selPerfumeList();
+	List<CrawlerPerfumeVO> selEmptyNotePerfumeList();
 
 	int insRandomNote(CrawlerPerfumeVO vo);
 	

@@ -76,36 +76,49 @@ public class Crawler {
             	String brand = selBrandEle.get(i).text();
             	String nm = selNmEle.get(i).text();
             	
-            	if(nm.contains("세트") || nm.contains("택1") || nm.contains("로션") || nm.contains("샴푸")
-            		|| nm.contains("토너") || nm.contains("타월") || nm.contains("랜덤") || nm.contains("메세지창")) { // 세트는 list에 포함시키지 않는다.
-            		continue;
-            	}
-            	
-            	String beforeStr = nm.substring(0, nm.lastIndexOf("ml"));
-        		int LastSpaceIdx = beforeStr.lastIndexOf(" ");
-        		String ml = beforeStr.substring(LastSpaceIdx).trim(); // 용량 가져오기
-        		
-        		beforeStr = beforeStr.substring(0, LastSpaceIdx); // 용량 전 문자 가져오기
-        		
-        		String afterStr = nm.substring(nm.lastIndexOf("ml")+2, nm.length()); // 용량 뒤 문자 가져오기 
-        		
-        		String perfumeNm = beforeStr.concat(afterStr); // 문자 합치기 (향수 이름 완성)
-            	
-            	
-            	int mLiter = Integer.parseInt(ml);
-            	 
-            	String strPrice = selPriceEle.get(i).text();
-            	strPrice = strPrice.replace(",", "");
-            	strPrice = strPrice.replace("원", "");
-            	int price = Integer.parseInt(strPrice);
-            	
-            	vo.setP_pic(img);
-            	vo.setP_brand_nm(brand);
-            	vo.setP_nm(perfumeNm);
-            	vo.setP_size(mLiter);
-            	vo.setP_price(price);
-            	
-            	list.add(vo);
+            	if(nm.contains("ml")) {
+            		System.out.println("ml 있음!");
+            		if(
+            			nm.contains("세트") || nm.contains("택1") || nm.contains("로션") || nm.contains("샴푸")
+                		|| nm.contains("토너") || nm.contains("타월") || nm.contains("랜덤") || nm.contains("메세지창")
+                		|| nm.contains("틴트")|| nm.contains("+")|| nm.contains("X")|| nm.contains("x")
+                		|| nm.contains("세럼")|| nm.contains("g")|| nm.contains("미스트")|| nm.contains("크림")
+                		|| nm.contains("쿠션")|| nm.contains("젤")|| nm.contains("립스틱")|| nm.contains("파운데이션")
+                		|| nm.contains("콤플렉스")|| nm.contains("메이크업")|| nm.contains("마스크")|| nm.contains("누드")
+                		|| nm.contains("클렌징")|| nm.contains("커버")|| nm.contains("트리트먼트")|| nm.contains("리피니셔")
+                		|| nm.contains("EDP100")|| nm.contains("네일")|| nm.contains("리무버")|| nm.contains("호")
+                		|| nm.contains("글로우")|| nm.contains("컨실러")|| nm.contains("글로시")|| nm.contains("2.5"))
+            		{continue;}
+                    	
+                	String beforeStr = nm.substring(0, nm.lastIndexOf("ml"));
+            		int LastSpaceIdx = beforeStr.lastIndexOf(" ");
+            		String ml = beforeStr.substring(LastSpaceIdx).trim(); // 용량 가져오기
+            		
+            		beforeStr = beforeStr.substring(0, LastSpaceIdx); // 용량 전 문자 가져오기
+            		
+            		String afterStr = nm.substring(nm.lastIndexOf("ml")+2, nm.length()); // 용량 뒤 문자 가져오기 
+            		
+            		String perfumeNm = beforeStr.concat(afterStr); // 문자 합치기 (향수 이름 완성)
+                	
+                	
+                	int mLiter = Integer.parseInt(ml);
+                	 
+                	String strPrice = selPriceEle.get(i).text();
+                	strPrice = strPrice.replace(",", "");
+                	strPrice = strPrice.replace("원", "");
+                	int price = Integer.parseInt(strPrice);
+                	
+                	vo.setP_pic(img);
+                	vo.setP_brand_nm(brand);
+                	vo.setP_nm(perfumeNm);
+                	vo.setP_size(mLiter);
+                	vo.setP_price(price);
+                	
+                	list.add(vo);
+            	} else {
+                	System.out.println("ml 없음!");
+                	continue;
+                }
             	
             }
             
