@@ -63,11 +63,11 @@
 		<!--알파벳 클릭  -->
 		<div id="selBrandAlphabet">
 			<div>
-				<p onclick="choiceAlphabetMain('ALL')">ALL</p>	
+				<p onclick="ajaxChoiceAlphabetMain('ALL')">ALL</p>	
 				<c:forEach items="${brandAlphabet}" var="item">
-					<p onclick="choiceAlphabetMain(`${item}`)">${item}</p>
+					<p onclick="ajaxChoiceAlphabetMain(`${item}`)">${item}</p>
 				</c:forEach>
-				<p onclick="choiceAlphabetMain('ETC')">ETC</p>
+				<p onclick="ajaxChoiceAlphabetMain('ETC')">ETC</p>
 			</div>
 		</div>
 		<div id="selBrand">
@@ -79,7 +79,7 @@
 					<div id="topPerfumeTitle">MOST LOVED PERFUMES</div>
 					<div id="topPerfumeList">
 					<c:forEach items="${topPerfume}" var="item">
-						<div id="topPerfumeItem">
+						<div id="topPerfumeItem" onclick="moveToDetail(${item.i_p})">
 							<div id="topPImg">
 								<img src="${item.p_pic}">
 							</div>
@@ -99,7 +99,7 @@
 							<div class="swiper-wrapper">
 								<!-- Slides -->
 								<c:forEach items="${recPerfume}" var="item">
-									<div class="swiper-slide">
+									<div class="swiper-slide" onclick="moveToDetail(${item.i_p})">
 										<div id="topPImg">
 											<img src="${item.p_pic}">
 										</div>
@@ -146,8 +146,7 @@
 	var eIdx = 10;
 	var brandList = new Array();
 	var rowAllCnt = 0
-	function BrandVO(b_nm_eng, i_p, i_user, p_brand, p_nm, p_pic, p_price,
-			p_size) {
+	function BrandVO(b_nm_eng, i_p, i_user, p_brand, p_nm, p_pic, p_price, p_size) {
 		this.b_nm_eng = b_nm_eng
 		this.i_p = i_p
 		this.i_user = i_user
@@ -173,7 +172,8 @@
 		userNoteArr.push({nt_m_nm_kor: "${item.nt_m_nm_kor}"});		
 	</c:forEach>
 	
-	choiceAlphabetMain('ALL')
+	ajaxChoiceAlphabetMain('ALL')
+	
 	//향수 컨테이너 담는 arrayList 만들기
 	function makeArrayList(tempArr) {
 		for (var i = 0; i < tempArr.length; i++) {
@@ -277,7 +277,7 @@
 			}	
 		}
 	}
-	function choiceAlphabetMain(b_nm_initial) {
+	function ajaxChoiceAlphabetMain(b_nm_initial) {
 		console.log()
 		idx = 0;
 		var more = document.querySelector('#more');
@@ -287,103 +287,109 @@
 				b_nm_initial : b_nm_initial
 			}
 		}).then(
-				function(res) {
-					sel_div.innerText = ''
-					for (var i = 0; i < res.data.length; i++) {
-						var div = document.createElement('span');
-						div.setAttribute('onclick',
-								`moveToDetail(\'\${res.data[i].i_p}\')`);
-						div.setAttribute('id', 'list');
-						div.setAttribute('class', 'brandAlphabet');
-						
-						var div_kor = document.createElement('div');
-						div_kor.setAttribute('id', 'perfumeNm');
-						div_kor.innerText = res.data[i].p_nm
-						
-						var div_eng = document.createElement('div');
-						div_eng.setAttribute('id', 'brandNm');
-						div_eng.innerText = res.data[i].b_nm_eng
-						
-						var div_size = document.createElement('div');
-						div_size.innerText = res.data[i].p_size + 'ml'
-						
-						var div_price = document.createElement('div');
-						div_price.innerText = numberFormat(res.data[i].p_price) + '원'
-						
-						var img = document.createElement('img');
-						img.src = res.data[i].p_pic
-						div.append(img)
-						div.append(div_eng)
-						div.append(div_kor)
-						div.append(div_size)
-						div.append(div_price)
-						sel_div.append(div)
-					}
-				})
-				axios.get('/common/ajaxSelBrandNm',{
-					params : {
-						b_nm_initial : b_nm_initial
-					}
-				}).then(function(res){
-					selBrand.innerText = '' 
-					for (var i = 0; i < res.data.length; i++){
-						var b_nm_eng = res.data[i].b_nm_eng
-						var div = document.createElement('span'); 
-						var div_eng = document.createElement('div');
-						div.setAttribute('onclick', `choiceAlphabetFullNm(\'\${res.data[i].b_nm_eng}\')`);
-						div.setAttribute('class', 'brandAlphabet');
-						div_eng.innerText = b_nm_eng
-						div.append(div_eng)
-						selBrand.append(div)	
-					}
-				})
-				axios.get('/common/ajaxSelBrandAlphabet', {
-					/*  			console.log(listMore) */
-					params : {
-						b_nm_initial : b_nm_initial
-					}
-				}).then(function(res) {
-						var tempArr = res.data.selBrandAlpahbet
-						console.log(`length : \${tempArr.length}`)
-						brandList = new Array();
-						console.log(res)
-						rowAllCnt = res.data.rowAllCnt
-						
-						console.log(rowAllCnt)
-				 		if(b_nm_initial != undefined){makeArrayList(tempArr)} 
-						
-						sel_div.innerText = ''
-						
-						for (var i = 0; i < 5; i++) {
-							var div = document.createElement('div');
-							div.setAttribute('onclick', `moveToDetail(\'\${tempArr[i].i_p}\')`);
-							div.setAttribute('class', 'brandAlphabet');		
-							
-							var img = document.createElement('img');
-							img.src = tempArr[i].p_pic
-							div.append(img)
-							
-							var div_eng = document.createElement('div');
-							div_eng.setAttribute('id', 'brandNm');
-							div_eng.innerText = tempArr[i].b_nm_eng
-							div.append(div_eng)
-			
-							var div_kor = document.createElement('div');
-							div_kor.innerText = tempArr[i].p_nm
-							div_kor.setAttribute('id', 'perfumeNm');
-							div.append(div_kor)
-							
-							var div_size = document.createElement('div');
-							div_size.innerText = tempArr[i].p_size + 'ml'
-							div.append(div_size)
-							
-							var div_price = document.createElement('div');
-							div_price.innerText = numberFormat(tempArr[i].p_price) + '원'
-							div.append(div_price)
-							sel_div.append(div)
-							idx = 5
-						}
-				})
+			function(res) {
+				sel_div.innerText = ''
+				for (var i = 0; i < res.data.length; i++) {
+					var div = document.createElement('span');
+					div.setAttribute('onclick',
+							`moveToDetail(\'\${res.data[i].i_p}\')`);
+					div.setAttribute('id', 'list');
+					div.setAttribute('class', 'brandAlphabet');
+					
+					var div_kor = document.createElement('div');
+					div_kor.setAttribute('id', 'perfumeNm');
+					div_kor.innerText = res.data[i].p_nm
+					
+					var div_eng = document.createElement('div');
+					div_eng.setAttribute('id', 'brandNm');
+					div_eng.innerText = res.data[i].b_nm_eng
+					
+					var div_size = document.createElement('div');
+					div_size.innerText = res.data[i].p_size + 'ml'
+					
+					var div_price = document.createElement('div');
+					div_price.innerText = numberFormat(res.data[i].p_price) + '원'
+					
+					var img = document.createElement('img');
+					img.src = res.data[i].p_pic
+					div.append(img)
+					div.append(div_eng)
+					div.append(div_kor)
+					div.append(div_size)
+					div.append(div_price)
+					sel_div.append(div)
+				}
+				ajaxSelBrandNm(b_nm_initial)
+				ajaxSelBrandAlphabet(b_nm_initial)
+			})
+	}
+	function ajaxSelBrandNm(b_nm_initial) {
+		axios.get('/common/ajaxSelBrandNm',{
+			params : {
+				b_nm_initial : b_nm_initial
+			}
+		}).then(function(res){
+			selBrand.innerText = '' 
+			for (var i = 0; i < res.data.length; i++){
+				var b_nm_eng = res.data[i].b_nm_eng
+				var div = document.createElement('span'); 
+				var div_eng = document.createElement('div');
+				div.setAttribute('onclick', `choiceAlphabetFullNm(\'\${res.data[i].b_nm_eng}\')`);
+				div.setAttribute('class', 'brandAlphabet');
+				div_eng.innerText = b_nm_eng
+				div.append(div_eng)
+				selBrand.append(div)	
+			}
+		})
+	}
+	function ajaxSelBrandAlphabet(b_nm_initial) {
+		axios.get('/common/ajaxSelBrandAlphabet', {
+			/*  			console.log(listMore) */
+			params : {
+				b_nm_initial : b_nm_initial
+			}
+		}).then(function(res) {
+				var tempArr = res.data.selBrandAlpahbet
+				console.log(`length : \${tempArr.length}`)
+				brandList = new Array();
+				console.log(res)
+				rowAllCnt = res.data.rowAllCnt
+				
+				console.log(rowAllCnt)
+		 		if(b_nm_initial != undefined){makeArrayList(tempArr)} 
+				
+				sel_div.innerText = ''
+				
+				for (var i = 0; i < 5; i++) {
+					var div = document.createElement('div');
+					div.setAttribute('onclick', `moveToDetail(\'\${tempArr[i].i_p}\')`);
+					div.setAttribute('class', 'brandAlphabet');		
+					
+					var img = document.createElement('img');
+					img.src = tempArr[i].p_pic
+					div.append(img)
+					
+					var div_eng = document.createElement('div');
+					div_eng.setAttribute('id', 'brandNm');
+					div_eng.innerText = tempArr[i].b_nm_eng
+					div.append(div_eng)
+	
+					var div_kor = document.createElement('div');
+					div_kor.innerText = tempArr[i].p_nm
+					div_kor.setAttribute('id', 'perfumeNm');
+					div.append(div_kor)
+					
+					var div_size = document.createElement('div');
+					div_size.innerText = tempArr[i].p_size + 'ml'
+					div.append(div_size)
+					
+					var div_price = document.createElement('div');
+					div_price.innerText = numberFormat(tempArr[i].p_price) + '원'
+					div.append(div_price)
+					sel_div.append(div)
+					idx = 5
+				}
+		})
 	}
 	//디테일페이지 이동
 	function moveToDetail(i_p) {

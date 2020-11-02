@@ -40,8 +40,8 @@ public class CrawlerService {
 		}
 	}
 	
-	public List<CrawlerPerfumeVO> selPerfumeList() {
-		return mapper.selPerfumeList();
+	public List<CrawlerPerfumeVO> selEmptyNotePerfumeList() {
+		return mapper.selEmptyNotePerfumeList();
 	}
 
 	public int insRandomNote(List<CrawlerPerfumeVO> list) {
