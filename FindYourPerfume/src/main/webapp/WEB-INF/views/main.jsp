@@ -142,7 +142,6 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-
 	var sIdx = 5;
 	var eIdx = 10;
 	var brandList = new Array();
@@ -161,7 +160,6 @@
 	
 	// 슬라이드 당 보이는 엘리먼트 개수
 	const slides_per_view = 5;
-
 	// 총 슬라이드 페이지
 	var slide_page = `${slide_page}`
 	
@@ -182,7 +180,6 @@
 			var brandVO = new BrandVO(tempArr[i].b_nm_eng, tempArr[i].i_p,
 					tempArr[i].i_user, tempArr[i].p_brand, tempArr[i].p_nm,
 					tempArr[i].p_pic, tempArr[i].p_price, tempArr[i].p_size)
-
 			brandList.push(brandVO)
 		}
 	}
@@ -280,7 +277,6 @@
 			}	
 		}
 	}
-
 	function choiceAlphabetMain(b_nm_initial) {
 		console.log()
 		idx = 0;
@@ -294,7 +290,6 @@
 				function(res) {
 					sel_div.innerText = ''
 					for (var i = 0; i < res.data.length; i++) {
-
 						var div = document.createElement('span');
 						div.setAttribute('onclick',
 								`moveToDetail(\'\${res.data[i].i_p}\')`);
@@ -317,7 +312,6 @@
 						
 						var img = document.createElement('img');
 						img.src = res.data[i].p_pic
-
 						div.append(img)
 						div.append(div_eng)
 						div.append(div_kor)
@@ -348,7 +342,6 @@
 					params : {
 						b_nm_initial : b_nm_initial
 					}
-
 				}).then(function(res) {
 						var tempArr = res.data.selBrandAlpahbet
 						console.log(`length : \${tempArr.length}`)
@@ -392,20 +385,17 @@
 						}
 				})
 	}
-
 	//디테일페이지 이동
 	function moveToDetail(i_p) {
 		console.log(i_p)
 		location.href = "/common/detail?i_p=" + i_p
 	}
-
 	//브랜드 이름 클릭
 	function choiceAlphabetFullNm(b_nm_eng) {
 		sIdx = 5;
 		eIdx = 10;
 		var more = document.querySelector('#more');
 		more.setAttribute('onclick', "more(" + "'" + b_nm_eng + "'" + ")")
-
 		axios.get('/common/ajaxSelBrandFullAp', {
 			params : {
 				b_nm_eng : b_nm_eng
@@ -433,7 +423,6 @@
 				div_eng.setAttribute('id', 'brandNm');
 				div_eng.innerText = res.data[i].b_nm_eng
 				div.append(div_eng)
-
 				var div_kor = document.createElement('div');
 				div_kor.setAttribute('id', 'perfumeNm');
 				div_kor.innerText = res.data[i].p_nm
@@ -463,58 +452,7 @@
 		rec_note_nm.innerText = this_slide_page_note;
 		
 	}
-
-	function choiceNoteList(nt_d_c){
-		sIdx = 5;
-		eIdx = 10;
-		var more = document.querySelector('#more');
-		more.setAttribute('onclick', "more("+"'"+nt_d_c+"'"+")")
-		axios.get('/common/ajaxSelNoteList',{
-			params : {
-				nt_d_c : nt_d_c
-			}
-		}).then(function(res){
-		sel_div.innerText = ''
-		console.log("gasdgasdgf : " + res.data)
-			for(var i=0; i < res.data.length; i++){
-				var div = document.createElement('div');
-			 	div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`); 
-				div.setAttribute('id', 'note');
-				
-				var img = document.createElement('img');
-   				img.src = res.data[i].p_pic
-   				div.append(img)
-   				
-   				var div_kor = document.createElement('div');
-	   			div_kor.innerText = '향수 이름 : ' + res.data[i].p_nm
-	   			div.append(div_kor)
-	   			
-	   			var div_eng = document.createElement('div');
-	   			div_eng.innerText = '향수 브랜드 : ' + res.data[i].b_nm_eng
-	   			div.append(div_eng)
-	   			
-	   			var div_size = document.createElement('div');
-	   			div_size.innerText = '향수 용량 : ' + res.data[i].p_size + 'ml'
-	   			div.append(div_size)
-	   			
-	   			var div_price = document.createElement('div');
-	   			div_price.innerText = '향수 가격 : '+ numberFormat(res.data[i].p_price) + '원'
-	   			div.append(div_price)
-	   			sel_div.append(div)
-			}
-		})
-	}
-
-</script>
-
-<script>
-	var swiper = new Swiper('.swiper-container', {
-		slidesPerView : 3,
-		spaceBetween : 30,
-		slidesPerGroup : 1,
-		loop : false,
-		loopFillGroupWithBlank : true,
-
+	
 	function getSlideDataIndex(swipe){
         current_idx = swipe.activeIndex; // 슬라이드 바뀐 후 인덱스
         var slidesLen = swipe.slides.length; // 슬라이드의 length
@@ -608,10 +546,8 @@
 			},
 		},
 	};
-
 	// Install Plugin To Swiper
 	Swiper.use(myPlugin);
-
 	// Init Swiper
 	var swiper = new Swiper('.swiper-container', {
 		slidesPerView : slides_per_view,
@@ -634,6 +570,4 @@
 		// Enable debugger
 		debugger : true,
 	});
-
 </script>
-
