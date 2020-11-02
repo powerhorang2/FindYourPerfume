@@ -208,9 +208,12 @@
 		var cmt_cmt_data = document.createElement('div');
 		cmt_cmt_data.setAttribute('class', 'cmt_cmt_data');
 		
-		var cmt_cmt_data_p = document.createElement('p');
-		cmt_cmt_data_p.setAttribute('class', 'cmt_cmt_data_' + item.i_cmt);
-		cmt_cmt_data_p.innerText = item.cmt
+		var upd_confirm = document.createElement('div');
+		upd_confirm.setAttribute('class', 'upd_confirm_' + item.i_cmt);
+		
+		var cmt_cmt_data_i_cmt = document.createElement('div');
+		cmt_cmt_data_i_cmt.setAttribute('class', 'cmt_cmt_data_' + item.i_cmt);
+		cmt_cmt_data_i_cmt.innerText = item.cmt
 		
 		cmt.append(cmt_user_img)
 		cmt.append(cmt_userData)
@@ -221,7 +224,8 @@
 		cmt_userData_userNm.append(cmt_userData_userNm_p)
 		cmt_userData_userAge.append(cmt_userData_userAge_p)
 		cmt_cmt.append(cmt_cmt_data)
-		cmt_cmt_data.append(cmt_cmt_data_p)
+		cmt_cmt_data.append(cmt_cmt_data_i_cmt)
+		cmt_cmt_data.append(upd_confirm)
 		cmtContents.append(cmt)
 	}
 	
@@ -461,32 +465,28 @@
 	
 	// cmt 완료 생성 함수
 	function createCmtUpdSuccess(item) {
-		var cmt_cmt_data = document.querySelector('.cmt_cmt_data_' + item.i_cmt);
+		var upd_confirm = document.querySelector('.upd_confirm_' + item.i_cmt);
 		
-		var div = document.createElement('div');
 		var span = document.createElement('span');
 		
 		span.innerText = '완료';
 		
 		span.addEventListener('click', event => CmtUpdSuccessChk(item));
 		
-		div.append(span)
-		cmt_cmt_data.append(div)
+		upd_confirm.append(span)
 	}
 	
 	// cmt 취소 생성 함수
 	function createCmtUpdReturn(item) {
-		var cmt_cmt_data = document.querySelector('.cmt_cmt_data_' + item.i_cmt);
+		var upd_confirm = document.querySelector('.upd_confirm_' + item.i_cmt);
 		
-		var div = document.createElement('div');
 		var span = document.createElement('span');
 		
 		span.innerText = '취소';
 		
 		span.addEventListener('click', event => CmtUpdReturnChk(item));
 		
-		div.append(span)
-		cmt_cmt_data.append(div)
+		upd_confirm.append(span)
 	}
 	
 	// cmt 수정 실행
