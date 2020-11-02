@@ -64,6 +64,24 @@ a {
 	font-size: 0.8em;
 }
 
+#sectionHr_s {
+	margin: 40px 0 20px;
+	background-color: #808080;
+	width: 97%;
+}
+
+#sectionHr_m {
+    background-color: #808080;
+    margin: 80px 0 50px 100px;
+    width: 75%;
+}
+
+#sectionHr_l {
+    background-color: #808080;
+    margin: 100px 0 50px 100px;
+    width: 90%;
+}
+
 .button {
 	font-family: 'Montserrat';
 	background-color: #fff;
@@ -223,6 +241,25 @@ a {
 	cursor: pointer;
 }
 
+#sidebox { 
+	position:absolute; 
+	width:120px; 
+	bottom:100px; 
+	right:50px; 
+	padding: 3px 10px;
+}
+
+#sidebox > span {
+	font-size: 50px;
+	cursor: pointer;
+    transform: scaleY(-1);
+    filter: FlipV;
+}
+
+#sidebox > span:hover {
+	transition: color 0.2s;
+	color: #464646;
+}
 
 /* 섹션 끝, 푸터 시작 */
 

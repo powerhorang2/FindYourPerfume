@@ -21,7 +21,6 @@
 	justify-content: center;
 }
 
-
 #container > section > #mainContainer > #commonContainer {
 	display: flex;
 }
@@ -85,21 +84,13 @@
 	height: 100%;
 }
 
-
-
-
-
-
-
-
-
-
 #topPerfume {
 	display: flex;
 	flex-direction: column;
 	width: 1300px;
  	min-width: 1300px;
- 	margin-left: 100px;
+ 	margin: 50px 0 0 100px;
+ 	
 }
 
 #topPerfume > #topPerfumeTitle {
@@ -145,7 +136,14 @@
 	flex-direction: column;
 	width: 1300px;
  	min-width: 1300px;
- 	margin-left: 100px;
+ 	margin: 50px 0 0 100px;
+}
+
+
+#recPerfume > #recPerfumeTitle > #rec_note_nm {
+	font-size: 1.1em;
+	color: #606060;
+	margin: 0 5px;
 }
 
 #recPerfume > #recPerfumeTitle {
@@ -208,22 +206,6 @@
 	margin: 50px 0 50px 100px;
 }
 
-#paging > .more > button {
-	
-}
-
-
-
-
-
-
-
-
-
-.material-icons {
-	color: red;
-}
-
 .perfumeMain{
 	text-align: center;
 	margin-top: 20px;
@@ -232,7 +214,7 @@
 }
 
 .swiper-container {
-	width: 70%;
+	width: 100%;
 	height: 400px;
 	margin: 0 auto;
 }
@@ -250,7 +232,13 @@
 	height: 200px;
 }
 
-.material-icons { color: red; }
+.swiper-button-next {
+	right: 0;
+}
+
+.swiper-button-prev {
+	left: 0;
+}
 
 #filter{
 	width: 600px;

@@ -90,6 +90,9 @@
 		<section>
 			<div id="mainContainer">		
 				<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>
+				<div id="sidebox">
+					<span class="material-icons" onclick="moveToTop()">arrow_drop_down_circle</span>
+				</div>	
 			</div>
 		</section>
 		<footer>
@@ -98,7 +101,19 @@
 	</div>
 	<script>
 		viewLayer()
-	
+		
+   		function moveToTop() {
+	    	window.scrollTo({top:0, behavior:'smooth'});
+	    }
+		
+		var currentPosition = parseInt($("#sidebox").css("top")); 
+		
+		$(window).scroll(function() { 
+			var position = $(window).scrollTop(); 
+			$("#sidebox").stop().animate({"top":position+currentPosition+"px"},700); 
+		});
+		
+		
  		function moveToPage(p) {
 			location.href = p;
 		}
@@ -109,7 +124,7 @@
  	        }else{
  	           document.getElementById('pop').style.display='none'
  	        }
- 	     }
+ 	    } 	    	  
 	</script>
 </body>
 </html>

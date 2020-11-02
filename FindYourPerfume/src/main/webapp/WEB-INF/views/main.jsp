@@ -77,7 +77,7 @@
 		<div id="brandContainer">
 			<div id="hiddenSwiper">
 				<div id="topPerfume">
-					<div id="topPerfumeTitle">MOST LOVED PERFUMES</div>
+					<div id="topPerfumeTitle">회원님들에게 사랑받는 향수들이에요</div>
 					<div id="topPerfumeList">
 					<c:forEach items="${topPerfume}" var="item">
 						<div id="topPerfumeItem">
@@ -93,7 +93,7 @@
 				</div>
 				<div id="recPerfume">
 			 		<c:if test="${loginUser != null}">
-						<div id="recPerfumeTitle">RECOMMENDS YOU MIGHT LIKE(#<span id="rec_note_nm">모기향</span>)</div>
+						<div id="recPerfumeTitle">회원님이 좋아하실 만한 #<span id="rec_note_nm"></span>노트의 향수들이에요</div>
 						<!-- Slider main container -->
 						<div class="swiper-container">
 							<!-- Additional required wrapper -->
@@ -120,7 +120,7 @@
 					</c:if>
 				</div>
 			</div>
-			<hr>
+			<hr id="sectionHr_l">
 			<div id="selDivContainer">
 				<div id="sel_div">
 					<div id="brandAlphabet" class="perfumeMain">
