@@ -45,13 +45,15 @@
 		LIMIT 0, #{sliders_per_view}
 	</select>
 	<select id="selTopPerfumeList" parameterType="PerfumePARAM" resultType="PerfumeDMI">
-		SELECT A.i_p, B.p_nm, B.p_price, B.p_pic, B.p_size, C.b_nm_eng
+		SELECT A.i_p, B.p_nm, B.p_price, B.p_pic, B.p_size, C.b_nm_eng, COUNT(A.i_p) AS favorite_cnt
 		FROM t_user_favorite_perfume A
 		INNER JOIN t_perfume B
 		ON A.i_p = B.i_p
 		INNER JOIN c_code_brand C
 		ON B.p_brand = C.p_brand
-		GROUP BY i_p LIMIT 0,5
+		GROUP BY i_p 
+		ORDER BY favorite_cnt DESC
+		LIMIT 0,5;
 	</select>
 	<select id="selPerfumeList" parameterType="PerfumePARAM" resultType="PerfumeDMI">
 		<if test="p_brand > 0">
