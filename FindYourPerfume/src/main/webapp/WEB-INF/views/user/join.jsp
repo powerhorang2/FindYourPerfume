@@ -35,7 +35,9 @@
 			</div>
 			<div>
 				<div>닉네임<span>Nickname</span></div>
-				<div><input type="text" name="nm" placeholder="닉네임"></div>		
+				<div><input type="text" name="nm" placeholder="닉네임" id="nm"></div>
+				<div id="show_nm"></div>	
+				<div>닉네임은 6~12자 이내로 입력하세요</div>		
 			</div>
 			<div>
 				<div>생년월일<span>Date of Birth</span></div>
@@ -96,7 +98,7 @@
 		location.href = p
 	}
 	
-	//회원가입 체크
+	//회원가입 체크 alert
 	function userChk(){
 		const user_id = frm.user_id.value
 		const user_pw = frm.user_pw.value
@@ -129,6 +131,10 @@
 			alert('닉네임을 입력해주세요')
 			return false
 		}
+		if(nm.length > 12 || nm.length < 5){
+			alert('닉네임을 확인해 주세요')
+			return false
+		}
 		if(bd == ''){
 			alert('생년월일을 선택해 주세요')
 			return false
@@ -140,6 +146,7 @@
 
 	}
 	
+	//아이디체크 ajax
 	function chkId() {
 		const user_id = frm.user_id.value
 		
@@ -196,7 +203,20 @@
 		}
 	})
 	
-//닉네임 글자수 제한
+	//닉네임 길이 제이쿼리
+	 $("#nm").blur(function(){
+		
+		var nm = $("#nm").val();
+	
+		if(nm == ""){
+			$("#show_nm").text("닉네임을 입력해주세요")
+		} else if(nm.length > 12 || nm.length < 5){
+			$("#show_nm").text("닉네임을 확인해 주세요")
+		}else{
+			$("#show_nm").text("사용 가능한 닉네임 입니다.")
+		} 
+	}) 
+	
 	//이미지 미리보기
     function previewImage(f){
     	var file = f.files;
