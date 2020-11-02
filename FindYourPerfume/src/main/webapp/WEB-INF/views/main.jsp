@@ -357,6 +357,10 @@
 	}
 	
 	function choiceNoteList(nt_d_c){
+		sIdx = 5;
+		eIdx = 10;
+		var more = document.querySelector('#more');
+		more.setAttribute('onclick', "more("+"'"+nt_d_c+"'"+")")
 		axios.get('/common/ajaxSelNoteList',{
 			params : {
 				nt_d_c : nt_d_c

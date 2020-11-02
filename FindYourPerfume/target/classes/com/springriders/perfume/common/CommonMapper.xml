@@ -147,7 +147,7 @@
 <!-- 		<if test="A.nt_d_c != #{nt_d_c}">
 			WHERE A.nt_dc = #{nt_d_c} and #{nt_d_c}			
 		</if> -->
-		WHERE A.nt_d_c = #{nt_d_c};
+		WHERE A.nt_d_c = #{nt_d_c}
 	</select>
 	
 	<delete id="delPerfume" parameterType="PerfumePARAM">
