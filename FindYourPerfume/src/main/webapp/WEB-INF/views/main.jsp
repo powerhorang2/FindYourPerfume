@@ -120,11 +120,16 @@
 				</div>
 			</div>
 			<hr>
-		<div class="noteList">
-			<c:forEach items="${noteList}" var="item">
-				<p onclick="choiceNoteList(`${item.nt_d_c}`)">${item.nt_d_nm_kor}</p>
-			</c:forEach>
-		</div>
+		<!-- <form name="note" id="note" action="/common/ajaxSelNoteList" method="post" onsubmit="choiceNoteList()"> -->
+			<div class="noteList">
+			<%-- <form name="note" id="note" action="/common/ajaxSelNoteList" method="post">
+				<c:forEach items="${noteList}" var="item">
+					<div><label><input type="checkbox" name="nt_d_c" value="${item.nt_d_c}">${item.nt_d_nm_kor}</label></div>
+				</c:forEach>
+				<div><input type="submit" value="찾기"></div>
+			</form>	 --%>
+			</div>
+			
 			<div id="selDivContainer">
 				<div id="sel_div">
 					<div id="brandAlphabet" class="perfumeMain">
@@ -146,7 +151,7 @@
 	var eIdx = 10;
 	var brandList = new Array();
 	var rowAllCnt = 0
-	function BrandVO(b_nm_eng, i_p, i_user, p_brand, p_nm, p_pic, p_price,
+	function BrandVO(b_nm_eng, i_p, i_user, p_brand, p_nm, p_pic, p_price,nt_d_c,b_nm_kor,
 			p_size) {
 		this.b_nm_eng = b_nm_eng
 		this.i_p = i_p
@@ -156,6 +161,8 @@
 		this.p_pic = p_pic
 		this.p_price = p_price
 		this.p_size = p_size
+		this.nt_d_c = nt_d_c
+		this.b_nm_kor = b_nm_kor
 	}
 	
 	// 슬라이드 당 보이는 엘리먼트 개수
@@ -236,7 +243,7 @@
 	   		}
 	   		console.log(pick_brandList);
 	   		
-	   		if(pick_brandList.length == sIdx) {
+	   		if((pick_brandList.length-1) < sIdx) {
 				alert('마지막입니다.')
 		} else {
 			if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}
@@ -244,7 +251,7 @@
    			for (sIdx; sIdx < eIdx; sIdx++) {
    				console.log(sIdx)
    				var div = document.createElement('div');
-   				div.setAttribute('onclick', 'moveToDetail('+pick_brandList[sIdx].i_p+')');//수정해야됨
+   				div.setAttribute('onclick', 'moveToDetail('+pick_brandList[sIdx].i_p+')');
    				div.setAttribute('class', 'brandAlphabet');
    				
    				var img = document.createElement('img');
@@ -291,8 +298,7 @@
 					sel_div.innerText = ''
 					for (var i = 0; i < res.data.length; i++) {
 						var div = document.createElement('span');
-						div.setAttribute('onclick',
-								`moveToDetail(\'\${res.data[i].i_p}\')`);
+						div.setAttribute('onclick',`moveToDetail(\'\${res.data[i].i_p}\')`);
 						div.setAttribute('id', 'list');
 						div.setAttribute('class', 'brandAlphabet');
 						
@@ -439,6 +445,7 @@
 			}
 		})
 	}
+
 	//가격에 쉼표 붙이기
 	function numberFormat(inputNumber) {
 		return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
