@@ -32,7 +32,15 @@
 	<div class="cmt_box">
 	<c:if test="${loginUser != null}">
 		<div>
-			<div>${loginUser.nm}/${loginUser.ageGroup}대/${loginUser.strGender}</div>
+			<div>
+			${loginUser.nm}/
+			<c:choose>
+				<c:when test="${loginUser.ageGroup == 1}">10세 미만/</c:when>
+				<c:when test="${loginUser.ageGroup == 100}">100세 이상/</c:when>
+				<c:otherwise>${loginUser.ageGroup}대/</c:otherwise>
+			</c:choose>
+			${loginUser.strGender}
+			</div>
 			<p><textarea id="cmt_val" cols="50" rows="10" name="cmt" placeholder="댓글을 등록해보세요. (50자 이내)"></textarea></p>
 		    <p><input type="button" value="등록" onclick="return cmtChk()"></p>
 	    </div>
@@ -584,6 +592,5 @@
 				
 		ajaxInsCmt(InsCmt)
 	}
-	
 	
 </script>

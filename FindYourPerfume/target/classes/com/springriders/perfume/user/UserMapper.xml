@@ -40,11 +40,15 @@
 		SELECT MAX(i_user) as i_user FROM t_user
 	</select>
 	<select id="selUser" parameterType="UserVO" resultType="UserDMI">
-		SELECT i_user, user_id, user_pw, salt, nm, user_type, date_format(bd, "%Y년 %c월 %e일") as bd,
-		profile_img, date_format(r_dt, "%Y년 %c월 %e일") as r_dt, date_format(m_dt, "%Y년 %c월 %e일") as m_dt
-		FROM t_user
-		WHERE <if test="i_user > 0"> i_user = #{i_user}</if>
-		<if test="user_id != null and user_id != ''">user_id = #{user_id}</if>
+		SELECT A.i_user, A.user_id, A.user_pw, A.salt, A.nm, A.user_type, date_format(A.bd, "%Y년 %c월 %e일") as bd,
+		A.profile_img, date_format(A.r_dt, "%Y년 %c월 %e일") as r_dt, date_format(A.m_dt, "%Y년 %c월 %e일") as m_dt
+		,B.val as strGender
+		FROM t_user A
+		INNER JOIN c_code_d B
+		ON A.gender = B.cd
+		WHERE <if test="i_user > 0"> A.i_user = #{i_user}</if>
+		<if test="user_id != null and user_id != ''">A.user_id = #{user_id}</if>
+		AND B.i_m = 1
 	</select> 
 	<select id="selFavoriteList" parameterType="UserPARAM" resultType="PerfumeDMI">
 		SELECT A.i_p, A.p_nm, A.p_price, B.b_nm_eng, A.p_size, A.p_pic
