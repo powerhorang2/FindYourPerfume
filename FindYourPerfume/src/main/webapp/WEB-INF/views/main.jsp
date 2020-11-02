@@ -193,7 +193,7 @@
 				alert('마지막입니다.')
 			} else {
 			// 235
-	   	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt}
+	   	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt} //작업중
 	   	 	
 	   			for (sIdx; sIdx < eIdx; sIdx++) {
 	   				console.log(sIdx)
