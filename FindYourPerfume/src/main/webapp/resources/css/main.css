@@ -1,9 +1,105 @@
 @charset "UTF-8";
 
+.show {display:block;} /*보여주기*/
+.hide {display:none;} /*숨기기*/
+
+#perfumeNm {
+	width: 230px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	margin-left: 7px;
+}
+
+#brandNm {
+	font-weight: bolder;
+}
+
+#brandContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+
+#container > section > #mainContainer > #commonContainer {
+	display: flex;
+}
+
+#container > section > #mainContainer > #commonContainer > #sidebar {
+    width: 300px;
+    min-width: 300px;
+    height: 100%;
+    padding: 15px;
+}
+
+#container > section > #mainContainer > #commonContainer > #sidebar > #loginContainer {
+	display: flex;
+	justify-content: center;
+}
+
+#container > section > #mainContainer > #commonContainer > #sidebar > #selBrandAlphabet {
+	width: 268px;
+	height: 120px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#container > section > #mainContainer > #commonContainer > #sidebar > #selBrandAlphabet > div {
+	width: 240px;
+	display: flex;
+	flex-wrap: wrap;
+
+}
+
+#container > section > #mainContainer > #commonContainer > #sidebar > #selBrandAlphabet > div > p {
+    width: 26px;
+    margin: 5px 4px;
+    font-size: 0.9em;
+    cursor: pointer;
+    text-align: center;
+}
+
+#container > section > #mainContainer > #commonContainer > #sidebar > #selBrandAlphabet > div > p:hover {
+	font-weight: bolder;
+	color: #4a4a4a;	
+}
+
+#container > section > #mainContainer > #commonContainer > #sidebar > #selBrand {
+	margin: 30px 0 50px 25px;
+}
+
+#container > section > #mainContainer > #commonContainer > #sidebar > #selBrand > span {
+	font-size: 0.8em;
+	cursor: pointer;
+}
+
+#container > section > #mainContainer > #commonContainer > #sidebar > #selBrand > span:hover {
+	font-weight: bolder;
+	color: #4a4a4a;	
+}
+
+#container > section > #mainContainer > #commonContainer > #mainContainer {
+	width: 100%;
+	height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
 #topPerfume {
 	display: flex;
 	flex-direction: column;
-	min-width: 1300px;
+	width: 1300px;
+ 	min-width: 1300px;
+ 	margin-left: 100px;
 }
 
 #topPerfume > #topPerfumeTitle {
@@ -26,13 +122,10 @@
 	margin: 0 15px;
 }
 
-#topPerfume > #topPerfumeList > #topPerfumeItem > #topPerfumeNm {
-	width: 230px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-	margin-left: 10px;
+#topPerfume > #topPerfumeList > #topPerfumeItem > div {
+	margin-bottom: 5px;
 }
+
 
 #topPerfume > #topPerfumeList > #topPerfumeItem > #topPImg {
 	display: flex;
@@ -46,6 +139,15 @@
 	height: 220px;
 }
 
+#recPerfume {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	width: 1300px;
+ 	min-width: 1300px;
+ 	margin-left: 100px;
+}
+
 #recPerfume > #recPerfumeTitle {
 	font-weight: bolder;
 	text-align: center;
@@ -53,6 +155,62 @@
 	margin: 50px 0 0px;
 }
 
+#recPerfume > .swiper-container > .swiper-wrapper > .swiper-slide > div {
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+#selDivContainer {
+	margin: 50px 0 0 100px;
+	width: 1300px;
+	min-width: 1300px;
+}
+
+#selDivContainer > #sel_div {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+#selDivContainer > #sel_div > .brandAlphabet {
+	text-align: center;
+	width: 230px;
+	height: 280px;
+	margin: 30px 15px;
+}
+
+#selDivContainer > #sel_div > .brandAlphabet > div {
+	margin-bottom: 5px;
+}
+
+#selDivContainer > #sel_div > .brandAlphabet > div:nth-child(4) {
+	display: inline;
+	margin-right: 15px;
+}
+
+#selDivContainer > #sel_div > .brandAlphabet > div:nth-child(5) {
+	display: inline;
+}
+
+#selDivContainer > #sel_div > .brandAlphabet > img {
+	margin: 20px 0;
+	width: 180px;
+	height: 180px;
+}
+
+#paging {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 1300px;
+	height: 100px;
+	margin: 50px 0 50px 100px;
+}
+
+#paging > .more > button {
+	
+}
 
 .material-icons {
 	color: red;
@@ -65,39 +223,13 @@
 	flex-wrap: wrap;	
 }
 
-#brandContainer {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	padding-right: 300px;
-}
-
-#recPerfume {
-	min-width: 1300px;
-}
-
 .swiper-container {
-<<<<<<< HEAD
-	height:500px;
-	border:5px solid silver;
-	border-radius:7px;
-	box-shadow:0 0 20px #ccc inset;
-=======
 	width: 70%;
 	height: 400px;
+	margin: 0 auto;
 }
 
-.swiper-wrapper {
->>>>>>> branch 'kyondoku' of https://github.com/powerhorang2/FindYourPerfume.git
-}
 .swiper-slide {
-<<<<<<< HEAD
-	width: 500px;
-	text-align:center;
-	display:flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
-	align-items:center; /* 위아래 기준 중앙정렬 */
-	justify-content:center; /* 좌우 기준 중앙정렬 */
-=======
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -108,38 +240,18 @@
 	max-width: 100%;
 	width: 200px;
 	height: 200px;
->>>>>>> branch 'kyondoku' of https://github.com/powerhorang2/FindYourPerfume.git
 }
-<<<<<<< HEAD
-.swiper-slide img {
-	box-shadow:0 0 5px #555;
-	max-width:100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
-	/* 이 예제에서 필요해서 설정했습니다. 상황에따라 다를 수 있습니다. */
-}
-=======
-
->>>>>>> branch 'kyondoku' of https://github.com/powerhorang2/FindYourPerfume.git
 
 .material-icons { color: red; }
 
 #filter{
-	 
 	width: 600px;
 	height: 100px;
     border: 1px solid black;
    
 }
-<<<<<<< HEAD
-.more a{
-		color : black;
-=======
 
 .swiper-button-prev, .swiper-button-next, .swiper-pagination {
 	color: #535353;
 	font-weight: bolder;
->>>>>>> branch 'kyondoku' of https://github.com/powerhorang2/FindYourPerfume.git
 }
-
-
-
-

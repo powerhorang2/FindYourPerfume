@@ -24,6 +24,7 @@ import com.springriders.perfume.common.model.NoteCodeVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.common.model.PerfumeTemp;
+import com.springriders.perfume.common.model.PerfumeVO;
 import com.springriders.perfume.user.UserService;
 
 @Controller
@@ -50,7 +51,10 @@ public class CommonController {
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
 		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
-	
+		List<NoteCodeVO> noteList = service.selNoteList(vo);
+		
+		
+		//알파벳 A~Z 까지 뽑기
 		List<String> brandAlphabet = new ArrayList();
 		
         char aString = 65 ;
@@ -80,6 +84,7 @@ public class CommonController {
 		}
 
 		/* model.addAttribute("pageNum", pageNum); */
+		model.addAttribute("noteList", noteList);
 		model.addAttribute("brandFullNm", brandFullNm);
         model.addAttribute("brandAlphabet", brandAlphabet);
         model.addAttribute("brandEnm", brandEnm);
@@ -118,21 +123,39 @@ public class CommonController {
 	}
 
 	@RequestMapping("/detail")
-	public String detail(PerfumePARAM param, Model model, HttpServletRequest req) {
+	public String detail(PerfumePARAM param, PerfumeDMI dm, Model model, HttpServletRequest req) {
 		System.out.println("i_pddd : " + param.getI_p());
 		int i_user = SecurityUtils.getLoginUserPk(req);
 		param.setI_user(i_user);
-		
 		param.setI_p(param.getI_p());
+		
+		List<String> brandAlphabet = new ArrayList();
+		
+        char aString = 65 ;
+        
+        while(true){
+            if(aString == 91)
+                aString = 97 ;
+            String str = String.valueOf(aString) ;
+            brandAlphabet.add(str);
+            aString++ ;
+            if(aString > 90)
+                break ;
+        }
 		
 		PerfumeDMI perfume = service.selPerfume(param);
 		List<NoteCodeVO> noteList = service.selPerfumeNoteList(param);
-		
-//		List<CmtDMI> cmtList = cmtService.selCmtList(param);
-		
+		List<PerfumeDMI> perfumeList = service.selPerfumeList(param);
+		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
+		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
+
 		model.addAttribute("perfume", perfume);
 		model.addAttribute("noteList", noteList);
-//		model.addAttribute("cmtList", cmtList);
+		model.addAttribute("brandFullNm", brandFullNm);
+        model.addAttribute("brandAlphabet", brandAlphabet);
+        model.addAttribute("brandEnm", brandEnm);
+		model.addAttribute("perfumeList", perfumeList);
+
 		
 		model.addAttribute(Const.CSS, "detail");
 		model.addAttribute(Const.TITLE, "디테일 페이지"); //가게명
@@ -186,4 +209,20 @@ public class CommonController {
 	public PerfumeDMI ajaxSelPerfumePic(PerfumePARAM param){
 		return service.selPerfumePic(param);
 	}
+	
+	@RequestMapping("/ajaxSelNoteList")
+	@ResponseBody
+	public List<NoteCodeVO> ajaxSelNoteList(PerfumePARAM param) {
+		return service.ajaxSelNoteList(param);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

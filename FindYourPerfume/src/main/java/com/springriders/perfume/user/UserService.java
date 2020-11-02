@@ -3,6 +3,8 @@ package com.springriders.perfume.user;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -81,14 +83,30 @@ public class UserService {
 	}
 
 	public int login(UserPARAM param) {
-		if(param.getUser_id().equals("")) { return Const.EMPTY_ID; }
-		if(param.getUser_id().equals("")) { return Const.NO_ID; }
+		String id = param.getUser_id();
 		
+		System.out.println("ㅎㅎㅎ:" + id.contains(" "));
+		
+		if(param.getUser_id().equals("")) { return Const.EMPTY_ID; }
+		if(param.getUser_id().contains(" ")) { return Const.BLANK_ID; }
+		if(param.getUser_id().equals("")) { return Const.NO_ID; }
+		if(param.getUser_id().length() < 5) { return Const.SHORT_ID; }
+		
+		
+		//아이디 유효성검사
+		String regExp = "^[a-z0-9]{5,12}$";
+		
+		if(param.getUser_id().matches(regExp) == false) {
+			System.out.println(param.getUser_id().matches(regExp));
+			return Const.NOT_ALLOW_ID;
+		}
+
 		UserDMI dbUser = mapper.selUser(param);
 		
 		if(dbUser == null) {
 			return Const.NO_ID;
 		}
+	
 		
 		String cryptPw = SecurityUtils.getEncrypt(param.getUser_pw(), dbUser.getSalt());
 		
@@ -220,7 +238,7 @@ public class UserService {
 		String saveFileNm = FileUtils.saveFile(realPath, mf);
 		System.out.println("saveFileNm : " + saveFileNm);
 		
-		UserVO vo = new UserVO();
+		UserPARAM vo = new UserPARAM();
 		vo.setI_user(i_user);
 		if(!user_pw.equals("")) {
 			vo.setUser_pw(cryptPw);
@@ -234,8 +252,8 @@ public class UserService {
 		}
 		
 		mapper.uptUser(vo);
-		vo = mapper.selUser(vo);
-		hs.setAttribute(Const.LOGIN_USER, vo);
+		UserDMI vo2 = mapper.selUser(vo);
+		hs.setAttribute(Const.LOGIN_USER, vo2);
 		
 		return Const.SUCCESS;
 	}
