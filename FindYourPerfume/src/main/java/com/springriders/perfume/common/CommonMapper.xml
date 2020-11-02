@@ -144,6 +144,9 @@
 		ON D.nt_m_c = C.nt_m_c
 		INNER JOIN c_code_brand E
 		ON B.p_brand = E.p_brand
+<!-- 		<if test="A.nt_d_c != #{nt_d_c}">
+			WHERE A.nt_dc = #{nt_d_c} and #{nt_d_c}			
+		</if> -->
 		WHERE A.nt_d_c = #{nt_d_c};
 	</select>
 	

@@ -8,7 +8,14 @@ public class NoteCodeVO extends PerfumeVO {
 	private String nt_d_nm_kor;
 	private String nt_m_nm;
 	private String nt_m_nm_kor;
+	private String b_nm_eng;
 
+	public String getB_nm_eng() {
+		return b_nm_eng;
+	}
+	public void setB_nm_eng(String b_nm_eng) {
+		this.b_nm_eng = b_nm_eng;
+	}
 	public String getNt_m_nm_kor() {
 		return nt_m_nm_kor;
 	}

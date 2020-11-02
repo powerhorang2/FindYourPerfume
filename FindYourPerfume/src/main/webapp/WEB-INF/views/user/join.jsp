@@ -168,10 +168,10 @@
 			if(res.data == '5'){ //아이디 5글자 미만
 				idChkResult.innerText = '아이디는 5글자 이상입니다.'
 			}
-			if(res.data == '7'){
+			if(res.data == '7'){ //공백 금지
 				idChkResult.innerText = '공백은 포함할수 없습니다.'
 			}
-			if(res.data == '8'){
+			if(res.data == '8'){ //아이디 유효성검사 실패
 				idChkResult.innerText = '아이디를 확인해주세요'
 			}
 		})
