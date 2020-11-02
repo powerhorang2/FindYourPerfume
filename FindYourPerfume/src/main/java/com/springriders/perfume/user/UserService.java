@@ -1,6 +1,10 @@
 package com.springriders.perfume.user;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -79,28 +83,79 @@ public class UserService {
 	}
 
 	public int login(UserPARAM param) {
-		if(param.getUser_id().equals("")) { return Const.EMPTY_ID; }
-		if(param.getUser_id().equals("")) { return Const.NO_ID; }
+		String id = param.getUser_id();
 		
+		System.out.println("ㅎㅎㅎ:" + id.contains(" "));
+		
+		if(param.getUser_id().equals("")) { return Const.EMPTY_ID; }
+		if(param.getUser_id().contains(" ")) { return Const.BLANK_ID; }
+		if(param.getUser_id().equals("")) { return Const.NO_ID; }
+		if(param.getUser_id().length() < 5) { return Const.SHORT_ID; }
+		
+		
+		//아이디 유효성검사
+		String regExp = "^[a-z0-9]{5,12}$";
+		
+		if(param.getUser_id().matches(regExp) == false) {
+			System.out.println(param.getUser_id().matches(regExp));
+			return Const.NOT_ALLOW_ID;
+		}
+
 		UserDMI dbUser = mapper.selUser(param);
 		
 		if(dbUser == null) {
 			return Const.NO_ID;
 		}
+	
 		
 		String cryptPw = SecurityUtils.getEncrypt(param.getUser_pw(), dbUser.getSalt());
 		
 		if(!cryptPw.equals(dbUser.getUser_pw())) {
 			return Const.NO_PW;
 		}
-			param.setUser_type(dbUser.getUser_type());
-			param.setI_user(dbUser.getI_user());
-			param.setUser_pw(null);
-			param.setNm(dbUser.getNm());
-			param.setProfile_img(dbUser.getProfile_img());
-			param.setBd(dbUser.getBd());
-			param.setR_dt(dbUser.getR_dt());
-			return Const.SUCCESS;
+		
+		// by - 유빈 , 세션에 들어가는 로그인 유저의 정보에 ageGroup값 넣기 , 2020-11-02
+		// 시작
+		String bd = dbUser.getBd();	
+		String strYear = bd.substring(0,4);
+		int userYear = CommonUtils.parseStringToInt(strYear);
+		
+		// 현재 년도 뽑기
+		SimpleDateFormat format = new SimpleDateFormat("yyyy");
+		Date date = new Date();
+		String strNowYear = format.format(date);
+		int nowYear = CommonUtils.parseStringToInt(strNowYear);
+		
+		// 유저 나이 뽑기
+		int age = nowYear - userYear + 1;
+		
+		int ageGroup = 0;
+		
+		if(10 <= age && age < 100) {
+			// 유저 세대 뽑기
+			String strAgeGroup = String.valueOf(age);
+			strAgeGroup = strAgeGroup.substring(0,1);
+			strAgeGroup += 0;
+			ageGroup = CommonUtils.parseStringToInt(strAgeGroup);
+		} else if(age < 10) {
+			// 10세 미만이면 1 보내주기
+			ageGroup = 1;
+		} else if(age >= 100) {
+			// 100세 이상이면 100 보내주기
+			ageGroup = 100;
+		}
+		// 끝
+			
+		param.setAgeGroup(ageGroup);
+		param.setStrGender(dbUser.getStrGender());
+		param.setUser_type(dbUser.getUser_type());
+		param.setI_user(dbUser.getI_user());
+		param.setUser_pw(null);
+		param.setNm(dbUser.getNm());
+		param.setProfile_img(dbUser.getProfile_img());
+		param.setBd(dbUser.getBd());
+		param.setR_dt(dbUser.getR_dt());
+		return Const.SUCCESS;
 	}
 	
 	public int changeAuth(UserPARAM param) {

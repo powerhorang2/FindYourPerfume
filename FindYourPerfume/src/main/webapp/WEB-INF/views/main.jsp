@@ -59,7 +59,7 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-			
+
 		<!--알파벳 클릭  -->
 		<div id="selBrandAlphabet">
 			<div>
@@ -73,7 +73,6 @@
 		<div id="selBrand">
 		</div>
 	</div>
-	<div>
 		<div id="brandContainer">
 			<div id="hiddenSwiper">
 				<div id="topPerfume">
@@ -81,7 +80,7 @@
 					<div id="topPerfumeList">
 					<c:forEach items="${topPerfume}" var="item">
 						<div id="topPerfumeItem">
-							<div id="topPImg">
+							<div id="topPImg" onclick="moveToDetail(${item.i_p})">
 								<img src="${item.p_pic}">
 							</div>
 							<div><b>${item.b_nm_eng}</b></div>
@@ -100,7 +99,7 @@
 							<div class="swiper-wrapper">
 								<!-- Slides -->
 								<c:forEach items="${recPerfume}" var="item">
-									<div class="swiper-slide">
+									<div class="swiper-slide" onclick="moveToDetail(${item.i_p})">
 										<div id="topPImg">
 											<img src="${item.p_pic}">
 										</div>
@@ -127,13 +126,12 @@
 					</div>
 				</div>
 			</div>
-			<div id="paging">
-				<div class="more">
-					<button class="button" id="more" onclick="more()">더보기</button>
-				</div>
-			</div> 	
+	<div id="paging">
+		<div class="more">
+			<button id="more" class="button" onclick="more()">더보기</button>
 		</div>
 	</div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 	var sIdx = 5;
@@ -154,7 +152,6 @@
 	
 	// 슬라이드 당 보이는 엘리먼트 개수
 	const slides_per_view = 5;
-
 	// 총 슬라이드 페이지
 	var slide_page = `${slide_page}`
 	
@@ -175,11 +172,9 @@
 			var brandVO = new BrandVO(tempArr[i].b_nm_eng, tempArr[i].i_p,
 					tempArr[i].i_user, tempArr[i].p_brand, tempArr[i].p_nm,
 					tempArr[i].p_pic, tempArr[i].p_price, tempArr[i].p_size)
-
 			brandList.push(brandVO)
 		}
 	}
-
 	//더 보기 버튼 눌렀을 때 idx 증가하면서, 뒤의 배열 추가
 	function more(b_nm_eng) {
 		if (b_nm_eng == null) {
@@ -274,8 +269,8 @@
 			}	
 		}
 	}
-
 	function choiceAlphabetMain(b_nm_initial) {
+		console.log()
 		idx = 0;
 		var more = document.querySelector('#more');
 		more.setAttribute('onclick', "more()")
@@ -287,7 +282,6 @@
 				function(res) {
 					sel_div.innerText = ''
 					for (var i = 0; i < res.data.length; i++) {
-
 						var div = document.createElement('span');
 						div.setAttribute('onclick',
 								`moveToDetail(\'\${res.data[i].i_p}\')`);
@@ -310,7 +304,6 @@
 						
 						var img = document.createElement('img');
 						img.src = res.data[i].p_pic
-
 						div.append(img)
 						div.append(div_eng)
 						div.append(div_kor)
@@ -341,7 +334,6 @@
 					params : {
 						b_nm_initial : b_nm_initial
 					}
-
 				}).then(function(res) {
 						var tempArr = res.data.selBrandAlpahbet
 						console.log(`length : \${tempArr.length}`)
@@ -390,18 +382,17 @@
 		console.log(i_p)
 		location.href = "/common/detail?i_p=" + i_p
 	}
-
 	//브랜드 이름 클릭
 	function choiceAlphabetFullNm(b_nm_eng) {
 		sIdx = 5;
 		eIdx = 10;
 		var more = document.querySelector('#more');
 		more.setAttribute('onclick', "more(" + "'" + b_nm_eng + "'" + ")")
-
 		axios.get('/common/ajaxSelBrandFullAp', {
 			params : {
 				b_nm_eng : b_nm_eng
 			}
+			
 		}).then(function(res){
  			sel_div.innerText = ''
 			hiddenSwiper.innerText = ''
@@ -424,7 +415,6 @@
 				div_eng.setAttribute('id', 'brandNm');
 				div_eng.innerText = res.data[i].b_nm_eng
 				div.append(div_eng)
-
 				var div_kor = document.createElement('div');
 				div_kor.setAttribute('id', 'perfumeNm');
 				div_kor.innerText = res.data[i].p_nm
@@ -441,7 +431,6 @@
 			}
 		})
 	}
-
 	//가격에 쉼표 붙이기
 	function numberFormat(inputNumber) {
 		return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -456,7 +445,6 @@
 		
 	}
 	
-
 	function getSlideDataIndex(swipe){
         current_idx = swipe.activeIndex; // 슬라이드 바뀐 후 인덱스
         var slidesLen = swipe.slides.length; // 슬라이드의 length
@@ -550,10 +538,8 @@
 			},
 		},
 	};
-
 	// Install Plugin To Swiper
 	Swiper.use(myPlugin);
-
 	// Init Swiper
 	var swiper = new Swiper('.swiper-container', {
 		slidesPerView : slides_per_view,
@@ -577,5 +563,3 @@
 		debugger : true,
 	});
 </script>
-
-

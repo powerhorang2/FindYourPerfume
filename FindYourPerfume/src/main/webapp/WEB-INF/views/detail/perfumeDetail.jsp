@@ -367,7 +367,6 @@
 					idx = 5
 				}
 			})
-
 	}
 	//디테일페이지 이동
 	function moveToDetail(i_p) {
@@ -408,7 +407,6 @@
 				div_eng.setAttribute('id', 'brandNm');
 				div_eng.innerText = res.data[i].b_nm_eng
 				div.append(div_eng)
-
 				var div_kor = document.createElement('div');
 				div_kor.setAttribute('id', 'perfumeNm');
 				div_kor.innerText = res.data[i].p_nm
