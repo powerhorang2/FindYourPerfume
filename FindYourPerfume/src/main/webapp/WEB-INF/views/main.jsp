@@ -120,17 +120,21 @@
 				</div>
 			</div>
 			<hr id="sectionHr_l">
+			<div>
+				<div></div>
+			</div>
 			<div id="selDivContainer">
 				<div id="sel_div">
 					<div id="brandAlphabet" class="perfumeMain">
 					</div>
 				</div>
 			</div>
-	<div id="paging">
-		<div class="more">
-			<button id="more" class="button" onclick="more()">더보기</button>
+			<div id="paging">
+				<div class="more">
+					<button id="more" class="button" onclick="more()">더보기</button>
+				</div>
+			</div>
 		</div>
-	</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
@@ -228,7 +232,7 @@
 	   		}
 	   		console.log(pick_brandList);
 	   		
-	   		if(pick_brandList.length == sIdx) {
+	   		if((pick_brandList.length-1) < sIdx) {
 				alert('마지막입니다.')
 		} else {
 			if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}

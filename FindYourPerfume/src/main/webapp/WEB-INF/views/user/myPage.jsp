@@ -77,7 +77,9 @@
 					<div id="favPerfumeDetail">
 						<p>${item.b_nm_eng}</p>
 						<p id="p_nm">${item.p_nm}<p>
-						<p>${item.p_size}ml | ${item.p_price}</p>
+						<div>
+							<span id="p_size">${item.p_size}ml</span>${item.p_price}원						
+						</div>
 					</div>
 				</div>
 				</c:forEach>							

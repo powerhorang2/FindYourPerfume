@@ -219,6 +219,7 @@
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_cmt {
 	padding: 0 5px;
 	width: 280px;
+	word-break: break-all;
 	/* border: 1px solid green; */
 }
 
@@ -234,6 +235,16 @@
 	/* border: 1px solid pink; */
 	display: flex;
 	justify-content: flex-end;
+}
+
+#infoContainer > #cmtSection > #cmtContainer > #cmtContents > .emptyCmtContainer {
+	width: 1000px;
+	height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    color: #c0c0c0;	
 }
 
 #infoContainer > #cmtSection > #cmtContainer > #pageGroup {

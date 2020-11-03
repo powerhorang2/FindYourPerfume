@@ -112,20 +112,17 @@ public class UserController {
 		
         int i_user = SecurityUtils.getLoginUserPk(hs);
 		
-		UserPARAM p = new UserPARAM();
-		p.setI_user(i_user);
-		System.out.println("i_user: " + p.getI_user());
-		List<PerfumeDMI> favNotesList = service.selFavNotes(p);
-		
-		System.out.println("찍히니? : " + favNotesList.get(0).getNt_m_c());
-		System.out.println("찍히니? : " + favNotesList.get(1).getNt_m_c());
+		UserPARAM userParam = new UserPARAM();
+		userParam.setI_user(i_user);
+		System.out.println("i_user: " + userParam.getI_user());
+		List<PerfumeDMI> favNotesList = service.selFavNotes(userParam);
 		
 		model.addAttribute("brandFullNm", brandFullNm);
         model.addAttribute("brandAlphabet", brandAlphabet);
         model.addAttribute("brandEnm", brandEnm);
 		model.addAttribute("perfume", perfume);
 		
-		model.addAttribute("data", service.selFavoriteList(p));
+		model.addAttribute("data", service.selFavoriteList(userParam));
 		model.addAttribute("favNotes", favNotesList);
 		
 		
@@ -170,23 +167,15 @@ public class UserController {
 		
 		int result = service.join(mReq, param);
 		
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
 		if(result == 1) {
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbb");
 			return "redirect:/user/login";
 		}
 		ra.addAttribute("err", result);
-		System.out.println("ccccccccccccccccc");
 		return "redirect:/user/join";
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(Model model, HttpServletRequest request) {
-		
-//		if(SecurityUtils.loginChk(request) == true) {
-//			return "redirect:/common/main";
-//		}
-		
 		model.addAttribute(Const.CSS, "login");
 		model.addAttribute(Const.TITLE, "로그인");
 		model.addAttribute(Const.VIEW, "/user/login");

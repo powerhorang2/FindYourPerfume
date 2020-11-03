@@ -3,18 +3,6 @@
 .show {display:block;} /*보여주기*/
 .hide {display:none;} /*숨기기*/
 
-#perfumeNm {
-	width: 230px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-	margin-left: 7px;
-}
-
-#brandNm {
-	font-weight: bolder;
-}
-
 #brandContainer {
 	display: flex;
 	flex-direction: column;

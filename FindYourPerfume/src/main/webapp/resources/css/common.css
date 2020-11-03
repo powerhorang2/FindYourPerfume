@@ -37,6 +37,18 @@ a {
 	margin-bottom: 5px;
 }
 
+#perfumeNm {
+	width: 230px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	margin-left: 7px;
+}
+
+#brandNm {
+	font-weight: bolder;
+}
+
 
 .longInput, input[type="date"] {
 	width: 250px;
