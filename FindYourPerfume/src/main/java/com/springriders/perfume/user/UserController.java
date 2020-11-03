@@ -40,16 +40,6 @@ public class UserController {
 	@RequestMapping(value="/admin", method = RequestMethod.GET)
 	public String admin(UserPARAM param, Model model, HttpServletRequest request, HttpSession hs) {
 		
-		UserVO vo = SecurityUtils.getLoginUser(request);
-		if(vo == null) {
-			return "redirect:/user/login";
-		}
-		int user_type = vo.getUser_type();
-		if(user_type != Const.ADMIN) {
-			hs.invalidate();
-			return "redirect:/user/login";
-		}
-		
 		model.addAttribute("userList", service.selUserList());
 		model.addAttribute("adminList", service.selAdminList());
 		model.addAttribute("brandList", service.selBrandList());
@@ -112,20 +102,17 @@ public class UserController {
 		
         int i_user = SecurityUtils.getLoginUserPk(hs);
 		
-		UserPARAM p = new UserPARAM();
-		p.setI_user(i_user);
-		System.out.println("i_user: " + p.getI_user());
-		List<PerfumeDMI> favNotesList = service.selFavNotes(p);
-		
-		System.out.println("찍히니? : " + favNotesList.get(0).getNt_m_c());
-		System.out.println("찍히니? : " + favNotesList.get(1).getNt_m_c());
+		UserPARAM userParam = new UserPARAM();
+		userParam.setI_user(i_user);
+		System.out.println("i_user: " + userParam.getI_user());
+		List<PerfumeDMI> favNotesList = service.selFavNotes(userParam);
 		
 		model.addAttribute("brandFullNm", brandFullNm);
         model.addAttribute("brandAlphabet", brandAlphabet);
         model.addAttribute("brandEnm", brandEnm);
 		model.addAttribute("perfume", perfume);
 		
-		model.addAttribute("data", service.selFavoriteList(p));
+		model.addAttribute("data", service.selFavoriteList(userParam));
 		model.addAttribute("favNotes", favNotesList);
 		
 		

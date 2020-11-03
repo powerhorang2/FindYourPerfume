@@ -241,7 +241,7 @@
 	   		}
 	   		console.log(pick_brandList);
 	   		
-	   		if(pick_brandList.length < sIdx) {
+	   		if(pick_brandList.length-1 < sIdx) {
 			alert('마지막입니다.')
 		} else {
 			if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}

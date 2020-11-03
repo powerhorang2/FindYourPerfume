@@ -29,15 +29,17 @@ public class CrawlerService {
 		return mapper.insBrands(list);
 	}
 
-	public void insPerfumes(List<CrawlerPerfumeVO> list) {
+	public int insPerfumes(List<CrawlerPerfumeVO> list) {
+		int result = 0;
 		for(CrawlerPerfumeVO vo : list) {
 			try {
-				mapper.insPerfumes(vo);
+				result = mapper.insPerfumes(vo);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
 			
 		}
+		return result;
 	}
 	
 	public List<CrawlerPerfumeVO> selEmptyNotePerfumeList() {
