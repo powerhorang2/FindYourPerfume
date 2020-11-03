@@ -88,7 +88,6 @@ public class CommonService {
 
 
 	public List<PerfumeDMI> selBrandNm(PerfumePARAM param) {
-
 		return mapper.selBrandNm(param);
 	}
 
@@ -122,6 +121,17 @@ public class CommonService {
 	public List<NoteCodeVO> ajaxSelNoteList(PerfumePARAM param) {
 	
 		return mapper.ajaxSelNoteList(param);
+	}
+
+
+	public List<NoteCodeVO> sortPerfume(NoteCodeVO vo) {
+		int result = vo.getSort_type();
+		System.out.println("ddddddddddd:" + vo.getB_nm_initial());
+		System.out.println("result : " + result);
+		if(result != 0) {
+			return mapper.priceASC(vo);
+		}
+		return mapper.sortPerfume(vo);
 	}
 
 
