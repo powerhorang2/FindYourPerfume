@@ -126,10 +126,10 @@
 <!-- 				<form name="sortPerfume" id="sortPerfume" action="/common/sortPerfume" method="post"> -->
 					<select class="perfumeOption" onchange="sort(this.value)">
 						<option id="sort_type" value="0">원하는 순서를 정하세요</option>
-						<option id="sort_type" value="1">가격순(오름차순)</option>
-						<option id="sort_type" value="2">용량순(오름차순)</option>
-						<option id="sort_type" value="3">가격순(내림차순)</option>
-						<option id="sort_type" value="4">용량순(내림차순)</option>
+						<option id="sort_type" value="1">가격순(낮은순)</option>
+						<option id="sort_type" value="2">용량순(낮은순)</option>
+						<option id="sort_type" value="3">가격순(높은순)</option>
+						<option id="sort_type" value="4">용량순(높은순)</option>
 					</select>
 			<!-- 	</form> -->
 				<div id="sel_div">
@@ -191,24 +191,82 @@
 	var userNoteArr = new Array();
 	
 	// sort_type
-	var sortPerfume = `${sortPerfume}`
+	sortPerfume = `${sortPerfume}`
+	console.log('코드 : ' + sortPerfume)
 	
-	var initial = ''
+/* 	var b_nm_initial = b_nm_initial */
 	
 	<c:forEach items="${userNote}" var="item">
 		userNoteArr.push({nt_m_nm_kor: "${item.nt_m_nm_kor}"});		
 	</c:forEach>
 	
-	if(sortPerfume == 0){
+	var initial = ''
+	
+ 	if(sortPerfume == 0){
 		ajaxChoiceAlphabetMain('ALL')
 	}else if(sortPerfume != 0){
 		ajaxSelBrandNm('ALL')
 	}
 
+
 	
 	function sort(sort_type) {
-		location.href="/common/main?sort_type=" + sort_type + "&b_nm_initial=" + initial
+		console.log('sort_type : ' + sort_type)
+		console.log('initial : ' + initial)
+
+		
+/* 		var more = document.querySelector('#more');
+		more.setAttribute('onclick', "more(" + "'" + sort_type + "'" + ")")
+		 */
+		axios.get('/common/ajaxSortPerfume', {
+			params : {
+				sort_type : sort_type,
+				initial : initial
+			}
+		}).then(function(res){
+			// brandList : 초기화 
+			// brandList : res.data 이걸 이용해서 배열로 리스트에 담아준다.
+			
+			console.log('배열수 : ' + res.data.length)
+			console.log('이뤔 : ' + res.data[0].p_nm)
+			
+			sel_div.innerText = ''
+			
+			for (var i = 0; i <5; i++){
+				var div = document.createElement('div');
+				div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`);
+				div.setAttribute('class', 'brandAlphabet');
+				var div_kor = document.createElement('div');
+				var div_eng = document.createElement('div');
+				var div_size = document.createElement('div');
+				var div_price = document.createElement('div');
+				var img = document.createElement('img');
+				
+				var img = document.createElement('img');
+				img.src = res.data[i].p_pic
+				div.append(img)
+				
+				var div_eng = document.createElement('div');
+				div_eng.setAttribute('id', 'brandNm');
+				div_eng.innerText = res.data[i].b_nm_eng
+				div.append(div_eng)
+				var div_kor = document.createElement('div');
+				div_kor.setAttribute('id', 'perfumeNm');
+				div_kor.innerText = res.data[i].p_nm
+				div.append(div_kor)
+				
+				var div_size = document.createElement('div');
+				div_size.innerText = res.data[i].p_size + 'ml'
+				div.append(div_size)
+				
+				var div_price = document.createElement('div');
+				div_price.innerText = numberFormat(res.data[i].p_price) + '원'
+				div.append(div_price)
+				sel_div.append(div)
+			}
+		})
 	}
+	
 	//향수 컨테이너 담는 arrayList 만들기
 	function makeArrayList(tempArr) {
 		for (var i = 0; i < tempArr.length; i++) {
@@ -216,18 +274,20 @@
 					tempArr[i].i_user, tempArr[i].p_brand, tempArr[i].p_nm,
 					tempArr[i].p_pic, tempArr[i].p_price, tempArr[i].p_size)
 			brandList.push(brandVO)
-			
 		}
 	}
 	//더 보기 버튼 눌렀을 때 idx 증가하면서, 뒤의 배열 추가
 	function more(b_nm_eng) {
+		
+		console.log('A : ' + b_nm_eng)
+
 		if (b_nm_eng == null) {
 			if (rowAllCnt == sIdx) {
 				alert('마지막입니다.')
 			} else {
 			// 235
 	   	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt} //작업중
-	   	 	
+	   	 		
 	   			for (sIdx; sIdx < eIdx; sIdx++) {
 	   				console.log(sIdx)
 	   				var div = document.createElement('div');
@@ -322,7 +382,8 @@
 		more.setAttribute('onclick', "more()")
 		axios.get('/common/ajaxSelBrandAlphabet', {
 			params : {
-				b_nm_initial : b_nm_initial
+				b_nm_initial : b_nm_initial,
+				sort_type : sort_type
 			}
 		}).then(
 				function(res) {
@@ -367,7 +428,8 @@
 			initial = b_nm_initial
 			axios.get('/common/ajaxSelBrandNm',{
 					params : {
-						b_nm_initial : b_nm_initial
+						b_nm_initial : b_nm_initial,
+						sort_type : sort_type
 					}
 				}).then(function(res){
 					selBrand.innerText = '' 
@@ -391,10 +453,12 @@
 			axios.get('/common/ajaxSelBrandAlphabet', {
 					/*  			console.log(listMore) */
 					params : {
-						b_nm_initial : b_nm_initial
+						b_nm_initial : b_nm_initial,
+						sort_type : sort_type
 					}
 				}).then(function(res) {
 						var tempArr = res.data.selBrandAlpahbet
+						console.log(res.data.selBrandAlpahbet)
 						console.log(`length : \${tempArr.length}`)
 						brandList = new Array();
 						console.log(res)
@@ -449,7 +513,8 @@
 		more.setAttribute('onclick', "more(" + "'" + b_nm_eng + "'" + ")")
 		axios.get('/common/ajaxSelBrandFullAp', {
 			params : {
-				b_nm_eng : b_nm_eng
+				b_nm_eng : b_nm_eng,
+				sort_type : sort_type
 			}
 			
 		}).then(function(res){

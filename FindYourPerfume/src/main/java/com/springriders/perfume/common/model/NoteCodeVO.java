@@ -12,8 +12,14 @@ public class NoteCodeVO extends PerfumeVO {
 	private int sliders_per_view;
 	private int sort_type;
 	private String b_nm_initial;
+	private String initial;
 	
-	
+	public String getInitial() {
+		return initial;
+	}
+	public void setInitial(String initial) {
+		this.initial = initial;
+	}
 	public String getB_nm_initial() {
 		return b_nm_initial;
 	}

@@ -123,15 +123,8 @@ public class CommonService {
 		return mapper.ajaxSelNoteList(param);
 	}
 
-
-	public List<NoteCodeVO> sortPerfume(NoteCodeVO vo) {
-		int result = vo.getSort_type();
-		System.out.println("ddddddddddd:" + vo.getB_nm_initial());
-		System.out.println("result : " + result);
-		if(result != 0) {
-			return mapper.priceASC(vo);
-		}
-		return mapper.sortPerfume(vo);
+	public List<NoteCodeVO> ajaxSortPerfume(NoteCodeVO param) {
+		return mapper.alphabetSort(param);
 	}
 
 

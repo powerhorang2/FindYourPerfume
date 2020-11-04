@@ -41,13 +41,8 @@ public interface CommonMapper {
 	int insPerfumeNote(NoteCodeVO vo);
 
 	int delPerfume(PerfumePARAM param);
-	List<NoteCodeVO> sortPerfume(NoteCodeVO vo);
 	
-	
-	
-	
-	
-	List<NoteCodeVO> priceASC(NoteCodeVO vo);
+	List<NoteCodeVO> alphabetSort(NoteCodeVO vo);
 
 
 	

@@ -44,7 +44,6 @@ public class CommonController {
 	@RequestMapping(value="/main", method = RequestMethod.GET)
 	public String main(PerfumePARAM param, NoteCodeVO vo, PerfumeDMI dm, Model model, HttpServletRequest req) {
 		
-		int sort_type = vo.getSort_type();
 		
 		int i_user = SecurityUtils.getLoginUserPk(req);
 		
@@ -57,12 +56,7 @@ public class CommonController {
 		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
 		List<NoteCodeVO> noteList = service.selNoteList(vo);
 		
-		if(sort_type != 0) {
-			param.setB_nm_initial(param.getB_nm_initial());
-			List<NoteCodeVO> sortPerfume = service.sortPerfume(vo);
-			model.addAttribute("sortPerfume", sortPerfume);
-		}
-	
+
 		//알파벳 A~Z 까지 뽑기
 		List<String> brandAlphabet = new ArrayList();
 		
@@ -184,6 +178,7 @@ public class CommonController {
 	public List<PerfumeDMI> ajaxSelBrandNm(PerfumePARAM param){
 		return service.selBrandNm(param);
 	}
+	
 	@RequestMapping("/ajaxSelBrandPerfume")
 	@ResponseBody
 	public List<PerfumeDMI> ajaxSelBrandPerfume(PerfumePARAM param){
@@ -225,6 +220,16 @@ public class CommonController {
 		return service.ajaxSelNoteList(param);
 	}
 
-
-	
+	@RequestMapping("/ajaxSortPerfume")
+	@ResponseBody
+	public List<NoteCodeVO> ajaxSortPerfume(NoteCodeVO param, Model model) {
+		int sort_type = param.getSort_type();
+		String initial = param.getInitial();
+		System.out.println("재섭이 돼지 1 : " + sort_type);
+		System.out.println("재섭이 돼지 2 : " + initial);
+		
+		List<NoteCodeVO> list = service.ajaxSortPerfume(param);
+		
+		return list;
+	}
 }
