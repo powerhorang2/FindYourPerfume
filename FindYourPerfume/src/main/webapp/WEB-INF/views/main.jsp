@@ -28,34 +28,31 @@
 				</c:when>
 				<c:otherwise>
 					<!-- 로그인 상태 -->
-					<c:choose>
-						<c:when test="${loginUser.user_type == '2'}">
-							<div id="loginBox">
-								<div id="profileImgBox" style="background: #BDBDBD;">
-										<img id="sidebarImg"
-											src="/res/img/profileImg/${loginUser.profile_img}">
-								</div>
-								<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다.</div>
-								<div id="loginBtnBox">
-									<input type="button" onclick="moveToPage(`/user/admin`)" class="button" value="ADMIN">
-									<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
-								</div>
+					<div id="loginBox">
+						<c:if test="${loginUser.profile_img == null}">
+							<div id="profileImgBox">
+								<img id="sidebarImg" class="profile" src="/res/img/default_img.jpg">					
 							</div>
-						</c:when>
-						<c:otherwise>
-							<div id="loginBox">
-								<div id="profileImgBox" style="background: #BDBDBD;">
-									<img id="sidebarImg"
-										src="/res/img/profileImg/${loginUser.profile_img}">
-								</div>
-								<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다</div>
-								<div id="loginBtnBox">
-									<input type="button" onclick="moveToPage(`/user/myPage`)" class="button" value="MYPAGE">
-									<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
-								</div>
+						</c:if>
+						<!-- 프로필사진 등록시 -->
+						<c:if test="${loginUser.profile_img != null}">
+							<div id="profileImgBox">
+								<img id="sidebarImg" class="profile" src="/res/img/profileImg/${loginUser.profile_img}">	
 							</div>
-						</c:otherwise>
-					</c:choose>
+						</c:if>
+						<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다.</div>
+						<div id="loginBtnBox">
+						<c:choose>
+							<c:when test="${loginUser.user_type == '2'}">
+								<input type="button" onclick="moveToPage(`/user/admin`)" class="button" value="ADMIN">
+							</c:when>
+							<c:otherwise>
+								<input type="button" onclick="moveToPage(`/user/myPage`)" class="button" value="MYPAGE">
+							</c:otherwise>												
+						</c:choose>
+							<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
+						</div>
+					</div>
 				</c:otherwise>
 			</c:choose>
 		</div>

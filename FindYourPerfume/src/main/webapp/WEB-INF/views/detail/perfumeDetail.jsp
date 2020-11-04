@@ -112,14 +112,28 @@
 				</div>
 			</div>
 			<div class="cmt_box">
-			<c:if test="${loginUser != null}">
-				<div id="cmtInput">
-					<div>${loginUser.nm}/${loginUser.ageGroup}대/${loginUser.strGender}</div>
-					<div><textarea id="cmt_val" cols="50" rows="10" name="cmt" placeholder="댓글을 등록해보세요. (50자 이내)"></textarea></div>
-				    <div id="cmtInputBtn"><input type="button" class="button" value="등록" onclick="return cmtChk()"></div>
-			    </div>
-			</c:if>
-			</div>
+               <c:if test="${loginUser != null}">
+                  <div id="cmtInput">
+                     <div>
+                        ${loginUser.nm}/
+                        <c:choose>
+                           <c:when test="${loginUser.ageGroup == 1}">10세 미만/</c:when>
+                           <c:when test="${loginUser.ageGroup == 100}">100세 이상/</c:when>
+                           <c:otherwise>${loginUser.ageGroup}대/</c:otherwise>
+                        </c:choose>
+                        ${loginUser.strGender}
+                     </div>
+                     <div>
+                        <textarea id="cmt_val" cols="50" rows="10" name="cmt"
+                           placeholder="댓글을 등록해보세요. (50자 이내)"></textarea>
+                     </div>
+                     <div id="cmtInputBtn">
+                        <input type="button" class="button" value="등록"
+                           onclick="return cmtChk()">
+                     </div>
+                  </div>
+               </c:if>
+            </div>
 		</div>
 		<hr id="sectionHr_l">
 		<div id="target"></div>
@@ -436,7 +450,6 @@
 	// 타입 변환 (String => int)
 	loginUserI_user = Number(loginUserI_user);
 	
-	
 	var loginUser = new Object();
 	
 	function setLoginUser(loginUser) {
@@ -479,19 +492,24 @@
 	// 현재 페이지 변수 생성
 	var now_page = 1;
 	
+	// 댓글 수정 온 오프 변수 생성
+	const updOn = 1;
+	const updOff = 0;
+	var now_upd_situation = 0;
+	
+	   
 	function ajaxDelUserFavorite() {
 	   axios.post('/user/ajaxDelUserFavorite', {
 	      i_p : perfume.i_p
 	   }).then(function(res) {
-	      if(res.data == 1) {
-	         favorite.innerText = 'favorite_border';
-	         perfume.i_user = null;
+	   if(res.data == 1) {
+	       favorite.innerText = 'favorite_border';
+	       perfume.i_user = null;
 	      } else {
 	         alert('좋아요 취소에 실패하셨습니다.')
 	      } 
 	   })
 	}
-	
 	function ajaxInsUserFavorite() {
 	   axios.post('/user/ajaxInsUserFavorite', {
 	      i_p : perfume.i_p
@@ -504,16 +522,14 @@
 	      }
 	   })
 	}
-	
 	function changeFavorite() {
-	
 	   if(favorite.innerText == 'favorite') {
 	      ajaxDelUserFavorite()
 	   } else if(favorite.innerText == 'favorite_border') {
 	      ajaxInsUserFavorite()
 	   }
+	   
 	}
-	
 	function createUserFavorite() {
 	   
 	   var span = document.createElement('span');
@@ -526,7 +542,6 @@
 	   } else {
 	      span.innerText = 'favorite_border';
 	   }
-	
 	   span.addEventListener('click', event => changeFavorite());
 	   
 	   userFavorite.append(span)
@@ -541,7 +556,11 @@
 	   cmt_user_img.setAttribute('class', 'cmt_user_img');
 	   
 	   var cmt_user_img_img = document.createElement('img');
-	   cmt_user_img_img.src = '/res/img/profileImg/' + item.profile_img
+	   if(item.profile_img == null) {
+		   cmt_user_img_img.src = '/res/img/default_img.jpg'		   		   
+	   } else {
+		   cmt_user_img_img.src = '/res/img/profileImg/' + item.profile_img		   
+	   }
 	   
 	   var cmt_userData = document.createElement('div');
 	   
@@ -595,17 +614,18 @@
 	   var cmt_cmt = document.querySelector('.cmt_cmt_' + item.i_cmt);
 	   
 	   var cmt_userData_ud = document.createElement('div');
-	   var cmt_upd = document.createElement('div');
-	   var cmt_upd_bt = document.createElement('span');
-	   
 	   cmt_userData_ud.setAttribute('class', 'cmt_userData_ud cmt_userData_ud_'+ item.i_cmt)
-	   cmt_upd.setAttribute('class', 'cmt_upd');
-	   cmt_upd_bt.setAttribute('class', 'cmt_upd_bt');
+	   
+	   var cmt_upd = document.createElement('div');
+	   cmt_upd.setAttribute('class', 'cmt_upd_' + item.i_cmt);
+	   
+	   var cmt_upd_bt = document.createElement('span');
+	   cmt_upd_bt.setAttribute('class', 'cmt_upd_bt_' + item.i_cmt);
 	   
 	   cmt_upd_bt.innerText = '수정';
 	   
-	   // cmt_upd_bt.setAttribute('onclick', 'cmtChangeUpd('+item+')');
-	   cmt_upd_bt.addEventListener('click', event => cmtChangeUpd(item));
+	   // cmt_upd_bt.setAttribute('onclick', 'cmtUpdExe('+item+')');
+	   cmt_upd_bt.addEventListener('click', event => cmtUpdExe(item, cmt_upd_bt));
 	   
 	   cmt_upd.append(cmt_upd_bt)
 	   cmt_userData_ud.append(cmt_upd)
@@ -621,18 +641,17 @@
 	   var cmt_del = document.createElement('div');
 	   var cmt_del_bt = document.createElement('span');
 	   
-	   cmt_del.setAttribute('class', 'cmt_del');
-	   cmt_del_bt.setAttribute('class', 'cmt_del_bt');
+	   cmt_del.setAttribute('class', 'cmt_del_' + item.i_cmt);
+	   cmt_del_bt.setAttribute('class', 'cmt_del_bt_' + item.i_cmt);
 	   
 	   cmt_del_bt.innerText = '삭제';
 	   
 	   // cmt_del_bt.setAttribute('onclick', 'ajaxDelCmt('+item+')');
-	   cmt_del_bt.addEventListener('click', event => cmtDel(item));
+	   cmt_del_bt.addEventListener('click', event => cmtDel(item, cmt_del_bt));
 	   
 	   cmt_del.append(cmt_del_bt)
 	   cmt_userData_ud.append(cmt_del)
 	}
-	
 	function ajaxSelPageCnt(i_p) {
 	   axios.get('/cmt/ajaxSelPageCnt', {
 	      params : {
@@ -671,7 +690,6 @@
 	      }
 	   })
 	}
-	
 	function selPage(page, pagingCnt) {
 	   var all_page = document.querySelectorAll('.cmt_page');
 	   for(var i=0; i<pagingCnt; i++) {
@@ -684,7 +702,6 @@
 	   // 페이지 선택했을 때 현재 페이지 값 변경
 	   now_page = page;
 	}
-	
 	function ajaxSelPage(i_p, page, pagingCnt) {
 	   axios.get('/cmt/ajaxSelPage', {
 	      params : {
@@ -697,12 +714,9 @@
 	         selPage(now_page, pagingCnt)
 	         ajaxSelPage(i_p, now_page)
 	      } else if(res.data.length == 0 && now_page == 1) {
-	    	 emptyCmt()
-		     selPage(now_page, pagingCnt)
+	         selPage(now_page, pagingCnt)
 	      }
-	       
 	      cmtContents.innerText = ''
-	      
 	      res.data.forEach(function(item) {
 	         console.log(item.cmt)
 	         item.i_p = this.i_p
@@ -712,44 +726,23 @@
 	            createCmtDel(item);
 	         }
 	      })
-	      
-	      if(res.data.length == 0 && now_page == 1) {
-	    	  emptyCmt()
-	      }
 	   })
 	}
-	
-	function emptyCmt() {
-		var cmtContents = document.querySelector('#cmtContents')
-		
-		let div = document.createElement('div');
-		div.classList.add('emptyCmtContainer')
-		
-		let div2 = document.createElement('div')
-		div2.classList.add('emptyCmtBox')
-		
-		let div3 = document.createElement('div')
-		div3.classList.add('emptyCmtContent')
-		div3.innerText = '첫번째 댓글을 남겨보세요'
-		
-		div2.append(div3)
-		div.append(div2)
-		
-		cmtContents.append(div)
-	}
-	
-	function cmtDel(item) {
-	   if (confirm("댓글을 삭제 하시겠습니까??") == true) {    //확인
-	      ajaxDelCmt(item)
-	
-	   }else {   //취소
-	
-	       return false;
-	
+	function cmtDel(item, cmt_del_bt) {
+	   if(cmt_del_bt.innerText == '삭제') {
+	      if(now_upd_situation == updOn) {
+	         alert('댓글 수정 중에는 삭제 기능을 이용 할 수 없습니다.')
+	         return false;
+	      }
+	      if (confirm("댓글을 삭제 하시겠습니까??") == true) {    //확인
+	         ajaxDelCmt(item)
+	      }else {   //취소
+	          return false;
+	      }
+	   } else {
+	      return false;
 	   }
 	}
-	
-	
 	// cmt 수정 완료
 	function CmtUpdSuccessChk(item) {
 	   var cmt_val_i_cmt = document.querySelector('#cmt_val_'+ item.i_cmt)
@@ -770,90 +763,101 @@
 	   }
 	   
 	   if (confirm("댓글을 수정 하시겠습니까??") == true) {    //확인
-	      console.log(item.cmt)
 	      item.cmt = cmt_val_i_cmt.value
-	      console.log(item.cmt)
 	      ajaxUpdCmt(item)
-	
 	   }else {   //취소
-	
 	       return false;
-	
 	   }
 	   
 	}
-	
 	// cmt 수정 취소
 	function CmtUpdReturnChk(item) {
 	   
-	   if (confirm("댓글 수정을 취소 하시겠습니까??") == true) {    //확인
-	      
-	      ajaxSelPage(perfume.i_p, now_page)
-	
+	if (confirm("댓글 수정을 취소 하시겠습니까??") == true) {    //확인
+	     now_upd_situation = updOff
+	     ajaxSelPageCnt(perfume.i_p)
+	         ajaxSelPage(perfume.i_p, now_page)
 	   }else {   //취소
-	
 	       return false;
-	
 	   }
-	
+	}
+	// cmt 수정 -> 완료 생성 함수
+	function changeCmtUpdSuccess(item) {
+	   
+	   var cmt_suc = document.querySelector('.cmt_upd_' + item.i_cmt);
+	   cmt_suc.className = 'cmt_suc cmt_suc_' + item.i_cmt;
+	   
+	   var cmt_suc_bt = document.querySelector('.cmt_upd_bt_' + item.i_cmt);
+	   cmt_suc_bt.className = 'cmt_suc_bt_' + item.i_cmt;
+	   
+	   cmt_suc_bt.innerText = '완료';
+	   
+	   cmt_suc_bt.addEventListener('click', event => CmtUpdSuccessChk(item))
+	   
+	}
+	// cmt 삭제 -> 취소 변경 함수
+	function changeCmtUpdReturn(item) {
+	   
+	   var cmt_ret = document.querySelector('.cmt_del_' + item.i_cmt);
+	   cmt_ret.className = 'cmt_ret cmt_ret_' + item.i_cmt;
+	   
+	   var cmt_ret_bt = document.querySelector('.cmt_del_bt_' + item.i_cmt);
+	   cmt_ret_bt.className = 'cmt_ret_bt_' + item.i_cmt;
+	   
+	    cmt_ret_bt.innerText = '취소';
+	   
+	    cmt_ret_bt.addEventListener('click', event => CmtUpdReturnChk(item));
+	    
 	}
 	
-	// cmt 완료 생성 함수
-	function createCmtUpdSuccess(item) {
-	   var cmt_cmt_data = document.querySelector('.cmt_cmt_data_' + item.i_cmt);
+	// 댓글 수정 기능 변경(수정, 삭제 -> 완료, 취소)
+	function changeCmtUpdFunction(item) {
+	      
+	   // 수정, 삭제 버튼을 감싸고있는 div의 클래스 변경 
+	    var cmt_userData_sr = document.querySelector('.cmt_userData_ud_'+ item.i_cmt)
+	    cmt_userData_sr.className = 'cmt_userData_sr'
+	   cmt_userData_sr.classList.add('cmt_userData_sr_' + item.i_cmt)
 	   
-	   var div = document.createElement('div');
-	   var span = document.createElement('span');
-	   
-	   span.innerText = '완료';
-	   
-	   span.addEventListener('click', event => CmtUpdSuccessChk(item));
-	   
-	   div.append(span)
-	   cmt_cmt_data.append(div)
-	}
+	   changeCmtUpdSuccess(item)
+	   changeCmtUpdReturn(item)
 	
-	// cmt 취소 생성 함수
-	function createCmtUpdReturn(item) {
-	   var cmt_cmt_data = document.querySelector('.cmt_cmt_data_' + item.i_cmt);
-	   
-	   var div = document.createElement('div');
-	   var span = document.createElement('span');
-	   
-	   span.innerText = '취소';
-	   
-	   span.addEventListener('click', event => CmtUpdReturnChk(item));
-	   
-	   div.append(span)
-	   cmt_cmt_data.append(div)
 	}
-	
 	// cmt 수정 실행
-	function cmtChangeUpd(item) {
-	   var cmt_cmt_data = document.querySelector('.cmt_cmt_data_' + item.i_cmt);
-	   
-	   cmt_cmt_data.innerText = '';
-	   
-	   var div = document.createElement('div');
-	   var textarea = document.createElement('textarea');
-	   
-	   textarea.setAttribute('id', 'cmt_val_' + item.i_cmt);
-	   textarea.setAttribute('cols', '50');
-	   textarea.setAttribute('rows', '10');
-	   textarea.setAttribute('name', 'cmt');
-	   textarea.setAttribute('style', 'width: 260px; height: 90px; font-family: "Montserrat"; font-size: 16px;');
-	   
-	   textarea.setAttribute('placeholder', '댓글 수정 중... (50자 이내)');
-	   
-	   textarea.innerText = item.cmt;
-	   
-	   div.append(textarea);
-	   cmt_cmt_data.append(div);
-	   
-	   createCmtUpdReturn(item)
-	   createCmtUpdSuccess(item)
+	function cmtUpdExe(item, cmt_upd_bt) {
+	   if(cmt_upd_bt.innerText == '수정') {
+	      if(now_upd_situation == updOff) {
+	         var cmt_cmt_data = document.querySelector('.cmt_cmt_data_' + item.i_cmt);
+	            
+	          cmt_cmt_data.innerText = '';
+	         
+	          var div = document.createElement('div');
+	          var textarea = document.createElement('textarea');
+	         
+	          textarea.setAttribute('id', 'cmt_val_' + item.i_cmt);
+	          textarea.setAttribute('cols', '50');
+	          textarea.setAttribute('rows', '10');
+	          textarea.setAttribute('name', 'cmt');
+	          textarea.setAttribute('style', 'width: 260px; height: 90px; font-family: "Montserrat"; font-size: 16px;');
+	         
+	          textarea.setAttribute('placeholder', '댓글 수정 중... (50자 이내)');
+	         
+	          textarea.innerText = item.cmt;
+	         
+	          div.append(textarea);
+	          cmt_cmt_data.append(div);
+	         
+	          changeCmtUpdFunction(item)
+	          
+	          now_upd_situation = updOn
+	      } else if(now_upd_situation == updOn) {
+	         alert('이미 다른 댓글을 수정중입니다. 수정을 완료한 후 다시 시도해주세요.');
+	      } else {
+	         alert('특수한 상황입니다. 관리자에게 문의해주세요.')
+	      }
+	   } else {
+	      return false;
+	   }
 	}
-	
 	// cmt 등록 함수
 	function ajaxInsCmt(cmt) {
 	   axios.post('/cmt/ajaxInsCmt', {
@@ -873,7 +877,6 @@
 	      }
 	   })
 	}
-	
 	// cmt 수정 함수
 	function ajaxUpdCmt(item) {
 	   axios.post('/cmt/ajaxUpdCmt', {
@@ -885,6 +888,7 @@
 	      if(res.data == 1) {
 	         alert('댓글이 정상적으로 수정되었습니다.')
 	         // 리스트 다시 불러오기
+	         now_upd_situation = updOff
 	         ajaxSelPageCnt(perfume.i_p)
 	         ajaxSelPage(perfume.i_p, now_page)
 	      }else {
@@ -895,16 +899,16 @@
 	
 	// cmt 삭제 함수
 	function ajaxDelCmt(item) {
-	   axios.post('/cmt/ajaxDelCmt', {
+	      axios.post('/cmt/ajaxDelCmt', {
 	      i_cmt : item.i_cmt,
 	      i_p : perfume.i_p
 	   }).then(function(res) {
 	      console.log(res.data)
 	      if(res.data == 1) {
-	         alert('댓글이 정상적으로 삭제되었습니다.')
-	         // 리스트 다시 불러오기
-	         ajaxSelPageCnt(perfume.i_p)
-	         ajaxSelPage(perfume.i_p, now_page)
+	      alert('댓글이 정상적으로 삭제되었습니다.')
+	      // 리스트 다시 불러오기
+	      ajaxSelPageCnt(perfume.i_p)
+	      ajaxSelPage(perfume.i_p, now_page)
 	      }else {
 	         alert('댓글 삭제에 실패했습니다.')
 	      }
@@ -912,6 +916,10 @@
 	}
 	
 	function cmtChk() {
+	   if(now_upd_situation == updOn) {
+	      alert('댓글 수정 중에는 댓글 쓰기 기능을 이용 할 수 없습니다.')
+	      return false;
+	   }
 	   var InsCmt = cmt_val.value
 	   if(InsCmt.length == ''){
 	      alert('댓글을 입력해주세요.')
@@ -922,7 +930,7 @@
 	      alert('댓글은 50자 이하로 입력해주세요.')
 	      return false
 	   }
-	         
+	  
 	   ajaxInsCmt(InsCmt)
 	}
 </script>

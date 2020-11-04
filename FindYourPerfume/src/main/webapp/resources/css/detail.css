@@ -223,6 +223,11 @@
 	/* border: 1px solid green; */
 }
 
+#infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_cmt > .cmt_userData_sr {
+	display: flex;
+	justify-content: flex-end;
+}
+
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_cmt > .cmt_cmt_data {
 	height: 100px;
 }

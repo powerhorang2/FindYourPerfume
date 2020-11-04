@@ -7,11 +7,13 @@
 		<form name="uptUserFrm" id="uptFrm" action="/user/uptUser" enctype="multipart/form-data" method="post">
 			<div id="sectionProfile">
 				<div id="containerImg">
+					<!-- 프로필사진 미등록시 : default_img -->
 					<c:if test="${loginUser.profile_img == null}">
 						<div id="profileImg">
-							<img class="profile" src="/res/img/profileImg/default_img.jpg">					
+							<img class="profile" src="/res/img/default_img.jpg">					
 						</div>
 					</c:if>
+					<!-- 프로필사진 등록시 -->
 					<c:if test="${loginUser.profile_img != null}">
 						<div id="profileImg">
 							<img class="profile" src="/res/img/profileImg/${loginUser.profile_img}">	
@@ -61,6 +63,7 @@
 		<div id="sectionFavPerfume">
 			<div id="title">찜한 향수</div>
 			<div id="detailSection">
+			<!-- 나만의 향수 데이터가 없을 경우 -->
 			<c:if test="${empty data}">
 				<div id="emptyMsg">
 					<div>
@@ -68,6 +71,7 @@
 					</div>
 				</div>
 			</c:if>
+			<!-- 나만의 향수 데이터가 있을 경우 -->
 			<c:if test="${!empty data}">
 				<c:forEach items="${data}" var="item">
 				<div id="favPerfume" onclick="moveToDetail(${item.i_p})">
@@ -136,10 +140,10 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 
-//  페이지 실행시 선호 노트정보 체크박스에 뿌리기	
+	// 페이지 실행시 선호 노트정보 체크박스에 뿌리기	
 	favNoteChk()
 
-//	프로필 사진 업데이트시 미리보기
+	// 프로필 사진 업데이트시 미리보기
 	function previewImage(f){
 		var file = f.files;
 	
@@ -167,6 +171,7 @@
 		}
 	}
 	
+	// 회원정보 수정시 비밀번호 체크
 	function checkUptUser() {
 		if(uptUserFrm.user_pw.value.length > 0) {			
 			if(uptUserFrm.user_pw.value.length < 5){
@@ -181,6 +186,7 @@
 		uptUserFrm.submit();
 	}
 	
+	// DB에 저장되어 있는 선호 노트 불러오기
 	function favNoteChk() {
 		chkboxNote = document.getElementsByName('nt_m_c')
 
@@ -198,30 +204,23 @@
 		}  	
 	}
 	
+	// 선호노트 업데이트
 	function uptFavNotes(note, nt_m_c) {
-		
-		console.log(note)
-		console.log(nt_m_c)
-		
+
 		var chk = document.getElementById(note) 
-		console.log('체크유무 : ' + chk.checked)
 		
 		if(chk.checked) {
 			axios.post('/user/ajaxAddFavNotes', {
 				nt_m_c : nt_m_c
-			}).then(function(res) {
-				console.log(res)
 			})				
 		} else {
 			axios.post('/user/ajaxDelFavNotes', {
 				nt_m_c : nt_m_c
-			}).then(function(res) {
-				console.log(res)
 			})	
 		}
 	}
 	
-	
+	// 향수 디테일 페이지로 이동
 	function moveToDetail(i_p) {
 		location.href = '/common/detail?i_p=' + i_p
 	}
