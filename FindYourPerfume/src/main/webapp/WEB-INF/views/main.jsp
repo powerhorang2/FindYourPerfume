@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <div id="commonContainer">
 	<div id="sidebar">
 		<div id="loginContainer">
@@ -78,11 +79,12 @@
 					<c:forEach items="${topPerfume}" var="item">
 						<div id="topPerfumeItem">
 							<div id="topPImg" onclick="moveToDetail(${item.i_p})">
-								<img src="${item.p_pic}">
+								<c:set var="img" value="${item.p_pic}" scope="request" />
+								<jsp:include page="/WEB-INF/views/components/imgComp.jsp" />
 							</div>
 							<div><b>${item.b_nm_eng}</b></div>
 							<div id="perfumeNm">${item.p_nm}</div>
-							<div>${item.p_size}ml&emsp;${item.p_price}원</div>
+							<div>${item.p_size}ml&emsp;<fmt:formatNumber type="number" maxFractionDigits="3" value="${item.p_price}" />원</div>
 						</div>
 					</c:forEach>
 					</div>
@@ -106,11 +108,12 @@
 									<c:forEach items="${recPerfume}" var="item">
 										<div class="swiper-slide" onclick="moveToDetail(${item.i_p})">
 											<div id="topPImg">
-												<img src="${item.p_pic}">
+												<c:set var="img" value="${item.p_pic}" scope="request" />
+												<jsp:include page="/WEB-INF/views/components/imgComp.jsp" />
 											</div>
 											<div><b>${item.b_nm_eng}</b></div>
 											<div id="perfumeNm">${item.p_nm}</div>
-											<div>${item.p_size}ml&emsp;${item.p_price}원</div>
+											<div>${item.p_size}ml&emsp;<fmt:formatNumber type="number" maxFractionDigits="3" value="${item.p_price}" />원</div>
 										</div>
 									</c:forEach>
 								</div>
@@ -176,6 +179,20 @@
 	</c:forEach>
 	
 	choiceAlphabetMain('ALL')
+	
+	// 향수 이미지 띄우기 - url 주소 값일 때는 그대로 , 아닐 때는 로컬 주소 찾아서, 없을 때는 default 
+	function loadPerfumeImg(p_pic) {
+		if(p_pic == undefined) {
+			return "/res/img/default_perfume.png"
+		} else if(p_pic.indexOf("https://") != -1) {
+			return p_pic
+		} else if(p_pic.indexOf("http://") != -1) {
+			return p_pic
+		} else {
+			return "/res/img/perfume/" + p_pic
+		}
+	}
+	
 	//향수 컨테이너 담는 arrayList 만들기
 	function makeArrayList(tempArr) {
 		for (var i = 0; i < tempArr.length; i++) {
@@ -201,7 +218,7 @@
 	   				div.setAttribute('class', 'brandAlphabet');
 	   				
 	   				var img = document.createElement('img');
-	   				img.src = brandList[sIdx].p_pic
+	   				img.src = loadPerfumeImg(brandList[sIdx].p_pic)
 	   				div.append(img)
 	   				
 	   				var div_eng = document.createElement('div');
@@ -250,7 +267,7 @@
    				div.setAttribute('class', 'brandAlphabet');
    				
    				var img = document.createElement('img');
-   				img.src = pick_brandList[sIdx].p_pic
+   				img.src = loadPerfumeImg(pick_brandList[sIdx].p_pic)
    				div.append(img)
    					   				
    				var div_eng = document.createElement('div');
@@ -313,7 +330,7 @@
 						div_price.innerText = numberFormat(res.data[i].p_price) + '원'
 						
 						var img = document.createElement('img');
-						img.src = res.data[i].p_pic
+						img.src = loadPerfumeImg(res.data[i].p_pic)
 						div.append(img)
 						div.append(div_eng)
 						div.append(div_kor)
@@ -362,7 +379,7 @@
 							div.setAttribute('class', 'brandAlphabet');		
 							
 							var img = document.createElement('img');
-							img.src = tempArr[i].p_pic
+							img.src = loadPerfumeImg(tempArr[i].p_pic)
 							div.append(img)
 							
 							var div_eng = document.createElement('div');
@@ -420,7 +437,7 @@
 
 				
 				var img = document.createElement('img');
-				img.src = res.data[i].p_pic
+				img.src = loadPerfumeImg(res.data[i].p_pic)
 				div.append(img)
 				
 				var div_eng = document.createElement('div');
@@ -441,11 +458,11 @@
 				div.append(div_price)
 				sel_div.append(div)
 			}
- 			
+/*  			
  			var div_title = document.createElement('div')
 			div_title.setAttribute('class', 'brandTitle');
 			div_title.innerText = b_nm_eng;
-			selDivContainer.append(div_title);
+			selDivContainer.append(div_title); */
 		})
 	}
 	//가격에 쉼표 붙이기

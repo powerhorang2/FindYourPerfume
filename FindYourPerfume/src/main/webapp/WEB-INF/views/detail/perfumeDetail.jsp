@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.springriders.perfume.FileUtils" %>    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -76,84 +77,85 @@
 		</div>
 	</div>
 	<div>
-	<div id="infoContainer">
-		<div id="infoSection">
-			<div id="detailPic">
-				<img src="${perfume.p_pic}">
-			</div>
-			<div id="detailInfo">
-				<div id="userFavorite"></div>
-				<div id="info">
-					<div id="b_nm">${perfume.b_nm_eng}</div>
-					<div id="p_nm">${perfume.p_nm}</div>
-					<div id="p_size_price"><span>${perfume.p_size}ml</span>${perfume.p_price}원</div>
-				</div><hr id="sectionHr_s">
-				<div id="noteInfo">
-					<div id="title">노트 정보</div>
-					<div id="note">
-					<c:forEach items="${noteList}" var="item">
-						<span>${item.nt_d_nm_kor}</span>
-					</c:forEach>
+		<div id="infoContainer"> 
+			<div id="infoSection">
+				<div id="detailPic">
+					<c:set var="img" value="${perfume.p_pic}" scope="request" />
+					<jsp:include page="/WEB-INF/views/components/imgComp.jsp" />
+				</div>
+				<div id="detailInfo">
+					<div id="userFavorite"></div>
+					<div id="info">
+						<div id="b_nm">${perfume.b_nm_eng}</div>
+						<div id="p_nm">${perfume.p_nm}</div>
+						<div id="p_size_price"><span>${perfume.p_size}ml</span><fmt:formatNumber type="number" maxFractionDigits="3" value="${perfume.p_price}" />원</div>
+					</div><hr id="sectionHr_s">
+					<div id="noteInfo">
+						<div id="title">노트 정보</div>
+						<div id="note">
+						<c:forEach items="${noteList}" var="item">
+							<span>${item.nt_d_nm_kor}</span>
+						</c:forEach>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<hr id="sectionHr_m">
- 		<div id="cmtSection">
-			<div id="cmtContainer">
-				<div class="cmt_cnt">
-					<div>
-						<div class="cmt_cnt_text">회원 후기<span class="cmt_cnt_content"></span></div>
+			<hr id="sectionHr_m">
+	 		<div id="cmtSection">
+				<div id="cmtContainer">
+					<div class="cmt_cnt">
+						<div>
+							<div class="cmt_cnt_text">회원 후기<span class="cmt_cnt_content"></span></div>
+						</div>
+					</div>
+					<div id="cmtContents">
+					</div>
+					<div id="pageGroup">
 					</div>
 				</div>
-				<div id="cmtContents">
-				</div>
-				<div id="pageGroup">
+				<div class="cmt_box">
+	               <c:if test="${loginUser != null}">
+	                  <div id="cmtInput">
+	                     <div>
+	                        ${loginUser.nm}/
+	                        <c:choose>
+	                           <c:when test="${loginUser.ageGroup == 1}">10세미만/</c:when>
+	                           <c:when test="${loginUser.ageGroup == 100}">100세이상/</c:when>
+	                           <c:otherwise>${loginUser.ageGroup}대/</c:otherwise>
+	                        </c:choose>
+	                        ${loginUser.strGender}
+	                     </div>
+	                     <div>
+	                        <textarea id="cmt_val" cols="50" rows="10" name="cmt"
+	                           placeholder="댓글을 등록해보세요. (50자 이내)"></textarea>
+	                     </div>
+	                     <div id="cmtInputBtn">
+	                        <input type="button" class="button" value="등록"
+	                           onclick="return cmtChk()">
+	                     </div>
+	                  </div>
+	               </c:if>
+	            </div>
+			</div>
+			<hr id="sectionHr_l">
+			<div id="target"></div>
+			<div id="selDivContainer">
+				<div id="sel_div">
+					<div id="brandAlphabet" class="perfumeMain">
+					</div>
 				</div>
 			</div>
-			<div class="cmt_box">
-               <c:if test="${loginUser != null}">
-                  <div id="cmtInput">
-                     <div>
-                        ${loginUser.nm}/
-                        <c:choose>
-                           <c:when test="${loginUser.ageGroup == 1}">10세미만/</c:when>
-                           <c:when test="${loginUser.ageGroup == 100}">100세이상/</c:when>
-                           <c:otherwise>${loginUser.ageGroup}대/</c:otherwise>
-                        </c:choose>
-                        ${loginUser.strGender}
-                     </div>
-                     <div>
-                        <textarea id="cmt_val" cols="50" rows="10" name="cmt"
-							style="resize:none;" placeholder="댓글을 등록해보세요. (50자 이내)"></textarea>
-                     </div>
-                     <div id="cmtInputBtn">
-                        <input type="button" class="button" value="등록"
-                           onclick="return cmtChk()">
-                     </div>
-                  </div>
-               </c:if>
-            </div>
+			<div id="paging">
+				<div class="more">
+					<button class="button" id="more" onclick="more()">더보기</button>
+				</div>
+			</div>	
 		</div>
-		<hr id="sectionHr_l">
-		<div id="target"></div>
-		<div id="selDivContainer">
-			<div id="sel_div">
-				<div id="brandAlphabet" class="perfumeMain">
-				</div>
-			</div>
-		</div>
-		<div id="paging">
-			<div class="more">
-				<button class="button" id="more" onclick="more()">더보기</button>
-			</div>
-		</div>	
-	</div>
 	</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<!-- 사이드바 기능 -->
-	<script>
+<!-- 사이드바 기능 -->
+<script>
 	var sIdx = 5;
 	var eIdx = 10;
 	var brandList = new Array();
@@ -443,13 +445,15 @@
 	}
 </script>
 <script type="text/javascript">
-
-	//로그인 유저의 변수 생성 후 값 설정 
+	// by - 유빈
+	
+	//로그인 유저의 pk값 변수 생성 후 값 설정 
 	var loginUserI_user = `${loginUser.i_user}`
 	
 	// 타입 변환 (String => int)
 	loginUserI_user = Number(loginUserI_user);
 	
+	// 로그인 유저 변수 생성 후 pk값 설정 - 시작
 	var loginUser = new Object();
 	
 	function setLoginUser(loginUser) {
@@ -457,6 +461,7 @@
 	}
 	
 	setLoginUser(loginUser)
+	// 끝
 	
 	// 향수 관련 변수 생성 후 값 설정
 	var perfumeI_user = `${perfume.i_user}`
@@ -466,6 +471,7 @@
 	perfumeI_user = Number(perfumeI_user);
 	i_p = Number(i_p);
 	
+	// 향수 변수 생성 후 향수 관련 값 설정 - 시작
 	var perfume = new Object();
 	
 	function setPerfume(perfume) {
@@ -474,6 +480,7 @@
 	}
 	
 	setPerfume(perfume)
+	// 끝
 	
 	// UserFavorite 생성 함수 호출
 	if(loginUser.i_user > 0) {
@@ -559,6 +566,9 @@
 		cmt_user_img.setAttribute('class', 'cmt_user_img');
 		
 		var cmt_user_img_img = document.createElement('img');
+		if(item.profile_img == '') {
+			cmt_user_img_img.src = '/res/img/default_img.jpg'
+		}
 		cmt_user_img_img.src = '/res/img/profileImg/' + item.profile_img
 		
 		var cmt_userData = document.createElement('div');
@@ -624,7 +634,12 @@
 		cmt_upd_bt.innerText = '수정';
 		
 		// cmt_upd_bt.setAttribute('onclick', 'cmtUpdExe('+item+')');
-		cmt_upd_bt.addEventListener('click', event => cmtUpdExe(item, cmt_upd_bt));
+		// cmt_upd_bt.addEventListener('click', event => cmtUpdExe(item, cmt_upd_bt));
+		
+		
+		cmt_upd_bt.onclick = function() {
+			cmtUpdExe(item)
+		}
 		
 		cmt_upd.append(cmt_upd_bt)
 		cmt_userData_ud.append(cmt_upd)
@@ -646,7 +661,11 @@
 		cmt_del_bt.innerText = '삭제';
 		
 		// cmt_del_bt.setAttribute('onclick', 'ajaxDelCmt('+item+')');
-		cmt_del_bt.addEventListener('click', event => cmtDel(item, cmt_del_bt));
+		// cmt_del_bt.addEventListener('click', event => cmtDel(item));
+		
+		cmt_del_bt.onclick = function() {
+			cmtDel(item)
+		}
 		
 		cmt_del.append(cmt_del_bt)
 		cmt_userData_ud.append(cmt_del)
@@ -756,9 +775,8 @@
 			
 			cmtContents.append(div)
 		}
-
-	function cmtDel(item, cmt_del_bt) {
-		if(cmt_del_bt.innerText == '삭제') {
+	function cmtDel(item) {
+		
 			if(now_upd_situation == updOn) {
 				alert('댓글 수정 중에는 삭제 기능을 이용 할 수 없습니다.')
 				return false;
@@ -768,15 +786,14 @@
 			}else {   //취소
 		       	return false;
 		   	}
-		} else {
-			return false;
-		}
+		
 	}
 	
 	// cmt 수정 완료
 	function CmtUpdSuccessChk(item) {
 		var cmt_val_i_cmt = document.querySelector('#cmt_val_'+ item.i_cmt)
-	   
+	   	var insCmt = cmt_val_i_cmt.value
+		
 		if(cmt_val_i_cmt.value == '') {
 			alert('수정을 위해 댓글을 입력해주세요.')
 			return false
@@ -784,6 +801,7 @@
 	   
 	   	if(cmt_val_i_cmt.value.length > 50) {
 	      	alert('수정을 위해 댓글은 50자 이하로 입력해주세요.')
+	      	cmt_val_i_cmt.value = insCmt.substr(0, 50)
 	      	return false
 	   	}
 	   
@@ -824,7 +842,10 @@
 		
 		cmt_suc_bt.innerText = '완료';
 		
-		cmt_suc_bt.addEventListener('click', event => CmtUpdSuccessChk(item))
+		// cmt_suc_bt.addEventListener('click', event => CmtUpdSuccessChk(item))
+		cmt_suc_bt.onclick = function() {
+			CmtUpdSuccessChk(item)
+		}
 		
 	}
 	
@@ -839,7 +860,10 @@
 	   
 	    cmt_ret_bt.innerText = '취소';
 	   
-	    cmt_ret_bt.addEventListener('click', event => CmtUpdReturnChk(item));
+	    // cmt_ret_bt.addEventListener('click', event => CmtUpdReturnChk(item));
+	    cmt_ret_bt.onclick = function() {
+	    	CmtUpdReturnChk(item)
+		}
 	    
 	}
 	
@@ -857,8 +881,8 @@
 	}
 	
 	// cmt 수정 실행
-	function cmtUpdExe(item, cmt_upd_bt) {
-		if(cmt_upd_bt.innerText == '수정') {
+	function cmtUpdExe(item) {
+		
 			if(now_upd_situation == updOff) {
 				var cmt_cmt_data = document.querySelector('.cmt_cmt_data_' + item.i_cmt);
 				   
@@ -888,9 +912,7 @@
 			} else {
 				alert('특수한 상황입니다. 관리자에게 문의해주세요.')
 			}
-		} else {
-			return false;
-		}
+		
 	}
 	
 	// cmt 등록 함수
@@ -964,6 +986,7 @@
 	   
 		if(InsCmt.length > 50){
 			alert('댓글은 50자 이하로 입력해주세요.')
+			cmt_val.value = InsCmt.substr(0, 50)
 			return false
 		}
 	  	// 

@@ -34,6 +34,7 @@ public class CommonService {
 			vo.setSliders_per_view(Const.SLIDERS_PER_VIEW);
 			
 			List<PerfumeDMI> recPerfumeList = mapper.selRecPerfumeList(vo);
+			
 			recList.addAll(recPerfumeList);
 			
 			// 유저 노트를 가진 추천 향수가 부족할 때 리스트 추가 (노트 하나 당 5개)
