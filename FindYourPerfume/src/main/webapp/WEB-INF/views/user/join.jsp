@@ -21,23 +21,18 @@
 					<div id="idChkResult" class="msg"></div>
 					<button class="button" type="button" onclick="chkId()">중복체크</button>
 				</div>
-				<div><input type="text" name="user_id" placeholder="아이디" onchange="idValue()" id="user_id"></div>
-				<div>5~12자의 영소문자와 숫자로 입력하세요</div>
+				<div><input type="text" name="user_id" placeholder="5~12자의 영소문자와 숫자로 입력해주세요" onchange="idValue()" id="user_id"></div>
 			</div>
 			<div>
 				<div>비밀번호<span>Password</span></div>
-				<div><input type="password" name="user_pw" placeholder="비밀번호" id="pw"></div>		
+				<div><input type="password" name="user_pw" placeholder="비밀번호를 입력해주세요" id="pw"></div>		
 			</div>
 			<div>
-				<div>비밀번호 확인<span>Confirm Password</span></div>
-				<div><input type="password" name="user_pwre" placeholder="비밀번호 확인" id="pw_confirm"></div>
-				<div id="show_txt"></div>		
-			</div>
+				<div id="pwBox">비밀번호 확인<span>Confirm Password</span><span id="show_txt"></span></div>
+				<div><input type="password" name="user_pwre" placeholder="비밀번호를 확인해주세요" id="pw_confirm"></div>		
 			<div>
-				<div>닉네임<span>Nickname</span></div>
-				<div><input type="text" name="nm" placeholder="닉네임" id="nm"></div>
-				<div id="show_nm"></div>	
-				<div>닉네임은 8자 이내로 입력하세요</div>		
+				<div id="nmBox">닉네임<span>Nickname</span><span id="show_nm"></span></div>
+				<div><input type="text" name="nm" placeholder="8자 이내로 입력해주세요" id="nm"></div>	
 			</div>
 			<div>
 				<div>생년월일<span>Date of Birth</span></div>
@@ -50,6 +45,7 @@
 					<div><label><input type="radio" name="gender" value="2">여<span>Female</span></label></div>				
 				</div>
 			</div>
+		</div>
 		</div>
 		<div id="additionalInf">
 			<div id="title">추가정보</div>
@@ -209,11 +205,11 @@
 		var nm = $("#nm").val();
 	
 		if(nm == ""){
-			$("#show_nm").text("닉네임을 입력해주세요")
+			$("#show_nm").text("닉네임을 입력해주세요.")
 		} else if(nm.length > 9){
-			$("#show_nm").text("닉네임을 확인해 주세요")
+			$("#show_nm").text("닉네임을 확인해주세요.")
 		}else{
-			$("#show_nm").text("사용 가능한 닉네임 입니다.")
+			$("#show_nm").text("사용 가능한 닉네임입니다.")
 		} 
 	}) 
 	
