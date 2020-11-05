@@ -619,7 +619,7 @@
 		cmt_upd.setAttribute('class', 'cmt_upd_' + item.i_cmt);
 		
 		var cmt_upd_bt = document.createElement('span');
-		cmt_upd_bt.setAttribute('class', 'cmt_upd_bt_' + item.i_cmt);
+		cmt_upd_bt.setAttribute('class', 'button cmt_upd_bt_' + item.i_cmt);
 		
 		cmt_upd_bt.innerText = '수정';
 		
@@ -641,7 +641,7 @@
 		var cmt_del_bt = document.createElement('span');
 		
 		cmt_del.setAttribute('class', 'cmt_del_' + item.i_cmt);
-		cmt_del_bt.setAttribute('class', 'cmt_del_bt_' + item.i_cmt);
+		cmt_del_bt.setAttribute('class', 'button cmt_del_bt_' + item.i_cmt);
 		
 		cmt_del_bt.innerText = '삭제';
 		
@@ -705,32 +705,58 @@
 	}
 	
 	function ajaxSelPage(i_p, page, pagingCnt) {
-		axios.get('/cmt/ajaxSelPage', {
-			params : {
-				i_p : i_p,
-				page : page
+		   axios.get('/cmt/ajaxSelPage', {
+		      params : {
+		         i_p : i_p,
+		         page : page
+		      }
+		   }).then(function(res) {
+		      if(res.data.length == 0 && now_page != 1) {
+		         now_page -= 1
+		         selPage(now_page, pagingCnt)
+		         ajaxSelPage(i_p, now_page)
+		      } else if(res.data.length == 0 && now_page == 1) {
+		    	 emptyCmt()
+			     selPage(now_page, pagingCnt)
+		      }
+		       
+		      cmtContents.innerText = ''
+		      
+		      res.data.forEach(function(item) {
+		         console.log(item.cmt)
+		         item.i_p = this.i_p
+		         createCmt(item)
+		         if(loginUser.i_user == item.i_user) {
+		            createCmtUpd(item);
+		            createCmtDel(item);
+		         }
+		      })
+		      
+		      if(res.data.length == 0 && now_page == 1) {
+		    	  emptyCmt()
+		      }
+		   })
 		}
-		}).then(function(res) {
-			if(res.data.length == 0 && now_page != 1) {
-				now_page -= 1
-				selPage(now_page, pagingCnt)
-				ajaxSelPage(i_p, now_page)
-			} else if(res.data.length == 0 && now_page == 1) {
-				selPage(now_page, pagingCnt)
-			}
-			cmtContents.innerText = ''
-			res.data.forEach(function(item) {
-				console.log(item.cmt)
-				item.i_p = this.i_p
-				createCmt(item)
-				if(loginUser.i_user == item.i_user) {
-					createCmtUpd(item);
-					createCmtDel(item);
-				}
-			})
-		})
-	}
-	
+		
+	function emptyCmt() {
+			var cmtContents = document.querySelector('#cmtContents')
+			
+			let div = document.createElement('div');
+			div.classList.add('emptyCmtContainer')
+			
+			let div2 = document.createElement('div')
+			div2.classList.add('emptyCmtBox')
+			
+			let div3 = document.createElement('div')
+			div3.classList.add('emptyCmtContent')
+			div3.innerText = '첫번째 댓글을 남겨보세요'
+			
+			div2.append(div3)
+			div.append(div2)
+			
+			cmtContents.append(div)
+		}
+
 	function cmtDel(item, cmt_del_bt) {
 		if(cmt_del_bt.innerText == '삭제') {
 			if(now_upd_situation == updOn) {
@@ -794,7 +820,7 @@
 		cmt_suc.className = 'cmt_suc_' + item.i_cmt;
 		
 		var cmt_suc_bt = document.querySelector('.cmt_upd_bt_' + item.i_cmt);
-		cmt_suc_bt.className = 'cmt_suc_bt_' + item.i_cmt;
+		cmt_suc_bt.className = 'button cmt_suc_bt_' + item.i_cmt;
 		
 		cmt_suc_bt.innerText = '완료';
 		
@@ -809,7 +835,7 @@
 		cmt_ret.className = 'cmt_ret_' + item.i_cmt;
 		
 		var cmt_ret_bt = document.querySelector('.cmt_del_bt_' + item.i_cmt);
-		cmt_ret_bt.className = 'cmt_ret_bt_' + item.i_cmt;
+		cmt_ret_bt.className = 'button cmt_ret_bt_' + item.i_cmt;
 	   
 	    cmt_ret_bt.innerText = '취소';
 	   
