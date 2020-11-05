@@ -702,7 +702,7 @@
 	   // 페이지 선택했을 때 현재 페이지 값 변경
 	   now_page = page;
 	}
-	function ajaxSelPage(i_p, page, pagingCnt) {
+/* 	function ajaxSelPage(i_p, page, pagingCnt) {
 	   axios.get('/cmt/ajaxSelPage', {
 	      params : {
 	         i_p : i_p,
@@ -727,7 +727,61 @@
 	         }
 	      })
 	   })
-	}
+	} */
+	
+	function ajaxSelPage(i_p, page, pagingCnt) {
+		   axios.get('/cmt/ajaxSelPage', {
+		      params : {
+		         i_p : i_p,
+		         page : page
+		      }
+		   }).then(function(res) {
+		      if(res.data.length == 0 && now_page != 1) {
+		         now_page -= 1
+		         selPage(now_page, pagingCnt)
+		         ajaxSelPage(i_p, now_page)
+		      } else if(res.data.length == 0 && now_page == 1) {
+		    	 emptyCmt()
+			     selPage(now_page, pagingCnt)
+		      }
+		       
+		      cmtContents.innerText = ''
+		      
+		      res.data.forEach(function(item) {
+		         console.log(item.cmt)
+		         item.i_p = this.i_p
+		         createCmt(item)
+		         if(loginUser.i_user == item.i_user) {
+		            createCmtUpd(item);
+		            createCmtDel(item);
+		         }
+		      })
+		      
+		      if(res.data.length == 0 && now_page == 1) {
+		    	  emptyCmt()
+		      }
+		   })
+		}
+		
+		function emptyCmt() {
+			var cmtContents = document.querySelector('#cmtContents')
+			
+			let div = document.createElement('div');
+			div.classList.add('emptyCmtContainer')
+			
+			let div2 = document.createElement('div')
+			div2.classList.add('emptyCmtBox')
+			
+			let div3 = document.createElement('div')
+			div3.classList.add('emptyCmtContent')
+			div3.innerText = '첫번째 댓글을 남겨보세요'
+			
+			div2.append(div3)
+			div.append(div2)
+			
+			cmtContents.append(div)
+		}
+
 	function cmtDel(item, cmt_del_bt) {
 	   if(cmt_del_bt.innerText == '삭제') {
 	      if(now_upd_situation == updOn) {
