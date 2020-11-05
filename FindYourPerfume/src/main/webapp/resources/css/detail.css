@@ -164,7 +164,7 @@
 #infoContainer > #cmtSection > #cmtContainer {
 	/* border: 1px solid blue; */
 	width: 1000px;
-	height: 420px;
+	height: 500px;
 	margin-bottom: 30px;
 }
 
@@ -204,15 +204,20 @@
 
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_userData {
 	padding: 0 5px;
-	width: 130px;
+    width: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-#infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_userData > .cmt_userData_userNm {
+#infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_userData > .cmt_userData_userNm > p {
 	font-weight: bolder;
+	margin: 0 0 5px;
 }
 
-#infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_userData > .cmt_userData_userAge {
+#infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_userData > .cmt_userData_userAge > p {
 	font-size: 0.9em;
+	margin: 5px 0 0;
 }
 
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_cmt {
@@ -414,9 +419,6 @@
 	font-size: 1.2rem;
 }
 
-#pageGroup > .cmt_page {
-	cursor: pointer;
-}
 
 .cmt_box {
 	width: 80%;
@@ -428,8 +430,10 @@
 #favorite {
 	cursor: pointer;
 } */
+#pageGroup > .cmt_page {
+	cursor: pointer;
+} 
 
 #pageGroup > .on {
 	font-size: 1.2rem;
-	color: red;
 }

@@ -125,7 +125,7 @@
 					</c:if>
 				</div>
 			</div>
-			<hr id="sectionHr_l">
+			<hr class="startPoint" id="sectionHr_l">
 			<div>
 				<div></div>
 			</div>
@@ -332,7 +332,7 @@
 						var b_nm_eng = res.data[i].b_nm_eng
 						var div = document.createElement('span'); 
 						var div_eng = document.createElement('div');
-						div.setAttribute('onclick', `choiceAlphabetFullNm(\'\${res.data[i].b_nm_eng}\')`);
+						div.setAttribute('onclick', `moveToTop(); choiceAlphabetFullNm(\'\${res.data[i].b_nm_eng}\');`);
 						div.setAttribute('class', 'brandAlphabet');
 						div_eng.innerText = b_nm_eng
 						div.append(div_eng)
@@ -408,6 +408,7 @@
 			hiddenSwiper.innerText = ''
 			
 			for (var i = 0; i < 5; i++){
+				
 				var div = document.createElement('div');
 				div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`);
 				div.setAttribute('class', 'brandAlphabet');
@@ -416,6 +417,7 @@
 				var div_size = document.createElement('div');
 				var div_price = document.createElement('div');
 				var img = document.createElement('img');
+
 				
 				var img = document.createElement('img');
 				img.src = res.data[i].p_pic
@@ -439,6 +441,11 @@
 				div.append(div_price)
 				sel_div.append(div)
 			}
+ 			
+ 			var div_title = document.createElement('div')
+			div_title.setAttribute('class', 'brandTitle');
+			div_title.innerText = b_nm_eng;
+			selDivContainer.append(div_title);
 		})
 	}
 	//가격에 쉼표 붙이기

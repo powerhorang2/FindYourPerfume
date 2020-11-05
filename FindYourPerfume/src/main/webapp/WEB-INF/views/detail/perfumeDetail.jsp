@@ -125,7 +125,7 @@
                      </div>
                      <div>
                         <textarea id="cmt_val" cols="50" rows="10" name="cmt"
-                           placeholder="댓글을 등록해보세요. (50자 이내)"></textarea>
+							style="resize:none;" placeholder="댓글을 등록해보세요. (50자 이내)"></textarea>
                      </div>
                      <div id="cmtInputBtn">
                         <input type="button" class="button" value="등록"

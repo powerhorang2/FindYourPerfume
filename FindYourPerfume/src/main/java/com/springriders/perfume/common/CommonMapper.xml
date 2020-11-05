@@ -156,6 +156,9 @@
 		WHERE A.nt_d_c = #{nt_d_c}
 	</select>
 	
+	<delete id="delPerfumeNote" parameterType="PerfumePARAM">
+		DELETE FROM t_note WHERE i_p = #{i_p}
+	</delete>
 	<delete id="delPerfume" parameterType="PerfumePARAM">
 		DELETE FROM t_perfume WHERE i_p = #{i_p}
 	</delete>
