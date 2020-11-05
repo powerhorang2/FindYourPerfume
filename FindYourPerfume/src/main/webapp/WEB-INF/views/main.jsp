@@ -63,11 +63,11 @@
 		<!--알파벳 클릭  -->
 		<div id="selBrandAlphabet">
 			<div>
-				<p onclick="ajaxChoiceAlphabetMain('ALL')">ALL</p>	
+				<p onclick="choiceAlphabetMain('ALL')">ALL</p>	
 				<c:forEach items="${brandAlphabet}" var="item">
-					<p onclick="ajaxChoiceAlphabetMain(`${item}`)">${item}</p>
+					<p onclick="choiceAlphabetMain(`${item}`)">${item}</p>
 				</c:forEach>
-				<p onclick="ajaxChoiceAlphabetMain('ETC')">ETC</p>
+				<p onclick="choiceAlphabetMain('ETC')">ETC</p>
 			</div>
 		</div>
 		<div id="selBrand">
@@ -120,32 +120,9 @@
 				</div>
 			</div>
 			<hr>
-		<!-- <form name="note" id="note" action="/common/ajaxSelNoteList" method="post" onsubmit="choiceNoteList()"> -->
-			
 			<div id="selDivContainer">
-<!-- 				<form name="sortPerfume" id="sortPerfume" action="/common/sortPerfume" method="post"> -->
-					<select class="perfumeOption" onchange="sort(this.value)">
-						<option id="sort_type" value="0">원하는 순서를 정하세요</option>
-						<option id="sort_type" value="1">가격순(낮은순)</option>
-						<option id="sort_type" value="2">용량순(낮은순)</option>
-						<option id="sort_type" value="3">가격순(높은순)</option>
-						<option id="sort_type" value="4">용량순(높은순)</option>
-					</select>
-			<!-- 	</form> -->
 				<div id="sel_div">
 					<div id="brandAlphabet" class="perfumeMain">
-						<div class="noteList">
-							<c:if test="${sort_type != 0}">
-								<c:forEach items="${sortPerfume}" var="item">
-									<div>
-										<img src="${item.p_pic}">
-									</div>
-									<div><b>${item.b_nm_eng}</b></div>
-									<div>${item.p_nm}</div>
-									<div>${item.p_size}ml&emsp;${item.p_price}원</div>	
-								</c:forEach>
-							</c:if>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -160,12 +137,12 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-
 	var sIdx = 5;
 	var eIdx = 10;
 	var brandList = new Array();
 	var rowAllCnt = 0
-	function BrandVO(b_nm_eng, i_p, i_user, p_brand, p_nm, p_pic, p_price,p_size, nt_d_c, b_nm_kor) {
+	function BrandVO(b_nm_eng, i_p, i_user, p_brand, p_nm, p_pic, p_price,
+			p_size) {
 		this.b_nm_eng = b_nm_eng
 		this.i_p = i_p
 		this.i_user = i_user
@@ -174,13 +151,10 @@
 		this.p_pic = p_pic
 		this.p_price = p_price
 		this.p_size = p_size
-		this.nt_d_c = nt_d_c
-		this.b_nm_kor = b_nm_kor
 	}
 	
 	// 슬라이드 당 보이는 엘리먼트 개수
 	const slides_per_view = 5;
-	
 	// 총 슬라이드 페이지
 	var slide_page = `${slide_page}`
 	
@@ -190,83 +164,11 @@
 	// 유저가 좋아하는 노트 배열
 	var userNoteArr = new Array();
 	
-	// sort_type
-	sortPerfume = `${sortPerfume}`
-	console.log('코드 : ' + sortPerfume)
-	
-/* 	var b_nm_initial = b_nm_initial */
-	
 	<c:forEach items="${userNote}" var="item">
 		userNoteArr.push({nt_m_nm_kor: "${item.nt_m_nm_kor}"});		
 	</c:forEach>
 	
-	var initial = ''
-	
- 	if(sortPerfume == 0){
-		ajaxChoiceAlphabetMain('ALL')
-	}else if(sortPerfume != 0){
-		ajaxSelBrandNm('ALL')
-	}
-
-
-	
-	function sort(sort_type) {
-		console.log('sort_type : ' + sort_type)
-		console.log('initial : ' + initial)
-
-		
-/* 		var more = document.querySelector('#more');
-		more.setAttribute('onclick', "more(" + "'" + sort_type + "'" + ")")
-		 */
-		axios.get('/common/ajaxSortPerfume', {
-			params : {
-				sort_type : sort_type,
-				initial : initial
-			}
-		}).then(function(res){
-			// brandList : 초기화 
-			// brandList : res.data 이걸 이용해서 배열로 리스트에 담아준다.
-			
-			console.log('배열수 : ' + res.data.length)
-			console.log('이뤔 : ' + res.data[0].p_nm)
-			
-			sel_div.innerText = ''
-			
-			for (var i = 0; i <5; i++){
-				var div = document.createElement('div');
-				div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`);
-				div.setAttribute('class', 'brandAlphabet');
-				var div_kor = document.createElement('div');
-				var div_eng = document.createElement('div');
-				var div_size = document.createElement('div');
-				var div_price = document.createElement('div');
-				var img = document.createElement('img');
-				
-				var img = document.createElement('img');
-				img.src = res.data[i].p_pic
-				div.append(img)
-				
-				var div_eng = document.createElement('div');
-				div_eng.setAttribute('id', 'brandNm');
-				div_eng.innerText = res.data[i].b_nm_eng
-				div.append(div_eng)
-				var div_kor = document.createElement('div');
-				div_kor.setAttribute('id', 'perfumeNm');
-				div_kor.innerText = res.data[i].p_nm
-				div.append(div_kor)
-				
-				var div_size = document.createElement('div');
-				div_size.innerText = res.data[i].p_size + 'ml'
-				div.append(div_size)
-				
-				var div_price = document.createElement('div');
-				div_price.innerText = numberFormat(res.data[i].p_price) + '원'
-				div.append(div_price)
-				sel_div.append(div)
-			}
-		})
-	}
-	
+	choiceAlphabetMain('ALL')
 	//향수 컨테이너 담는 arrayList 만들기
 	function makeArrayList(tempArr) {
 		for (var i = 0; i < tempArr.length; i++) {
@@ -278,16 +180,13 @@
 	}
 	//더 보기 버튼 눌렀을 때 idx 증가하면서, 뒤의 배열 추가
 	function more(b_nm_eng) {
-		
-		console.log('A : ' + b_nm_eng)
-
 		if (b_nm_eng == null) {
 			if (rowAllCnt == sIdx) {
 				alert('마지막입니다.')
 			} else {
 			// 235
-	   	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt} //작업중
-	   	 		
+	   	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt}
+	   	 	
 	   			for (sIdx; sIdx < eIdx; sIdx++) {
 	   				console.log(sIdx)
 	   				var div = document.createElement('div');
@@ -332,40 +231,39 @@
 	   		}
 	   		console.log(pick_brandList);
 	   		
-	   		if((pick_brandList.length-1) < sIdx) {
+	   		if(pick_brandList.length == sIdx) {
 				alert('마지막입니다.')
-				
-			} else {
-				if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}
+		} else {
+			if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}
 	   	 	
-   				for (sIdx; sIdx < eIdx; sIdx++) {
-   					console.log(sIdx)
-   					var div = document.createElement('div');
-   					div.setAttribute('onclick', 'moveToDetail('+pick_brandList[sIdx].i_p+')');
-   					div.setAttribute('class', 'brandAlphabet');
+   			for (sIdx; sIdx < eIdx; sIdx++) {
+   				console.log(sIdx)
+   				var div = document.createElement('div');
+   				div.setAttribute('onclick', 'moveToDetail('+pick_brandList[sIdx].i_p+')');//수정해야됨
+   				div.setAttribute('class', 'brandAlphabet');
    				
-   					var img = document.createElement('img');
-   					img.src = pick_brandList[sIdx].p_pic
-   					div.append(img)
-   						   				
-   					var div_eng = document.createElement('div');
-   					div_eng.setAttribute('id', 'brandNm');
-   					div_eng.innerText = pick_brandList[sIdx].b_nm_eng
-   					div.append(div_eng)
-	   				
-	   				var div_kor = document.createElement('div');
-					div_kor.setAttribute('id', 'perfumeNm');
-	   				div_kor.innerText = pick_brandList[sIdx].p_nm
-	   				div.append(div_kor)
-	   				
-	   				var div_size = document.createElement('div');
-	   				div_size.innerText = pick_brandList[sIdx].p_size + 'ml'
-	   				div.append(div_size)
-	   				
-	   				var div_price = document.createElement('div');
-	   				div_price.innerText = numberFormat(pick_brandList[sIdx].p_price) + '원'
-	   				div.append(div_price)
-	   				sel_div.append(div)
+   				var img = document.createElement('img');
+   				img.src = pick_brandList[sIdx].p_pic
+   				div.append(img)
+   					   				
+   				var div_eng = document.createElement('div');
+   				div_eng.setAttribute('id', 'brandNm');
+   				div_eng.innerText = pick_brandList[sIdx].b_nm_eng
+   				div.append(div_eng)
+   				
+   				var div_kor = document.createElement('div');
+				div_kor.setAttribute('id', 'perfumeNm');
+   				div_kor.innerText = pick_brandList[sIdx].p_nm
+   				div.append(div_kor)
+   				
+   				var div_size = document.createElement('div');
+   				div_size.innerText = pick_brandList[sIdx].p_size + 'ml'
+   				div.append(div_size)
+   				
+   				var div_price = document.createElement('div');
+   				div_price.innerText = numberFormat(pick_brandList[sIdx].p_price) + '원'
+   				div.append(div_price)
+   				sel_div.append(div)
    			}
    			if(pick_brandList.length - sIdx >= 5){
    				eIdx += 5
@@ -374,23 +272,22 @@
 			}	
 		}
 	}
-	
-	function ajaxChoiceAlphabetMain(b_nm_initial) {
+	function choiceAlphabetMain(b_nm_initial) {
+		console.log()
 		idx = 0;
-		initial = b_nm_initial
 		var more = document.querySelector('#more');
 		more.setAttribute('onclick', "more()")
 		axios.get('/common/ajaxSelBrandAlphabet', {
 			params : {
-				b_nm_initial : b_nm_initial,
-				sort_type : sort_type
+				b_nm_initial : b_nm_initial
 			}
 		}).then(
 				function(res) {
 					sel_div.innerText = ''
 					for (var i = 0; i < res.data.length; i++) {
 						var div = document.createElement('span');
-						div.setAttribute('onclick',`moveToDetail(\'\${res.data[i].i_p}\')`);
+						div.setAttribute('onclick',
+								`moveToDetail(\'\${res.data[i].i_p}\')`);
 						div.setAttribute('id', 'list');
 						div.setAttribute('class', 'brandAlphabet');
 						
@@ -417,23 +314,13 @@
 						div.append(div_price)
 						sel_div.append(div)
 					}
-					
-					ajaxSelBrandNm(b_nm_initial)
-					ajaxSelBrandAlphabet(b_nm_initial)
-					
 				})
-				
-	}
-		function ajaxSelBrandNm(b_nm_initial){
-			initial = b_nm_initial
-			axios.get('/common/ajaxSelBrandNm',{
+				axios.get('/common/ajaxSelBrandNm',{
 					params : {
-						b_nm_initial : b_nm_initial,
-						sort_type : sort_type
+						b_nm_initial : b_nm_initial
 					}
 				}).then(function(res){
 					selBrand.innerText = '' 
-						
 					for (var i = 0; i < res.data.length; i++){
 						var b_nm_eng = res.data[i].b_nm_eng
 						var div = document.createElement('span'); 
@@ -442,23 +329,16 @@
 						div.setAttribute('class', 'brandAlphabet');
 						div_eng.innerText = b_nm_eng
 						div.append(div_eng)
-						selBrand.append(div)
-					} 
-					
+						selBrand.append(div)	
+					}
 				})
-		}
-		
-		function ajaxSelBrandAlphabet(b_nm_initial){
-			initial = b_nm_initial
-			axios.get('/common/ajaxSelBrandAlphabet', {
+				axios.get('/common/ajaxSelBrandAlphabet', {
 					/*  			console.log(listMore) */
 					params : {
-						b_nm_initial : b_nm_initial,
-						sort_type : sort_type
+						b_nm_initial : b_nm_initial
 					}
 				}).then(function(res) {
 						var tempArr = res.data.selBrandAlpahbet
-						console.log(res.data.selBrandAlpahbet)
 						console.log(`length : \${tempArr.length}`)
 						brandList = new Array();
 						console.log(res)
@@ -513,12 +393,11 @@
 		more.setAttribute('onclick', "more(" + "'" + b_nm_eng + "'" + ")")
 		axios.get('/common/ajaxSelBrandFullAp', {
 			params : {
-				b_nm_eng : b_nm_eng,
-				sort_type : sort_type
+				b_nm_eng : b_nm_eng
 			}
 			
 		}).then(function(res){
- 		 	sel_div.innerText = '' 
+ 			sel_div.innerText = ''
 			hiddenSwiper.innerText = ''
 			
 			for (var i = 0; i < 5; i++){
@@ -555,7 +434,6 @@
 			}
 		})
 	}
-
 	//가격에 쉼표 붙이기
 	function numberFormat(inputNumber) {
 		return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

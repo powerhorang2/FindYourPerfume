@@ -123,9 +123,6 @@ public class CommonService {
 		return mapper.ajaxSelNoteList(param);
 	}
 
-	public List<NoteCodeVO> ajaxSortPerfume(NoteCodeVO param) {
-		return mapper.alphabetSort(param);
-	}
 
 
 	/*

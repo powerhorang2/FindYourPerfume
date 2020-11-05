@@ -42,7 +42,7 @@ public interface CommonMapper {
 
 	int delPerfume(PerfumePARAM param);
 	
-	List<NoteCodeVO> alphabetSort(NoteCodeVO vo);
+
 
 
 	

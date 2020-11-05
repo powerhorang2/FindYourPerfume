@@ -54,7 +54,6 @@ public class CommonController {
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
 		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
-		List<NoteCodeVO> noteList = service.selNoteList(vo);
 		
 
 		//알파벳 A~Z 까지 뽑기
@@ -87,7 +86,6 @@ public class CommonController {
 		}
 
 		/* model.addAttribute("pageNum", pageNum); */
-		model.addAttribute("noteList", noteList);
 		model.addAttribute("brandFullNm", brandFullNm);
         model.addAttribute("brandAlphabet", brandAlphabet);
         model.addAttribute("brandEnm", brandEnm);
@@ -220,16 +218,4 @@ public class CommonController {
 		return service.ajaxSelNoteList(param);
 	}
 
-	@RequestMapping("/ajaxSortPerfume")
-	@ResponseBody
-	public List<NoteCodeVO> ajaxSortPerfume(NoteCodeVO param, Model model) {
-		int sort_type = param.getSort_type();
-		String initial = param.getInitial();
-		System.out.println("재섭이 돼지 1 : " + sort_type);
-		System.out.println("재섭이 돼지 2 : " + initial);
-		
-		List<NoteCodeVO> list = service.ajaxSortPerfume(param);
-		
-		return list;
-	}
 }
