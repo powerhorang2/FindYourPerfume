@@ -41,16 +41,6 @@ public class UserController {
 	@RequestMapping(value="/admin", method = RequestMethod.GET)
 	public String admin(UserPARAM param, Model model, HttpServletRequest request, HttpSession hs) {
 		
-		UserVO vo = SecurityUtils.getLoginUser(request);
-		if(vo == null) {
-			return "redirect:/user/login";
-		}
-		int user_type = vo.getUser_type();
-		if(user_type != Const.ADMIN) {
-			hs.invalidate();
-			return "redirect:/user/login";
-		}
-		
 		model.addAttribute("userList", service.selUserList());
 		model.addAttribute("adminList", service.selAdminList());
 		model.addAttribute("brandList", service.selBrandList());

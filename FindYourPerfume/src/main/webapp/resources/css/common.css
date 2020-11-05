@@ -229,7 +229,7 @@ a {
 	justify-content: space-between;
 }
 
-#loginContainer > #loginBox > .frm > #loginBtnBox > .button {
+#loginContainer > #loginBox #loginBtnBox > .button {
 	width: 98px;
 	font-size: 0.7em;	
 }
@@ -329,5 +329,3 @@ a {
 	justify-content: center;
 	align-items: center;
 }
-
-

@@ -226,6 +226,7 @@
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_cmt > .cmt_userData_sr {
 	display: flex;
 	justify-content: flex-end;
+	margin: 5px 0 10px;
 }
 
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_cmt > .cmt_cmt_data {
@@ -233,13 +234,14 @@
 }
 
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_cmt > .cmt_cmt_data > p {
-	margin: 5px;
+	margin: 16px 5px 5px 5px;
 }
 
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_cmt > .cmt_userData_ud {
 	/* border: 1px solid pink; */
 	display: flex;
 	justify-content: flex-end;
+	margin: 5px 0 10px;
 }
 
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .emptyCmtContainer {
@@ -417,11 +419,6 @@
 	cursor: pointer;
 }
 
-#pageGroup > .on {
-	font-size: 1.2rem;
-	color: red;
-}
-
 .cmt_box {
 	width: 80%;
 	height: 500px;
@@ -432,3 +429,8 @@
 #favorite {
 	cursor: pointer;
 } */
+
+#pageGroup > .on {
+	font-size: 1.2rem;
+	color: red;
+}

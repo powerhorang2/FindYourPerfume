@@ -13,4 +13,5 @@ public class CommonVO extends UserPARAM {
 	public void setLoginMsg(String loginMsg) {
 		this.loginMsg = loginMsg;
 	}
+
 }
