@@ -28,34 +28,31 @@
 				</c:when>
 				<c:otherwise>
 					<!-- 로그인 상태 -->
-					<c:choose>
-						<c:when test="${loginUser.user_type == '2'}">
-							<div id="loginBox">
-								<div id="profileImgBox" style="background: #BDBDBD;">
-										<img id="sidebarImg"
-											src="/res/img/profileImg/${loginUser.profile_img}">
-								</div>
-								<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다.</div>
-								<div id="loginBtnBox">
-									<input type="button" onclick="moveToPage(`/user/admin`)" class="button" value="ADMIN">
-									<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
-								</div>
+					<div id="loginBox">
+						<c:if test="${loginUser.profile_img == null}">
+							<div id="profileImgBox">
+								<img id="sidebarImg" class="profile" src="/res/img/default_img.jpg">					
 							</div>
-						</c:when>
-						<c:otherwise>
-							<div id="loginBox">
-								<div id="profileImgBox" style="background: #BDBDBD;">
-									<img id="sidebarImg"
-										src="/res/img/profileImg/${loginUser.profile_img}">
-								</div>
-								<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다</div>
-								<div id="loginBtnBox">
-									<input type="button" onclick="moveToPage(`/user/myPage`)" class="button" value="MYPAGE">
-									<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
-								</div>
+						</c:if>
+						<!-- 프로필사진 등록시 -->
+						<c:if test="${loginUser.profile_img != null}">
+							<div id="profileImgBox">
+								<img id="sidebarImg" class="profile" src="/res/img/profileImg/${loginUser.profile_img}">	
 							</div>
-						</c:otherwise>
-					</c:choose>
+						</c:if>
+						<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다.</div>
+						<div id="loginBtnBox">
+						<c:choose>
+							<c:when test="${loginUser.user_type == '2'}">
+								<input type="button" onclick="moveToPage(`/user/admin`)" class="button" value="ADMIN">
+							</c:when>
+							<c:otherwise>
+								<input type="button" onclick="moveToPage(`/user/myPage`)" class="button" value="MYPAGE">
+							</c:otherwise>												
+						</c:choose>
+							<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
+						</div>
+					</div>
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -76,11 +73,11 @@
 		<div id="brandContainer">
 			<div id="hiddenSwiper">
 				<div id="topPerfume">
-					<div id="topPerfumeTitle">MOST LOVED PERFUMES</div>
+					<div id="topPerfumeTitle">회원님들에게 사랑받는 향수들이에요</div>
 					<div id="topPerfumeList">
 					<c:forEach items="${topPerfume}" var="item">
 						<div id="topPerfumeItem">
-							<div id="topPImg">
+							<div id="topPImg" onclick="moveToDetail(${item.i_p})">
 								<img src="${item.p_pic}">
 							</div>
 							<div><b>${item.b_nm_eng}</b></div>
@@ -92,14 +89,14 @@
 				</div>
 				<div id="recPerfume">
 			 		<c:if test="${loginUser != null}">
-						<div id="recPerfumeTitle">RECOMMENDS YOU MIGHT LIKE(#<span id="rec_note_nm">모기향</span>)</div>
+						<div id="recPerfumeTitle">회원님이 좋아하실 만한 #<span id="rec_note_nm"></span>노트의 향수들이에요</div>
 						<!-- Slider main container -->
 						<div class="swiper-container">
 							<!-- Additional required wrapper -->
 							<div class="swiper-wrapper">
 								<!-- Slides -->
 								<c:forEach items="${recPerfume}" var="item">
-									<div class="swiper-slide">
+									<div class="swiper-slide" onclick="moveToDetail(${item.i_p})">
 										<div id="topPImg">
 											<img src="${item.p_pic}">
 										</div>
@@ -119,26 +116,22 @@
 					</c:if>
 				</div>
 			</div>
-			<hr>
-		<div class="noteList">
-			<c:forEach items="${noteList}" var="item">
-				<p onclick="choiceNoteList(`${item.nt_d_c}`)">${item.nt_d_nm_kor}</p>
-			</c:forEach>
-		</div>
+			<hr id="sectionHr_l">
+			<div>
+				<div></div>
+			</div>
 			<div id="selDivContainer">
 				<div id="sel_div">
 					<div id="brandAlphabet" class="perfumeMain">
 					</div>
 				</div>
 			</div>
-	<div id="paging">
-		<div class="more">
-			<button id="more" onclick="more()">더보기</button>
-			<div style="cursor:pointer;" onclick="window.scrollTo(0,0);">
-					맨위로
+			<div id="paging">
+				<div class="more">
+					<button id="more" class="button" onclick="more()">더보기</button>
+				</div>
 			</div>
 		</div>
-	</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
@@ -236,7 +229,7 @@
 	   		}
 	   		console.log(pick_brandList);
 	   		
-	   		if(pick_brandList.length == sIdx) {
+	   		if((pick_brandList.length-1) < sIdx) {
 				alert('마지막입니다.')
 		} else {
 			if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}
