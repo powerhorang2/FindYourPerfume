@@ -184,7 +184,7 @@
 	function more(b_nm_eng) {
 		if(b_nm_eng == null) {
 			if (rowAllCnt == sIdx){
-				alert('마지막입니다.')
+				document.getElementById('more').style.display = 'none'	
 			} else {
 			// 235
 	   	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt}
@@ -234,7 +234,7 @@
 	   		console.log(pick_brandList);
 	   		
 	   		if(pick_brandList.length-1 < sIdx) {
-			alert('마지막입니다.')
+	   			document.getElementById('more').style.display = 'none'	
 		} else {
 			if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}
 	   	 	

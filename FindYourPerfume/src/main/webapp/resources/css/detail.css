@@ -414,9 +414,6 @@
 	font-size: 1.2rem;
 }
 
-#pageGroup > .cmt_page {
-	cursor: pointer;
-}
 
 .cmt_box {
 	width: 80%;
@@ -431,5 +428,7 @@
 
 #pageGroup > .on {
 	font-size: 1.2rem;
-	color: red;
+}
+#pageGroup > .cmt_page {
+	cursor: pointer;
 }
