@@ -117,8 +117,8 @@
                      <div>
                         ${loginUser.nm}/
                         <c:choose>
-                           <c:when test="${loginUser.ageGroup == 1}">10세 미만/</c:when>
-                           <c:when test="${loginUser.ageGroup == 100}">100세 이상/</c:when>
+                           <c:when test="${loginUser.ageGroup == 1}">10세미만/</c:when>
+                           <c:when test="${loginUser.ageGroup == 100}">100세이상/</c:when>
                            <c:otherwise>${loginUser.ageGroup}대/</c:otherwise>
                         </c:choose>
                         ${loginUser.strGender}
