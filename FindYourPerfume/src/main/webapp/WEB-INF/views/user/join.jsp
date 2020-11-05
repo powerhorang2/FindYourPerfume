@@ -37,7 +37,7 @@
 				<div>닉네임<span>Nickname</span></div>
 				<div><input type="text" name="nm" placeholder="닉네임" id="nm"></div>
 				<div id="show_nm"></div>	
-				<div>닉네임은 6~12자 이내로 입력하세요</div>		
+				<div>닉네임은 8자 이내로 입력하세요</div>		
 			</div>
 			<div>
 				<div>생년월일<span>Date of Birth</span></div>
@@ -131,7 +131,7 @@
 			alert('닉네임을 입력해주세요')
 			return false
 		}
-		if(nm.length > 12 || nm.length < 5){
+		if(nm.length > 9){
 			alert('닉네임을 확인해 주세요')
 			return false
 		}
@@ -210,7 +210,7 @@
 	
 		if(nm == ""){
 			$("#show_nm").text("닉네임을 입력해주세요")
-		} else if(nm.length > 12 || nm.length < 5){
+		} else if(nm.length > 9){
 			$("#show_nm").text("닉네임을 확인해 주세요")
 		}else{
 			$("#show_nm").text("사용 가능한 닉네임 입니다.")
