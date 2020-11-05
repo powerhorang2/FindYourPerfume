@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>브랜드 크롤링</title>
+<title>향수 크롤링</title>
 </head>
 <body>
-	<div>${data}</div>
+	<div>추가한 향수 : ${result}</div>
 </body>
 </html>

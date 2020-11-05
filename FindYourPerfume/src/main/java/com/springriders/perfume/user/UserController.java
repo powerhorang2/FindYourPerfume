@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springriders.perfume.Const;
+import com.springriders.perfume.FileUtils;
 import com.springriders.perfume.SecurityUtils;
 import com.springriders.perfume.ViewRef;
 import com.springriders.perfume.common.CommonService;
@@ -39,16 +40,6 @@ public class UserController {
 	
 	@RequestMapping(value="/admin", method = RequestMethod.GET)
 	public String admin(UserPARAM param, Model model, HttpServletRequest request, HttpSession hs) {
-		
-		UserVO vo = SecurityUtils.getLoginUser(request);
-		if(vo == null) {
-			return "redirect:/user/login";
-		}
-		int user_type = vo.getUser_type();
-		if(user_type != Const.ADMIN) {
-			hs.invalidate();
-			return "redirect:/user/login";
-		}
 		
 		model.addAttribute("userList", service.selUserList());
 		model.addAttribute("adminList", service.selAdminList());
@@ -112,20 +103,17 @@ public class UserController {
 		
         int i_user = SecurityUtils.getLoginUserPk(hs);
 		
-		UserPARAM p = new UserPARAM();
-		p.setI_user(i_user);
-		System.out.println("i_user: " + p.getI_user());
-		List<PerfumeDMI> favNotesList = service.selFavNotes(p);
-		
-		System.out.println("찍히니? : " + favNotesList.get(0).getNt_m_c());
-		System.out.println("찍히니? : " + favNotesList.get(1).getNt_m_c());
+		UserPARAM userParam = new UserPARAM();
+		userParam.setI_user(i_user);
+		System.out.println("i_user: " + userParam.getI_user());
+		List<PerfumeDMI> favNotesList = service.selFavNotes(userParam);
 		
 		model.addAttribute("brandFullNm", brandFullNm);
         model.addAttribute("brandAlphabet", brandAlphabet);
         model.addAttribute("brandEnm", brandEnm);
 		model.addAttribute("perfume", perfume);
 		
-		model.addAttribute("data", service.selFavoriteList(p));
+		model.addAttribute("data", service.selFavoriteList(userParam));
 		model.addAttribute("favNotes", favNotesList);
 		
 		
@@ -137,6 +125,17 @@ public class UserController {
 	
 	@RequestMapping(value="/uptUser", method = RequestMethod.POST)
 	public String uptUser(UserPARAM param, MultipartHttpServletRequest mReq, HttpSession hs, RedirectAttributes ra) {
+		
+		/* System.out.println("프로필 사진 : " + param.getProfile_img()); */
+		
+		/*
+		 * if(param.getProfile_img() != null && !"".equals(param.getProfile_img())) {
+		 * String path = Const.realPath + "/resources/img/rest/" + param.getI_rest() +
+		 * "/menu/";
+		 * 
+		 * if(FileUtils.delFile(path + param.getMenu_pic())) { return
+		 * mapper.delRestMenu(param); } else { return Const.FAIL; } }
+		 */
 		int result = service.uptUser(mReq, hs);
 		int user_type = param.getUser_type();
 		
@@ -170,23 +169,15 @@ public class UserController {
 		
 		int result = service.join(mReq, param);
 		
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
 		if(result == 1) {
-			System.out.println("bbbbbbbbbbbbbbbbbbbbbbbb");
 			return "redirect:/user/login";
 		}
 		ra.addAttribute("err", result);
-		System.out.println("ccccccccccccccccc");
 		return "redirect:/user/join";
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(Model model, HttpServletRequest request) {
-		
-//		if(SecurityUtils.loginChk(request) == true) {
-//			return "redirect:/common/main";
-//		}
-		
 		model.addAttribute(Const.CSS, "login");
 		model.addAttribute(Const.TITLE, "로그인");
 		model.addAttribute(Const.VIEW, "/user/login");

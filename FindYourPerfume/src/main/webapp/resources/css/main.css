@@ -3,24 +3,11 @@
 .show {display:block;} /*보여주기*/
 .hide {display:none;} /*숨기기*/
 
-#perfumeNm {
-	width: 230px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-	margin-left: 7px;
-}
-
-#brandNm {
-	font-weight: bolder;
-}
-
 #brandContainer {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	margin-top: 50px;
 }
-
 
 #container > section > #mainContainer > #commonContainer {
 	display: flex;
@@ -85,21 +72,13 @@
 	height: 100%;
 }
 
-
-
-
-
-
-
-
-
-
 #topPerfume {
 	display: flex;
 	flex-direction: column;
 	width: 1300px;
  	min-width: 1300px;
- 	margin-left: 100px;
+ 	margin: 50px 0 0 100px;
+ 	
 }
 
 #topPerfume > #topPerfumeTitle {
@@ -120,6 +99,26 @@
 	width: 250px;
 	height: 400px;
 	margin: 0 15px;
+	cursor: pointer;
+	
+	
+/* 	display: inline-block;
+	vertical-align: middle;
+	transform: perspective(1px) translateZ(0);
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+	transition-duration: 0.3s;
+	transition-property: box-shadow;
+	box-shadow: inset 0 0 0 4px #e1e1e1, 0 0 1px rgba(0, 0, 0, 0); */
+}
+
+#topPerfume > #topPerfumeList > #topPerfumeItem > #topPImg:hover {
+	opacity: 0.5;
+    filter: grayscale(100%);
+    transition: 0.2s;
+}
+
+#topPerfume > #topPerfumeList > #topPerfumeItem > #topPImg:active {
+	opacity: 1;
 }
 
 #topPerfume > #topPerfumeList > #topPerfumeItem > div {
@@ -145,7 +144,14 @@
 	flex-direction: column;
 	width: 1300px;
  	min-width: 1300px;
- 	margin-left: 100px;
+ 	margin: 50px 0 0 100px;
+}
+
+
+#recPerfume > #recPerfumeTitle > #rec_note_nm {
+	font-size: 1.1em;
+	color: #606060;
+	margin: 0 5px;
 }
 
 #recPerfume > #recPerfumeTitle {
@@ -177,6 +183,13 @@
 	width: 230px;
 	height: 280px;
 	margin: 30px 15px;
+	cursor: pointer;
+}
+
+#selDivContainer > #sel_div > .brandAlphabet:hover {
+	opacity: 0.5;
+    filter: grayscale(100%);
+    transition: 0.2s;	
 }
 
 #selDivContainer > #sel_div > .brandAlphabet > div {
@@ -208,14 +221,6 @@
 	margin: 50px 0 50px 100px;
 }
 
-#paging > .more > button {
-	
-}
-
-.material-icons {
-	color: red;
-}
-
 .perfumeMain{
 	text-align: center;
 	margin-top: 20px;
@@ -224,7 +229,7 @@
 }
 
 .swiper-container {
-	width: 70%;
+	width: 100%;
 	height: 400px;
 	margin: 0 auto;
 }
@@ -234,7 +239,15 @@
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+	cursor: pointer;
 } 
+
+.swiper-slide:hover {
+	opacity: 0.5;
+    filter: grayscale(100%);
+    transition: 0.2s;
+}
+
 
 .swiper-slide img {
 	max-width: 100%;
@@ -242,13 +255,18 @@
 	height: 200px;
 }
 
-.material-icons { color: red; }
+.swiper-button-next {
+	right: 0;
+}
+
+.swiper-button-prev {
+	left: 0;
+}
 
 #filter{
 	width: 600px;
 	height: 100px;
     border: 1px solid black;
-   
 }
 
 .swiper-button-prev, .swiper-button-next, .swiper-pagination {
