@@ -90,29 +90,38 @@
 				<div id="recPerfume">
 			 		<c:if test="${loginUser != null}">
 						<div id="recPerfumeTitle">회원님이 좋아하실 만한 #<span id="rec_note_nm"></span>노트의 향수들이에요</div>
-						<!-- Slider main container -->
-						<div class="swiper-container">
-							<!-- Additional required wrapper -->
-							<div class="swiper-wrapper">
-								<!-- Slides -->
-								<c:forEach items="${recPerfume}" var="item">
-									<div class="swiper-slide" onclick="moveToDetail(${item.i_p})">
-										<div id="topPImg">
-											<img src="${item.p_pic}">
-										</div>
-										<div><b>${item.b_nm_eng}</b></div>
-										<div id="perfumeNm">${item.p_nm}</div>
-										<div>${item.p_size}ml&emsp;${item.p_price}원</div>
-									</div>
-								</c:forEach>
+						<c:if test="${empty recPerfume}">
+							<div class="emptyRecPerfume">
+								<div class="emptyRecPerfumeBox">
+									<p>마이 페이지에서 좋아하는 노트를 추가하시면 노트와 관련된 향수를 추천해드립니다.</p>
+								</div>
 							</div>
-							<!-- If we need pagination -->
-							<div class="swiper-pagination"></div>
-			
-							<!-- If we need navigation buttons -->
-							<div class="swiper-button-prev"></div>
-							<div class="swiper-button-next"></div>
-						</div>
+						</c:if>
+						<c:if test="${not empty recPerfume}">
+							<!-- Slider main container -->
+							<div class="swiper-container">
+								<!-- Additional required wrapper -->
+								<div class="swiper-wrapper">
+									<!-- Slides -->
+									<c:forEach items="${recPerfume}" var="item">
+										<div class="swiper-slide" onclick="moveToDetail(${item.i_p})">
+											<div id="topPImg">
+												<img src="${item.p_pic}">
+											</div>
+											<div><b>${item.b_nm_eng}</b></div>
+											<div id="perfumeNm">${item.p_nm}</div>
+											<div>${item.p_size}ml&emsp;${item.p_price}원</div>
+										</div>
+									</c:forEach>
+								</div>
+								<!-- If we need pagination -->
+								<div class="swiper-pagination"></div>
+				
+								<!-- If we need navigation buttons -->
+								<div class="swiper-button-prev"></div>
+								<div class="swiper-button-next"></div>
+							</div>
+						</c:if>
 					</c:if>
 				</div>
 			</div>
