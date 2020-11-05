@@ -219,6 +219,7 @@ public class UserService {
 		for (String strP_note : strP_notes) {
 			NoteCodeVO noteVo = new NoteCodeVO();
 			int p_note = CommonUtils.parseStringToInt(strP_note);
+			System.out.println("노트체크 : " + p_note);
 
 			noteVo.setI_p(i_p);
 			noteVo.setNt_d_c(p_note);

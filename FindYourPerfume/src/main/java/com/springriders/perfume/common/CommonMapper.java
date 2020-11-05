@@ -41,6 +41,7 @@ public interface CommonMapper {
 	int insPerfumeNote(NoteCodeVO vo);
 
 	int delPerfume(PerfumePARAM param);
+	int delPerfumeNote(PerfumePARAM param);
 	
 
 
