@@ -140,7 +140,7 @@
 		WHERE i_p = #{i_p}
 	</select>
 	<select id="ajaxSelNoteList" parameterType="PerfumePARAM" resultType="NoteCodeVO">
-		SELECT A.nt_d_c, B.i_p, B.p_nm, B.p_price, B.p_pic, B.p_size, D.nt_m_c, E.b_nm_eng, E.b_nm_kor
+		SELECT A.nt_d_c, B.i_p, B.p_nm, B.p_price, B.p_pic, B.p_size, D.nt_m_c, E.b_nm_eng, E.b_nm_kor, A.nt_d_c
 		FROM t_note A
 		INNER JOIN t_perfume B
 		ON A.i_p = B.i_p
@@ -150,12 +150,11 @@
 		ON D.nt_m_c = C.nt_m_c
 		INNER JOIN c_code_brand E
 		ON B.p_brand = E.p_brand
-<!-- 		<if test="A.nt_d_c != #{nt_d_c}">
-			WHERE A.nt_dc = #{nt_d_c} and #{nt_d_c}			
-		</if> -->
-		WHERE A.nt_d_c = #{nt_d_c}
+		WHERE (A.nt_d_c = #{nt_d_c})
 	</select>
-	
+	<delete id="delPerfumeNote" parameterType="PerfumePARAM">
+		DELETE FROM t_note WHERE i_p = #{i_p}
+	</delete>
 	<delete id="delPerfume" parameterType="PerfumePARAM">
 		DELETE FROM t_perfume WHERE i_p = #{i_p}
 	</delete>

@@ -5,7 +5,6 @@ public class PerfumeDMI extends PerfumePARAM {
 	private String b_nm_kor;
 	private String nt_m_nm_kor;
 	private int favorite_cnt;
-
 	
 	public String getNt_m_nm_kor() {
 		return nt_m_nm_kor;

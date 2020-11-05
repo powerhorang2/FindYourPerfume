@@ -44,16 +44,18 @@ public class CommonController {
 	@RequestMapping(value="/main", method = RequestMethod.GET)
 	public String main(PerfumePARAM param, NoteCodeVO vo, PerfumeDMI dm, Model model, HttpServletRequest req) {
 		
+		
 		int i_user = SecurityUtils.getLoginUserPk(req);
+		
+		System.out.println("이니셜 :" + param.getB_nm_initial());
 
 		param.setI_user(i_user);
 		System.out.println("p_brand : " + param.getP_brand());
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
 		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
-		List<NoteCodeVO> noteList = service.selNoteList(vo);
 		
-		
+
 		//알파벳 A~Z 까지 뽑기
 		List<String> brandAlphabet = new ArrayList();
 		
@@ -80,17 +82,17 @@ public class CommonController {
 			model.addAttribute("userNote", userNote);
 			
 			List<PerfumeDMI> recPerfume = service.selRecPerfumeList(userNote);
+			
 			model.addAttribute("recPerfume", recPerfume);
 		}
 
 		/* model.addAttribute("pageNum", pageNum); */
-		model.addAttribute("noteList", noteList);
 		model.addAttribute("brandFullNm", brandFullNm);
         model.addAttribute("brandAlphabet", brandAlphabet);
         model.addAttribute("brandEnm", brandEnm);
 		model.addAttribute("perfume", perfume);
 		
-
+	
 
 		model.addAttribute(Const.CSS, "main");
 		model.addAttribute(Const.TITLE, "main");
@@ -148,7 +150,8 @@ public class CommonController {
 		List<PerfumeDMI> perfumeList = service.selPerfumeList(param);
 		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
 		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
-
+		
+		
 		model.addAttribute("perfume", perfume);
 		model.addAttribute("noteList", noteList);
 		model.addAttribute("brandFullNm", brandFullNm);
@@ -175,6 +178,7 @@ public class CommonController {
 	public List<PerfumeDMI> ajaxSelBrandNm(PerfumePARAM param){
 		return service.selBrandNm(param);
 	}
+	
 	@RequestMapping("/ajaxSelBrandPerfume")
 	@ResponseBody
 	public List<PerfumeDMI> ajaxSelBrandPerfume(PerfumePARAM param){
@@ -184,8 +188,13 @@ public class CommonController {
 	
 	@RequestMapping(value="/delPerfume", method = RequestMethod.POST)
 	public String delPerfume(PerfumePARAM param, CommonVO vo, HttpSession hs, RedirectAttributes ra) {
-		System.out.println("i_p : " + param.getI_p());
-		int result = service.delPerfume(param);
+		
+		// 향수 삭제 전 노트 정보 먼저 지우기
+		service.delPerfumeNote(param);
+		
+		// 향수 삭제
+		int result = service.delPerfume(param);			
+		System.out.println("result : " + result);
 		
 		String msg = null;
 		if(result == Const.SUCCESS) {
@@ -215,14 +224,4 @@ public class CommonController {
 	public List<NoteCodeVO> ajaxSelNoteList(PerfumePARAM param) {
 		return service.ajaxSelNoteList(param);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
