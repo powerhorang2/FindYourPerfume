@@ -13,43 +13,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.springriders.perfume.crawler.model.CrawlerBrandVO;
 import com.springriders.perfume.crawler.model.CrawlerPerfumeVO;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
+@RequestMapping("/crawler")
 public class CrawlerController {
 	
 	@Autowired
 	private CrawlerService service;
 	
-	@RequestMapping("/test")
-	public String test(Model model) {
-		model.addAttribute("data", service.selHome());
-		return "test";
+	// 브랜드 크롤링
+	@RequestMapping("/brandCrawler") 
+	public String brandCrawler(Model model, List<CrawlerBrandVO> brandList) {
+		brandList = Crawler.getBrand(brandList);
+		int result = service.insBrands(brandList);
+		
+		model.addAttribute("result", result);
+		
+		return "brandCrawler";
 	}
 	
-	@RequestMapping("/crawler") // 크롤링
-	public String crawler(Model model) {
-		List<CrawlerBrandVO> brnadList = new ArrayList();
-		brnadList = Crawler.getBrand(brnadList);
-		int result = service.insBrands(brnadList); // 브랜드 크롤링
-		List<CrawlerPerfumeVO> list = new ArrayList();
-		String[] urlArr = {"https://www.celeconc.com/shop/big_section.php?cno1=4320","https://www.celeconc.com/shop/big_section.php?cno1=4014", "https://www.celeconc.com/shop/big_section.php?cno1=4321", "https://www.celeconc.com/shop/big_section.php?cno1=4021", "https://www.celeconc.com/shop/big_section.php?cno1=3646", "https://www.celeconc.com/shop/big_section.php?cno1=3405", "https://www.celeconc.com/shop/big_section.php?cno1=4354", "https://www.celeconc.com/shop/big_section.php?cno1=3641", "https://www.celeconc.com/shop/big_section.php?cno1=3781" ,"https://www.celeconc.com/shop/big_section.php?cno1=4343", "https://www.celeconc.com/shop/big_section.php?cno1=3443", "https://www.celeconc.com/shop/big_section.php?cno1=4036", "https://www.celeconc.com/shop/big_section.php?cno1=3573", "https://www.celeconc.com/shop/big_section.php?cno1=3640", "https://www.celeconc.com/shop/big_section.php?cno1=2887", "https://www.celeconc.com/shop/big_section.php?cno1=3555", "https://www.celeconc.com/shop/big_section.php?cno1=4330", "https://www.celeconc.com/shop/big_section.php?cno1=4322", "https://www.celeconc.com/shop/big_section.php?cno1=4295", "https://www.celeconc.com/shop/big_section.php?cno1=4002"};
+	// 향수 크롤링
+	@RequestMapping("/perfumeCrawler")
+	public String perfumeCrawler(Model model, List<CrawlerPerfumeVO> list) {
+		String[] urlArr = {};
+		int result = 0;
 		for(int i=0; i<urlArr.length; i++) {
 			list = Crawler.getPerfume(list, urlArr[i]);
-			service.insPerfumes(list);
+			result += service.insPerfumes(list);
 		}
 		
-		return "crawler";
+		model.addAttribute("result", result);
+		
+		return "perfumeCrawler";
 	}
 	
+	// 노트 값이 없는 향수 리스트 찾기
+	public List<CrawlerPerfumeVO> selEmptyNotePerfumeList() {
+		return service.selEmptyNotePerfumeList();
+	}
+	
+	// 랜덤한 값으로 향수에 노트를 추가하기
 	@RequestMapping("/insRandomNote") // 노트 랜덤으로 insert
-	public String insRandomNote(Model model) {
-		List<CrawlerPerfumeVO> list = new ArrayList();
-		list = service.selPerfumeList();
-		int result = service.insRandomNote(list);
-		model.addAttribute("data", result);
+	public String insRandomNote(Model model, List<CrawlerPerfumeVO> list) {
+		
+		list = selEmptyNotePerfumeList();
+		
+		int insNoteResult = service.insRandomNote(list);
+		
+		model.addAttribute("emptyNotePerfume", list.size());
+		model.addAttribute("insNoteResult", insNoteResult);
+		
 		return "insRandomNote";
 	}
+	
+	
 }
 

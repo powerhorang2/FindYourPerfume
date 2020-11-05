@@ -24,16 +24,18 @@
 	
 	<insert id="insPerfumes" parameterType="CrawlerPerfumeVO">
 		INSERT INTO t_perfume
-		(p_nm, p_price, p_pic, p_size, p_brand, p_gender)
+		(p_nm, p_price, p_pic, p_size, p_brand)
 		SELECT
-		#{p_nm}, #{p_price}, #{p_pic}, #{p_size}, i_brand, null
+		#{p_nm}, #{p_price}, #{p_pic}, #{p_size}, p_brand
 		FROM c_code_brand WHERE b_nm_eng = #{p_brand_nm}
 	</insert>
 	
-	<select id="selPerfumeList" resultType="CrawlerPerfumeVO">
-		SELECT i_p
-		FROM t_perfume
-		ORDER BY i_p
+	<select id="selEmptyNotePerfumeList" resultType="CrawlerPerfumeVO">
+		SELECT A.i_p, B.nt_d_c
+		FROM t_perfume A
+		LEFT JOIN t_note B
+		ON A.i_p = B.i_p
+		WHERE B.nt_d_c IS NULL
 	</select>
 	
 	<insert id="insRandomNote" parameterType="CrawlerPerfumeVO">
