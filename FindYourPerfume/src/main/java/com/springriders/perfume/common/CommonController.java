@@ -44,16 +44,18 @@ public class CommonController {
 	@RequestMapping(value="/main", method = RequestMethod.GET)
 	public String main(PerfumePARAM param, NoteCodeVO vo, PerfumeDMI dm, Model model, HttpServletRequest req) {
 		
+		
 		int i_user = SecurityUtils.getLoginUserPk(req);
+		
+		System.out.println("이니셜 :" + param.getB_nm_initial());
 
 		param.setI_user(i_user);
 		System.out.println("p_brand : " + param.getP_brand());
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
 		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
-		List<NoteCodeVO> noteList = service.selNoteList(vo);
 		
-		
+
 		//알파벳 A~Z 까지 뽑기
 		List<String> brandAlphabet = new ArrayList();
 		
@@ -85,13 +87,12 @@ public class CommonController {
 		}
 
 		/* model.addAttribute("pageNum", pageNum); */
-		model.addAttribute("noteList", noteList);
 		model.addAttribute("brandFullNm", brandFullNm);
         model.addAttribute("brandAlphabet", brandAlphabet);
         model.addAttribute("brandEnm", brandEnm);
 		model.addAttribute("perfume", perfume);
 		
-
+	
 
 		model.addAttribute(Const.CSS, "main");
 		model.addAttribute(Const.TITLE, "main");
@@ -177,6 +178,7 @@ public class CommonController {
 	public List<PerfumeDMI> ajaxSelBrandNm(PerfumePARAM param){
 		return service.selBrandNm(param);
 	}
+	
 	@RequestMapping("/ajaxSelBrandPerfume")
 	@ResponseBody
 	public List<PerfumeDMI> ajaxSelBrandPerfume(PerfumePARAM param){

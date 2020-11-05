@@ -10,8 +10,28 @@ public class NoteCodeVO extends PerfumeVO {
 	private String nt_m_nm_kor;
 	private String b_nm_eng;
 	private int sliders_per_view;
+	private int sort_type;
+	private String b_nm_initial;
+	private String initial;
 	
-	
+	public String getInitial() {
+		return initial;
+	}
+	public void setInitial(String initial) {
+		this.initial = initial;
+	}
+	public String getB_nm_initial() {
+		return b_nm_initial;
+	}
+	public void setB_nm_initial(String b_nm_initial) {
+		this.b_nm_initial = b_nm_initial;
+	}
+	public int getSort_type() {
+		return sort_type;
+	}
+	public void setSort_type(int sort_type) {
+		this.sort_type = sort_type;
+	}
 	public int getNt_d_c() {
 		return nt_d_c;
 	}
