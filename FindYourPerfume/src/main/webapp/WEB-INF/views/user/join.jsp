@@ -46,6 +46,7 @@
 				</div>
 			</div>
 		</div>
+		</div>
 		<div id="additionalInf">
 			<div id="title">추가정보</div>
 			<div id="profileImgContainer">

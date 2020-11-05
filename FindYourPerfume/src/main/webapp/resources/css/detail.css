@@ -204,8 +204,7 @@
 
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_userData {
 	padding: 0 5px;
-	/* border: 1px solid blue; */
-	width: 100px;
+	width: 130px;
 }
 
 #infoContainer > #cmtSection > #cmtContainer > #cmtContents > .cmt > .cmt_userData > .cmt_userData_userNm {
