@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <div id="commonContainer">
 	<div id="sidebar">
 		<div id="loginContainer">
@@ -12,18 +13,16 @@
 						<form class="frm" action="/common/main" method="post">
 							<div>
 								<div>
-									<input class="loginBar" type="text" name="user_id"
-										placeholder="아이디를 입력해주세요" value="${data.user_id}">
+									<input class="loginBar" type="text" name="user_id" placeholder="아이디를 입력해주세요"
+										value="${data.user_id}">
 								</div>
 								<div>
-									<input class="loginBar" type="password" name="user_pw"
-										placeholder="비밀번호를 입력해주세요">
+									<input class="loginBar" type="password" name="user_pw" placeholder="비밀번호를 입력해주세요">
 								</div>
 							</div>
 							<div id="loginBtnBox">
-								<input type="submit" class="button" value="LOGIN"> <input
-									type="button" onclick="moveToPage(`/user/join`)" class="button"
-									value="JOIN">
+								<input type="submit" class="button" value="LOGIN">
+								<input type="button" onclick="moveToPage(`/user/join`)" class="button" value="JOIN">
 							</div>
 						</form>
 					</div>
@@ -33,33 +32,26 @@
 					<div id="loginBox">
 						<c:if test="${loginUser.profile_img == null}">
 							<div id="profileImgBox">
-								<img id="sidebarImg" class="profile"
-									src="/res/img/default_img.jpg">
+								<img id="sidebarImg" class="profile" src="/res/img/default_img.jpg">					
 							</div>
 						</c:if>
 						<!-- 프로필사진 등록시 -->
 						<c:if test="${loginUser.profile_img != null}">
 							<div id="profileImgBox">
-								<img id="sidebarImg" class="profile"
-									src="/res/img/profileImg/${loginUser.profile_img}">
+								<img id="sidebarImg" class="profile" src="/res/img/profileImg/${loginUser.profile_img}">	
 							</div>
 						</c:if>
-						<div id="welcomeMsg">
-							<b>${loginUser.nm}</b>님 환영합니다.
-						</div>
+						<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다.</div>
 						<div id="loginBtnBox">
-							<c:choose>
-								<c:when test="${loginUser.user_type == '2'}">
-									<input type="button" onclick="moveToPage(`/user/admin`)"
-										class="button" value="ADMIN">
-								</c:when>
-								<c:otherwise>
-									<input type="button" onclick="moveToPage(`/user/myPage`)"
-										class="button" value="MYPAGE">
-								</c:otherwise>
-							</c:choose>
-							<input type="button" onclick="moveToPage(`/user/logout`)"
-								class="button" value="LOGOUT">
+						<c:choose>
+							<c:when test="${loginUser.user_type == '2'}">
+								<input type="button" onclick="moveToPage(`/user/admin`)" class="button" value="ADMIN">
+							</c:when>
+							<c:otherwise>
+								<input type="button" onclick="moveToPage(`/user/myPage`)" class="button" value="MYPAGE">
+							</c:otherwise>												
+						</c:choose>
+							<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
 						</div>
 					</div>
 				</c:otherwise>
@@ -69,85 +61,83 @@
 		<!--알파벳 클릭  -->
 		<div id="selBrandAlphabet">
 			<div>
-				<p onclick="choiceAlphabetMain('ALL')">ALL</p>
+				<p onclick="choiceAlphabetMain('ALL')">ALL</p>	
 				<c:forEach items="${brandAlphabet}" var="item">
 					<p onclick="choiceAlphabetMain(`${item}`)">${item}</p>
 				</c:forEach>
 				<p onclick="choiceAlphabetMain('ETC')">ETC</p>
 			</div>
 		</div>
-		<div id="selBrand"></div>
+		<div id="selBrand">
+		</div>
 	</div>
-	<div id="brandContainer">
-		<div id="hiddenSwiper">
-			<div id="topPerfume">
-				<div id="topPerfumeTitle">회원님들에게 사랑받는 향수들이에요</div>
-				<div id="topPerfumeList">
+		<div id="brandContainer">
+			<div id="hiddenSwiper">
+				<div id="topPerfume">
+					<div id="topPerfumeTitle">회원님들에게 사랑받는 향수들이에요</div>
+					<div id="topPerfumeList">
 					<c:forEach items="${topPerfume}" var="item">
 						<div id="topPerfumeItem">
 							<div id="topPImg" onclick="moveToDetail(${item.i_p})">
-								<img src="${item.p_pic}">
+								<c:set var="img" value="${item.p_pic}" scope="request" />
+								<jsp:include page="/WEB-INF/views/components/imgComp.jsp" />
 							</div>
-							<div>
-								<b>${item.b_nm_eng}</b>
-							</div>
+							<div><b>${item.b_nm_eng}</b></div>
 							<div id="perfumeNm">${item.p_nm}</div>
-							<div>${item.p_size}ml&emsp;${item.p_price}원</div>
+							<div>${item.p_size}ml&emsp;<fmt:formatNumber type="number" maxFractionDigits="3" value="${item.p_price}" />원</div>
 						</div>
 					</c:forEach>
+					</div>
+				</div>
+				<div id="recPerfume">
+			 		<c:if test="${loginUser != null}">
+						<div id="recPerfumeTitle">회원님이 좋아하실 만한 #<span id="rec_note_nm"></span>노트의 향수들이에요</div>
+						<c:if test="${empty recPerfume}">
+							<div class="emptyRecPerfume">
+								<div class="emptyRecPerfumeBox">
+									<p>마이 페이지에서 좋아하는 노트를 추가하시면 노트와 관련된 향수를 추천해드립니다.</p>
+								</div>
+							</div>
+						</c:if>
+						<c:if test="${not empty recPerfume}">
+							<!-- Slider main container -->
+							<div class="swiper-container">
+								<!-- Additional required wrapper -->
+								<div class="swiper-wrapper">
+									<!-- Slides -->
+									<c:forEach items="${recPerfume}" var="item">
+										<div class="swiper-slide" onclick="moveToDetail(${item.i_p})">
+											<div id="topPImg">
+												<c:set var="img" value="${item.p_pic}" scope="request" />
+												<jsp:include page="/WEB-INF/views/components/imgComp.jsp" />
+											</div>
+											<div><b>${item.b_nm_eng}</b></div>
+											<div id="perfumeNm">${item.p_nm}</div>
+											<div>${item.p_size}ml&emsp;<fmt:formatNumber type="number" maxFractionDigits="3" value="${item.p_price}" />원</div>
+										</div>
+									</c:forEach>
+								</div>
+								<!-- If we need pagination -->
+								<div class="swiper-pagination"></div>
+				
+								<!-- If we need navigation buttons -->
+								<div class="swiper-button-prev"></div>
+								<div class="swiper-button-next"></div>
+							</div>
+						</c:if>
+					</c:if>
 				</div>
 			</div>
-			<div id="recPerfume">
-				<c:if test="${loginUser != null}">
-					<div id="recPerfumeTitle">
-						회원님이 좋아하실 만한 #<span id="rec_note_nm"></span>노트의 향수들이에요
+			<hr class="startPoint" id="sectionHr_l">
+			<div>
+				<div></div>
+			</div>
+			<div id="selDivContainer">
+				<div id="sel_div">
+					<div id="brandAlphabet" class="perfumeMain">
 					</div>
-					<c:if test="${empty recPerfume}">
-						<div class="emptyRecPerfume">
-							<div class="emptyRecPerfumeBox">
-								<p>마이 페이지에서 좋아하는 노트를 추가하시면 노트와 관련된 향수를 추천해드립니다.</p>
-							</div>
-						</div>
-					</c:if>
-					<c:if test="${not empty recPerfume}">
-						<!-- Slider main container -->
-						<div class="swiper-container">
-							<!-- Additional required wrapper -->
-							<div class="swiper-wrapper">
-								<!-- Slides -->
-								<c:forEach items="${recPerfume}" var="item">
-									<div class="swiper-slide" onclick="moveToDetail(${item.i_p})">
-										<div id="topPImg">
-											<img src="${item.p_pic}">
-										</div>
-										<div>
-											<b>${item.b_nm_eng}</b>
-										</div>
-										<div id="perfumeNm">${item.p_nm}</div>
-										<div>${item.p_size}ml&emsp;${item.p_price}원</div>
-									</div>
-								</c:forEach>
-							</div>
-							<!-- If we need pagination -->
-							<div class="swiper-pagination"></div>
-
-							<!-- If we need navigation buttons -->
-							<div class="swiper-button-prev"></div>
-							<div class="swiper-button-next"></div>
-						</div>
-					</c:if>
-				</c:if>
+				</div>
 			</div>
-		</div>
-		<hr id="sectionHr_l">
-		<div>
-			<div></div>
-		</div>
-		<div id="selDivContainer">
-			<div id="sel_div">
-				<div id="brandAlphabet" class="perfumeMain"></div>
-			</div>
-		</div>
 		<div id="paging">
 			<div id="moreDiv">
 				<button id="more" class="button" onclick="more()">더보기</button>
@@ -189,6 +179,20 @@
 	</c:forEach>
 	
 	choiceAlphabetMain('ALL')
+	
+	// 향수 이미지 띄우기 - url 주소 값일 때는 그대로 , 아닐 때는 로컬 주소 찾아서, 없을 때는 default 
+	function loadPerfumeImg(p_pic) {
+		if(p_pic == undefined) {
+			return "/res/img/default_perfume.png"
+		} else if(p_pic.indexOf("https://") != -1) {
+			return p_pic
+		} else if(p_pic.indexOf("http://") != -1) {
+			return p_pic
+		} else {
+			return "/res/img/perfume/" + p_pic
+		}
+	}
+	
 	//향수 컨테이너 담는 arrayList 만들기
 	function makeArrayList(tempArr) {
 		for (var i = 0; i < tempArr.length; i++) {
@@ -317,7 +321,7 @@
 	   				div.setAttribute('class', 'brandAlphabet');
 	   				
 	   				var img = document.createElement('img');
-	   				img.src = brandList[sIdx].p_pic
+	   				img.src = loadPerfumeImg(brandList[sIdx].p_pic)
 	   				div.append(img)
 	   				
 	   				var div_eng = document.createElement('div');
@@ -369,7 +373,7 @@
    				div.setAttribute('class', 'brandAlphabet');
    				
    				var img = document.createElement('img');
-   				img.src = pick_brandList[sIdx].p_pic
+   				img.src = loadPerfumeImg(pick_brandList[sIdx].p_pic)
    				div.append(img)
    					   				
    				var div_eng = document.createElement('div');
@@ -437,7 +441,7 @@
 						div_price.innerText = numberFormat(res.data[i].p_price) + '원'
 						
 						var img = document.createElement('img');
-						img.src = res.data[i].p_pic
+						img.src = loadPerfumeImg(res.data[i].p_pic)
 						div.append(img)
 						div.append(div_eng)
 						div.append(div_kor)
@@ -456,7 +460,7 @@
 						var b_nm_eng = res.data[i].b_nm_eng
 						var div = document.createElement('span'); 
 						var div_eng = document.createElement('div');
-						div.setAttribute('onclick', `choiceAlphabetFullNm(\'\${res.data[i].b_nm_eng}\')`);
+						div.setAttribute('onclick', `moveToTop(); choiceAlphabetFullNm(\'\${res.data[i].b_nm_eng}\');`);
 						div.setAttribute('class', 'brandAlphabet');
 						div_eng.innerText = b_nm_eng
 						div.append(div_eng)
@@ -486,7 +490,7 @@
 							div.setAttribute('class', 'brandAlphabet');		
 							
 							var img = document.createElement('img');
-							img.src = tempArr[i].p_pic
+							img.src = loadPerfumeImg(tempArr[i].p_pic)
 							div.append(img)
 							
 							var div_eng = document.createElement('div');
@@ -536,6 +540,7 @@
 				document.getElementById('moreDiv').style.display= 'inline'
 			}
 			for (var i = 0; i < 5; i++){
+				
 				var div = document.createElement('div');
 				div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`);
 				div.setAttribute('class', 'brandAlphabet');
@@ -544,9 +549,10 @@
 				var div_size = document.createElement('div');
 				var div_price = document.createElement('div');
 				var img = document.createElement('img');
+
 				
 				var img = document.createElement('img');
-				img.src = res.data[i].p_pic
+				img.src = loadPerfumeImg(res.data[i].p_pic)
 				div.append(img)
 				
 				var div_eng = document.createElement('div');
@@ -567,6 +573,11 @@
 				div.append(div_price)
 				sel_div.append(div)
 			}
+/*  			
+ 			var div_title = document.createElement('div')
+			div_title.setAttribute('class', 'brandTitle');
+			div_title.innerText = b_nm_eng;
+			selDivContainer.append(div_title); */
 		})
 	}
 	//가격에 쉼표 붙이기

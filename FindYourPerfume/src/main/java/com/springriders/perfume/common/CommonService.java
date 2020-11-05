@@ -34,6 +34,7 @@ public class CommonService {
 			vo.setSliders_per_view(Const.SLIDERS_PER_VIEW);
 			
 			List<PerfumeDMI> recPerfumeList = mapper.selRecPerfumeList(vo);
+			
 			recList.addAll(recPerfumeList);
 			
 			// 유저 노트를 가진 추천 향수가 부족할 때 리스트 추가 (노트 하나 당 5개)
@@ -98,12 +99,12 @@ public class CommonService {
 
 
 	public List<PerfumeDMI> selBrandFullAp(PerfumeDMI dmi) {
-		
 		return mapper.selBrandFullAp(dmi);
 	}
 
 	
 	public int delPerfume(PerfumePARAM param) {
+		System.out.println("i_p : " + param.getI_p());
 		return mapper.delPerfume(param);
 	}
 
@@ -124,12 +125,9 @@ public class CommonService {
 	}
 
 
-
-	/*
-	 * public int sortPerfume(PerfumePARAM param) {
-	 * 
-	 * return mapper.sortPerfume(param); }
-	 */
+	public int delPerfumeNote(PerfumePARAM param) {
+		return mapper.delPerfumeNote(param);
+	}
 
 
 

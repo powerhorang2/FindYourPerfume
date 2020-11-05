@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUtils {
+	
 	public static void makeFolder(String path) {
 		File dir = new File(path);		
 		if(!dir.exists()) {
