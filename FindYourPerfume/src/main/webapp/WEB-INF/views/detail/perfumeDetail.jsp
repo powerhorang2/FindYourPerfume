@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <div id="detailContainer">
 	<div id="sidebar">
 		<div id="loginContainer">
@@ -14,18 +14,16 @@
 						<form class="frm" action="/common/main" method="post">
 							<div>
 								<div>
-									<input class="loginBar" type="text" name="user_id"
-										placeholder="아이디를 입력해주세요" value="${data.user_id}">
+									<input class="loginBar" type="text" name="user_id" placeholder="아이디를 입력해주세요"
+										value="${data.user_id}">
 								</div>
 								<div>
-									<input class="loginBar" type="password" name="user_pw"
-										placeholder="비밀번호를 입력해주세요">
+									<input class="loginBar" type="password" name="user_pw" placeholder="비밀번호를 입력해주세요">
 								</div>
 							</div>
 							<div id="loginBtnBox">
-								<input type="submit" class="button" value="LOGIN"> <input
-									type="button" onclick="moveToPage(`/user/join`)" class="button"
-									value="JOIN">
+								<input type="submit" class="button" value="LOGIN">
+								<input type="button" onclick="moveToPage(`/user/join`)" class="button" value="JOIN">
 							</div>
 						</form>
 					</div>
@@ -36,17 +34,13 @@
 						<c:when test="${loginUser.user_type == '2'}">
 							<div id="loginBox">
 								<div id="profileImgBox" style="background: #BDBDBD;">
-									<img id="sidebarImg"
-										src="/res/img/profileImg/${loginUser.profile_img}">
+										<img id="sidebarImg"
+											src="/res/img/profileImg/${loginUser.profile_img}">
 								</div>
-								<div id="welcomeMsg">
-									<b>${loginUser.nm}</b>님 환영합니다.
-								</div>
+								<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다.</div>
 								<div id="loginBtnBox">
-									<input type="button" onclick="moveToPage(`/user/admin`)"
-										class="button" value="ADMIN"> <input type="button"
-										onclick="moveToPage(`/user/logout`)" class="button"
-										value="LOGOUT">
+									<input type="button" onclick="moveToPage(`/user/admin`)" class="button" value="ADMIN">
+									<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
 								</div>
 							</div>
 						</c:when>
@@ -56,14 +50,10 @@
 									<img id="sidebarImg"
 										src="/res/img/profileImg/${loginUser.profile_img}">
 								</div>
-								<div id="welcomeMsg">
-									<b>${loginUser.nm}</b>님 환영합니다
-								</div>
+								<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다</div>
 								<div id="loginBtnBox">
-									<input type="button" onclick="moveToPage(`/user/myPage`)"
-										class="button" value="MYPAGE"> <input type="button"
-										onclick="moveToPage(`/user/logout`)" class="button"
-										value="LOGOUT">
+									<input type="button" onclick="moveToPage(`/user/myPage`)" class="button" value="MYPAGE">
+									<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
 								</div>
 							</div>
 						</c:otherwise>
@@ -71,93 +61,94 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-
+			
 		<!--알파벳 클릭  -->
 		<div id="selBrandAlphabet">
 			<div>
-				<p onclick="choiceAlphabetMain('ALL')">ALL</p>
+				<p onclick="choiceAlphabetMain('ALL')">ALL</p>	
 				<c:forEach items="${brandAlphabet}" var="item">
 					<p onclick="choiceAlphabetMain(`${item}`)">${item}</p>
 				</c:forEach>
 				<p onclick="choiceAlphabetMain('ETC')">ETC</p>
 			</div>
 		</div>
-		<div id="selBrand"></div>
+		<div id="selBrand">
+		</div>
 	</div>
 	<div>
-		<div id="infoContainer">
-			<div id="infoSection">
-				<div id="detailPic">
-					<img src="${perfume.p_pic}">
-				</div>
-				<div id="detailInfo">
-					<div id="userFavorite"></div>
-					<div id="info">
-						<div id="b_nm">${perfume.b_nm_eng}</div>
-						<div id="p_nm">${perfume.p_nm}</div>
-						<div id="p_size_price">
-							<span>${perfume.p_size}ml</span>${perfume.p_price}원</div>
-					</div>
-					<hr />
-					<div id="noteInfo">
-						<div id="title">노트 정보</div>
-						<div id="note">
-							<c:forEach items="${noteList}" var="item">
-								<span>${item.nt_d_nm_kor}</span>
-							</c:forEach>
-						</div>
-					</div>
-				</div>
+	<div id="infoContainer">
+		<div id="infoSection">
+			<div id="detailPic">
+				<img src="${perfume.p_pic}">
 			</div>
-			<hr id="sectionHr">
-			<div id="cmtSection">
-				<div id="cmtContainer">
-					<div class="cmt_cnt">
-						<div>
-							<div class="cmt_cnt_text">
-								회원 후기<span class="cmt_cnt_content"></span>
-							</div>
-						</div>
+			<div id="detailInfo">
+				<div id="userFavorite"></div>
+				<div id="info">
+					<div id="b_nm">${perfume.b_nm_eng}</div>
+					<div id="p_nm">${perfume.p_nm}</div>
+					<div id="p_size_price"><span>${perfume.p_size}ml</span>${perfume.p_price}원</div>
+				</div><hr id="sectionHr_s">
+				<div id="noteInfo">
+					<div id="title">노트 정보</div>
+					<div id="note">
+					<c:forEach items="${noteList}" var="item">
+						<span>${item.nt_d_nm_kor}</span>
+					</c:forEach>
 					</div>
-					<div id="cmtContents"></div>
-					<div id="pageGroup"></div>
-				</div>
-				<div class="cmt_box">
-					<c:if test="${loginUser != null}">
-						<div id="cmtInput">
-							<div>
-								${loginUser.nm}/
-								<c:choose>
-									<c:when test="${loginUser.ageGroup == 1}">10세 미만/</c:when>
-									<c:when test="${loginUser.ageGroup == 100}">100세 이상/</c:when>
-									<c:otherwise>${loginUser.ageGroup}대/</c:otherwise>
-								</c:choose>
-								${loginUser.strGender}
-							</div>
-							<div>
-								<textarea id="cmt_val" cols="50" rows="10" name="cmt"
-									placeholder="댓글을 등록해보세요. (50자 이내)"></textarea>
-							</div>
-							<div id="cmtInputBtn">
-								<input type="button" class="button" value="등록"
-									onclick="return cmtChk()">
-							</div>
-						</div>
-					</c:if>
-				</div>
-			</div>
-			<hr id="sectionHr">
-			<div id="selDivContainer">
-				<div id="sel_div">
-					<div id="brandAlphabet" class="perfumeMain"></div>
-				</div>
-			</div>
-			<div id="paging">
-				<div class="more">
-					<button class="button" id="more" onclick="more()">더보기</button>
 				</div>
 			</div>
 		</div>
+		<hr id="sectionHr_m">
+ 		<div id="cmtSection">
+			<div id="cmtContainer">
+				<div class="cmt_cnt">
+					<div>
+						<div class="cmt_cnt_text">회원 후기<span class="cmt_cnt_content"></span></div>
+					</div>
+				</div>
+				<div id="cmtContents">
+				</div>
+				<div id="pageGroup">
+				</div>
+			</div>
+			<div class="cmt_box">
+               <c:if test="${loginUser != null}">
+                  <div id="cmtInput">
+                     <div>
+                        ${loginUser.nm}/
+                        <c:choose>
+                           <c:when test="${loginUser.ageGroup == 1}">10세 미만/</c:when>
+                           <c:when test="${loginUser.ageGroup == 100}">100세 이상/</c:when>
+                           <c:otherwise>${loginUser.ageGroup}대/</c:otherwise>
+                        </c:choose>
+                        ${loginUser.strGender}
+                     </div>
+                     <div>
+                        <textarea id="cmt_val" cols="50" rows="10" name="cmt"
+                           placeholder="댓글을 등록해보세요. (50자 이내)"></textarea>
+                     </div>
+                     <div id="cmtInputBtn">
+                        <input type="button" class="button" value="등록"
+                           onclick="return cmtChk()">
+                     </div>
+                  </div>
+               </c:if>
+            </div>
+		</div>
+		<hr id="sectionHr_l">
+		<div id="target"></div>
+		<div id="selDivContainer">
+			<div id="sel_div">
+				<div id="brandAlphabet" class="perfumeMain">
+				</div>
+			</div>
+		</div>
+		<div id="paging">
+			<div class="more">
+				<button class="button" id="more" onclick="more()">더보기</button>
+			</div>
+		</div>	
+	</div>
 	</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -186,8 +177,9 @@
 					tempArr[i].p_nm, tempArr[i].p_pic, tempArr[i].p_price, tempArr[i].p_size)
 		
 		brandList.push(brandVO)
+		}
 	}
-	}
+	
 	//더 보기 버튼 눌렀을 때 idx 증가하면서, 뒤의 배열 추가
 	function more(b_nm_eng) {
 		if(b_nm_eng == null) {

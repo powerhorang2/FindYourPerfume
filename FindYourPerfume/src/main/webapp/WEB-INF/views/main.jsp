@@ -28,34 +28,31 @@
 				</c:when>
 				<c:otherwise>
 					<!-- 로그인 상태 -->
-					<c:choose>
-						<c:when test="${loginUser.user_type == '2'}">
-							<div id="loginBox">
-								<div id="profileImgBox" style="background: #BDBDBD;">
-										<img id="sidebarImg"
-											src="/res/img/profileImg/${loginUser.profile_img}">
-								</div>
-								<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다.</div>
-								<div id="loginBtnBox">
-									<input type="button" onclick="moveToPage(`/user/admin`)" class="button" value="ADMIN">
-									<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
-								</div>
+					<div id="loginBox">
+						<c:if test="${loginUser.profile_img == null}">
+							<div id="profileImgBox">
+								<img id="sidebarImg" class="profile" src="/res/img/default_img.jpg">					
 							</div>
-						</c:when>
-						<c:otherwise>
-							<div id="loginBox">
-								<div id="profileImgBox" style="background: #BDBDBD;">
-									<img id="sidebarImg"
-										src="/res/img/profileImg/${loginUser.profile_img}">
-								</div>
-								<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다</div>
-								<div id="loginBtnBox">
-									<input type="button" onclick="moveToPage(`/user/myPage`)" class="button" value="MYPAGE">
-									<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
-								</div>
+						</c:if>
+						<!-- 프로필사진 등록시 -->
+						<c:if test="${loginUser.profile_img != null}">
+							<div id="profileImgBox">
+								<img id="sidebarImg" class="profile" src="/res/img/profileImg/${loginUser.profile_img}">	
 							</div>
-						</c:otherwise>
-					</c:choose>
+						</c:if>
+						<div id="welcomeMsg"><b>${loginUser.nm}</b>님 환영합니다.</div>
+						<div id="loginBtnBox">
+						<c:choose>
+							<c:when test="${loginUser.user_type == '2'}">
+								<input type="button" onclick="moveToPage(`/user/admin`)" class="button" value="ADMIN">
+							</c:when>
+							<c:otherwise>
+								<input type="button" onclick="moveToPage(`/user/myPage`)" class="button" value="MYPAGE">
+							</c:otherwise>												
+						</c:choose>
+							<input type="button" onclick="moveToPage(`/user/logout`)" class="button" value="LOGOUT">
+						</div>
+					</div>
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -63,11 +60,11 @@
 		<!--알파벳 클릭  -->
 		<div id="selBrandAlphabet">
 			<div>
-				<p onclick="ajaxChoiceAlphabetMain('ALL')">ALL</p>	
+				<p onclick="choiceAlphabetMain('ALL')">ALL</p>	
 				<c:forEach items="${brandAlphabet}" var="item">
-					<p onclick="ajaxChoiceAlphabetMain(`${item}`)">${item}</p>
+					<p onclick="choiceAlphabetMain(`${item}`)">${item}</p>
 				</c:forEach>
-				<p onclick="ajaxChoiceAlphabetMain('ETC')">ETC</p>
+				<p onclick="choiceAlphabetMain('ETC')">ETC</p>
 			</div>
 		</div>
 		<div id="selBrand">
@@ -76,11 +73,11 @@
 		<div id="brandContainer">
 			<div id="hiddenSwiper">
 				<div id="topPerfume">
-					<div id="topPerfumeTitle">MOST LOVED PERFUMES</div>
+					<div id="topPerfumeTitle">회원님들에게 사랑받는 향수들이에요</div>
 					<div id="topPerfumeList">
 					<c:forEach items="${topPerfume}" var="item">
-						<div id="topPerfumeItem" onclick="moveToDetail(${item.i_p})">
-							<div id="topPImg">
+						<div id="topPerfumeItem">
+							<div id="topPImg" onclick="moveToDetail(${item.i_p})">
 								<img src="${item.p_pic}">
 							</div>
 							<div><b>${item.b_nm_eng}</b></div>
@@ -92,62 +89,49 @@
 				</div>
 				<div id="recPerfume">
 			 		<c:if test="${loginUser != null}">
-						<div id="recPerfumeTitle">RECOMMENDS YOU MIGHT LIKE<c:if test="${not empty recPerfume}">(#<span id="rec_note_nm"> </span>)</c:if></div>
-						<c:if test="${empty recPerfume}">
-							<div class="emptyRecPerfume">
-								<div class="emptyRecPerfumeBox">
-									<p>마이 페이지에서 좋아하는 노트를 추가하시면 노트와 관련된 향수를 추천해드립니다.</p>
-								</div>
-							</div>
-						</c:if>
-						<c:if test="${not empty recPerfume}">
-							<!-- Slider main container -->
-							<div class="swiper-container">
-								<!-- Additional required wrapper -->
-								<div class="swiper-wrapper">
-									<!-- Slides -->
-									<c:forEach items="${recPerfume}" var="item">
-										<div class="swiper-slide" onclick="moveToDetail(${item.i_p})">
-											<div id="topPImg">
-												<img src="${item.p_pic}">
-											</div>
-											<div><b>${item.b_nm_eng}</b></div>
-											<div id="perfumeNm">${item.p_nm}</div>
-											<div>${item.p_size}ml&emsp;${item.p_price}원</div>
+						<div id="recPerfumeTitle">회원님이 좋아하실 만한 #<span id="rec_note_nm"></span>노트의 향수들이에요</div>
+						<!-- Slider main container -->
+						<div class="swiper-container">
+							<!-- Additional required wrapper -->
+							<div class="swiper-wrapper">
+								<!-- Slides -->
+								<c:forEach items="${recPerfume}" var="item">
+									<div class="swiper-slide" onclick="moveToDetail(${item.i_p})">
+										<div id="topPImg">
+											<img src="${item.p_pic}">
 										</div>
-									</c:forEach>
-								</div>
-								<!-- If we need pagination -->
-								<div class="swiper-pagination"></div>
-				
-								<!-- If we need navigation buttons -->
-								<div class="swiper-button-prev"></div>
-								<div class="swiper-button-next"></div>
+										<div><b>${item.b_nm_eng}</b></div>
+										<div id="perfumeNm">${item.p_nm}</div>
+										<div>${item.p_size}ml&emsp;${item.p_price}원</div>
+									</div>
+								</c:forEach>
 							</div>
-						</c:if>
+							<!-- If we need pagination -->
+							<div class="swiper-pagination"></div>
+			
+							<!-- If we need navigation buttons -->
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-button-next"></div>
+						</div>
 					</c:if>
 				</div>
 			</div>
-			<hr>
-		<div class="noteList">
-			<c:forEach items="${noteList}" var="item">
-				<p onclick="choiceNoteList(`${item.nt_d_c}`)">${item.nt_d_nm_kor}</p>
-			</c:forEach>
-		</div>
+			<hr id="sectionHr_l">
+			<div>
+				<div></div>
+			</div>
 			<div id="selDivContainer">
 				<div id="sel_div">
 					<div id="brandAlphabet" class="perfumeMain">
 					</div>
 				</div>
 			</div>
-	<div id="paging">
-		<div class="more">
-			<button id="more" onclick="more()">더보기</button>
-			<div style="cursor:pointer;" onclick="window.scrollTo(0,0);">
-					맨위로
+			<div id="paging">
+				<div class="more">
+					<button id="more" class="button" onclick="more()">더보기</button>
+				</div>
 			</div>
 		</div>
-	</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
@@ -155,7 +139,8 @@
 	var eIdx = 10;
 	var brandList = new Array();
 	var rowAllCnt = 0
-	function BrandVO(b_nm_eng, i_p, i_user, p_brand, p_nm, p_pic, p_price, p_size) {
+	function BrandVO(b_nm_eng, i_p, i_user, p_brand, p_nm, p_pic, p_price,
+			p_size) {
 		this.b_nm_eng = b_nm_eng
 		this.i_p = i_p
 		this.i_user = i_user
@@ -181,8 +166,7 @@
 		userNoteArr.push({nt_m_nm_kor: "${item.nt_m_nm_kor}"});		
 	</c:forEach>
 	
-	ajaxChoiceAlphabetMain('ALL')
-	
+	choiceAlphabetMain('ALL')
 	//향수 컨테이너 담는 arrayList 만들기
 	function makeArrayList(tempArr) {
 		for (var i = 0; i < tempArr.length; i++) {
@@ -245,7 +229,7 @@
 	   		}
 	   		console.log(pick_brandList);
 	   		
-	   		if(pick_brandList.length-1 < sIdx) {
+	   		if((pick_brandList.length-1) < sIdx) {
 				alert('마지막입니다.')
 		} else {
 			if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}
@@ -286,7 +270,7 @@
 			}	
 		}
 	}
-	function ajaxChoiceAlphabetMain(b_nm_initial) {
+	function choiceAlphabetMain(b_nm_initial) {
 		console.log()
 		idx = 0;
 		var more = document.querySelector('#more');
@@ -296,109 +280,103 @@
 				b_nm_initial : b_nm_initial
 			}
 		}).then(
-			function(res) {
-				sel_div.innerText = ''
-				for (var i = 0; i < res.data.length; i++) {
-					var div = document.createElement('span');
-					div.setAttribute('onclick',
-							`moveToDetail(\'\${res.data[i].i_p}\')`);
-					div.setAttribute('id', 'list');
-					div.setAttribute('class', 'brandAlphabet');
-					
-					var div_kor = document.createElement('div');
-					div_kor.setAttribute('id', 'perfumeNm');
-					div_kor.innerText = res.data[i].p_nm
-					
-					var div_eng = document.createElement('div');
-					div_eng.setAttribute('id', 'brandNm');
-					div_eng.innerText = res.data[i].b_nm_eng
-					
-					var div_size = document.createElement('div');
-					div_size.innerText = res.data[i].p_size + 'ml'
-					
-					var div_price = document.createElement('div');
-					div_price.innerText = numberFormat(res.data[i].p_price) + '원'
-					
-					var img = document.createElement('img');
-					img.src = res.data[i].p_pic
-					div.append(img)
-					div.append(div_eng)
-					div.append(div_kor)
-					div.append(div_size)
-					div.append(div_price)
-					sel_div.append(div)
-				}
-				ajaxSelBrandNm(b_nm_initial)
-				ajaxSelBrandAlphabet(b_nm_initial)
-			})
-	}
-	function ajaxSelBrandNm(b_nm_initial) {
-		axios.get('/common/ajaxSelBrandNm',{
-			params : {
-				b_nm_initial : b_nm_initial
-			}
-		}).then(function(res){
-			selBrand.innerText = '' 
-			for (var i = 0; i < res.data.length; i++){
-				var b_nm_eng = res.data[i].b_nm_eng
-				var div = document.createElement('span'); 
-				var div_eng = document.createElement('div');
-				div.setAttribute('onclick', `choiceAlphabetFullNm(\'\${res.data[i].b_nm_eng}\')`);
-				div.setAttribute('class', 'brandAlphabet');
-				div_eng.innerText = b_nm_eng
-				div.append(div_eng)
-				selBrand.append(div)	
-			}
-		})
-	}
-	function ajaxSelBrandAlphabet(b_nm_initial) {
-		axios.get('/common/ajaxSelBrandAlphabet', {
-			/*  			console.log(listMore) */
-			params : {
-				b_nm_initial : b_nm_initial
-			}
-		}).then(function(res) {
-				var tempArr = res.data.selBrandAlpahbet
-				console.log(`length : \${tempArr.length}`)
-				brandList = new Array();
-				console.log(res)
-				rowAllCnt = res.data.rowAllCnt
-				
-				console.log(rowAllCnt)
-		 		if(b_nm_initial != undefined){makeArrayList(tempArr)} 
-				
-				sel_div.innerText = ''
-				
-				for (var i = 0; i < 5; i++) {
-					var div = document.createElement('div');
-					div.setAttribute('onclick', `moveToDetail(\'\${tempArr[i].i_p}\')`);
-					div.setAttribute('class', 'brandAlphabet');		
-					
-					var img = document.createElement('img');
-					img.src = tempArr[i].p_pic
-					div.append(img)
-					
-					var div_eng = document.createElement('div');
-					div_eng.setAttribute('id', 'brandNm');
-					div_eng.innerText = tempArr[i].b_nm_eng
-					div.append(div_eng)
-	
-					var div_kor = document.createElement('div');
-					div_kor.innerText = tempArr[i].p_nm
-					div_kor.setAttribute('id', 'perfumeNm');
-					div.append(div_kor)
-					
-					var div_size = document.createElement('div');
-					div_size.innerText = tempArr[i].p_size + 'ml'
-					div.append(div_size)
-					
-					var div_price = document.createElement('div');
-					div_price.innerText = numberFormat(tempArr[i].p_price) + '원'
-					div.append(div_price)
-					sel_div.append(div)
-					idx = 5
-				}
-		})
+				function(res) {
+					sel_div.innerText = ''
+					for (var i = 0; i < res.data.length; i++) {
+						var div = document.createElement('span');
+						div.setAttribute('onclick',
+								`moveToDetail(\'\${res.data[i].i_p}\')`);
+						div.setAttribute('id', 'list');
+						div.setAttribute('class', 'brandAlphabet');
+						
+						var div_kor = document.createElement('div');
+						div_kor.setAttribute('id', 'perfumeNm');
+						div_kor.innerText = res.data[i].p_nm
+						
+						var div_eng = document.createElement('div');
+						div_eng.setAttribute('id', 'brandNm');
+						div_eng.innerText = res.data[i].b_nm_eng
+						
+						var div_size = document.createElement('div');
+						div_size.innerText = res.data[i].p_size + 'ml'
+						
+						var div_price = document.createElement('div');
+						div_price.innerText = numberFormat(res.data[i].p_price) + '원'
+						
+						var img = document.createElement('img');
+						img.src = res.data[i].p_pic
+						div.append(img)
+						div.append(div_eng)
+						div.append(div_kor)
+						div.append(div_size)
+						div.append(div_price)
+						sel_div.append(div)
+					}
+				})
+				axios.get('/common/ajaxSelBrandNm',{
+					params : {
+						b_nm_initial : b_nm_initial
+					}
+				}).then(function(res){
+					selBrand.innerText = '' 
+					for (var i = 0; i < res.data.length; i++){
+						var b_nm_eng = res.data[i].b_nm_eng
+						var div = document.createElement('span'); 
+						var div_eng = document.createElement('div');
+						div.setAttribute('onclick', `choiceAlphabetFullNm(\'\${res.data[i].b_nm_eng}\')`);
+						div.setAttribute('class', 'brandAlphabet');
+						div_eng.innerText = b_nm_eng
+						div.append(div_eng)
+						selBrand.append(div)	
+					}
+				})
+				axios.get('/common/ajaxSelBrandAlphabet', {
+					/*  			console.log(listMore) */
+					params : {
+						b_nm_initial : b_nm_initial
+					}
+				}).then(function(res) {
+						var tempArr = res.data.selBrandAlpahbet
+						console.log(`length : \${tempArr.length}`)
+						brandList = new Array();
+						console.log(res)
+						rowAllCnt = res.data.rowAllCnt
+						
+						console.log(rowAllCnt)
+				 		if(b_nm_initial != undefined){makeArrayList(tempArr)} 
+						
+						sel_div.innerText = ''
+						
+						for (var i = 0; i < 5; i++) {
+							var div = document.createElement('div');
+							div.setAttribute('onclick', `moveToDetail(\'\${tempArr[i].i_p}\')`);
+							div.setAttribute('class', 'brandAlphabet');		
+							
+							var img = document.createElement('img');
+							img.src = tempArr[i].p_pic
+							div.append(img)
+							
+							var div_eng = document.createElement('div');
+							div_eng.setAttribute('id', 'brandNm');
+							div_eng.innerText = tempArr[i].b_nm_eng
+							div.append(div_eng)
+			
+							var div_kor = document.createElement('div');
+							div_kor.innerText = tempArr[i].p_nm
+							div_kor.setAttribute('id', 'perfumeNm');
+							div.append(div_kor)
+							
+							var div_size = document.createElement('div');
+							div_size.innerText = tempArr[i].p_size + 'ml'
+							div.append(div_size)
+							
+							var div_price = document.createElement('div');
+							div_price.innerText = numberFormat(tempArr[i].p_price) + '원'
+							div.append(div_price)
+							sel_div.append(div)
+							idx = 5
+						}
+				})
 	}
 	//디테일페이지 이동
 	function moveToDetail(i_p) {
