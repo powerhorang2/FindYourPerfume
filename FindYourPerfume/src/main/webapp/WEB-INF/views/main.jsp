@@ -207,10 +207,15 @@
 	
 
 	function more(b_nm_eng) {
+		console.log('more 동작!!');
+		
 		if (b_nm_eng == null) {
+			console.log('들어오니?1');
 			// 235
    	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt}
-   	 	
+			console.log('들어오니?2');
+   	 		console.log('sIdx: ' + sIdx)
+   	 		console.log('eIdx: ' + eIdx)
    			for (sIdx; sIdx < eIdx; sIdx++) {
    				console.log(sIdx)
    				var div = document.createElement('div');
@@ -260,7 +265,7 @@
 	   		console.log(pick_brandList);
 	   		
 	   		if((pick_brandList.length-1) < sIdx) {
-				alert('마지막입니다.')
+	   			document.getElementById('more').style.display = 'none'	
 			} else {
 				
 				if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}
@@ -312,9 +317,11 @@
 	function choiceAlphabetMain(b_nm_initial) {
 		console.log()
 		idx = 0;
+		sIdx = 5;
+		eIdx = 10;
 		var more = document.querySelector('#more');
 		more.setAttribute('onclick', "more()")
-		document.getElementById('moreDiv').style.display= 'inline'
+ 		document.getElementById('moreDiv').style.display= 'inline' 
 		axios.get('/common/ajaxSelBrandAlphabet', {
 			params : {
 				b_nm_initial : b_nm_initial
@@ -429,7 +436,7 @@
 		eIdx = 10;
 		var more = document.querySelector('#more');
 		more.setAttribute('onclick', "more(" + "'" + b_nm_eng + "'" + ")")
-		document.getElementById('moreDiv').style.display= 'inline'
+/* 		document.getElementById('moreDiv').style.display= 'inline'  */
 		axios.get('/common/ajaxSelBrandFullAp', {
 			params : {
 				b_nm_eng : b_nm_eng
