@@ -311,8 +311,6 @@
 			}	
 		}
 	}
-
-	
 	
 	function choiceAlphabetMain(b_nm_initial) {
 		console.log()
@@ -460,7 +458,6 @@
 				var div_size = document.createElement('div');
 				var div_price = document.createElement('div');
 				var img = document.createElement('img');
-
 				
 				var img = document.createElement('img');
 				img.src = loadPerfumeImg(res.data[i].p_pic)

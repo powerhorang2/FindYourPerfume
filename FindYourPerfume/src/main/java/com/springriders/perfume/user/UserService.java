@@ -161,6 +161,7 @@ public class UserService {
 		param.setProfile_img(dbUser.getProfile_img());
 		param.setBd(dbUser.getBd());
 		param.setR_dt(dbUser.getR_dt());
+
 		return Const.SUCCESS;
 	}
 

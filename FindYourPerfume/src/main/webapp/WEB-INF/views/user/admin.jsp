@@ -196,7 +196,6 @@
 			option.value = 0
 			option.name = 'i_p'
 			option.innerHTML = '향수 선택하기'
-
 			p_nm.append(option)
 			
 			for(i=0; i<res.data.length; i++) {
@@ -222,7 +221,6 @@
 			document.getElementById('delPerfumeImg').innerHTML = '<img src="' + loadPerfumeImg(res.data.p_pic) + '" width="100%" height="100%">';
 		})	
 	} 
-
  	function confirmDelPerfume() {
 		var chk = confirm('삭제하시겠습니까?')
 		if(chk == true) {
@@ -263,7 +261,6 @@
 			reader.readAsDataURL(file[0]);
 		}
 	}
-
 	function previewPerfumeImage(f){
 		var file = f.files;
 		if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)){
@@ -289,7 +286,6 @@
 		}
 		reader.readAsDataURL(file[0]);
 	} 
-
 	function checkAddPerfume(){
 		AddPerfume = document.addPerfumeFrm
 		
