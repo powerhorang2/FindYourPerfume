@@ -97,11 +97,9 @@ public class CommonService {
 		return mapper.selBrandFullNm(param);
 	}
 
-
 	public List<PerfumeDMI> selBrandFullAp(PerfumeDMI dmi) {
 		return mapper.selBrandFullAp(dmi);
 	}
-
 	
 	public int delPerfume(PerfumePARAM param) {
 		System.out.println("i_p : " + param.getI_p());
@@ -113,11 +111,9 @@ public class CommonService {
 		return mapper.selPerfumePic(param);
 	}
 
-
 	public List<NoteCodeVO> selNoteList(NoteCodeVO vo) {
 		return mapper.selNoteList(vo);
 	}
-
 
 	public List<NoteCodeVO> ajaxSelNoteList(PerfumePARAM param) {
 	
@@ -128,5 +124,7 @@ public class CommonService {
 	public int delPerfumeNote(PerfumePARAM param) {
 		return mapper.delPerfumeNote(param);
 	}
+
+
 
 }

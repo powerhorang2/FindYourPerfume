@@ -342,7 +342,6 @@
 	   				div_price.innerText = numberFormat(brandList[sIdx].p_price) + '원'
 	   				div.append(div_price)
 	   				sel_div.append(div)
-
    				if (rowAllCnt == sIdx) {
    					document.getElementById('moreDiv').style.display= 'none'
    				} 
@@ -549,7 +548,6 @@
 				var div_size = document.createElement('div');
 				var div_price = document.createElement('div');
 				var img = document.createElement('img');
-
 				
 				var img = document.createElement('img');
 				img.src = loadPerfumeImg(res.data[i].p_pic)
