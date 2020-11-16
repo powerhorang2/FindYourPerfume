@@ -146,10 +146,10 @@
 				</div>
 			</div>
 			<div id="paging">
-				<div class="more">
-					<button class="button" id="more" onclick="more()">더보기</button>
+				<div id="moreDiv">
+					<button id="more" class="button" onclick="more()">더보기</button>
 				</div>
-			</div>	
+			</div>
 		</div>
 	</div>
 </div>
@@ -184,47 +184,48 @@
 	
 	//더 보기 버튼 눌렀을 때 idx 증가하면서, 뒤의 배열 추가
 	function more(b_nm_eng) {
-		if(b_nm_eng == null) {
-			if (rowAllCnt == sIdx){
-				document.getElementById('more').style.display = 'none'	
-			} else {
+		if (b_nm_eng == null) {
 			// 235
-	   	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt}
-	   	 	
-	   			for (sIdx; sIdx < eIdx; sIdx++) {
-	   				console.log(sIdx)
-	   				var div = document.createElement('div');
-	   				div.setAttribute('onclick', 'moveToDetail('+brandList[sIdx].i_p+')');
-	   				div.setAttribute('class', 'brandAlphabet');
-	   				
-	   				var img = document.createElement('img');
-	   				img.src = brandList[sIdx].p_pic
-	   				div.append(img)
-	   				
-	   				var div_eng = document.createElement('div');
-	   				div_eng.setAttribute('id', 'brandNm');
-	   				div_eng.innerText = brandList[sIdx].b_nm_eng
-	   				div.append(div_eng)
-	   				
-	   				var div_kor = document.createElement('div');
-					div_kor.setAttribute('id', 'perfumeNm');
-	   				div_kor.innerText = brandList[sIdx].p_nm
-	   				div.append(div_kor)
-	   				
-	   				var div_size = document.createElement('div');
-	   				div_size.innerText = brandList[sIdx].p_size + 'ml'
-	   				div.append(div_size)
-	   				
-	   				var div_price = document.createElement('div');
-	   				div_price.innerText = numberFormat(brandList[sIdx].p_price) + '원'
-	   				div.append(div_price)
-	   				sel_div.append(div)
-	   			}
-	   			if(rowAllCnt - sIdx >= 5){
-	   				eIdx += 5
-	   				console.log("eIdx : "+eIdx)
-	   			}
-			}
+   	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt}
+   	 	
+   			for (sIdx; sIdx < eIdx; sIdx++) {
+   				console.log(sIdx)
+   				var div = document.createElement('div');
+   				div.setAttribute('onclick', 'moveToDetail('+brandList[sIdx].i_p+')');
+   				div.setAttribute('class', 'brandAlphabet');
+   				
+   				var img = document.createElement('img');
+   				img.src = brandList[sIdx].p_pic
+   				div.append(img)
+   				
+   				var div_eng = document.createElement('div');
+   				div_eng.setAttribute('id', 'brandNm');
+   				div_eng.innerText = brandList[sIdx].b_nm_eng
+   				div.append(div_eng)
+   				
+   				var div_kor = document.createElement('div');
+				div_kor.setAttribute('id', 'perfumeNm');
+   				div_kor.innerText = brandList[sIdx].p_nm
+   				div.append(div_kor)
+   				
+   				var div_size = document.createElement('div');
+   				div_size.innerText = brandList[sIdx].p_size + 'ml'
+   				div.append(div_size)
+   				
+   				var div_price = document.createElement('div');
+   				div_price.innerText = numberFormat(brandList[sIdx].p_price) + '원'
+   				div.append(div_price)
+   				sel_div.append(div)
+   				
+   				// sIdx가 리스트의 길이값과 같아질 때  마지막 향수 생성하고 더보기 지우기
+   				if(rowAllCnt-1 == sIdx) {
+   					document.getElementById('moreDiv').style.display= 'none'
+   				}
+   			}
+   			if(rowAllCnt - sIdx >= 5){
+   				eIdx += 5
+   				console.log("eIdx : "+eIdx)
+   			}
 			
 		} else {
 			var pick_brandList = new Array();
@@ -235,52 +236,62 @@
 	   		}
 	   		console.log(pick_brandList);
 	   		
-	   		if(pick_brandList.length-1 < sIdx) {
+	   		if((pick_brandList.length-1) < sIdx) {
 	   			document.getElementById('more').style.display = 'none'	
-		} else {
-			if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}
-	   	 	
-	  			for (sIdx; sIdx < eIdx; sIdx++) {
-	  				console.log(sIdx)
-	  				var div = document.createElement('div');
-	  				div.setAttribute('onclick', 'moveToDetail('+pick_brandList[sIdx].i_p+')');//수정해야됨
-	  				div.setAttribute('class', 'brandAlphabet');
-	  				
-	  				var img = document.createElement('img');
-	  				img.src = pick_brandList[sIdx].p_pic
-	  				div.append(img)
-	  					   				
-	  				var div_eng = document.createElement('div');
-	  				div_eng.setAttribute('id', 'brandNm');
-	  				div_eng.innerText = pick_brandList[sIdx].b_nm_eng
-	  				div.append(div_eng)
-	  				
-	  				var div_kor = document.createElement('div');
-				div_kor.setAttribute('id', 'perfumeNm');
-	  				div_kor.innerText = pick_brandList[sIdx].p_nm
-	  				div.append(div_kor)
-	  				
-	  				var div_size = document.createElement('div');
-	  				div_size.innerText = pick_brandList[sIdx].p_size + 'ml'
-	  				div.append(div_size)
-	  				
-	  				var div_price = document.createElement('div');
-	  				div_price.innerText = numberFormat(pick_brandList[sIdx].p_price) + '원'
-	  				div.append(div_price)
-	  				sel_div.append(div)
-	  			}
-	  			if(pick_brandList.length - sIdx >= 5){
-	  				eIdx += 5
-	  				console.log("eIdx : "+eIdx)
-	  				}
+			} else {
+				
+				if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}
+		   	 	
+	   			for (sIdx; sIdx < eIdx; sIdx++) {
+	   				console.log(sIdx)
+	   				var div = document.createElement('div');
+	   				div.setAttribute('onclick', 'moveToDetail('+pick_brandList[sIdx].i_p+')');
+	   				div.setAttribute('class', 'brandAlphabet');
+	   				
+	   				var img = document.createElement('img');
+	   				img.src = pick_brandList[sIdx].p_pic
+	   				div.append(img)
+	   					   				
+	   				var div_eng = document.createElement('div');
+	   				div_eng.setAttribute('id', 'brandNm');
+	   				div_eng.innerText = pick_brandList[sIdx].b_nm_eng
+	   				div.append(div_eng)
+	   				
+	   				var div_kor = document.createElement('div');
+					div_kor.setAttribute('id', 'perfumeNm');
+	   				div_kor.innerText = pick_brandList[sIdx].p_nm
+	   				div.append(div_kor)
+	   				
+	   				var div_size = document.createElement('div');
+	   				div_size.innerText = pick_brandList[sIdx].p_size + 'ml'
+	   				div.append(div_size)
+	   				
+	   				var div_price = document.createElement('div');
+	   				div_price.innerText = numberFormat(pick_brandList[sIdx].p_price) + '원'
+	   				div.append(div_price)
+	   				sel_div.append(div)
+	   				
+	   				// sIdx가 리스트의 길이값과 같아질 때  마지막 향수 생성하고 더보기 지우기
+	   				if(pick_brandList.length-1 == sIdx) {
+	   					document.getElementById('moreDiv').style.display= 'none'
+	   				}
+	   			}
+	   			if(pick_brandList.length - sIdx >= 5) {
+	   				eIdx += 5
+	   				console.log("eIdx : "+eIdx)
+   				}
 			}	
 		}
 	}
+
 		
 	function choiceAlphabetMain(b_nm_initial) {
 		idx = 0;
+		sIdx = 5;
+		eIdx = 10;
 		var more = document.querySelector('#more');
 		more.setAttribute('onclick', "more()")
+		document.getElementById('moreDiv').style.display= 'inline'
 		axios.get('/common/ajaxSelBrandAlphabet', {
 			params : {
 				b_nm_initial : b_nm_initial
@@ -380,6 +391,10 @@
 					div.append(div_price)
 					sel_div.append(div)
 					idx = 5
+					// sIdx가 리스트의 길이값과 같아질 때  마지막 향수 생성하고 더보기 지우기
+	   				if(res.data.length-1 == sIdx) {
+	   					document.getElementById('moreDiv').style.display= 'none'
+	   				}
 				}
 			})
 	}
@@ -395,6 +410,7 @@
 		eIdx = 10;
 		var more = document.querySelector('#more');
 		more.setAttribute('onclick', "more("+"'"+b_nm_eng+"'"+")")
+		document.getElementById('moreDiv').style.display= 'inline'
 		
 		axios.get('/common/ajaxSelBrandFullAp',{
 			params : {
@@ -403,7 +419,11 @@
 		}).then(function(res){
 				sel_div.innerText = ''
 			/* hiddenSwiper.innerText = '' */
-			
+			if(res.data.length <= 5) {
+				document.getElementById('moreDiv').style.display= 'none'
+			} else {
+				document.getElementById('moreDiv').style.display= 'inline'
+			}
 			for (var i = 0; i < 5; i++){
 				var div = document.createElement('div');
 				div.setAttribute('onclick', `moveToDetail(\'\${res.data[i].i_p}\')`);
