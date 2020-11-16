@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<script>
-
-</script>
- <div class="adminContainer">
-	<div id="adminLeft">
-		안녕
-	</div>
+<div class="adminContainer">
 	<div id="adminRight">
 		<form name="uptUserFrm" id="uptFrm" action="/user/uptUser" enctype="multipart/form-data" method="post">
 		<input type="hidden" name="user_type" value="2">
@@ -188,7 +182,6 @@
 			option.value = 0
 			option.name = 'i_p'
 			option.innerHTML = '향수 선택하기'
-
 			p_nm.append(option)
 			
 			for(i=0; i<res.data.length; i++) {
@@ -214,7 +207,6 @@
 			document.getElementById('delPerfumeImg').innerHTML = '<img src="' + res.data.p_pic + '" width="100%" height="100%">';
 		})	
 	} 
-
  	function confirmDelPerfume() {
 		var chk = confirm('삭제하시겠습니까?')
 		if(chk == true) {
@@ -255,7 +247,6 @@
 			reader.readAsDataURL(file[0]);
 		}
 	}
-
 	function previewPerfumeImage(f){
 		var file = f.files;
 		if(!/\.(gif|jpg|jpeg|png)$/i.test(file[0].name)){
@@ -281,7 +272,6 @@
 		}
 		reader.readAsDataURL(file[0]);
 	} 
-
 	function checkAddPerfume(){
 		AddPerfume = document.addPerfumeFrm
 		

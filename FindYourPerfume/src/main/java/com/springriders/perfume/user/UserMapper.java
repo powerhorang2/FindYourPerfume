@@ -21,7 +21,7 @@ public interface UserMapper {
 	List<PerfumeDMI> selFavNotes(UserPARAM p);
 
 	UserPARAM selUserPk(UserVO param);
-	UserDMI selUser(UserVO param);
+	UserDMI selUser(UserPARAM param);
 	List<UserVO> selUserList(UserVO param);
 	List<UserVO> selAdminList(UserVO param);
 

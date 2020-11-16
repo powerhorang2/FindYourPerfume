@@ -78,7 +78,7 @@ public class UserService {
 		return Const.SUCCESS;
 	}
 
-	public int login(UserVO param) {
+	public int login(UserPARAM param) {
 		if(param.getUser_id().equals("")) { return Const.EMPTY_ID; }
 		if(param.getUser_id().equals("")) { return Const.NO_ID; }
 		
@@ -183,7 +183,7 @@ public class UserService {
 		String saveFileNm = FileUtils.saveFile(realPath, mf);
 		System.out.println("saveFileNm : " + saveFileNm);
 		
-		UserVO vo = new UserVO();
+		UserPARAM vo = new UserPARAM();
 		vo.setI_user(i_user);
 		if(!user_pw.equals("")) {
 			vo.setUser_pw(cryptPw);
@@ -197,8 +197,8 @@ public class UserService {
 		}
 		
 		mapper.uptUser(vo);
-		vo = mapper.selUser(vo);
-		hs.setAttribute(Const.LOGIN_USER, vo);
+		UserDMI vo2 = mapper.selUser(vo);
+		hs.setAttribute(Const.LOGIN_USER, vo2);
 		
 		return Const.SUCCESS;
 	}
