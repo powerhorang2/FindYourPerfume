@@ -205,12 +205,17 @@
 	//더 보기 버튼 눌렀을 때 idx 증가하면서, 뒤의 배열 추가
 	
 	
+
 	function more(b_nm_eng) {
+		console.log('more 동작!!');
+		
 		if (b_nm_eng == null) {
-			
+			console.log('들어오니?1');
 			// 235
    	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt}
-   	 	
+			console.log('들어오니?2');
+   	 		console.log('sIdx: ' + sIdx)
+   	 		console.log('eIdx: ' + eIdx)
    			for (sIdx; sIdx < eIdx; sIdx++) {
    				console.log(sIdx)
    				var div = document.createElement('div');
@@ -260,7 +265,7 @@
 	   		console.log(pick_brandList);
 	   		
 	   		if((pick_brandList.length-1) < sIdx) {
-				alert('마지막입니다.')
+	   			document.getElementById('more').style.display = 'none'	
 			} else {
 				
 				if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}
@@ -307,110 +312,14 @@
 		}
 	}
 	
-	
-	/*
-	function more(b_nm_eng) {
-		if (b_nm_eng == null) {
-		// 235
-	   	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt}
-	   	 	
-	   			for (sIdx; sIdx < eIdx; sIdx++) {
-	   				console.log(sIdx)
-	   				var div = document.createElement('div');
-	   				div.setAttribute('onclick', 'moveToDetail('+brandList[sIdx].i_p+')');
-	   				div.setAttribute('class', 'brandAlphabet');
-	   				
-	   				var img = document.createElement('img');
-	   				img.src = loadPerfumeImg(brandList[sIdx].p_pic)
-	   				div.append(img)
-	   				
-	   				var div_eng = document.createElement('div');
-	   				div_eng.setAttribute('id', 'brandNm');
-	   				div_eng.innerText = brandList[sIdx].b_nm_eng
-	   				div.append(div_eng)
-	   				
-	   				var div_kor = document.createElement('div');
-					div_kor.setAttribute('id', 'perfumeNm');
-	   				div_kor.innerText = brandList[sIdx].p_nm
-	   				div.append(div_kor)
-	   				
-	   				var div_size = document.createElement('div');
-	   				div_size.innerText = brandList[sIdx].p_size + 'ml'
-	   				div.append(div_size)
-	   				
-	   				var div_price = document.createElement('div');
-	   				div_price.innerText = numberFormat(brandList[sIdx].p_price) + '원'
-	   				div.append(div_price)
-	   				sel_div.append(div)
-   				if (rowAllCnt == sIdx) {
-   					document.getElementById('moreDiv').style.display= 'none'
-   				} 
-	   			if(rowAllCnt - sIdx >= 5){
-	   				eIdx += 5
-	   				console.log("eIdx : "+eIdx)
-	   			}
-			}
-			
-		} else {
-			var pick_brandList = new Array();
-	   		for(var i=0; i<brandList.length; i++) {
-	   			if(brandList[i].b_nm_eng == b_nm_eng) {
-	   				pick_brandList.push(brandList[i])
-	   			}
-	   		}
-	   		console.log(pick_brandList);
-	   		
-	   		if((pick_brandList.length-1) < sIdx) {
-				alert('마지막입니다.')
-		} else {
-			if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}
-	   	 	
-   			for (sIdx; sIdx < eIdx; sIdx++) {
-   				console.log(sIdx)
-   				var div = document.createElement('div');
-   				div.setAttribute('onclick', 'moveToDetail('+pick_brandList[sIdx].i_p+')');//수정해야됨
-   				div.setAttribute('class', 'brandAlphabet');
-   				
-   				var img = document.createElement('img');
-   				img.src = loadPerfumeImg(pick_brandList[sIdx].p_pic)
-   				div.append(img)
-   					   				
-   				var div_eng = document.createElement('div');
-   				div_eng.setAttribute('id', 'brandNm');
-   				div_eng.innerText = pick_brandList[sIdx].b_nm_eng
-   				div.append(div_eng)
-   				
-   				var div_kor = document.createElement('div');
-				div_kor.setAttribute('id', 'perfumeNm');
-   				div_kor.innerText = pick_brandList[sIdx].p_nm
-   				div.append(div_kor)
-   				
-   				var div_size = document.createElement('div');
-   				div_size.innerText = pick_brandList[sIdx].p_size + 'ml'
-   				div.append(div_size)
-   				
-   				var div_price = document.createElement('div');
-   				div_price.innerText = numberFormat(pick_brandList[sIdx].p_price) + '원'
-   				div.append(div_price)
-   				sel_div.append(div)
-   			}
-   			if(pick_brandList.length - sIdx >= 5){
-   				eIdx += 5
-   				console.log("eIdx : "+eIdx)
-   				}
-			}	
-		}
-	}
-	*/
-	
-	
-	
-	
 	function choiceAlphabetMain(b_nm_initial) {
 		console.log()
 		idx = 0;
+		sIdx = 5;
+		eIdx = 10;
 		var more = document.querySelector('#more');
 		more.setAttribute('onclick', "more()")
+ 		document.getElementById('moreDiv').style.display= 'inline' 
 		axios.get('/common/ajaxSelBrandAlphabet', {
 			params : {
 				b_nm_initial : b_nm_initial
@@ -525,6 +434,7 @@
 		eIdx = 10;
 		var more = document.querySelector('#more');
 		more.setAttribute('onclick', "more(" + "'" + b_nm_eng + "'" + ")")
+/* 		document.getElementById('moreDiv').style.display= 'inline'  */
 		axios.get('/common/ajaxSelBrandFullAp', {
 			params : {
 				b_nm_eng : b_nm_eng

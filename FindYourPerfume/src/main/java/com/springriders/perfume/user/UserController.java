@@ -125,17 +125,7 @@ public class UserController {
 	
 	@RequestMapping(value="/uptUser", method = RequestMethod.POST)
 	public String uptUser(UserPARAM param, MultipartHttpServletRequest mReq, HttpSession hs, RedirectAttributes ra) {
-		
-		/* System.out.println("프로필 사진 : " + param.getProfile_img()); */
-		
-		/*
-		 * if(param.getProfile_img() != null && !"".equals(param.getProfile_img())) {
-		 * String path = Const.realPath + "/resources/img/rest/" + param.getI_rest() +
-		 * "/menu/";
-		 * 
-		 * if(FileUtils.delFile(path + param.getMenu_pic())) { return
-		 * mapper.delRestMenu(param); } else { return Const.FAIL; } }
-		 */
+
 		int result = service.uptUser(mReq, hs);
 		int user_type = param.getUser_type();
 		
