@@ -16,14 +16,17 @@ public class Crawler {
 	
 	// by - 유빈 / 셀렉온 코스메틱 사이트 브랜드 값 추출
     public static List<CrawlerBrandVO> getBrand(List<CrawlerBrandVO> list) {
-    	// 사이트 url
+    	// 크롤링 할 사이트 url 변수 저장
         String url = "https://www.celeconc.com/ajax/brand_search.exe.php?flag=brand_main&cno1=&brand_type=&brand_type_s=&lang=ABC&brand_text=ALL";
-        // 브랜드 이름 태그 경로 변수 저장
+        
+        // 향수 브랜드 이름 태그 경로 변수 저장
         String selEng = ".tbl_brand_list tr p.eng a";
         String selKor = ".tbl_brand_list tr p.kor a";
+        
+        // Document 객체 초기화
         Document doc = null;    
         
-        // jsoup 라이브러리 이용 url주소로 Document 객체 생성
+        // jsoup 라이브러리 이용 url주소로 Document 객체 생성 / 예외 처리
         try {
             doc = Jsoup.connect(url).get();
         } catch (IOException e) {
@@ -34,19 +37,27 @@ public class Crawler {
         Elements selEngEle = doc.select(selEng);
         Elements selKorEle = doc.select(selKor);
         
-        return addListBrand(selEngEle, selKorEle, list);
+        return addBrandList(selEngEle, selKorEle, list);
     }
     
-    // 추출한 Elements 값을 반복문을 이용해서 vo 객체에 값을 담고 리스트에 추가(브랜드)
-    public static List<CrawlerBrandVO> addListBrand(Elements selEngEle, Elements selKorEle, List<CrawlerBrandVO> list) {
+    // by-유빈 / 추출한 Elements 값을 반복문을 이용해서 vo객체에 값을 담고 리스트에 추가(브랜드)
+    public static List<CrawlerBrandVO> addBrandList(Elements selEngEle, Elements selKorEle, List<CrawlerBrandVO> list) {
         for(int i=0; i<selEngEle.size(); i++) {
+        	// CrawlerBrandVO 생성
         	CrawlerBrandVO vo = new CrawlerBrandVO();
+        	
+        	// 리스트에 생성한 CrawlerBrandVO 객체 미리 추가
         	list.add(vo);
         	
+        	// 가져온 Elements의 텍스트 값을 변수에 저장
         	String eng = selEngEle.get(i).text();
         	String kor= selKorEle.get(i).text();
+        	
+        	// 가져온 브랜드 이름에서 "'"를 "_"로 수정
         	eng = eng.replace("'", "_");
         	kor = kor.replace("'", "_");
+        	
+        	// 생성한 CrawlerBrandVO 객체에 브랜드 변수를 set
         	vo.setB_nm_eng(eng);
         	vo.setB_nm_kor(kor);
         	
@@ -58,8 +69,9 @@ public class Crawler {
  
     // by - 유빈 / 셀렉온 코스메틱 사이트 향수 정보 값 추출
     public static List<CrawlerPerfumeVO> getPerfume(List<CrawlerPerfumeVO> list, String str) {
-		// 사이트 url
+    	// 크롤링 할 사이트 url 변수 저장
 		String url = str;
+		
 		// 향수 정보 관련 태그 경로 변수 저장
         String selImg = ".box .prdimg img"; // 이미지 주소
         String selBrand = ".box .info .brand a"; // 브랜드
@@ -69,7 +81,7 @@ public class Crawler {
         // Document 객체 초기화
         Document doc = null;    
         
-        // jsoup 라이브러리 이용 url주소로 Document 객체 생성
+        // jsoup 라이브러리 이용 url주소로 Document 객체 생성 / 예외 처리
         try {
             doc = Jsoup.connect(url).get();
         } catch (IOException e) {
@@ -79,10 +91,10 @@ public class Crawler {
         // document 변수의 select 메소드를 이용해서 저장한 태그 경로 변수를 이용해서 Elements 값 추출
         Elements selImgEle = doc.select(selImg);
         Elements selBrandEle = doc.select(selBrand);
-        Elements selNmEle = doc.select(selNm); // 이름과 사이즈 값이 둘다 들어있음 분리해야함
+        Elements selNmEle = doc.select(selNm); // 특이사항 : 이름과 사이즈 값이 둘다 들어있음 분리해야함
         Elements selPriceEle = doc.select(selPrice);
         
-        
+        // 
         for(int i=0; i<selNmEle.size(); i++) {
         	CrawlerPerfumeVO vo = new CrawlerPerfumeVO();
         	
