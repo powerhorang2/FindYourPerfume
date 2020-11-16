@@ -4,7 +4,7 @@ public class PerfumeDMI extends PerfumePARAM {
 	private String b_nm_eng;
 	private String b_nm_kor;
 	private String nt_m_nm_kor;
-	
+	private int favorite_cnt;
 
 	
 	public String getNt_m_nm_kor() {
@@ -24,6 +24,12 @@ public class PerfumeDMI extends PerfumePARAM {
 	}
 	public void setB_nm_kor(String b_nm_kor) {
 		this.b_nm_kor = b_nm_kor;
+	}
+	public int getFavorite_cnt() {
+		return favorite_cnt;
+	}
+	public void setFavorite_cnt(int favorite_cnt) {
+		this.favorite_cnt = favorite_cnt;
 	}
 
 }

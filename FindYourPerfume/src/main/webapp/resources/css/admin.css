@@ -92,18 +92,16 @@ hr {
 }
 
 .adminContainer > #adminRight > #sectionAddAdmin > #addAdminContainer {
-	display: flex;
-	flex-direction: row;
-	margin: 0 0 20px 100px;
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0;
+    justify-content: center;
 }
 
-.adminContainer > #adminRight > #sectionAddAdmin > #addAdminContainer {}
 
 .adminContainer > #adminRight > #sectionAddAdmin > #addAdminContainer > #addAuth {
 	margin-right: 100px;
 }
-
-.adminContainer > #adminRight > #sectionAddAdmin > #addAdminContainer > #removeAuth{}
 
 .adminContainer > #adminRight > #sectionAddPerfume > #detailSection {
 	display: flex;	

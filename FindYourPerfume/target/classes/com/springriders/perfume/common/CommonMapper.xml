@@ -20,12 +20,14 @@
 		SELECT nt_d_c, nt_d_nm FROM c_nt_d
 	</select>
 	<select id="selUserNoteList" parameterType="PerfumePARAM" resultType="NoteCodeVO">
-		SELECT nt_m_c
-		FROM t_user_favorite_note
+		SELECT A.nt_m_c, B.nt_m_nm_kor
+		FROM t_user_favorite_note A
+		INNER JOIN c_nt_m B
+		ON A.nt_m_c = B.nt_m_c
 		WHERE i_user = #{i_user}
 	</select>
 	<select id="selRecPerfumeList" parameterType="NoteCodeVO" resultType="PerfumeDMI">
-		SELECT A.i_p, B.p_nm, B.p_price, B.p_pic, B.p_size, C.b_nm_eng 
+		SELECT A.i_p, B.p_nm, B.p_price, B.p_pic, B.p_size, C.b_nm_eng, COUNT(A.i_p) AS favorite_cnt
 		FROM t_user_favorite_perfume A
 		INNER JOIN t_perfume B
 		ON A.i_p = B.i_p
@@ -38,16 +40,20 @@
 		INNER JOIN c_nt_m F
 		ON E.nt_m_c = F.nt_m_c
 		WHERE F.nt_m_c = #{nt_m_c}
-		GROUP BY i_p LIMIT 0,5
+		GROUP BY A.i_p
+		ORDER BY favorite_cnt DESC
+		LIMIT 0, #{sliders_per_view}
 	</select>
 	<select id="selTopPerfumeList" parameterType="PerfumePARAM" resultType="PerfumeDMI">
-		SELECT A.i_p, B.p_nm, B.p_price, B.p_pic, B.p_size, C.b_nm_eng
+		SELECT A.i_p, B.p_nm, B.p_price, B.p_pic, B.p_size, C.b_nm_eng, COUNT(A.i_p) AS favorite_cnt
 		FROM t_user_favorite_perfume A
 		INNER JOIN t_perfume B
 		ON A.i_p = B.i_p
 		INNER JOIN c_code_brand C
 		ON B.p_brand = C.p_brand
-		GROUP BY i_p LIMIT 0,5
+		GROUP BY i_p 
+		ORDER BY favorite_cnt DESC
+		LIMIT 0,5;
 	</select>
 	<select id="selPerfumeList" parameterType="PerfumePARAM" resultType="PerfumeDMI">
 		<if test="p_brand > 0">
@@ -72,10 +78,12 @@
 		ON A.nt_d_c = B.nt_d_c
 		WHERE A.i_p = #{i_p}
 	</select>
+	<select id="selNoteList" parameterType="NoteCodeVO" resultType="NoteCodeVO">
+		SELECT nt_d_c, nt_d_nm, nt_d_nm_kor FROM c_nt_d;
+	</select>
 	<select id="selPerfumePk" parameterType="PerfumeVO" resultType="PerfumeVO">
 		SELECT MAX(i_p) as i_p FROM t_perfume
 	</select>
-
 	<select id="selPerfume" parameterType="PerfumePARAM" resultType="PerfumeDMI">
 		SELECT A.i_p, A.p_nm, A.p_price, b_nm_eng, A.p_size, A.p_pic, C.i_user
 		FROM t_perfume A
@@ -131,7 +139,26 @@
 		SELECT i_p, p_pic FROM t_perfume
 		WHERE i_p = #{i_p}
 	</select>
+	<select id="ajaxSelNoteList" parameterType="PerfumePARAM" resultType="NoteCodeVO">
+		SELECT A.nt_d_c, B.i_p, B.p_nm, B.p_price, B.p_pic, B.p_size, D.nt_m_c, E.b_nm_eng, E.b_nm_kor
+		FROM t_note A
+		INNER JOIN t_perfume B
+		ON A.i_p = B.i_p
+		INNER JOIN c_nt_d C
+		ON A.nt_d_c = C.nt_d_c
+		INNER JOIN c_nt_m D
+		ON D.nt_m_c = C.nt_m_c
+		INNER JOIN c_code_brand E
+		ON B.p_brand = E.p_brand
+<!-- 		<if test="A.nt_d_c != #{nt_d_c}">
+			WHERE A.nt_dc = #{nt_d_c} and #{nt_d_c}			
+		</if> -->
+		WHERE A.nt_d_c = #{nt_d_c}
+	</select>
 	
+	<delete id="delPerfumeNote" parameterType="PerfumePARAM">
+		DELETE FROM t_note WHERE i_p = #{i_p}
+	</delete>
 	<delete id="delPerfume" parameterType="PerfumePARAM">
 		DELETE FROM t_perfume WHERE i_p = #{i_p}
 	</delete>

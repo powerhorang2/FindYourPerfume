@@ -9,7 +9,7 @@
 			<div id="containerImg">
 				<c:if test="${loginUser.profile_img == null}">
 				<div id="profileImg">
-					<img class="profile" src="/res/img/profileImg/default_img.jpg">					
+					<img class="profile" src="/res/img/default_img.jpg">					
 				</div>
 				</c:if>
 				<c:if test="${loginUser.profile_img != null}">

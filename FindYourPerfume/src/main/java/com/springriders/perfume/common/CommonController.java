@@ -24,6 +24,7 @@ import com.springriders.perfume.common.model.NoteCodeVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
 import com.springriders.perfume.common.model.PerfumeTemp;
+import com.springriders.perfume.common.model.PerfumeVO;
 import com.springriders.perfume.user.UserService;
 
 @Controller
@@ -50,7 +51,10 @@ public class CommonController {
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
 		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
-	
+		List<NoteCodeVO> noteList = service.selNoteList(vo);
+		
+		
+		//알파벳 A~Z 까지 뽑기
 		List<String> brandAlphabet = new ArrayList();
 		
         char aString = 65 ;
@@ -64,22 +68,30 @@ public class CommonController {
             if(aString > 90)
                 break ;
         }
-		
+
 		List<PerfumeDMI> topPerfume = service.selTopPerfumeList(param);
 		model.addAttribute("topPerfume", topPerfume);
 		
 		if(i_user != 0) {
 			List<NoteCodeVO> userNote = service.selUserNoteList(param);
+			// 슬라이드 페이지
+			int slide_page = userNote.size();
+			model.addAttribute("slide_page", slide_page);
+			model.addAttribute("userNote", userNote);
 			
 			List<PerfumeDMI> recPerfume = service.selRecPerfumeList(userNote);
+			
 			model.addAttribute("recPerfume", recPerfume);
 		}
 
 		/* model.addAttribute("pageNum", pageNum); */
+
+		model.addAttribute("noteList", noteList);
 		model.addAttribute("brandFullNm", brandFullNm);
         model.addAttribute("brandAlphabet", brandAlphabet);
         model.addAttribute("brandEnm", brandEnm);
 		model.addAttribute("perfume", perfume);
+		
 
 
 		model.addAttribute(Const.CSS, "main");
@@ -174,8 +186,13 @@ public class CommonController {
 	
 	@RequestMapping(value="/delPerfume", method = RequestMethod.POST)
 	public String delPerfume(PerfumePARAM param, CommonVO vo, HttpSession hs, RedirectAttributes ra) {
-		System.out.println("i_p : " + param.getI_p());
-		int result = service.delPerfume(param);
+		
+		// 향수 삭제 전 노트 정보 먼저 지우기
+		service.delPerfumeNote(param);
+		
+		// 향수 삭제
+		int result = service.delPerfume(param);			
+		System.out.println("result : " + result);
 		
 		String msg = null;
 		if(result == Const.SUCCESS) {
@@ -198,5 +215,11 @@ public class CommonController {
 	@ResponseBody
 	public PerfumeDMI ajaxSelPerfumePic(PerfumePARAM param){
 		return service.selPerfumePic(param);
+	}
+	
+	@RequestMapping("/ajaxSelNoteList")
+	@ResponseBody
+	public List<NoteCodeVO> ajaxSelNoteList(PerfumePARAM param) {
+		return service.ajaxSelNoteList(param);
 	}
 }
