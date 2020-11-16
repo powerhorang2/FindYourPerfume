@@ -8,9 +8,7 @@ import com.springriders.perfume.common.model.BrandCodeVO;
 import com.springriders.perfume.common.model.NoteCodeVO;
 import com.springriders.perfume.common.model.PerfumeDMI;
 import com.springriders.perfume.common.model.PerfumePARAM;
-import com.springriders.perfume.common.model.PerfumeTemp;
 import com.springriders.perfume.common.model.PerfumeVO;
-import com.springriders.perfume.user.model.UserPARAM;
 
 @Mapper
 public interface CommonMapper {
@@ -42,7 +40,5 @@ public interface CommonMapper {
 
 	int delPerfume(PerfumePARAM param);
 	int delPerfumeNote(PerfumePARAM param);
-	
-
 
 }
