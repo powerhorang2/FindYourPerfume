@@ -42,3 +42,4 @@ public interface CommonMapper {
 	int delPerfumeNote(PerfumePARAM param);
 
 }
+

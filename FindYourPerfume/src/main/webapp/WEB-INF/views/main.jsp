@@ -138,12 +138,12 @@
 					</div>
 				</div>
 			</div>
-			<div id="paging">
-				<div class="more">
-					<button id="more" class="button" onclick="more()">더보기</button>
-				</div>
+		<div id="paging">
+			<div id="moreDiv">
+				<button id="more" class="button" onclick="more()">더보기</button>
 			</div>
 		</div>
+	</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
@@ -203,12 +203,115 @@
 		}
 	}
 	//더 보기 버튼 눌렀을 때 idx 증가하면서, 뒤의 배열 추가
+	
+	
 	function more(b_nm_eng) {
 		if (b_nm_eng == null) {
-			if (rowAllCnt == sIdx) {
+			
+			// 235
+   	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt}
+   	 	
+   			for (sIdx; sIdx < eIdx; sIdx++) {
+   				console.log(sIdx)
+   				var div = document.createElement('div');
+   				div.setAttribute('onclick', 'moveToDetail('+brandList[sIdx].i_p+')');
+   				div.setAttribute('class', 'brandAlphabet');
+   				
+   				var img = document.createElement('img');
+   				img.src = brandList[sIdx].p_pic
+   				div.append(img)
+   				
+   				var div_eng = document.createElement('div');
+   				div_eng.setAttribute('id', 'brandNm');
+   				div_eng.innerText = brandList[sIdx].b_nm_eng
+   				div.append(div_eng)
+   				
+   				var div_kor = document.createElement('div');
+				div_kor.setAttribute('id', 'perfumeNm');
+   				div_kor.innerText = brandList[sIdx].p_nm
+   				div.append(div_kor)
+   				
+   				var div_size = document.createElement('div');
+   				div_size.innerText = brandList[sIdx].p_size + 'ml'
+   				div.append(div_size)
+   				
+   				var div_price = document.createElement('div');
+   				div_price.innerText = numberFormat(brandList[sIdx].p_price) + '원'
+   				div.append(div_price)
+   				sel_div.append(div)
+   				
+   				// sIdx가 리스트의 길이값과 같아질 때  마지막 향수 생성하고 더보기 지우기
+   				if(rowAllCnt-1 == sIdx) {
+   					document.getElementById('moreDiv').style.display= 'none'
+   				}
+   			}
+   			if(rowAllCnt - sIdx >= 5){
+   				eIdx += 5
+   				console.log("eIdx : "+eIdx)
+   			}
+			
+		} else {
+			var pick_brandList = new Array();
+	   		for(var i=0; i<brandList.length; i++) {
+	   			if(brandList[i].b_nm_eng == b_nm_eng) {
+	   				pick_brandList.push(brandList[i])
+	   			}
+	   		}
+	   		console.log(pick_brandList);
+	   		
+	   		if((pick_brandList.length-1) < sIdx) {
 				alert('마지막입니다.')
 			} else {
-			// 235
+				
+				if((pick_brandList.length-1) - sIdx < 5){eIdx = pick_brandList.length}
+		   	 	
+	   			for (sIdx; sIdx < eIdx; sIdx++) {
+	   				console.log(sIdx)
+	   				var div = document.createElement('div');
+	   				div.setAttribute('onclick', 'moveToDetail('+pick_brandList[sIdx].i_p+')');
+	   				div.setAttribute('class', 'brandAlphabet');
+	   				
+	   				var img = document.createElement('img');
+	   				img.src = pick_brandList[sIdx].p_pic
+	   				div.append(img)
+	   					   				
+	   				var div_eng = document.createElement('div');
+	   				div_eng.setAttribute('id', 'brandNm');
+	   				div_eng.innerText = pick_brandList[sIdx].b_nm_eng
+	   				div.append(div_eng)
+	   				
+	   				var div_kor = document.createElement('div');
+					div_kor.setAttribute('id', 'perfumeNm');
+	   				div_kor.innerText = pick_brandList[sIdx].p_nm
+	   				div.append(div_kor)
+	   				
+	   				var div_size = document.createElement('div');
+	   				div_size.innerText = pick_brandList[sIdx].p_size + 'ml'
+	   				div.append(div_size)
+	   				
+	   				var div_price = document.createElement('div');
+	   				div_price.innerText = numberFormat(pick_brandList[sIdx].p_price) + '원'
+	   				div.append(div_price)
+	   				sel_div.append(div)
+	   				
+	   				// sIdx가 리스트의 길이값과 같아질 때  마지막 향수 생성하고 더보기 지우기
+	   				if(pick_brandList.length-1 == sIdx) {
+	   					document.getElementById('moreDiv').style.display= 'none'
+	   				}
+	   			}
+	   			if(pick_brandList.length - sIdx >= 5) {
+	   				eIdx += 5
+	   				console.log("eIdx : "+eIdx)
+   				}
+			}	
+		}
+	}
+	
+	
+	/*
+	function more(b_nm_eng) {
+		if (b_nm_eng == null) {
+		// 235
 	   	 		if((rowAllCnt-1) - sIdx < 5){eIdx = rowAllCnt}
 	   	 	
 	   			for (sIdx; sIdx < eIdx; sIdx++) {
@@ -239,7 +342,10 @@
 	   				div_price.innerText = numberFormat(brandList[sIdx].p_price) + '원'
 	   				div.append(div_price)
 	   				sel_div.append(div)
-	   			}
+
+   				if (rowAllCnt == sIdx) {
+   					document.getElementById('moreDiv').style.display= 'none'
+   				} 
 	   			if(rowAllCnt - sIdx >= 5){
 	   				eIdx += 5
 	   				console.log("eIdx : "+eIdx)
@@ -296,6 +402,11 @@
 			}	
 		}
 	}
+	*/
+	
+	
+	
+	
 	function choiceAlphabetMain(b_nm_initial) {
 		console.log()
 		idx = 0;
@@ -423,7 +534,11 @@
 		}).then(function(res){
  			sel_div.innerText = ''
 			hiddenSwiper.innerText = ''
-			
+			if(res.data.length <= 5) {
+				document.getElementById('moreDiv').style.display= 'none'
+			} else {
+				document.getElementById('moreDiv').style.display= 'inline'
+			}
 			for (var i = 0; i < 5; i++){
 				
 				var div = document.createElement('div');

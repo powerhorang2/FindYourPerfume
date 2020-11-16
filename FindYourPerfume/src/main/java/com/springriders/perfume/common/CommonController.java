@@ -53,8 +53,7 @@ public class CommonController {
 		System.out.println("p_brand : " + param.getP_brand());
 		List<PerfumeDMI> perfume = service.selPerfumeList(param);
 		List<PerfumeDMI> brandEnm = service.selBrandEnm(dm);
-		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);
-		
+		List<PerfumeDMI> brandFullNm = service.selBrandFullNm(dm);	
 
 		//알파벳 A~Z 까지 뽑기
 		List<String> brandAlphabet = new ArrayList();

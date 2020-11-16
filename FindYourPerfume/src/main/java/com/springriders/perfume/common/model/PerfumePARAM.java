@@ -5,10 +5,19 @@ public class PerfumePARAM extends PerfumeVO {
 	private int nt_m_c;
 	private String b_nm_initial;
 	private int i_user;	
+	private String sort_type;
 
 
 	public int getNt_m_c() {
 		return nt_m_c;
+	}
+
+	public String getSort_type() {
+		return sort_type;
+	}
+
+	public void setSort_type(String sort_type) {
+		this.sort_type = sort_type;
 	}
 
 	public void setNt_m_c(int nt_m_c) {
