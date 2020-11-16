@@ -169,6 +169,20 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
+
+	//향수 이미지 띄우기 - url 주소 값일 때는 그대로 , 아닐 때는 로컬 주소 찾아서, 없을 때는 default 
+	function loadPerfumeImg(p_pic) {
+		if(p_pic == undefined) {
+			return "/res/img/default_perfume.png"
+		} else if(p_pic.indexOf("https://") != -1) {
+			return p_pic
+		} else if(p_pic.indexOf("http://") != -1) {
+			return p_pic
+		} else {
+			return "/res/img/perfume/" + p_pic
+		}
+	}
+
 	function selPerfume(p_brand) {
 			axios.get('/common/ajaxSelBrandPerfume', {
 			params : {
@@ -205,7 +219,7 @@
 				i_p
 			}
 		}).then(function(res) {
-			document.getElementById('delPerfumeImg').innerHTML = '<img src="' + res.data.p_pic + '" width="100%" height="100%">';
+			document.getElementById('delPerfumeImg').innerHTML = '<img src="' + loadPerfumeImg(res.data.p_pic) + '" width="100%" height="100%">';
 		})	
 	} 
 
