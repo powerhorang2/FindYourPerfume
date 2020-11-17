@@ -96,21 +96,28 @@
 <br>
 
 ### <h2 id="5">5. 개발진</h2>
+<div align="center">
 <table align="center">
   <tr>
-    <td align="center"><strong>주경덕</strong><br>kyondoku@naver.com</td>
-    <td align="center"><strong>석유빈</strong><br>tjrdbqls3@naver.com</td>
-    <td align="center"><strong>김재섭</strong><br>dkfzm3221@naver.com</td>
+    <th align="center"><strong>주경덕</strong></th>
+    <th align="center"><strong>석유빈</strong></th>
+    <th align="center"><strong>김재섭</strong></th>
   </tr>
   <tr>
-    <th><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/JooKyeongdeok.jpg?raw=true" width="200px" height="150px" title="주경덕" alt="주경덕"></img></th>
-    <th><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/SeokYoubin.jpg?raw=true" width="200px" height="150px" title="석유빈" alt="석유빈"></img></th>
-    <th><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/KimJaeseop.jpg?raw=true" width="200px" height="200px" title="김재섭" alt="김재섭"></img></th>
+    <td>kyondoku@naver.com</td>
+    <td>tjrdbqls3@naver.com</td>
+    <td>dkfzm3221@naver.com</td>
   </tr>
   <tr>
-    <th>마이페이지, 관리자페이지, CSS</th>
-    <th>데이터베이스, 상품정보 페이지</th>
-    <th>메인페이지, 로그인 및 회원가입</th>
+    <td><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/JooKyeongdeok.jpg?raw=true" width="250px" height="250px" title="주경덕" alt="주경덕"></img></td>
+    <td><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/SeokYoubin.jpg?raw=true" width="250px" height="250px" title="석유빈" alt="석유빈"></img></td>
+    <td><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/KimJaeseop.jpg?raw=true" width="250px" height="250px" title="김재섭" alt="김재섭"></img></td>
   </tr>
-
+  <tr>
+    <td>마이페이지, 관리자페이지, CSS</td>
+    <td>데이터베이스, 상품정보 페이지</td>
+    <td>메인페이지, 로그인 및 회원가입</td>
+  </tr>
+</table>
+</div>
 
