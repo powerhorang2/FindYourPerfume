@@ -14,7 +14,8 @@
 1. <a href="#1">개요</a><br>
 2. <a href="#2">주요기능</a><br>
 3. <a href="#3">사용기술</a><br>
-4. <a href="#4">개발진</a><br>
+4. <a href="#4">예정작업</a><br>
+5. <a href="#5">개발진</a><br>
 
 ## <h2 id="1">1. 개요</h2>
 
@@ -75,51 +76,40 @@
 </kbd></p>
 
 ### <h2 id="3">3. 사용기술</h2>
- - IDE<br>
-<kbd><img src="https://user-images.githubusercontent.com/39155839/96409876-f5fa3100-1220-11eb-8424-4ae63207094c.jpg" height="100px" title="이클립스" alt="eclipse"></img></kdb><br>
- - DB<br>
-<kbd><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbBLVn5%2FbtqCQ31hFxc%2FOWrBnpuGJiMMQg9JnJAz3K%2Fimg.png" height="100px" title="MySQL" alt="MySQL"></img></kbd><br>
- - Server<br>
-<kbd><img src="https://user-images.githubusercontent.com/39155839/96410394-cd266b80-1221-11eb-8cc1-355ce5642ce6.png" height="100px" title="아파치 톰켓" alt="Apache Tomcat"></img></kbd><br>
- - Language & Other<br>
+<p>
+<kbd><img src="https://user-images.githubusercontent.com/39155839/96409876-f5fa3100-1220-11eb-8424-4ae63207094c.jpg" height="100px" title="이클립스" alt="eclipse"></img></kbd>
+<kbd><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbBLVn5%2FbtqCQ31hFxc%2FOWrBnpuGJiMMQg9JnJAz3K%2Fimg.png" height="100px" title="MySQL" alt="MySQL"></img></kbd>
+<kbd><img src="https://user-images.githubusercontent.com/39155839/96410394-cd266b80-1221-11eb-8cc1-355ce5642ce6.png" height="100px" title="아파치 톰켓" alt="Apache Tomcat"></img></kbd></p><br>
+<p>
 <kbd><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%20%EA%B8%B0%EC%88%A0%20%EC%82%AC%EC%A7%84/ajax.png?raw=true" height="100px" title="Ajax" alt="Ajax"></img></kbd>
 <kbd><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%20%EA%B8%B0%EC%88%A0%20%EC%82%AC%EC%A7%84/json.png?raw=true" height="100px" title="JSON" alt="Jackson & JSON"></img></kbd>
 <kbd><img src="https://user-images.githubusercontent.com/39155839/96410198-7ae54a80-1221-11eb-91e7-b36fe8943a11.jpg" height="100px" title="JDK" alt="JDK"></img></kbd>
-<kbd><img src="https://user-images.githubusercontent.com/39155839/96420264-4036de80-1230-11eb-9555-3309ea641db7.png" height="100px" title="JSP" alt="JSP"></img></kbd><br>
+<kbd><img src="https://user-images.githubusercontent.com/39155839/96420264-4036de80-1230-11eb-9555-3309ea641db7.png" height="100px" title="JSP" alt="JSP"></img></kbd></p><br>
 
-### <h2 id="4">4. 개발진</h2>
-<table>
+### <h2 id="4">4. 예정작업</h2>
+
+
+- **관리자 권한 부여방식 변경** _select 방식에서 search 방식으로 변경 예정
+
+- **메인페이지에서 LIKE 기능 구현** _toggle방식으로 기능 구현 예정
+
+
+### <h2 id="5">5. 개발진</h2>
+<table align="center">
   <tr>
-    <td>주경덕(kyondoku@naver.com)</td>
-    <td>석유빈(tjrdbqls3@naver.com)</td>
-    <td>김재섭(dkfzm3221@naver.com)</td>
+    <td align="center"><strong>주경덕</strong><br>kyondoku@naver.com</td>
+    <td align="center"><strong>석유빈</strong><br>tjrdbqls3@naver.com</td>
+    <td align="center"><strong>김재섭</strong><br>dkfzm3221@naver.com</td>
   </tr>
   <tr>
     <th><img src="" width="200px" height="150px" title="주경덕" alt="주경덕"></img></th>
     <th><img src="" width="200px" height="150px" title="석유빈" alt="석유빈"></img></th>
     <th><img src="" width="200px" height="200px" title="김재섭" alt="김재섭"></img></th>
   </tr>
-
-
-# FindYourPerfume
-
-[담당자]
-
-- 석유빈 : 데이터베이스, 상품정보 페이지
-- 주경덕 : 마이페이지, 관리자페이지, CSS
-- 김재섭 : 로그인 및 회원가입, 메인페이지
-
-[예정작업]
-(각 담당자들은 예정 작업이 누락되지 않게 기록해주세요.)
-
-- 주경덕
-1. 권한부여 select -> search
-
-- 김재섭
-1. 메인페이지에서 찜 추가/삭제 구현
-2. 회원가입_선호노트리스트 배열로
-3. 더보기 오류 
-
-- 석유빈
+  <tr>
+    <th>마이페이지, 관리자페이지, CSS</th>
+    <th>데이터베이스, 상품정보 페이지</th>
+    <th>메인페이지, 로그인 및 회원가입</th>
+  </tr>
 
 
