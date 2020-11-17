@@ -73,14 +73,15 @@
 <p align="center">
 <kbd align="center"><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%96%B4%EB%93%9C%EB%AF%BC%20%ED%96%A5%EC%88%98%20%EC%B6%94%EA%B0%80.png?raw=true" width="800px"></img><br>
 향수 추가 및 삭제
-</kbd></p>
+</kbd></p><br>
 
 ### <h2 id="3">3. 사용기술</h2>
-<p>
+<p align="center">
 <kbd><img src="https://user-images.githubusercontent.com/39155839/96409876-f5fa3100-1220-11eb-8424-4ae63207094c.jpg" height="100px" title="이클립스" alt="eclipse"></img></kbd>
 <kbd><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbBLVn5%2FbtqCQ31hFxc%2FOWrBnpuGJiMMQg9JnJAz3K%2Fimg.png" height="100px" title="MySQL" alt="MySQL"></img></kbd>
-<kbd><img src="https://user-images.githubusercontent.com/39155839/96410394-cd266b80-1221-11eb-8cc1-355ce5642ce6.png" height="100px" title="아파치 톰켓" alt="Apache Tomcat"></img></kbd></p><br>
-<p>
+<kbd><img src="https://user-images.githubusercontent.com/39155839/96410394-cd266b80-1221-11eb-8cc1-355ce5642ce6.png" height="100px" title="아파치 톰켓" alt="Apache Tomcat"></img></kbd>
+<kbd><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%20%EA%B8%B0%EC%88%A0%20%EC%82%AC%EC%A7%84/spring.png?raw=true" height="100px" title="spring" alt="spring"></img></kbd></p><br>
+<p align="center">
 <kbd><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%20%EA%B8%B0%EC%88%A0%20%EC%82%AC%EC%A7%84/ajax.png?raw=true" height="100px" title="Ajax" alt="Ajax"></img></kbd>
 <kbd><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%20%EA%B8%B0%EC%88%A0%20%EC%82%AC%EC%A7%84/json.png?raw=true" height="100px" title="JSON" alt="Jackson & JSON"></img></kbd>
 <kbd><img src="https://user-images.githubusercontent.com/39155839/96410198-7ae54a80-1221-11eb-91e7-b36fe8943a11.jpg" height="100px" title="JDK" alt="JDK"></img></kbd>
@@ -92,7 +93,7 @@
 - **관리자 권한 부여방식 변경** _select 방식에서 search 방식으로 변경 예정
 
 - **메인페이지에서 LIKE 기능 구현** _toggle방식으로 기능 구현 예정
-
+<br>
 
 ### <h2 id="5">5. 개발진</h2>
 <table align="center">
