@@ -104,19 +104,19 @@
     <th align="center"><strong>김재섭</strong></th>
   </tr>
   <tr>
-    <td>kyondoku@naver.com</td>
-    <td>tjrdbqls3@naver.com</td>
-    <td>dkfzm3221@naver.com</td>
+    <td align="center">kyondoku@naver.com</td>
+    <td align="center">tjrdbqls3@naver.com</td>
+    <td align="center">dkfzm3221@naver.com</td>
   </tr>
   <tr>
-    <td><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/JooKyeongdeok.jpg?raw=true" width="250px" height="250px" title="주경덕" alt="주경덕"></img></td>
-    <td><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/SeokYoubin.jpg?raw=true" width="250px" height="250px" title="석유빈" alt="석유빈"></img></td>
-    <td><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/KimJaeseop.jpg?raw=true" width="250px" height="250px" title="김재섭" alt="김재섭"></img></td>
+    <td align="center"><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/JooKyeongdeok.jpg?raw=true" width="250px" height="250px" title="주경덕" alt="주경덕"></img></td>
+    <td align="center"><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/SeokYoubin.jpg?raw=true" width="250px" height="250px" title="석유빈" alt="석유빈"></img></td>
+    <td align="center"><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/KimJaeseop.jpg?raw=true" width="250px" height="250px" title="김재섭" alt="김재섭"></img></td>
   </tr>
   <tr>
-    <td>마이페이지, 관리자페이지, CSS</td>
-    <td>데이터베이스, 상품정보 페이지</td>
-    <td>메인페이지, 로그인 및 회원가입</td>
+    <td align="center">마이페이지, 관리자페이지, CSS</td>
+    <td align="center">데이터베이스, 상품정보 페이지</td>
+    <td align="center">메인페이지, 로그인 및 회원가입</td>
   </tr>
 </table>
 </div>
