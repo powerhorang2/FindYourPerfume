@@ -1,5 +1,14 @@
-# FindYourPerfume
-나만의 향수를 찾을 수 있는 향수 리뷰 사이트
+<h1 align="center">
+	<img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%9D%B4%EB%AF%B8%EC%A7%80/%EB%A1%9C%EA%B3%A0%EC%9D%B4%EB%AF%B8%EC%A7%80.PNG?raw=true" width="500">
+</h1>
+
+<h3 align="center" >
+  '나만의 향수를 찾을 수 있는 향수 리뷰 사이트'
+</h3><br>
+
+<p align="center">
+	<img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%9D%B4%EB%AF%B8%EC%A7%80/%EB%A9%94%EC%9D%B8%20%EC%A0%84%EC%B2%B4.png?raw=true" width="800">
+</p>
 
 ## 목차
 1. <a href="#1">개요</a><br>
