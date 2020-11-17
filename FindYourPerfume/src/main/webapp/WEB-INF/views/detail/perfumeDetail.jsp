@@ -731,6 +731,10 @@
 	}
 	
 	function selPage(page, pagingCnt) {
+		// by-유빈 / 수정 중 페이지 이동 시 처리 / 2020-11-17
+		if(now_upd_situation == updOn) {
+			return;
+  	    }
 		var all_page = document.querySelectorAll('.cmt_page');
 		for(var i=0; i<pagingCnt; i++) {
 			all_page[i].classList.remove('on');
@@ -750,6 +754,11 @@
 		         page : page
 		      }
 		   }).then(function(res) {
+			  // by-유빈 / 수정 중 페이지 이동 시 처리 / 2020-11-17
+			  if(now_upd_situation == updOn) {
+				  alert('댓글 수정 중에는 페이지 이동이 불가능합니다. 수정을 완료한 후 다시 시도해주세요.');
+				  return;
+		  	  }
 		      if(res.data.length == 0 && now_page != 1) {
 		         now_page -= 1
 		         selPage(now_page, pagingCnt)
