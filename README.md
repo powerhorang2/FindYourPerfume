@@ -83,8 +83,8 @@
  <img src="https://user-images.githubusercontent.com/39155839/96410394-cd266b80-1221-11eb-8cc1-355ce5642ce6.png" height="100px" title="아파치 톰켓" alt="Apache Tomcat"></img>
   <p valign="middle"> 
  - Language & Other<br>
- <img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%20%EA%B8%B0%EC%88%A0%20%EC%82%AC%EC%A7%84/json.png?raw=true" height="180px" title="JSON" alt="Jackson & JSON"></img>
- <img src="https://user-images.githubusercontent.com/39155839/96410197-7a4cb400-1221-11eb-9801-d1731636a39c.png" height="100px" title="Gson" alt="Gson"></img>
+<img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%20%EA%B8%B0%EC%88%A0%20%EC%82%AC%EC%A7%84/ajax.png?raw=true" height="100px" title="Ajax" alt="Ajax"></img>
+<img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%20%EA%B8%B0%EC%88%A0%20%EC%82%AC%EC%A7%84/json.png?raw=true" height="100px" title="JSON" alt="Jackson & JSON"></img>
  <img src="https://user-images.githubusercontent.com/39155839/96410198-7ae54a80-1221-11eb-91e7-b36fe8943a11.jpg" height="100px" title="JDK" alt="JDK"></img>
  <img src="https://user-images.githubusercontent.com/39155839/96420264-4036de80-1230-11eb-9555-3309ea641db7.png" height="100px" title="JSP" alt="JSP"></img>
 </p>
