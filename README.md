@@ -103,9 +103,9 @@
     <td align="center"><strong>김재섭</strong><br>dkfzm3221@naver.com</td>
   </tr>
   <tr>
-    <th><img src="" width="200px" height="150px" title="주경덕" alt="주경덕"></img></th>
-    <th><img src="" width="200px" height="150px" title="석유빈" alt="석유빈"></img></th>
-    <th><img src="" width="200px" height="200px" title="김재섭" alt="김재섭"></img></th>
+    <th><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/JooKyeongdeok.jpg?raw=true" width="200px" height="150px" title="주경덕" alt="주경덕"></img></th>
+    <th><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/SeokYoubin.jpg?raw=true" width="200px" height="150px" title="석유빈" alt="석유빈"></img></th>
+    <th><img src="https://github.com/powerhorang2/FindYourPerfume_Doc/blob/main/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%9D%B4%EB%AF%B8%EC%A7%80/KimJaeseop.jpg?raw=true" width="200px" height="200px" title="김재섭" alt="김재섭"></img></th>
   </tr>
   <tr>
     <th>마이페이지, 관리자페이지, CSS</th>
