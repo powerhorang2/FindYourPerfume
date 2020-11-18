@@ -91,13 +91,13 @@ input[type="text"], input[type="password"], input[type="date"] {
     line-height: 24px;
 }
 
-.joinContainer > div > #frm > #joinMain > #basicInf > #additionalInf > #profileImgContainer > #uploadProfileImg {
+.joinContainer > div > #frm > #joinMain > #additionalInf > #profileImgContainer > #uploadProfileImg {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-.joinContainer > div > #frm > #joinMain > #basicInf > #additionalInf > #profileImgContainer > #uploadProfileImg > #profileImg {
+.joinContainer > div > #frm > #joinMain > #additionalInf > #profileImgContainer > #uploadProfileImg > #profileImg {
 	width: 200px;
 	height: 200px;
 	margin: 30px 0;
@@ -106,33 +106,33 @@ input[type="text"], input[type="password"], input[type="date"] {
 	overflow: hidden;
 }
 
-.joinContainer > div > #frm > #joinMain > #basicInf > #additionalInf > #profileImgContainer > #uploadProfileImg > #profileImg > img {
+.joinContainer > div > #frm > #joinMain > #additionalInf > #profileImgContainer > #uploadProfileImg > #profileImg > img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
 
-.joinContainer > div > #frm > #joinMain > #basicInf > #additionalInf > #profileImgContainer > #btn {
+.joinContainer > div > #frm > #joinMain > #additionalInf > #profileImgContainer > #btn {
 	display: flex;
 	justify-content: flex-end;
 	font-size: 14px;
 }
 
-.joinContainer > div > #frm > #joinMain > #basicInf > #additionalInf > #noteContainer > #noteContainerTitle {
+.joinContainer > div > #frm > #joinMain > #additionalInf > #noteContainer > #noteContainerTitle {
 	margin: 20px 0;
 }
 
-.joinContainer > div > #frm > #joinMain > #basicInf > #additionalInf > #noteContainer > #noteList{	
+.joinContainer > div > #frm > #joinMain > #additionalInf > #noteContainer > #noteList{	
 	display: flex;
 	flex-direction: column;
 	justify-content: center;	
 }
 
-.joinContainer > div > #frm > #joinMain > #basicInf > #additionalInf > #noteContainer > #noteList > div > div {
+.joinContainer > div > #frm > #joinMain > #additionalInf > #noteContainer > #noteList > div > div {
 	width: 150px;
 }
 
-.joinContainer > div > #frm > #joinMain > #basicInf > #additionalInf > #noteContainer > #noteList > div {
+.joinContainer > div > #frm > #joinMain > #additionalInf > #noteContainer > #noteList > div {
 	margin-bottom:5px;
 	display: flex;
 }

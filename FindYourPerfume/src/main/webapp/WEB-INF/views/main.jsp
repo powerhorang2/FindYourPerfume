@@ -10,7 +10,7 @@
 				<c:when test="${loginUser.i_user == null}">
 					<div id="loginBox">
 						<div class="msg">${data.msg}</div>
-						<form class="frm" action="/common/main" method="post">
+						<form id="frm" class="frm" action="/common/main" method="post">
 							<div>
 								<div>
 									<input class="loginBar" type="text" name="user_id" placeholder="아이디를 입력해주세요"
@@ -23,6 +23,10 @@
 							<div id="loginBtnBox">
 								<input type="submit" class="button" value="LOGIN">
 								<input type="button" onclick="moveToPage(`/user/join`)" class="button" value="JOIN">
+							</div>
+							<div id="directLoginBtnBox">
+								<input type="button" onclick="directLogin('user')" class="button" value="자동유저로그인">
+								<input type="button" onclick="directLogin('admin')" class="button" value="자동관리자로그인">
 							</div>
 						</form>
 					</div>
@@ -147,6 +151,20 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+
+	function directLogin(type) {
+		switch(type) {
+		case 'user' : 
+			frm.user_id.value = 'perfume'
+			break
+		case 'admin' :
+			frm.user_id.value = 'admin'
+			break
+		}
+		frm.user_pw.value = '123123'
+		frm.submit()
+	}
+
 	var sIdx = 5;
 	var eIdx = 10;
 	var brandList = new Array();

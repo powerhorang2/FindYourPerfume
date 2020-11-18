@@ -173,18 +173,19 @@
 		})
 	}
 	
+	//아이디, 비밀번호 유효성 검사
 	var id = document.getElementById("user_id");
     var pw = document.getElementById("pw");
     var re = /^[a-zA-Z0-9]{4,12}$/
 	
-	//아이디 다시 입력했을때 중복체크 띄우기
+	//아이디 다시 입력했을때 중복체크 다시 검사
     function idValue() {
    		var a = document.getElementById('idchk')
    		a.value = 1
 // 		console.log('value = ' + a.value) 
    	}
  
-	//비밀번호 체크 제이쿼리 
+	//비밀번호 체크 제이쿼리 사용
 	$("#pw_confirm").blur(function(){
 		
 		var pw = $("#pw").val();
@@ -199,7 +200,7 @@
 		}
 	})
 	
-	//닉네임 길이 제이쿼리
+	//닉네임 길이 제이쿼리 사용
 	 $("#nm").blur(function(){
 		
 		var nm = $("#nm").val();

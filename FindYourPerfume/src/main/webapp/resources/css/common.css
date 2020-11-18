@@ -224,14 +224,17 @@ a {
     object-fit: cover;   
 }
 
-#loginContainer > #loginBox > .frm > #loginBtnBox {
+#loginContainer > #loginBox > .frm > #loginBtnBox,
+#loginContainer > #loginBox > .frm > #directLoginBtnBox {
    display: flex;
    justify-content: space-between;
+   margin-bottom: 7px;
 }
 
-#loginContainer > #loginBox #loginBtnBox > .button {
+#loginContainer > #loginBox > .frm > #loginBtnBox > .button,
+#loginContainer > #loginBox > .frm > #directLoginBtnBox > .button {
    width: 98px;
-   font-size: 0.7em;   
+   font-size: 0.6em;   
 }
 
 /* 팝업 로그인 박스 */
